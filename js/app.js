@@ -1,7 +1,8 @@
 /**
  * MD. NAFIZUR RAHMAN — ACADEMIC & RESEARCH PORTFOLIO
- * Next-Gen Two-Column Split Architecture Engine
- * Features: Auto-scrolling ticker, Live search, Marquee carousel, Lightbox & No-Code GitHub CMS
+ * Reference-Aligned Architecture: Two-Column Split Layout Engine
+ * Features: Dark Gradient Profile Card, 26 Certificates with Viewer Modals,
+ * Live Search, Auto-scrolling Tickers, Framed Banner & No-Code GitHub CMS
  */
 
 'use strict';
@@ -63,12 +64,13 @@ function renderAll() {
   renderTopNavbar(d.profile);
   renderHeroBanner(d.profile);
   renderStickySidebar(d.profile);
-  renderRecentUpdatesTicker(d.recentUpdates);
   renderAboutBio(d.about);
+  renderEducation(d.educationTimeline);
   renderTimelineAndKPIs(d.researchAndProjectsTimeline, d.kpis);
   renderCapabilities(d.capabilities);
   renderPublications();
   renderTrainings(d.trainings);
+  renderRecentUpdatesTicker(d.recentUpdates);
   renderGalleryMarquee();
   renderLeadership(d.leadership);
   renderReferences(d.references);
@@ -76,7 +78,7 @@ function renderAll() {
 }
 
 /* --------------------------------------------------------------------------
-   Top Navbar & Hero Banner
+   Top Navbar & Hero Banner (Framed & Zero Cropping)
    -------------------------------------------------------------------------- */
 function renderTopNavbar(p) {
   if (!p) return;
@@ -93,7 +95,7 @@ function renderHeroBanner(p) {
 }
 
 /* --------------------------------------------------------------------------
-   Left Sticky Profile Card
+   Left Sticky Profile Card (Dark Teal / Navy Gradient Card)
    -------------------------------------------------------------------------- */
 function renderStickySidebar(p) {
   if (!p) return;
@@ -118,14 +120,12 @@ function renderStickySidebar(p) {
 
   const emailBtn = document.getElementById('sidebar-email-box');
   if (emailBtn && p.contact?.emailPrimary) {
+    emailBtn.href = `mailto:${p.contact.emailPrimary}`;
     emailBtn.innerHTML = `<i class="fa-solid fa-envelope"></i> ${escapeHTML(p.contact.emailPrimary)}`;
-    emailBtn.onclick = () => {
-      navigator.clipboard.writeText(p.contact.emailPrimary);
-      showToast('Email address copied to clipboard!', 'success');
-    };
+    emailBtn.title = "Click to send email";
   }
 
-  // 2-Column Grid of Clickable Profile Buttons
+  // Compact Grid of Clickable Pill Buttons (All Verified Links)
   const btnGrid = document.getElementById('sidebar-buttons-grid');
   if (btnGrid) {
     const s = p.social || {};
@@ -151,11 +151,17 @@ function renderStickySidebar(p) {
       <a href="${escapeHTML(s.github)}" target="_blank" rel="noopener noreferrer" class="sidebar-btn">
         <i class="fa-brands fa-github"></i> GitHub
       </a>
+      <a href="${escapeHTML(p.googleSitesUrl)}" target="_blank" rel="noopener noreferrer" class="sidebar-btn">
+        <i class="fa-solid fa-globe"></i> Google Sites
+      </a>
       <a href="${escapeHTML(p.contact?.whatsapp)}" target="_blank" rel="noopener noreferrer" class="sidebar-btn">
         <i class="fa-brands fa-whatsapp"></i> WhatsApp
       </a>
-      <a href="${escapeHTML(p.googleSitesUrl)}" target="_blank" rel="noopener noreferrer" class="sidebar-btn">
-        <i class="fa-solid fa-globe"></i> Google Sites
+      <a href="${escapeHTML(s.facebook)}" target="_blank" rel="noopener noreferrer" class="sidebar-btn">
+        <i class="fa-brands fa-facebook"></i> Facebook
+      </a>
+      <a href="${escapeHTML(s.instagram)}" target="_blank" rel="noopener noreferrer" class="sidebar-btn">
+        <i class="fa-brands fa-instagram"></i> Instagram
       </a>
     `;
   }
@@ -168,32 +174,11 @@ function renderStickySidebar(p) {
 }
 
 /* --------------------------------------------------------------------------
-   A. Continuous Vertical Auto-Scrolling Ticker ("Recent Updates")
-   -------------------------------------------------------------------------- */
-function renderRecentUpdatesTicker(updates) {
-  const container = document.getElementById('updates-ticker-list');
-  if (!container || !updates) return;
-
-  // Duplicate items to ensure a seamless infinite vertical scroll loop
-  const duplicated = [...updates, ...updates];
-
-  container.innerHTML = duplicated.map(u => `
-    <li class="ticker-item">
-      <div class="ticker-meta">
-        <span class="ticker-date">${escapeHTML(u.date)}</span>
-        <span class="ticker-badge">${escapeHTML(u.badge)}</span>
-      </div>
-      <div class="ticker-title">${escapeHTML(u.title)}</div>
-      <p class="ticker-desc">${escapeHTML(u.text)}</p>
-    </li>
-  `).join('');
-}
-
-/* --------------------------------------------------------------------------
-   B. About & Verbatim Google Sites Bio
+   1. "Hi, This is Nafiz" (First Card on Right)
    -------------------------------------------------------------------------- */
 function renderAboutBio(about) {
   if (!about) return;
+
   const lead = document.getElementById('bio-lead-text');
   if (lead) lead.textContent = about.lead || '';
 
@@ -204,7 +189,26 @@ function renderAboutBio(about) {
 }
 
 /* --------------------------------------------------------------------------
-   C. Timeline & 4-Column KPI Metrics Bar
+   2. Academic Credentials / Education Timeline
+   -------------------------------------------------------------------------- */
+function renderEducation(edu) {
+  const container = document.getElementById('education-timeline-container');
+  if (!container || !edu) return;
+
+  container.innerHTML = edu.map(item => `
+    <div class="edu-timeline-item">
+      <div class="edu-timeline-dot"></div>
+      <span class="edu-timeline-badge">${escapeHTML(item.badge)}</span>
+      <h4 class="edu-timeline-degree">${escapeHTML(item.degree)}</h4>
+      <div class="edu-timeline-institution">${escapeHTML(item.institution)}</div>
+      <div class="edu-timeline-period">${escapeHTML(item.period)}</div>
+      <p class="edu-timeline-details">${escapeHTML(item.details)}</p>
+    </div>
+  `).join('');
+}
+
+/* --------------------------------------------------------------------------
+   3. Research Experience, Software & KPI Counter Bar
    -------------------------------------------------------------------------- */
 function renderTimelineAndKPIs(timeline, kpis) {
   const container = document.getElementById('experience-timeline-container');
@@ -234,7 +238,7 @@ function renderTimelineAndKPIs(timeline, kpis) {
   if (expandBtn) {
     expandBtn.innerHTML = isTimelineExpanded
       ? '<i class="fa-solid fa-chevron-up"></i> Show Less'
-      : `<i class="fa-solid fa-chevron-down"></i> See All Experience & Projects (${timeline.length})`;
+      : `<i class="fa-solid fa-chevron-down"></i> See All Experience &amp; Projects (${timeline.length})`;
     expandBtn.onclick = () => {
       isTimelineExpanded = !isTimelineExpanded;
       renderTimelineAndKPIs(timeline, kpis);
@@ -254,7 +258,7 @@ function renderTimelineAndKPIs(timeline, kpis) {
 }
 
 /* --------------------------------------------------------------------------
-   D. Technical Capabilities (2-Column Split Cards)
+   4. Technical Capabilities (2-Column Split Cards)
    -------------------------------------------------------------------------- */
 function renderCapabilities(caps) {
   if (!caps) return;
@@ -283,7 +287,7 @@ function renderCapabilities(caps) {
 }
 
 /* --------------------------------------------------------------------------
-   E. Publications & Manuscripts with Live Search + Filter Tabs
+   5. Publications & Manuscripts (Live Search + Filter Tabs)
    -------------------------------------------------------------------------- */
 function renderPublications() {
   const container = document.getElementById('publications-entries-container');
@@ -369,7 +373,7 @@ function initPubSearchAndFilters() {
 }
 
 /* --------------------------------------------------------------------------
-   F. Training & Certification (3-Column Grid + Modals)
+   6. Training & Certification (3-Column Grid with 26 Certificates & Modals)
    -------------------------------------------------------------------------- */
 function renderTrainings(trainings) {
   const container = document.getElementById('trainings-grid-container');
@@ -389,7 +393,7 @@ function renderTrainings(trainings) {
           ...more
         </button>
         <button class="btn-credentials" onclick="openCredentialsLightbox(${index})">
-          <i class="fa-solid fa-certificate"></i> Credentials
+          <i class="fa-solid fa-certificate"></i> View Certificate
         </button>
       </div>
     </div>
@@ -407,12 +411,17 @@ function openTrainingDetailModal(index) {
 
   title.textContent = t.title;
   media.innerHTML = `
-    <div style="padding: 2.5rem; text-align: left; width: 100%; color: #fff;">
+    <div style="padding: 2.25rem; text-align: left; width: 100%; color: #fff;">
       <div style="font-size: 0.85rem; color: #14b8a6; font-weight: 700; margin-bottom: 0.5rem;">
-        <i class="fa-solid fa-building-columns"></i> ${escapeHTML(t.issuer || t.organization)} • ${escapeHTML(t.date)}
+        <i class="fa-solid fa-building-columns"></i> ${escapeHTML(t.issuer || t.organization)} &bull; ${escapeHTML(t.date)}
       </div>
       <h3 style="font-size: 1.35rem; margin-bottom: 1rem; color: #fff;">${escapeHTML(t.title)}</h3>
-      <p style="font-size: 0.98rem; line-height: 1.7; color: #cbd5e1;">${escapeHTML(t.fullDetails || t.summary)}</p>
+      <p style="font-size: 0.98rem; line-height: 1.75; color: #cbd5e1;">${escapeHTML(t.fullDetails || t.summary)}</p>
+      <div style="margin-top: 1.5rem;">
+        <button class="btn-credentials" onclick="openCredentialsLightbox(${index})">
+          <i class="fa-solid fa-image"></i> Open Certificate Image
+        </button>
+      </div>
     </div>
   `;
   caption.textContent = `Issued by: ${t.organization} (${t.date})`;
@@ -430,17 +439,47 @@ function openCredentialsLightbox(index) {
   const media = document.getElementById('lightbox-media-container');
   const caption = document.getElementById('lightbox-caption');
 
-  title.textContent = `${t.title} — Verified Credential`;
-  media.innerHTML = `<img src="${escapeHTML(t.credentialUrl || 'Banner.png')}" alt="${escapeHTML(t.title)} Credential">`;
-  caption.textContent = `Official verification for ${t.title} (${t.organization}).`;
+  const file = t.certificateFile || 'Banner.png';
+
+  title.textContent = `${t.title} — Verified Certificate`;
+  media.innerHTML = `
+    <img src="${escapeHTML(file)}" alt="${escapeHTML(t.title)} Certificate" style="max-height: 520px; width: auto; max-width: 100%; object-fit: contain;">
+  `;
+  caption.innerHTML = `
+    <div><strong>${escapeHTML(t.title)}</strong> &bull; ${escapeHTML(t.organization)} (${escapeHTML(t.date)})</div>
+    <div class="lightbox-actions-bar">
+      <a href="${escapeHTML(file)}" target="_blank" download class="btn-credentials" style="margin-top: 0.5rem; display: inline-flex;">
+        <i class="fa-solid fa-download"></i> Download Certificate
+      </a>
+    </div>
+  `;
 
   modal.classList.add('active');
   document.body.style.overflow = 'hidden';
 }
 
 /* --------------------------------------------------------------------------
-   G. Auto-Moving Fieldwork & Gallery Carousel (Moving Images)
+   7. Recent Updates (Auto-Scrolling Vertical Ticker) & Gallery Marquee
    -------------------------------------------------------------------------- */
+function renderRecentUpdatesTicker(updates) {
+  const container = document.getElementById('updates-ticker-list');
+  if (!container || !updates) return;
+
+  // Duplicate for seamless infinite loop
+  const duplicated = [...updates, ...updates];
+
+  container.innerHTML = duplicated.map(u => `
+    <li class="ticker-item">
+      <div class="ticker-meta">
+        <span class="ticker-date">${escapeHTML(u.date)}</span>
+        <span class="ticker-badge">${escapeHTML(u.badge)}</span>
+      </div>
+      <div class="ticker-title">${escapeHTML(u.title)}</div>
+      <p class="ticker-desc">${escapeHTML(u.text)}</p>
+    </li>
+  `).join('');
+}
+
 function renderGalleryMarquee() {
   const container = document.getElementById('gallery-marquee-track');
   if (!container || !window.portfolioData?.gallery) return;
@@ -450,7 +489,6 @@ function renderGalleryMarquee() {
     items = items.filter(g => g.categoryFilter === currentGalleryFilter);
   }
 
-  // Duplicate for seamless infinite marquee loop
   const duplicated = [...items, ...items];
 
   container.innerHTML = duplicated.map((item, idx) => `
@@ -505,7 +543,7 @@ function openGalleryItem(index) {
 }
 
 /* --------------------------------------------------------------------------
-   H. Leadership & References
+   8. Leadership, References & Contact
    -------------------------------------------------------------------------- */
 function renderLeadership(leadership) {
   const container = document.getElementById('leadership-list-container');
@@ -535,9 +573,6 @@ function renderReferences(refs) {
   `).join('');
 }
 
-/* --------------------------------------------------------------------------
-   I. Contact Links & Badges
-   -------------------------------------------------------------------------- */
 function renderContact(p) {
   const container = document.getElementById('contact-links-grid-container');
   if (!container || !p) return;
@@ -569,7 +604,7 @@ function renderContact(p) {
 }
 
 /* ==========================================================================
-   3. NO-CODE GITHUB AUTO-SYNC CMS (100% RUNTIME BROWSER AUTH)
+   9. NO-CODE GITHUB AUTO-SYNC CMS (100% RUNTIME AUTH)
    ========================================================================== */
 async function hashPasscode(passcode) {
   const encoder = new TextEncoder();
@@ -687,27 +722,27 @@ function handleFileUploadStaging(e) {
   reader.onload = function(evt) {
     const base64 = evt.target.result.split(',')[1];
     const isDoc = file.name.endsWith('.pdf') || file.type === 'application/pdf';
-    const folder = isDoc ? 'assets/docs/' : 'assets/images/';
+    const folder = isDoc ? 'assets/docs/' : 'Certificate/';
     const path = folder + file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
 
     stagedFileUploads.push({ path, content: base64, name: file.name });
 
-    // Append to gallery
-    window.portfolioData.gallery.unshift({
-      id: 'gal-' + Date.now(),
+    // Append to trainings
+    window.portfolioData.trainings.unshift({
+      id: 'cert-' + Date.now(),
       title: file.name.replace(/\.[^/.]+$/, "").replace(/_/g, " "),
-      category: isDoc ? "Documents & Reports" : "Fieldwork & Snake Rescue",
-      categoryFilter: isDoc ? "documents" : "fieldwork",
-      type: isDoc ? "document" : "image",
-      mediaUrl: path,
-      thumbnail: isDoc ? "Banner.png" : path,
-      caption: `Uploaded file: ${file.name}`,
-      badge: isDoc ? "PDF Document" : "Fieldwork Media"
+      organization: "Uploaded Credential",
+      issuer: "Verified Certificate",
+      date: new Date().getFullYear().toString(),
+      summary: `Uploaded credential document: ${file.name}`,
+      fullDetails: `Uploaded certificate file staged at ${path}`,
+      certificateFile: path,
+      badge: "New Certificate"
     });
 
-    renderGalleryMarquee();
+    renderTrainings(window.portfolioData.trainings);
     populateAdminForms();
-    showToast(`File staged: ${file.name}. Click "Save & Publish" to commit.`, 'success');
+    showToast(`Certificate staged: ${file.name}. Click "Save & Publish" to commit.`, 'success');
   };
   reader.readAsDataURL(file);
 }
@@ -729,14 +764,12 @@ async function handlePublishToGitHub() {
     const repo = 'mdnafizurrahman8024.github.io';
     const branch = 'main';
 
-    // Commit staged files
     for (const f of stagedFileUploads) {
       status.textContent = `Uploading ${f.name}...`;
       await uploadFileToGitHub(owner, repo, f.path, f.content, `upload: add ${f.name} via admin cms`, token);
     }
     stagedFileUploads = [];
 
-    // Get SHA
     status.textContent = 'Fetching JSON SHA...';
     const jsonPath = 'data/portfolio-data.json';
     const getRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${jsonPath}?ref=${branch}`, {
@@ -744,7 +777,6 @@ async function handlePublishToGitHub() {
     });
     const curSha = getRes.ok ? (await getRes.json()).sha : null;
 
-    // Commit JSON
     status.textContent = 'Publishing portfolio-data.json...';
     const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(window.portfolioData, null, 2))));
     const putRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${jsonPath}`, {
@@ -754,7 +786,7 @@ async function handlePublishToGitHub() {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        message: 'content(cms): update academic portfolio data',
+        message: 'content(cms): update academic portfolio data and certificates',
         content: encoded,
         sha: curSha,
         branch
@@ -794,7 +826,7 @@ async function uploadFileToGitHub(owner, repo, path, base64, msg, token) {
 }
 
 /* ==========================================================================
-   4. UTILITIES & DOM EVENT LISTENERS
+   10. UTILITIES & DOM LISTENERS
    ========================================================================== */
 function showToast(msg, type = 'success') {
   let c = document.getElementById('toast-container');

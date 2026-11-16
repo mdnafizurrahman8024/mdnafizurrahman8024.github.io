@@ -52,11 +52,12 @@
       <nav>
         <ul class="nav-menu" id="nav-menu">
           <li><a href="#about-sec" class="nav-pill">About</a></li>
-          <li><a href="#updates-sec" class="nav-pill">Updates</a></li>
+          <li><a href="#education-sec" class="nav-pill">Education</a></li>
           <li><a href="#experience-sec" class="nav-pill">Experience</a></li>
           <li><a href="#skills-sec" class="nav-pill">Skills</a></li>
           <li><a href="#publications-sec" class="nav-pill">Publications</a></li>
-          <li><a href="#training-sec" class="nav-pill">Training</a></li>
+          <li><a href="#training-sec" class="nav-pill">Training &amp; Certs</a></li>
+          <li><a href="#updates-sec" class="nav-pill">Updates</a></li>
           <li><a href="#gallery-sec" class="nav-pill">Gallery</a></li>
           <li class="nav-dropdown">
             <a href="javascript:void(0)" class="nav-pill">More <i class="fa-solid fa-chevron-down" style="font-size: 0.7rem; margin-left: 2px;"></i></a>
@@ -81,23 +82,25 @@
   </header>
 
   <!-- ======================================================================
-       FULL-WIDTH TOP HERO BANNER (BANNER.PNG)
+       1. FIXED TOP HERO BANNER (BANNER.PNG — 100% UNCLIPPED & ZERO CROPPING)
        ====================================================================== -->
   <div class="top-hero-banner-container" id="home">
-    <img src="Banner.png" alt="University of Rajshahi - Dept of Veterinary and Animal Sciences" class="top-hero-banner-img" id="top-hero-banner-img">
-    <div class="banner-overlay-tag">
-      <span class="banner-pulse-dot"></span>
-      <span>University of Rajshahi • Dept. of Veterinary &amp; Animal Sciences</span>
+    <div class="banner-frame-wrapper">
+      <img src="Banner.png" alt="University of Rajshahi - Dept of Veterinary and Animal Sciences" class="top-hero-banner-img" id="top-hero-banner-img">
+      <div class="banner-overlay-tag">
+        <span class="banner-pulse-dot"></span>
+        <span>University of Rajshahi &bull; Dept. of Veterinary &amp; Animal Sciences</span>
+      </div>
     </div>
   </div>
 
   <!-- ======================================================================
-       TWO-COLUMN SPLIT ACADEMIC LAYOUT
+       2. TWO-COLUMN SPLIT ACADEMIC LAYOUT
        ====================================================================== -->
   <main class="main-container split-layout-wrapper">
     
     <!-- --------------------------------------------------------------------
-         LEFT STICKY PROFILE CARD
+         LEFT STICKY PROFILE CARD (DARK TEAL / NAVY GRADIENT CARD)
          -------------------------------------------------------------------- -->
     <aside class="sticky-sidebar-card">
       <div class="sidebar-avatar-wrapper">
@@ -110,11 +113,12 @@
       <h1 class="sidebar-name" id="sidebar-name">Md. Nafizur Rahman</h1>
       <div class="sidebar-role" id="sidebar-role"></div>
 
-      <div class="sidebar-email-box" id="sidebar-email-box" title="Click to copy email address">
+      <!-- Clickable Email -->
+      <a href="mailto:mdnafizurrahman8024@gmail.com" class="sidebar-email-box" id="sidebar-email-box" title="Click to send email">
         <i class="fa-solid fa-envelope"></i> mdnafizurrahman8024@gmail.com
-      </div>
+      </a>
 
-      <!-- 2-Column Grid of Clickable Profile Buttons -->
+      <!-- 2-Column Grid of Clickable Pill Buttons (All Verified Links) -->
       <div class="sidebar-buttons-grid" id="sidebar-buttons-grid"></div>
 
       <div class="sidebar-motto-quote">
@@ -127,40 +131,40 @@
          -------------------------------------------------------------------- -->
     <div class="scrollable-feed">
 
-      <!-- CARD A: AUTO-SCROLLING "RECENT UPDATES" VERTICAL TICKER -->
-      <section class="feed-card border-teal" id="updates-sec">
+      <!-- 1. "HI, THIS IS NAFIZ" (FIRST CARD ON RIGHT) -->
+      <section class="feed-card border-teal" id="about-sec">
         <div class="card-header-row">
           <div class="card-title-group">
-            <div class="card-icon-badge"><i class="fa-solid fa-bolt"></i></div>
+            <div class="card-icon-badge"><i class="fa-solid fa-hand-wave"></i></div>
             <div>
-              <h2 class="card-heading">Recent Updates &amp; Milestones</h2>
-              <div class="card-subheading">Continuous feed of active publications, research protocols &amp; deployments (pauses on hover)</div>
+              <h2 class="card-heading">Hi, This is Nafiz</h2>
+              <div class="card-subheading">Doctor of Veterinary Medicine (DVM) Student &bull; University of Rajshahi, Bangladesh</div>
             </div>
           </div>
         </div>
 
-        <div class="updates-ticker-viewport" id="updates-ticker-viewport">
-          <ul class="updates-ticker-list" id="updates-ticker-list"></ul>
-        </div>
-      </section>
-
-      <!-- CARD B: ABOUT & VERBATIM GOOGLE SITES BIO -->
-      <section class="feed-card border-blue" id="about-sec">
-        <div class="card-header-row">
-          <div class="card-title-group">
-            <div class="card-icon-badge" style="background: var(--accent-blue-light); color: var(--accent-blue);"><i class="fa-solid fa-user-graduate"></i></div>
-            <div>
-              <h2 class="card-heading">About Me &amp; Research Vision</h2>
-              <div class="card-subheading">Bridging veterinary medicine, infectious disease surveillance &amp; computational science</div>
-            </div>
-          </div>
-        </div>
+        <hr class="card-divider">
 
         <div class="bio-lead-text" id="bio-lead-text"></div>
         <div class="bio-paragraphs-wrapper" id="bio-paragraphs-wrapper"></div>
       </section>
 
-      <!-- CARD C: RESEARCH EXPERIENCE & SOFTWARE PROJECTS + KPI METRICS BAR -->
+      <!-- 2. ACADEMIC CREDENTIALS / EDUCATION -->
+      <section class="feed-card border-blue" id="education-sec">
+        <div class="card-header-row">
+          <div class="card-title-group">
+            <div class="card-icon-badge" style="background: var(--accent-blue-light); color: var(--accent-blue);"><i class="fa-solid fa-graduation-cap"></i></div>
+            <div>
+              <h2 class="card-heading">Academic Credentials &amp; Education</h2>
+              <div class="card-subheading">University degree, clinical training, and foundational qualifications</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="education-timeline-list" id="education-timeline-container"></div>
+      </section>
+
+      <!-- 3. RESEARCH EXPERIENCE & SOFTWARE PROJECTS + 4-COLUMN KPI METRICS BAR -->
       <section class="feed-card border-purple" id="experience-sec">
         <div class="card-header-row">
           <div class="card-title-group">
@@ -184,8 +188,8 @@
         <div class="kpi-metrics-bar" id="kpi-metrics-container"></div>
       </section>
 
-      <!-- CARD D: TECHNICAL CAPABILITIES (2-COLUMN SPLIT CARDS) -->
-      <section class="feed-card" id="skills-sec" style="padding: 1.5rem; background: transparent; border: none; box-shadow: none;">
+      <!-- 4. TECHNICAL CAPABILITIES (2-COLUMN SPLIT CARDS) -->
+      <section class="feed-card" id="skills-sec" style="padding: 1rem 0; background: transparent; border: none; box-shadow: none;">
         <div class="capabilities-split-grid">
           <!-- Left Card: Clinical & Wet-Lab (Blue Top Accent) -->
           <div class="capability-card accent-blue">
@@ -207,7 +211,7 @@
         </div>
       </section>
 
-      <!-- CARD E: PUBLICATIONS & MANUSCRIPTS (LIVE SEARCH + FILTER TABS) -->
+      <!-- 5. PUBLICATIONS & MANUSCRIPTS (LIVE SEARCH + FILTER TABS) -->
       <section class="feed-card border-teal" id="publications-sec">
         <div class="card-header-row">
           <div class="card-title-group">
@@ -236,14 +240,14 @@
         <div class="pub-entries-list" id="publications-entries-container"></div>
       </section>
 
-      <!-- CARD F: TRAINING & CERTIFICATION (3-COLUMN GRID + MODALS) -->
+      <!-- 6. TRAINING & CERTIFICATIONS (3-COLUMN GRID WITH 26 CERTIFICATES + MODALS) -->
       <section class="feed-card border-amber" id="training-sec">
         <div class="card-header-row">
           <div class="card-title-group">
             <div class="card-icon-badge" style="background: var(--accent-amber-light); color: var(--accent-amber);"><i class="fa-solid fa-certificate"></i></div>
             <div>
               <h2 class="card-heading">Training &amp; Certifications</h2>
-              <div class="card-subheading">WHO certifications, public health workshops, and computational masterclasses</div>
+              <div class="card-subheading">26 verified certificates from WHO, WOAH, United Nations &amp; national institutions</div>
             </div>
           </div>
         </div>
@@ -251,7 +255,24 @@
         <div class="trainings-grid" id="trainings-grid-container"></div>
       </section>
 
-      <!-- CARD G: AUTO-MOVING FIELDWORK & GALLERY CAROUSEL (MOVING IMAGES) -->
+      <!-- 7. RECENT UPDATES (AUTO-SCROLLING VERTICAL TICKER) -->
+      <section class="feed-card border-teal" id="updates-sec">
+        <div class="card-header-row">
+          <div class="card-title-group">
+            <div class="card-icon-badge"><i class="fa-solid fa-bolt"></i></div>
+            <div>
+              <h2 class="card-heading">Recent Updates &amp; Milestones</h2>
+              <div class="card-subheading">Continuous feed of active publications, research protocols &amp; deployments (pauses on hover)</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="updates-ticker-viewport" id="updates-ticker-viewport">
+          <ul class="updates-ticker-list" id="updates-ticker-list"></ul>
+        </div>
+      </section>
+
+      <!-- 8. FIELDWORK & MEDIA GALLERY (AUTO-MOVING HORIZONTAL CAROUSEL) -->
       <section class="feed-card border-teal" id="gallery-sec">
         <div class="card-header-row">
           <div class="card-title-group">
@@ -278,7 +299,7 @@
         </div>
       </section>
 
-      <!-- CARD H: EXTRA-CURRICULAR ACTIVITIES & LEADERSHIP -->
+      <!-- 9. EXTRA-CURRICULAR ACTIVITIES & LEADERSHIP -->
       <section class="feed-card border-blue" id="leadership-sec">
         <div class="card-header-row">
           <div class="card-title-group">
@@ -293,7 +314,7 @@
         <div class="leadership-list" id="leadership-list-container"></div>
       </section>
 
-      <!-- CARD I: ACADEMIC REFERENCES & CONTACT ME -->
+      <!-- 10. ACADEMIC REFERENCES & CONTACT ME -->
       <section class="feed-card border-teal" id="references-sec">
         <div class="card-header-row">
           <div class="card-title-group">
@@ -357,7 +378,7 @@
       </div>
       <div class="lightbox-body">
         <div class="lightbox-media-container" id="lightbox-media-container"></div>
-        <p class="lightbox-caption-text" id="lightbox-caption"></p>
+        <div id="lightbox-caption" class="lightbox-caption-text"></div>
       </div>
     </div>
   </div>

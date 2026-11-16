@@ -28,28 +28,47 @@
 
 ## ✨ Architectural Layout & Motion Design
 
-### 1. Two-Column Split Academic Architecture
-- **Sticky Left Profile Card**:
-  - Circular avatar using `ZUN.png` with subtle glowing teal borders.
-  - Active status pills (`DVM Student (L-4, S-2)`, `One Health & AMR Researcher`, `Computational Biologist`).
-  - Large serif/modern title **`Md. Nafizur Rahman`**, academic affiliation, and click-to-copy email.
-  - 2-Column interactive grid of clickable profile buttons (**View CV**, **Google Scholar**, **ORCID**, **LinkedIn**, **OSF**, **ResearchGate**, **GitHub**, **WhatsApp**, **Google Sites**).
-  - Floating quick-access PDF/CV button anchored at the bottom-right corner linking directly to Google Drive CV.
-- **Right Scrollable Feed**:
-  - **Auto-Scrolling "Recent Updates" Vertical Ticker**: Continuous smooth upward loop of recent research milestones, publication acceptances, and software releases (pauses on hover).
-  - **About & Verbatim Google Sites Bio**: Complete verbatim text preserved from Google Sites and `CV_Nafiz.pdf`.
-  - **Research Experience & Software Timeline**: Detailed milestone cards with expandable `"See all"` toggle, paired with a **4-Column KPI Metrics Bar** (`4+ Research Papers`, `6+ Software & Web Apps`, `10+ Certifications`, `2+ Yrs Field & Clinical Exp.`).
-  - **Technical Capabilities (2-Column Split Cards)**:
-    - *Left Card (Blue top accent)*: Veterinary Clinical, Wet-Lab & Field Epidemiology.
-    - *Right Card (Teal top accent)*: Computational, Bioinformatics & Software Development.
-  - **Publications & Manuscripts**:
-    - Real-time search bar (`Search title, topic, author, or DOI...`).
-    - Filter tabs (`All`, `OSF Registered`, `Accepted / Published`, `Ongoing`).
-    - Clickable DOI & Google Scholar badges.
-  - **Training & Certification**: 3-Column card grid featuring **`...more`** detail modals and **`Credentials`** Lightbox viewers.
-  - **Fieldwork & Media Gallery**: Filter tabs paired with a **smooth horizontal auto-scrolling marquee/carousel** (pauses on hover and opens full-screen Lightbox).
-  - **Leadership & Affiliations**: Cards with blue accent borders (RUAWA, SWAN, ZSA, RUHERF, RURS).
-  - **Academic References & Contact Badges**: Supervisory references and verified contact pills.
+### 1. Zero-Cropping Framed Top Banner (`Banner.png`)
+- Sleek framed hero container right below the sticky navigation bar with `width: 100%; height: auto; object-fit: contain;`.
+- Displays every word from `"University of Rajshahi, Bangladesh"` down to `"Knowledge. Investigation. Practice. Impact."` with 100% full visibility on desktop and mobile.
+
+### 2. Two-Column Split Academic Architecture (Reference Aligned)
+- **Left Sticky Profile Card (`position: sticky; top: 84px;`)**:
+  - Rich dark navy-to-deep-teal gradient (`linear-gradient(160deg, #0b1f3a 0%, #0d3b4c 55%, #0f5257 100%)`) with rounded corners (`20px`) and glowing cyan-teal border.
+  - Rounded-square portrait avatar using `ZUN.png` with subtle glowing border.
+  - Status pills: `DVM Student (L-4, S-2)` and `One Health & AMR`.
+  - Large white serif name: **`Md. Nafizur Rahman`**.
+  - Role & Affiliation: *Undergraduate Student, Dept. of Veterinary and Animal Sciences, University of Rajshahi, Rajshahi-6205, Bangladesh*.
+  - Clickable email: `mdnafizurrahman8024@gmail.com`.
+  - Compact 2-column grid of clickable pill buttons for all 11 verified links:
+    - **View CV** (Google Drive Direct Link)
+    - **Google Scholar**
+    - **ORCID**
+    - **LinkedIn**
+    - **OSF**
+    - **ResearchGate**
+    - **GitHub**
+    - **Google Sites**
+    - **WhatsApp**
+    - **Facebook**
+    - **Instagram**
+  - Floating quick-access PDF/CV button anchored at the bottom-right corner.
+
+- **Right Scrollable Content Column**:
+  1. **"Hi, This is Nafiz" (1st Card on Right)**: Serif heading with horizontal divider and verbatim Google Sites & CV bio.
+  2. **Academic Credentials & Education**: Timeline dots covering DVM, HSC, and SSC.
+  3. **Research Experience & Software Projects**: Timeline cards + `"See all"` toggle + **4-Column KPI Bar** (`4+ Research Papers`, `6+ Software & Apps`, `10+ Certifications`, `2+ Yrs Field & Clinical Exp.`).
+  4. **Technical Capabilities (2-Column Split)**:
+     - Left: Veterinary Clinical, Wet-Lab & Field Epidemiology.
+     - Right: Computational, Bioinformatics & Software Development.
+  5. **Publications & Manuscripts**: Real-time live search bar + status filter pills (`All`, `OSF Registered`, `Accepted / Published`, `Ongoing`) + clickable DOI badges ([DOI: 10.17605/OSF.IO/9AQS3](https://doi.org/10.17605/OSF.IO/9AQS3)).
+  6. **Training & Certification (26 Verified Certificate Cards)**:
+     - 3-Column grid with gold/amber top accents.
+     - Auto-imports all 26 certificate images from `Certificate/` (WHO, WOAH, United Nations, AMMnet, NVDC/FAO, etc.).
+     - Clickable **`...more`** button: opens full modal with detailed syllabus and context.
+     - Clickable **`View Certificate`** button: opens full-resolution certificate image in Lightbox viewer with zoom and download.
+  7. **Recent Updates (Vertical Auto-Scrolling Ticker)** & **Fieldwork & Media Gallery (Horizontal Auto-Moving Marquee with Lightbox)**.
+  8. **Extra-Curricular Activities & Leadership**, **Academic References**, and **Contact Me** section.
 
 ---
 
@@ -70,7 +89,7 @@ This portfolio features a built-in, client-side **Admin Content Manager Drawer**
 
 ### No-Code Auto-Sync Workflow:
 - **Full Data-Driven Core**: Everything on the website is read dynamically from [`data/portfolio-data.json`](./data/portfolio-data.json).
-- **Direct File Uploads**: Upload images, certificates, or PDFs directly from device. The CMS automatically base64-encodes them and stages them for `assets/images/` or `assets/docs/`.
+- **Direct File Uploads**: Upload images, certificates, or PDFs directly from device. The CMS automatically base64-encodes them and stages them for `Certificate/`, `assets/images/`, or `assets/docs/`.
 - **Automatic GitHub Commit**: Clicking **"Save & Publish"** uses the **GitHub REST Contents API** (`PUT /repos/mdnafizurrahman8024/mdnafizurrahman8024.github.io/contents/...`) to commit the uploaded files and updated JSON straight to the `main` branch. GitHub Pages builds and updates the live site in 1–2 minutes!
 
 ---
@@ -79,46 +98,22 @@ This portfolio features a built-in, client-side **Admin Content Manager Drawer**
 
 ```text
 mdnafizurrahman8024.github.io/
-├── index.html                   # Two-column split layout SPA structure
-├── Banner.png                   # University of Rajshahi collage hero banner
-├── ZUN.png                      # Primary circular portrait avatar
+├── index.html                   # Reference-aligned split layout SPA structure
+├── Banner.png                   # Framed University of Rajshahi collage hero banner
+├── ZUN.png                      # Primary portrait avatar
 ├── CV_Nafiz.pdf                 # Local official curriculum vitae
+├── Certificate/                 # 26 Verified credential images from WHO, WOAH, UN, RU
 ├── css/
-│   └── style.css                # Deep Teal & Slate academic design system, tickers & marquee
+│   └── style.css                # Reference design system, gradient card, tickers & marquee
 ├── js/
-│   └── app.js                   # Dynamic renderer, live search, marquee, lightbox & GitHub CMS
+│   └── app.js                   # Dynamic renderer, live search, certificate modals & GitHub CMS
 ├── data/
-│   └── portfolio-data.json      # Structured data driving all portfolio sections
+│   └── portfolio-data.json      # Structured database driving all portfolio sections
 ├── assets/
-│   ├── images/
-│   │   ├── ZUN.png              # Portrait photo
-│   │   ├── profile-nafiz.png    # High-resolution circular profile photo
-│   │   ├── poultrymedix-logo.png
-│   │   ├── zunsync-logo.png
-│   │   ├── zsa-logo.png
-│   │   └── professors-vet-logo.png
-│   └── docs/
-│       └── CV_Nafiz.pdf         # Local copy of academic CV
+│   ├── images/                  # Profile & software logos
+│   └── docs/                    # Local documents backup
 └── README.md                    # Technical documentation & architecture guide
 ```
-
----
-
-## 🔗 Verified Academic & Professional Profiles
-
-- **Online CV (Google Drive)**: [View / Download PDF](https://drive.google.com/file/d/1qGu8YABYXTTt2kRaoz-ByAeOz3GHP7-7/view?usp=drive_link)
-- **Google Scholar**: [Md. Nafizur Rahman](https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en)
-- **ORCID**: [0009-0008-3918-187X](https://orcid.org/0009-0008-3918-187X)
-- **ResearchGate**: [Md-Rahman-1097](https://www.researchgate.net/profile/Md-Rahman-1097)
-- **Open Science Framework (OSF)**: [DOI: 10.17605/OSF.IO/9AQS3](https://doi.org/10.17605/OSF.IO/9AQS3)
-- **GitHub**: [@mdnafizurrahman8024](https://github.com/mdnafizurrahman8024)
-- **LinkedIn**: [md-nafizur-rahman-ru](http://www.linkedin.com/in/md-nafizur-rahman-ru)
-- **Primary Email**: [mdnafizurrahman8024@gmail.com](mailto:mdnafizurrahman8024@gmail.com)
-- **University Email**: [s2210968138@ru.ac.bd](mailto:s2210968138@ru.ac.bd)
-- **Cell / WhatsApp**: [+8801849288024](https://wa.me/8801849288024)
-- **Facebook**: [mdnafizurrahman8024](https://www.facebook.com/mdnafizurrahman8024/)
-- **Instagram**: [@nafizun_8024](https://www.instagram.com/nafizun_8024?stkn=MWcyemViZThoNDU0bQ==)
-- **Original Google Sites Portfolio**: [sites.google.com/view/md-nafizur-rahman/home](https://sites.google.com/view/md-nafizur-rahman/home)
 
 ---
 
