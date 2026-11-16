@@ -1,0 +1,668 @@
+{
+  "meta": {
+    "title": "Md. Nafizur Rahman | Academic & Research Portfolio",
+    "description": "Doctor of Veterinary Medicine (DVM) student, One Health researcher, and computational biologist specializing in AMR surveillance, nanovaccines, vector-borne epidemiology, and healthtech platforms.",
+    "version": "2.0.0",
+    "lastUpdated": "2026-11-16"
+  },
+  "profile": {
+    "name": "Md. Nafizur Rahman",
+    "salutation": "Hi there, I'm Md. Nafizur Rahman! 👋",
+    "avatar": "assets/images/profile-nafiz.png",
+    "banner": "Banner.png",
+    "institution": "Faculty of Veterinary and Animal Sciences, University of Rajshahi, Rajshahi-6205, Bangladesh",
+    "designation": "Undergraduate Student, Level-4 Semester-2, Doctor of Veterinary Medicine, Faculty of Veterinary and Animal Sciences, University of Rajshahi, Rajshahi-6205, Bangladesh",
+    "shortBio": "DVM Student • One Health & AMR Researcher • Computational Biologist • Full-Stack Developer",
+    "motto": "Knowledge. Investigation. Practice. Impact.",
+    "cvDriveUrl": "https://drive.google.com/file/d/1qGu8YABYXTTt2kRaoz-ByAeOz3GHP7-7/view?usp=drive_link",
+    "localCvUrl": "assets/docs/CV_Nafiz.pdf",
+    "googleSitesUrl": "https://sites.google.com/view/md-nafizur-rahman/home",
+    "contact": {
+      "emailPrimary": "mdnafizurrahman8024@gmail.com",
+      "emailUniversity": "s2210968138@ru.ac.bd",
+      "phone": "+8801849288024",
+      "whatsapp": "https://wa.me/8801849288024",
+      "location": "Rajshahi-6205, Bangladesh"
+    },
+    "social": {
+      "github": "https://github.com/mdnafizurrahman8024",
+      "scholar": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en",
+      "orcid": "https://orcid.org/0009-0008-3918-187X",
+      "researchgate": "https://www.researchgate.net/profile/Md-Rahman-1097",
+      "osf": "https://doi.org/10.17605/OSF.IO/9AQS3",
+      "linkedin": "http://www.linkedin.com/in/md-nafizur-rahman-ru",
+      "facebook": "https://www.facebook.com/mdnafizurrahman8024/",
+      "instagram": "https://www.instagram.com/nafizun_8024?stkn=MWcyemViZThoNDU0bQ=="
+    }
+  },
+  "announcements": [
+    {
+      "id": "ann-1",
+      "badge": "New Accepted Paper",
+      "text": "Our research on 'Socio-Veterinary Determinants of Pet Animal Healthcare Behavior Among Pet Animal Owners in Bangladesh' has been accepted by the Journal of Advanced Veterinary and Animal Research (JAVAR).",
+      "date": "2026",
+      "link": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en"
+    },
+    {
+      "id": "ann-2",
+      "badge": "OSF Registration",
+      "text": "Systematic Review & Meta-Analysis protocol registered on Open Science Framework: Comparative Immunogenicity, Protective Efficacy, and Safety of Nanoparticle-Based Rabies Vaccines in Mice (DOI: 10.17605/OSF.IO/9AQS3).",
+      "date": "2026",
+      "link": "https://doi.org/10.17605/OSF.IO/9AQS3"
+    }
+  ],
+  "about": {
+    "lead": "Hello! I am Md. Nafizur Rahman, a dedicated Doctor of Veterinary Medicine (DVM) student at the Department of Veterinary and Animal Sciences, University of Rajshahi, Bangladesh.",
+    "bioParagraphs": [
+      "My academic journey is built upon a strong foundation in Anatomy, Histology, Physiology, Pathology, Parasitology, Microbiology, Medicine, Surgery, Epidemiology, and Public Health. I am deeply passionate about bridging the gap between biological research and advanced computational science to improve animal welfare, public health, and disease prevention.",
+      "Throughout my journey, I have integrated traditional veterinary science with modern Data Analytics, developing proficiency in Python, SQL, and data visualization tools like GeoPandas and Matplotlib to drive evidence-based research.",
+      "Beyond academics, I am an active advocate for animal welfare. I regularly participate in hands-on wildlife rescue operations with Save Wildlife and Nature (SWAN), Bangladesh, and dedicate time to providing free clinical services for stray and campus animals.",
+      "I am eager to connect with professionals and researchers in the veterinary, nanomedicine, and public health sectors to continue learning and contributing to innovative, evidence-based solutions in disease prevention under the One Health framework."
+    ],
+    "highlights": [
+      {
+        "title": "Clinical Surveillance & AMR Stewardship",
+        "description": "Leading an extensive One Health investigation evaluating veterinary prescribing patterns, owner KAP, and self-medication behaviors in companion animals in Rajshahi.",
+        "icon": "fa-solid fa-stethoscope"
+      },
+      {
+        "title": "Nanomedicine & Computational Biology",
+        "description": "Registered OSF meta-analysis investigating nanoparticle-based Rabies vaccines (mRNA-LNPs, VLPs, nano-adjuvants) and nanoparticle solutions for heavy metal bioaccumulation.",
+        "icon": "fa-solid fa-dna"
+      },
+      {
+        "title": "Epidemiology & Parasitology",
+        "description": "Spearheaded Barind Tract free-roaming dog ectoparasite surveillance (310 dogs, 2,908 parasites), Cimex spp. student hall dynamics, and Capillaria spp. molecular characterization.",
+        "icon": "fa-solid fa-bug"
+      },
+      {
+        "title": "Software & HealthTech Engineering",
+        "description": "Engineered autonomous AI platforms including PoultryMedix, ZunSync (Evidentara), Zun Synthesis Academy (ZSA), and Professor's Vet & Pet Care clinic system.",
+        "icon": "fa-solid fa-code"
+      }
+    ]
+  },
+  "educationTimeline": [
+    {
+      "degree": "Doctor of Veterinary Medicine (DVM)",
+      "institution": "Faculty of Veterinary and Animal Sciences, University of Rajshahi, Rajshahi-6205, Bangladesh",
+      "period": "November 2022 – Present",
+      "details": "Level-4 Semester-2. Rigorous clinical and laboratory training across Anatomy, Histology, Physiology, Pharmacology, Pathology, Parasitology, Microbiology, Preventive Medicine, Theriogenology, Surgery, and Veterinary Public Health.",
+      "badge": "Undergraduate Degree",
+      "icon": "fa-solid fa-graduation-cap"
+    },
+    {
+      "degree": "Clinical Surveillance & Independent Field Research",
+      "institution": "Department of Veterinary & Animal Sciences & Regional Veterinary Clinics, Rajshahi",
+      "period": "2024 – Present",
+      "details": "Field investigator and principal conceptualizer across 6+ large-scale epidemiological and socio-veterinary studies in Northern Bangladesh.",
+      "badge": "Fieldwork & Research",
+      "icon": "fa-solid fa-microscope"
+    }
+  ],
+  "skills": {
+    "research": [
+      "Systematic Review & Meta-Analysis",
+      "Epidemiological Study Design",
+      "Clinical Surveillance & Data Logging",
+      "Protocol Structuring & OSF Registration",
+      "Biometrical & Statistical Data Analysis",
+      "Scientific Manuscript Drafting"
+    ],
+    "laboratory": [
+      "Morphological Identification & Oculometry",
+      "High-Resolution Microphotography",
+      "Formalin-Ether Sedimentation (MGL)",
+      "Baermann Diagnostic Technique",
+      "Permanent Slide Preparation & Staining",
+      "Fecal Diagnostics & Parasite Preservation",
+      "Clinical Triage (TVT, Myiasis, Trauma, Mastitis)"
+    ],
+    "bioinformatics": [
+      "BLAST & Multiple Sequence Alignment",
+      "DNA Polymorphism Analysis (COX1, 18S rRNA)",
+      "Genetic Divergence & Phylogenetic Trees",
+      "MEGA (Molecular Evolutionary Genetics Analysis)",
+      "Galaxy Bioinformatics Platform",
+      "WormBase ParaSite",
+      "Immuno-informatics & Epitope Mapping"
+    ],
+    "software": [
+      "Python 3 (NumPy, Pandas, GeoPandas, Matplotlib)",
+      "R & RStudio (Statistical Modeling, Logistic Regression)",
+      "IBM SPSS (Multivariate & Chi-Square Analysis)",
+      "FastAPI & Django (Full-Stack Backend)",
+      "React 19 & Tailwind CSS (Modern Frontend)",
+      "Git, GitHub & Version Control",
+      "SQL & Relational Databases",
+      "Mendeley Reference Management",
+      "KoboToolbox & Field Survey Forms"
+    ]
+  },
+  "researchProjects": [
+    {
+      "id": "project-07",
+      "title": "Comparative Immunogenicity, Protective Efficacy, and Safety of Nanoparticle-Based Rabies Vaccines in Mice: A Systematic Review and Meta-Analysis",
+      "role": "Principal Conceptualizer & Investigator",
+      "period": "July 2026 – Present",
+      "category": "Nanomedicine & Therapeutics",
+      "status": "Registered Protocol (OSF)",
+      "doi": "10.17605/OSF.IO/9AQS3",
+      "doiUrl": "https://doi.org/10.17605/OSF.IO/9AQS3",
+      "scholarUrl": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en",
+      "summary": "Rabies remains a fatal zoonotic disease with a near 100% mortality rate once symptoms manifest. While traditional inactivated rabies vaccines (INVs) require multiple booster doses and strict cold-chain storage, next-generation nanoparticle-based delivery platforms (mRNA-LNPs, VLPs, lipopolyplexes, and nano-adjuvants) promise rapid, robust, single-dose immunity. Registered on the Open Science Framework (OSF), this systematic review and meta-analysis synthesizes preclinical in vivo murine data following PRISMA guidelines using a Random-Effects Model to evaluate Virus-Neutralizing Antibody (VNA) kinetics, post-challenge survival rates, and platform-specific safety profiles.",
+      "keyArtefacts": [
+        "OSF Protocol DOI: 10.17605/OSF.IO/9AQS3",
+        "PRISMA Systematic Review Workflow & Risk of Bias Assessment",
+        "Random-Effects Meta-Analysis Model for VNA Kinetics (Days 5, 7, 14, 21, 28)",
+        "Murine Survival & Brain Clearance Synthesis across mRNA-LNPs & VLPs"
+      ],
+      "tags": ["Nanomedicine", "Rabies Vaccines", "Meta-Analysis", "OSF Registered", "Immunology"]
+    },
+    {
+      "id": "project-02",
+      "title": "Clinical Surveillance and Antimicrobial Stewardship in Companion Animals: Evaluating Veterinary Prescribing Patterns, Owner KAP, and Self-Medication Behaviors in Rajshahi, Bangladesh (A One Health Perspective)",
+      "role": "Principal Conceptualizer & Investigator",
+      "period": "Aug 2026 – Present",
+      "category": "AMR & One Health",
+      "status": "Active Clinical Surveillance",
+      "doi": "",
+      "doiUrl": "",
+      "scholarUrl": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en",
+      "summary": "A 12-month prospective clinical surveillance across private veterinary clinics in Rajshahi investigating antimicrobial prescribing habits, clinical syndrome patterns, owner Knowledge, Attitude, and Practices (KAP), and hazardous home self-medication behaviors. Establishing the region's first structured One Health companion animal database to identify antimicrobial stewardship gaps and formulate evidence-based public health campaigns.",
+      "keyArtefacts": [
+        "Curated database of 385+ companion animal clinical encounters",
+        "Prescribing pattern audit (critically important antimicrobials vs. empiric choices)",
+        "Epidemiological questionnaire on pet owner self-medication risks",
+        "Spatial syndromic surveillance across Rajshahi urban and peri-urban veterinary practices"
+      ],
+      "tags": ["One Health", "AMR Stewardship", "Prescribing Surveillance", "KAP Study", "Companion Animals"]
+    },
+    {
+      "id": "project-01",
+      "title": "Epidemiology and Distribution of Ectoparasites in Free-Roaming Dogs from the Semi-Arid Barind Tract, Northwestern Bangladesh",
+      "role": "Co-Investigator & Data Analyst",
+      "period": "Nov 2024 – Dec 2025",
+      "category": "Parasitology & Zoonoses",
+      "status": "Manuscript Prepared & Conference Presentation",
+      "doi": "",
+      "doiUrl": "",
+      "scholarUrl": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en",
+      "summary": "A comprehensive year-long cross-sectional survey examining ectoparasitic infestation across 310 free-roaming dogs in the semi-arid Barind Tract. Collected 2,908 ectoparasites (1,245 fleas, 1,604 lice, 59 ticks) with an overall 87.7% prevalence. Established the first morphological records of Ctenocephalides orientis and Heterodoxus spiniger in Bangladesh, accompanied by molecular characterization (COX1 and 18S rRNA sequencing) of Haemaphysalis bispinosa and Dermacentor ticks showing key mutations at site 370.",
+      "keyArtefacts": [
+        "First morphological records of Ctenocephalides orientis and Heterodoxus spiniger in Bangladesh",
+        "Molecular confirmation of Haemaphysalis bispinosa & Dermacentor spp. via COX1/18S rRNA",
+        "Negative binomial and logistic regression models identifying host body condition & seasonal risk factors",
+        "Spatial GIS mapping of ectoparasitic hotspots across the semi-arid Barind zone"
+      ],
+      "tags": ["Parasitology", "Barind Tract", "Molecular Sequencing", "Ticks & Fleas", "One Health"]
+    },
+    {
+      "id": "project-03",
+      "title": "Species Distribution and Risk Factors of Bedbug (Cimex spp.) Infestation in Student Residences at the University of Rajshahi",
+      "role": "Principal Investigator",
+      "period": "Oct 2026 – Present",
+      "category": "Vector Biology & Public Health",
+      "status": "Active Epidemiological Investigation",
+      "doi": "",
+      "doiUrl": "",
+      "scholarUrl": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en",
+      "summary": "Cross-sectional epidemiological investigation assessing the prevalence, morphological species distribution, and risk factors of Cimex spp. bedbug infestations across high-density student residences at the University of Rajshahi. Evaluates environmental sanitation variables, host bed characteristics across a 370-bed cohort, and psychological/sleep disturbance impacts to formulate university housing vector mitigation policies.",
+      "keyArtefacts": [
+        "Comprehensive 370-bed epidemiological questionnaire & room-level micro-habitat assessment",
+        "Morphological classification of Cimex hemipterus and life stages (adults, nymphs, eggs)",
+        "Quantification of sleep disturbance indices and secondary dermatological manifestations",
+        "Baseline vector control recommendations for university residential halls"
+      ],
+      "tags": ["Vector Biology", "Cimex spp.", "Student Hostels", "Sleep Hygiene", "Public Health"]
+    },
+    {
+      "id": "project-04",
+      "title": "Socio-Veterinary Determinants of Pet Animal Healthcare Behavior: A Comprehensive Statistical Study of Pet Ownership Patterns in Bangladesh",
+      "role": "Co-Investigator & Data Analyst",
+      "period": "2024 – 2025",
+      "category": "Socio-Veterinary Science",
+      "status": "Accepted by JAVAR Journal",
+      "doi": "",
+      "doiUrl": "",
+      "scholarUrl": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en",
+      "summary": "Multivariate epidemiological survey covering 361 pet-owning households across all seven administrative divisions of Bangladesh. Analyzed the profound impact of owner educational attainment, socioeconomic status, and regional accessibility on preventive healthcare practices (vaccination compliance, routine veterinary consultations) and uncovered structural barriers in veterinary healthcare delivery.",
+      "keyArtefacts": [
+        "Accepted for publication in Journal of Advanced Veterinary and Animal Research (JAVAR)",
+        "Chi-square and Spearman correlation analyses across 361 household datasets",
+        "Empirical proof linking owner education directly to vaccination compliance (p < 0.001)",
+        "Policy roadmap for public-private veterinary infrastructure expansion in Bangladesh"
+      ],
+      "tags": ["JAVAR Accepted", "Pet Welfare", "Socio-Veterinary", "Statistical Modeling", "SPSS"]
+    },
+    {
+      "id": "project-05",
+      "title": "Morphological and Molecular Detection of Capillaria spp. in Native Chicken and Duck of Northern Bangladesh",
+      "role": "Research Assistant",
+      "period": "Dec 2025 – Present",
+      "category": "Avian Parasitology",
+      "status": "Ongoing Laboratory & Molecular Screening",
+      "doi": "",
+      "doiUrl": "",
+      "scholarUrl": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en",
+      "summary": "Investigating the gastrointestinal parasite burden of Capillaria species in native scavenging chickens and ducks in rural Northern Bangladesh. Utilizing formalin-ether sedimentation, Baermann migration, ocular biometrics, and PCR molecular sequencing to characterize nematode diversity and assess economic impacts on backyard poultry producers.",
+      "keyArtefacts": [
+        "Fecal sedimentation and intestinal scraping protocols for gastrointestinal nematodes",
+        "Biometric oculometer measurement database of Capillaria ova and adult worms",
+        "Parasite preservation and PCR amplification workflows under faculty supervision"
+      ],
+      "tags": ["Avian Parasitology", "Capillaria spp.", "Backyard Poultry", "Molecular Diagnostics"]
+    },
+    {
+      "id": "project-06",
+      "title": "Vector-Borne Pathogen Surveillance: Entomo-Virological Detection of Dengue, Chikungunya, and Japanese Encephalitis in Mosquitoes",
+      "role": "Collaborating Field Researcher",
+      "period": "2025 – Present",
+      "category": "Entomology & Arbovirology",
+      "status": "Longitudinal Field Surveillance",
+      "doi": "",
+      "doiUrl": "",
+      "scholarUrl": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en",
+      "summary": "A 12-month longitudinal surveillance system in Rajshahi utilizing BG-Sentinel traps to monitor mosquito vector population dynamics (Aedes aegypti, Culex spp.) and detect viral co-circulation (Dengue, Chikungunya, and Japanese Encephalitis) via RT-PCR and ELISA pools, computing regional Minimum Infection Rates (MIR).",
+      "keyArtefacts": [
+        "BG-Sentinel trapping grids across urban and peri-urban microhabitats",
+        "Entomo-virological pool screening protocols and Minimum Infection Rate (MIR) calculations",
+        "Correlation analysis between seasonal precipitation, ambient temperature, and vector surges"
+      ],
+      "tags": ["Arboviruses", "Dengue Surveillance", "BG-Sentinel", "Vector Dynamics", "Public Health"]
+    },
+    {
+      "id": "project-water",
+      "title": "Livestock Drinking Water Quality, Trough Bacterial Biofilms, and Heavy Metal Bioaccumulation in Bangladesh",
+      "role": "Investigator & Research Contributor",
+      "period": "2025 – Present",
+      "category": "Environmental & Veterinary Health",
+      "status": "Active Interdisciplinary Assessment",
+      "doi": "",
+      "doiUrl": "",
+      "scholarUrl": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en",
+      "summary": "Interdisciplinary evaluation examining bacterial biofilm formation in communal livestock water troughs, physicochemical water quality degradation, and heavy metal bioaccumulation (arsenic, lead, cadmium) in ruminant herds across Northern Bangladesh, evaluating nanoparticle-based bioremediation.",
+      "keyArtefacts": [
+        "Trough surface biofilm bacterial culture and antimicrobial susceptibility assays",
+        "Water hardness, pH, microbial load, and toxic heavy metal profiling",
+        "Comparative assessment of nanotherapeutics for heavy metal chelation in livestock"
+      ],
+      "tags": ["Water Quality", "Biofilms", "Heavy Metals", "Nanoremediation", "Livestock Health"]
+    }
+  ],
+  "publicationsAndConferences": {
+    "journalArticles": [
+      {
+        "title": "Socio-Veterinary Determinants of Pet Animal Healthcare Behavior Among Pet Animal Owners in Bangladesh",
+        "authors": "Md. Nafizur Rahman (Co-author) et al.",
+        "journal": "Journal of Advanced Veterinary and Animal Research (JAVAR)",
+        "status": "Accepted",
+        "year": "2026",
+        "badge": "Accepted for Publication",
+        "link": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en"
+      },
+      {
+        "title": "Epidemiology of Ectoparasitic Infestation in Free-Roaming Dogs from Northwestern Bangladesh",
+        "authors": "Md. Nafizur Rahman (Co-author) et al.",
+        "journal": "Manuscript Prepared for Submission",
+        "status": "Manuscript Prepared",
+        "year": "2026",
+        "badge": "Manuscript Prepared",
+        "link": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en"
+      }
+    ],
+    "conferencePapers": [
+      {
+        "title": "Navigating Pet Welfare in Bangladesh: A Multilayered Analysis of Ownership, Ethics and Service Accessibility",
+        "authors": "Md. Nafizur Rahman (Co-author) et al.",
+        "conference": "1st Scientific Conference of Veterinary and Animal Sciences 2025 ('Innovation, Application and Future Trends in Animal Health and Production')",
+        "location": "Faculty of Veterinary and Animal Sciences, University of Rajshahi, Rajshahi-6205",
+        "date": "November 29, 2025",
+        "badge": "Conference Paper & Presentation",
+        "link": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en"
+      },
+      {
+        "title": "Challenges and Opportunities in Veterinary Care, Feed, and Maintenance of Pets in Bangladesh",
+        "authors": "Md. Nafizur Rahman (1st Author) et al.",
+        "conference": "International Conference on 'Transdisciplinary Integration of Terrestrial and Aquatic Ecosystems for Advancing Health, Food Security, and Nutrition'",
+        "location": "Chattogram Veterinary and Animal Sciences University (CVASU), Chattogram-4225, Bangladesh",
+        "date": "2025",
+        "badge": "Conference Paper (1st Author)",
+        "link": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en"
+      },
+      {
+        "title": "Epidemiology and Distribution of Ectoparasites in Free-Roaming Dogs from the Semi-Arid Barind Tract, Northwestern Bangladesh",
+        "authors": "Md. Nafizur Rahman (Co-author) et al.",
+        "conference": "RURS International Conference and Research Fair 2026",
+        "location": "Rajshahi University Research Society (RURS), University of Rajshahi, Bangladesh",
+        "date": "2026",
+        "badge": "Conference Paper & Presentation",
+        "link": "https://rursbd.org/"
+      }
+    ],
+    "participations": [
+      {
+        "title": "Course on 'Research Ethics'",
+        "issuer": "WHO Ethics Review Committee Secretariat of the Global Health Ethics and Governance Unit",
+        "date": "July 05, 2026",
+        "badge": "WHO Certification"
+      },
+      {
+        "title": "Course on 'Antimicrobial Stewardship Programmes in Health-Care Facilities in Low- and Middle-Income Countries: A WHO Practical Toolkit'",
+        "issuer": "Department of Antimicrobial Resistance (AMR), World Health Organization",
+        "date": "July 12, 2026",
+        "badge": "WHO Certification"
+      },
+      {
+        "title": "Course on 'Healthcare Associated Infection Surveillance'",
+        "issuer": "Infection Prevention and Control Unit & Hub (IPC Unit & Hub), World Health Organization",
+        "date": "May 27, 2026",
+        "badge": "WHO Certification"
+      },
+      {
+        "title": "Course on 'One Health: Basics of Multisectoral Collaboration at the Human-Animal-Environment Interface'",
+        "issuer": "WHO Academy, World Health Organization",
+        "date": "June 04, 2026",
+        "badge": "WHO Academy"
+      },
+      {
+        "title": "Course on 'Managing Infrastructures for Medical Research: Part 1'",
+        "issuer": "WHO Academy, World Health Organization",
+        "date": "June 02, 2026",
+        "badge": "WHO Academy"
+      },
+      {
+        "title": "AMMnet Insights: Workshop on Malaria Modeling for Public Health Professionals in Bangladesh",
+        "issuer": "University of Rajshahi, Bangladesh",
+        "date": "2026",
+        "badge": "Trainee"
+      },
+      {
+        "title": "Sensitization Workshop on Antimicrobial Resistance (AMR)",
+        "issuer": "World Organisation for Animal Health (WOAH) & Rajshahi Medical College Hospital / University of Rajshahi",
+        "date": "2025",
+        "badge": "WOAH Workshop"
+      },
+      {
+        "title": "Online Course on 'Climate Change International Legal Regime'",
+        "issuer": "UNITAR, UN Environment Programme, and InforMEA",
+        "date": "May 09, 2026",
+        "badge": "United Nations Certification"
+      },
+      {
+        "title": "RUEC 1st International Research Conference 2025",
+        "issuer": "Rajshahi University Education Club, University of Rajshahi",
+        "date": "September 6–7, 2025",
+        "badge": "International Conference"
+      },
+      {
+        "title": "RUHERF Summit 2025 ('Shaping Future through Research & Global Education')",
+        "issuer": "Rajshahi University Higher Education and Research Forum",
+        "date": "August 17, 2025",
+        "badge": "Academic Summit"
+      }
+    ]
+  },
+  "softwareProjects": [
+    {
+      "id": "poultrymedix",
+      "title": "PoultryMedix",
+      "tagline": "Autonomous Multimodal AI for Avian Health & AMR Stewardship",
+      "category": "HealthTech & Vet Apps",
+      "categoryFilter": "healthtech",
+      "logo": "assets/images/poultrymedix-logo.png",
+      "description": "An autonomous AI triage and epidemiological surveillance platform tailored for smallholder and marginal poultry farmers in Bangladesh. Incorporates multi-modal AI diagnostics (synthesizing fecal image recognition, respiratory distress audio recordings, and regional vocal prompts), automated OCR optical scanning of handwritten prescriptions, and a Retrieval-Augmented Generation (RAG) knowledge engine that issues mandatory drug withdrawal alerts to prevent antibiotic residues in human food chains. Integrates real-time GPS geolocation mapping to alert regional Upazila Livestock Offices (DLS) to infectious outbreaks.",
+      "techStack": ["React 19", "Vite", "Supabase", "Gemini API", "TanStack Router", "Tailwind CSS", "RAG & OCR"],
+      "githubUrl": "https://github.com/mdnafizurrahman8024/PoultryMedix-Application",
+      "liveUrl": "",
+      "featured": true,
+      "stats": "AI Battle Winner / Finalist (Send a little Hope UK)"
+    },
+    {
+      "id": "zunsync",
+      "title": "ZunSync (Evidentara)",
+      "tagline": "Evidence in every line — Reproducible AI Research Platform",
+      "category": "Bioinformatics & Data",
+      "categoryFilter": "bioinformatics",
+      "logo": "assets/images/zunsync-logo.png",
+      "description": "An evidence-grounded, reproducible AI computational research workbench engineered specifically for veterinary epidemiologists, One Health scientists, and molecular researchers. Features end-to-end data provenance tracking, automated literature synthesis ingestion, statistical modeling pipelines, and containerized experiment reproducibility.",
+      "techStack": ["Python 3.12+", "FastAPI", "React 19 + TypeScript", "Docker Compose", "PostgreSQL", "SQLAlchemy"],
+      "githubUrl": "https://github.com/mdnafizurrahman8024/ZunSync-Software",
+      "liveUrl": "",
+      "featured": true,
+      "stats": "Enterprise Academic Workbench"
+    },
+    {
+      "id": "zsa",
+      "title": "Zun Synthesis Academy (ZSA)",
+      "tagline": "Bridging Life Sciences and Modern Code",
+      "category": "Web Platforms",
+      "categoryFilter": "web",
+      "logo": "assets/images/zsa-logo.png",
+      "description": "A full-featured educational technology platform dedicated to empowering life science students with programming, computational biology, and data science skills. Manages interactive courses, student enrollments, programmatic certificate verification, and financial aid scholarship applications.",
+      "techStack": ["Python 3.10+", "FastAPI", "SQLite / PostgreSQL", "SQLAlchemy 2.0", "Jinja2", "Tailwind CSS"],
+      "githubUrl": "https://github.com/mdnafizurrahman8024/Zun-Synthesis-Academy-Website",
+      "liveUrl": "",
+      "featured": true,
+      "stats": "FastAPI EdTech Platform"
+    },
+    {
+      "id": "professors-vet",
+      "title": "Professor's Vet & Pet Care Clinic Web App",
+      "tagline": "Production Veterinary Clinic Management & Storefront",
+      "category": "HealthTech & Vet Apps",
+      "categoryFilter": "healthtech",
+      "logo": "assets/images/professors-vet-logo.png",
+      "description": "A comprehensive veterinary clinic web system developed under the clinical supervision of Dr. Abdulla Al Mamun Bhuyan (Associate Professor, Dept. of Veterinary and Animal Sciences, University of Rajshahi). Features pet patient appointment scheduling, surgical procedure case galleries, electronic medical prescriptions, and pharmacy retail inventory.",
+      "techStack": ["Python 3.12", "Django 5+", "SQLite / PostgreSQL", "Bootstrap & Tailwind", "REST API"],
+      "githubUrl": "https://github.com/mdnafizurrahman8024/Professors-Vet-And-Pet-Care-Website",
+      "liveUrl": "",
+      "featured": true,
+      "stats": "Supervised by RU Vet Faculty"
+    },
+    {
+      "id": "naziha-shop",
+      "title": "Naziha Shop",
+      "tagline": "Modern Responsive Veterinary & Consumer E-Commerce Store",
+      "category": "Web Platforms",
+      "categoryFilter": "web",
+      "logo": "",
+      "description": "A high-performance, responsive e-commerce web platform engineered for seamless catalog navigation, inventory management, dynamic shopping cart logic, and client checkout for animal health supplies, veterinary instruments, and everyday consumer products.",
+      "techStack": ["JavaScript ES6+", "HTML5 Semantic Architecture", "CSS3 Glassmorphism", "Responsive UX"],
+      "githubUrl": "https://github.com/mdnafizurrahman8024",
+      "liveUrl": "",
+      "featured": false,
+      "stats": "Modern Web Store"
+    },
+    {
+      "id": "python-21-days",
+      "title": "Python Foundation 21 Days",
+      "tagline": "Intensive Computational Python & Data Bootcamp",
+      "category": "Bioinformatics & Data",
+      "categoryFilter": "bioinformatics",
+      "logo": "",
+      "description": "An intensive 21-day curriculum documenting progressive Python programming on Google Colab. Covers variables, data types, control flow, functions, file automation, web scraping, and deep object-oriented programming (Abstraction, Encapsulation with private/protected modifiers, Inheritance, and Polymorphism).",
+      "techStack": ["Python 3", "Google Colab", "OOP Architecture", "File Automation", "Data Structures"],
+      "githubUrl": "https://github.com/mdnafizurrahman8024/Python-Foundation-21-Days",
+      "liveUrl": "",
+      "featured": false,
+      "stats": "21-Day Hands-On Bootcamp"
+    }
+  ],
+  "gallery": [
+    {
+      "id": "gal-1",
+      "title": "Free-Roaming Dogs Ectoparasite Field Survey",
+      "category": "Fieldwork & Wildlife Rescue",
+      "categoryFilter": "fieldwork",
+      "type": "image",
+      "mediaUrl": "Banner.png",
+      "thumbnail": "Banner.png",
+      "caption": "Year-long field surveillance across 310 free-roaming dogs in the semi-arid Barind Tract, northwestern Bangladesh. Physical sampling of 2,908 ectoparasites.",
+      "date": "2024 – 2025",
+      "badge": "Field Investigation"
+    },
+    {
+      "id": "gal-2",
+      "title": "Wildlife Rescue & Biodiversity Conservation (SWAN)",
+      "category": "Fieldwork & Wildlife Rescue",
+      "categoryFilter": "fieldwork",
+      "type": "image",
+      "mediaUrl": "Banner.png",
+      "thumbnail": "Banner.png",
+      "caption": "Active member of Save Wildlife & Nature (SWAN), Bangladesh. Rescuing and rehabilitating reptiles, small mammals, and injured wildlife while educating local communities.",
+      "date": "2025 – Present",
+      "badge": "Wildlife Rescue"
+    },
+    {
+      "id": "gal-3",
+      "title": "Oculometric Microphotography & Parasite Identification",
+      "category": "Lab & Clinical",
+      "categoryFilter": "lab",
+      "type": "image",
+      "mediaUrl": "Banner.png",
+      "thumbnail": "Banner.png",
+      "caption": "Digital microscopy documentation and taxonomic verification of flea, louse, and tick vectors utilizing calibrated ocular micrometers and specialized mobile integrations.",
+      "date": "2025",
+      "badge": "Diagnostic Microscopy"
+    },
+    {
+      "id": "gal-4",
+      "title": "PoultryMedix Multimodal AI Architecture",
+      "category": "Data Analysis & Software",
+      "categoryFilter": "software",
+      "type": "image",
+      "mediaUrl": "assets/images/poultrymedix-logo.png",
+      "thumbnail": "assets/images/poultrymedix-logo.png",
+      "caption": "Architectural workflow of PoultryMedix: Omni-modal triage combining vision, acoustics, OCR prescription scanning, RAG AMR withdrawal warnings, and GPS heatmaps.",
+      "date": "2026",
+      "badge": "AI & Telemedicine"
+    },
+    {
+      "id": "gal-5",
+      "title": "WHO Research Ethics Certification",
+      "category": "Certificates & Awards",
+      "categoryFilter": "certificates",
+      "type": "image",
+      "mediaUrl": "Banner.png",
+      "thumbnail": "Banner.png",
+      "caption": "Course on Research Ethics, issued by the WHO Ethics Review Committee Secretariat of the Global Health Ethics and Governance Unit (July 05, 2026).",
+      "date": "July 05, 2026",
+      "badge": "WHO Certificate"
+    },
+    {
+      "id": "gal-6",
+      "title": "WHO Antimicrobial Stewardship Programmes Certification",
+      "category": "Certificates & Awards",
+      "categoryFilter": "certificates",
+      "type": "image",
+      "mediaUrl": "Banner.png",
+      "thumbnail": "Banner.png",
+      "caption": "Antimicrobial stewardship programmes in health-care facilities in low- and middle-income countries: a WHO practical toolkit (July 12, 2026).",
+      "date": "July 12, 2026",
+      "badge": "WHO Certificate"
+    },
+    {
+      "id": "gal-7",
+      "title": "Young SDG Fellow & Zero Olympiad Recognition",
+      "category": "Certificates & Awards",
+      "categoryFilter": "certificates",
+      "type": "image",
+      "mediaUrl": "Banner.png",
+      "thumbnail": "Banner.png",
+      "caption": "Recognized by Commonwealth Students' Association (CSA) as Young SDG Fellow for demonstrating commitment to the Sustainable Development Goals (May 17, 2026).",
+      "date": "May 17, 2026",
+      "badge": "Award & Fellowship"
+    },
+    {
+      "id": "gal-8",
+      "title": "2nd Bangladesh Veterinary Olympiad 2023",
+      "category": "Certificates & Awards",
+      "categoryFilter": "certificates",
+      "type": "image",
+      "mediaUrl": "Banner.png",
+      "thumbnail": "Banner.png",
+      "caption": "Participated in the 2nd Bangladesh Veterinary Olympiad 2023, organized by National Veterinary Dean Council (NVDC) and supported by FAO & USAID (October 7, 2023).",
+      "date": "October 7, 2023",
+      "badge": "National Olympiad"
+    },
+    {
+      "id": "gal-9",
+      "title": "Official Curriculum Vitae (PDF)",
+      "category": "Documents & Reports",
+      "categoryFilter": "documents",
+      "type": "document",
+      "mediaUrl": "https://drive.google.com/file/d/1qGu8YABYXTTt2kRaoz-ByAeOz3GHP7-7/view?usp=drive_link",
+      "thumbnail": "Banner.png",
+      "caption": "Complete academic curriculum vitae of Md. Nafizur Rahman detailing all DVM coursework, publications, conferences, and technical proficiencies.",
+      "date": "2026",
+      "badge": "Academic CV"
+    }
+  ],
+  "awardsAndLeadership": {
+    "awards": [
+      {
+        "title": "Young SDG Fellow",
+        "organization": "Commonwealth Students' Association (CSA)",
+        "date": "May 17, 2026",
+        "description": "Recognized for commitment to the Sustainable Development Goals (SDGs) and youth leadership."
+      },
+      {
+        "title": "Outstanding Volunteer Contribution Award",
+        "organization": "Rajshahi University Student Welfare Association (RUSWA)",
+        "date": "October 27, 2024",
+        "description": "Awarded for dedicated volunteer contributions from September to October 2024."
+      },
+      {
+        "title": "2nd Bangladesh Veterinary Olympiad 2023",
+        "organization": "National Veterinary Dean Council (NVDC), FAO & USAID",
+        "date": "October 7, 2023",
+        "description": "Competitive participant in the prestigious nationwide Veterinary Olympiad."
+      },
+      {
+        "title": "Zero Olympiad (Rounds 1 & 2)",
+        "organization": "Organized by Faatiha Aayat",
+        "date": "May 17–18, 2026",
+        "description": "Successfully advanced through competitive rounds in climate and global sustainability."
+      },
+      {
+        "title": "Impactra National Quiz Competition 2026",
+        "organization": "Impactra (Season 01)",
+        "date": "June 18, 2026",
+        "description": "National competitive quiz participant."
+      }
+    ],
+    "leadership": [
+      {
+        "role": "Executive Member",
+        "organization": "Rajshahi University Animal Welfare Association (RUAWA)",
+        "period": "2024 – Present",
+        "details": "Spearheading stray and campus animal rescue, vaccination drives, and humane education."
+      },
+      {
+        "role": "General Member",
+        "organization": "Save Wildlife and Nature (SWAN), Bangladesh",
+        "period": "2025 – Present",
+        "details": "Active participant in reptile, raptor, and small mammal rescues and human-wildlife conflict mitigation."
+      },
+      {
+        "role": "General Member & Department Representative",
+        "organization": "Rajshahi University Higher Education and Research Forum (RUHERF)",
+        "period": "2024 – Present",
+        "details": "Representing the Faculty of Veterinary and Animal Sciences in cross-disciplinary academic initiatives."
+      },
+      {
+        "role": "General Member",
+        "organization": "Rajshahi University Research Society (RURS)",
+        "period": "2024 – Present",
+        "details": "Active member contributing to campus research promotion, webinars, and international conferences."
+      },
+      {
+        "role": "General Member",
+        "organization": "Rajshahi University Student Welfare Association (RUSWA)",
+        "period": "2023 – Present",
+        "details": "Community volunteer supporting student development and social welfare programs."
+      }
+    ]
+  }
+}
