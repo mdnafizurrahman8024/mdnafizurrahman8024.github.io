@@ -4,35 +4,32 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Md. Nafizur Rahman | Academic &amp; Research Portfolio</title>
-  <meta name="description" content="Official academic and research portfolio of Md. Nafizur Rahman, Doctor of Veterinary Medicine (DVM) student at the University of Rajshahi. Exploring One Health, Antimicrobial Resistance (AMR), Nanomedicine, and Computational Biology.">
+  <meta name="description" content="Official academic portfolio of Md. Nafizur Rahman, Doctor of Veterinary Medicine (DVM) student at University of Rajshahi. Exploring One Health, Antimicrobial Resistance (AMR), Nanomedicine, and Computational Biology.">
   <meta name="author" content="Md. Nafizur Rahman">
   <meta name="theme-color" content="#0d9488">
 
-  <!-- Open Graph / Meta -->
+  <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="Md. Nafizur Rahman | Academic &amp; Research Portfolio">
   <meta property="og:description" content="DVM Student • One Health &amp; AMR Researcher • Computational Biologist • Full-Stack Developer">
   <meta property="og:image" content="Banner.png">
   <meta property="og:url" content="https://mdnafizurrahman8024.github.io/">
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="assets/images/profile-nafiz.png">
+  <link rel="icon" type="image/png" href="ZUN.png">
 
-  <!-- Fonts & Icons -->
+  <!-- Fonts & FontAwesome 6 -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-  <!-- Core Stylesheet -->
   <link rel="stylesheet" href="css/style.css">
 
-  <!-- Pre-render Theme Caching (Zero Flash) -->
   <script>
     (function() {
       try {
-        var savedTheme = localStorage.getItem('theme') || 'dark';
-        document.documentElement.setAttribute('data-theme', savedTheme);
+        var t = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', t);
       } catch (e) {}
     })();
   </script>
@@ -40,44 +37,43 @@
 <body>
 
   <!-- ======================================================================
-       TOP NAVIGATION BAR
+       TOP STICKY NAVIGATION BAR
        ====================================================================== -->
   <header class="navbar" id="navbar">
-    <div class="container nav-container">
-      <a href="#hero" class="nav-brand">
-        <img src="assets/images/profile-nafiz.png" alt="Md. Nafizur Rahman" class="brand-avatar">
-        <div class="brand-text">
-          <span class="brand-name">Md. Nafizur Rahman</span>
-          <span class="brand-tag">DVM • One Health</span>
+    <div class="main-container nav-inner">
+      <a href="#home" class="nav-brand">
+        <img src="ZUN.png" alt="Md. Nafizur Rahman" class="nav-brand-avatar" id="nav-avatar">
+        <div class="nav-brand-info">
+          <span class="nav-brand-name" id="nav-name">Md. Nafizur Rahman</span>
+          <span class="nav-brand-sub">Doctor of Veterinary Medicine (DVM)</span>
         </div>
       </a>
 
       <nav>
-        <ul class="nav-links" id="nav-links">
-          <li><a href="#about" class="nav-link">About</a></li>
-          <li><a href="#research" class="nav-link">Research</a></li>
-          <li><a href="#publications" class="nav-link">Publications</a></li>
-          <li><a href="#platforms" class="nav-link">Software &amp; AI</a></li>
-          <li><a href="#gallery" class="nav-link">Field &amp; Lab</a></li>
-          <li><a href="#leadership" class="nav-link">Affiliations</a></li>
-          <li><a href="#contact" class="nav-link">Connect</a></li>
+        <ul class="nav-menu" id="nav-menu">
+          <li><a href="#about-sec" class="nav-pill">About</a></li>
+          <li><a href="#updates-sec" class="nav-pill">Updates</a></li>
+          <li><a href="#experience-sec" class="nav-pill">Experience</a></li>
+          <li><a href="#skills-sec" class="nav-pill">Skills</a></li>
+          <li><a href="#publications-sec" class="nav-pill">Publications</a></li>
+          <li><a href="#training-sec" class="nav-pill">Training</a></li>
+          <li><a href="#gallery-sec" class="nav-pill">Gallery</a></li>
+          <li class="nav-dropdown">
+            <a href="javascript:void(0)" class="nav-pill">More <i class="fa-solid fa-chevron-down" style="font-size: 0.7rem; margin-left: 2px;"></i></a>
+            <ul class="nav-dropdown-menu">
+              <li><a href="#leadership-sec" class="nav-dropdown-item"><i class="fa-solid fa-users"></i> Affiliations</a></li>
+              <li><a href="#references-sec" class="nav-dropdown-item"><i class="fa-solid fa-user-tie"></i> References</a></li>
+              <li><a href="#contact-sec" class="nav-dropdown-item"><i class="fa-solid fa-envelope"></i> Contact Me</a></li>
+            </ul>
+          </li>
         </ul>
       </nav>
 
       <div class="nav-actions">
-        <!-- Theme Toggle -->
-        <button class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle Theme">
+        <button class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle Dark/Light Mode">
           <i class="fa-solid fa-sun"></i>
         </button>
-
-        <!-- Direct Google Drive CV Link -->
-        <a href="https://drive.google.com/file/d/1qGu8YABYXTTt2kRaoz-ByAeOz3GHP7-7/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="btn-quick-cv" id="nav-quick-cv">
-          <i class="fa-solid fa-file-pdf"></i>
-          <span>View CV</span>
-        </a>
-
-        <!-- Mobile Menu Button -->
-        <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle Menu">
+        <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle Mobile Navigation">
           <i class="fa-solid fa-bars"></i>
         </button>
       </div>
@@ -85,322 +81,283 @@
   </header>
 
   <!-- ======================================================================
-       HERO BANNER & TOP SECTION (1ST ELEMENT)
+       FULL-WIDTH TOP HERO BANNER (BANNER.PNG)
        ====================================================================== -->
-  <section class="hero-wrapper" id="hero">
-    <!-- Prominent University of Rajshahi Collage Banner -->
-    <div class="banner-container">
-      <img src="Banner.png" alt="University of Rajshahi - Dept of Veterinary and Animal Sciences Banner" class="banner-image" id="hero-banner-img">
-      <div class="banner-badge-bar">
-        <span class="banner-badge-dot"></span>
-        <span>University of Rajshahi • Faculty of Veterinary and Animal Sciences</span>
-      </div>
+  <div class="top-hero-banner-container" id="home">
+    <img src="Banner.png" alt="University of Rajshahi - Dept of Veterinary and Animal Sciences" class="top-hero-banner-img" id="top-hero-banner-img">
+    <div class="banner-overlay-tag">
+      <span class="banner-pulse-dot"></span>
+      <span>University of Rajshahi • Dept. of Veterinary &amp; Animal Sciences</span>
     </div>
-
-    <!-- Hero Card with Avatar & Designation -->
-    <div class="container hero-content-section">
-      <div class="hero-main-card">
-        <div class="hero-avatar-box">
-          <img src="assets/images/profile-nafiz.png" alt="Md. Nafizur Rahman" class="hero-avatar-img" id="hero-avatar-img">
-          <div class="hero-avatar-status">
-            <i class="fa-solid fa-circle"></i> Active Researcher
-          </div>
-        </div>
-
-        <div class="hero-details-box">
-          <h1 class="hero-greeting" id="hero-greeting">Hi there, I'm Md. Nafizur Rahman! 👋</h1>
-          <h2 class="hero-designation" id="hero-designation">
-            Undergraduate Student, Level-4 Semester-2, Doctor of Veterinary Medicine, Faculty of Veterinary and Animal Sciences, University of Rajshahi, Rajshahi-6205, Bangladesh
-          </h2>
-          <div class="hero-affiliation" id="hero-affiliation">
-            <i class="fa-solid fa-building-columns"></i>
-            <span>Faculty of Veterinary and Animal Sciences, University of Rajshahi, Rajshahi-6205, Bangladesh</span>
-          </div>
-          <div class="hero-motto-pill" id="hero-motto">
-            <i class="fa-solid fa-quote-left"></i> Knowledge. Investigation. Practice. Impact.
-          </div>
-
-          <!-- Hero CTAs -->
-          <div class="hero-cta-group">
-            <a href="https://drive.google.com/file/d/1qGu8YABYXTTt2kRaoz-ByAeOz3GHP7-7/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="btn-primary" id="hero-cv-btn">
-              <i class="fa-solid fa-file-pdf"></i> View / Download CV
-            </a>
-            <a href="#research" class="btn-secondary">
-              <i class="fa-solid fa-microscope"></i> Explore Research
-            </a>
-            <a href="#contact" class="btn-secondary">
-              <i class="fa-solid fa-paper-plane"></i> Connect With Me
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Quick Academic Metrics Bar -->
-      <div class="metrics-strip">
-        <div class="metric-card">
-          <div class="metric-value">8+</div>
-          <div class="metric-label">Research Projects</div>
-        </div>
-        <div class="metric-card">
-          <div class="metric-value">1</div>
-          <div class="metric-label">OSF Registered Protocol (DOI)</div>
-        </div>
-        <div class="metric-card">
-          <div class="metric-value">5+</div>
-          <div class="metric-label">Software &amp; AI Platforms</div>
-        </div>
-        <div class="metric-card">
-          <div class="metric-value">10+</div>
-          <div class="metric-label">WHO &amp; International Certifications</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ======================================================================
-       ANNOUNCEMENTS / RECENT NEWS BANNER
-       ====================================================================== -->
-  <div class="container announcements-box" id="announcements-container">
-    <!-- Populated dynamically via portfolio-data.json -->
   </div>
 
   <!-- ======================================================================
-       SECTION 2: ABOUT, BIO & ACADEMIC JOURNEY
+       TWO-COLUMN SPLIT ACADEMIC LAYOUT
        ====================================================================== -->
-  <section class="section section-alt" id="about">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-badge"><i class="fa-solid fa-user"></i> About &amp; Biography</span>
-        <h2 class="section-title">Bridging Life Sciences &amp; Computational Precision</h2>
-        <p class="section-subtitle">A multidisciplinary journey dedicated to evidence-based veterinary medicine, public health stewardship, and reproducible data science.</p>
+  <main class="main-container split-layout-wrapper">
+    
+    <!-- --------------------------------------------------------------------
+         LEFT STICKY PROFILE CARD
+         -------------------------------------------------------------------- -->
+    <aside class="sticky-sidebar-card">
+      <div class="sidebar-avatar-wrapper">
+        <img src="ZUN.png" alt="Md. Nafizur Rahman" class="sidebar-avatar-img" id="sidebar-avatar">
+        <span class="sidebar-status-dot" title="Active Scholar &amp; Researcher"></span>
       </div>
 
-      <div class="about-grid">
-        <!-- Verbatim Bio Card -->
-        <div class="glass-card bio-card">
-          <div class="bio-lead" id="bio-lead">
-            Hello! I am Md. Nafizur Rahman, a dedicated Doctor of Veterinary Medicine (DVM) student at the Department of Veterinary and Animal Sciences, University of Rajshahi, Bangladesh.
-          </div>
-          <div class="bio-text" id="bio-paragraphs">
-            <!-- Rendered from JSON -->
-          </div>
+      <div class="sidebar-status-pills" id="sidebar-status-pills"></div>
 
-          <!-- Research Focus Pillars -->
-          <div class="focus-pillars-grid" id="focus-pillars-container">
-            <!-- Rendered from JSON -->
+      <h1 class="sidebar-name" id="sidebar-name">Md. Nafizur Rahman</h1>
+      <div class="sidebar-role" id="sidebar-role"></div>
+
+      <div class="sidebar-email-box" id="sidebar-email-box" title="Click to copy email address">
+        <i class="fa-solid fa-envelope"></i> mdnafizurrahman8024@gmail.com
+      </div>
+
+      <!-- 2-Column Grid of Clickable Profile Buttons -->
+      <div class="sidebar-buttons-grid" id="sidebar-buttons-grid"></div>
+
+      <div class="sidebar-motto-quote">
+        &ldquo;Knowledge. Investigation. Practice. Impact.&rdquo;
+      </div>
+    </aside>
+
+    <!-- --------------------------------------------------------------------
+         RIGHT SCROLLABLE CONTENT FEED
+         -------------------------------------------------------------------- -->
+    <div class="scrollable-feed">
+
+      <!-- CARD A: AUTO-SCROLLING "RECENT UPDATES" VERTICAL TICKER -->
+      <section class="feed-card border-teal" id="updates-sec">
+        <div class="card-header-row">
+          <div class="card-title-group">
+            <div class="card-icon-badge"><i class="fa-solid fa-bolt"></i></div>
+            <div>
+              <h2 class="card-heading">Recent Updates &amp; Milestones</h2>
+              <div class="card-subheading">Continuous feed of active publications, research protocols &amp; deployments (pauses on hover)</div>
+            </div>
           </div>
         </div>
 
-        <!-- Academic & Clinical Timeline -->
-        <div class="glass-card timeline-card">
-          <h3 class="timeline-title"><i class="fa-solid fa-graduation-cap"></i> Academic Timeline</h3>
-          <div class="timeline" id="timeline-container">
-            <!-- Rendered from JSON -->
-          </div>
+        <div class="updates-ticker-viewport" id="updates-ticker-viewport">
+          <ul class="updates-ticker-list" id="updates-ticker-list"></ul>
         </div>
-      </div>
+      </section>
 
-      <!-- Comprehensive Technical & Laboratory Skills -->
-      <div class="skills-container">
-        <div class="skills-grid">
-          <div class="glass-card skill-category-card">
-            <div class="skill-cat-header"><i class="fa-solid fa-magnifying-glass-chart"></i> General Research</div>
-            <ul class="skill-pill-list" id="skills-research-list"></ul>
-          </div>
-          <div class="glass-card skill-category-card">
-            <div class="skill-cat-header"><i class="fa-solid fa-flask-vial"></i> Laboratory &amp; Clinical</div>
-            <ul class="skill-pill-list" id="skills-lab-list"></ul>
-          </div>
-          <div class="glass-card skill-category-card">
-            <div class="skill-cat-header"><i class="fa-solid fa-dna"></i> Bioinformatics</div>
-            <ul class="skill-pill-list" id="skills-bio-list"></ul>
-          </div>
-          <div class="glass-card skill-category-card">
-            <div class="skill-cat-header"><i class="fa-solid fa-laptop-code"></i> Software &amp; Analytics</div>
-            <ul class="skill-pill-list" id="skills-software-list"></ul>
+      <!-- CARD B: ABOUT & VERBATIM GOOGLE SITES BIO -->
+      <section class="feed-card border-blue" id="about-sec">
+        <div class="card-header-row">
+          <div class="card-title-group">
+            <div class="card-icon-badge" style="background: var(--accent-blue-light); color: var(--accent-blue);"><i class="fa-solid fa-user-graduate"></i></div>
+            <div>
+              <h2 class="card-heading">About Me &amp; Research Vision</h2>
+              <div class="card-subheading">Bridging veterinary medicine, infectious disease surveillance &amp; computational science</div>
+            </div>
           </div>
         </div>
-      </div>
+
+        <div class="bio-lead-text" id="bio-lead-text"></div>
+        <div class="bio-paragraphs-wrapper" id="bio-paragraphs-wrapper"></div>
+      </section>
+
+      <!-- CARD C: RESEARCH EXPERIENCE & SOFTWARE PROJECTS + KPI METRICS BAR -->
+      <section class="feed-card border-purple" id="experience-sec">
+        <div class="card-header-row">
+          <div class="card-title-group">
+            <div class="card-icon-badge" style="background: var(--accent-purple-light); color: var(--accent-purple);"><i class="fa-solid fa-flask-vial"></i></div>
+            <div>
+              <h2 class="card-heading">Research Experience &amp; Digital Platforms</h2>
+              <div class="card-subheading">Field surveillance, One Health investigations, and software engineering</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-list" id="experience-timeline-container"></div>
+        
+        <div style="text-align: center;">
+          <button class="timeline-expand-btn" id="timeline-expand-btn">
+            <i class="fa-solid fa-chevron-down"></i> See All Experience &amp; Projects
+          </button>
+        </div>
+
+        <!-- 4-Column KPI Metrics Bar -->
+        <div class="kpi-metrics-bar" id="kpi-metrics-container"></div>
+      </section>
+
+      <!-- CARD D: TECHNICAL CAPABILITIES (2-COLUMN SPLIT CARDS) -->
+      <section class="feed-card" id="skills-sec" style="padding: 1.5rem; background: transparent; border: none; box-shadow: none;">
+        <div class="capabilities-split-grid">
+          <!-- Left Card: Clinical & Wet-Lab (Blue Top Accent) -->
+          <div class="capability-card accent-blue">
+            <div class="cap-header">
+              <i class="fa-solid fa-microscope" style="color: var(--accent-blue);"></i>
+              <span>Veterinary Clinical, Wet-Lab &amp; Field</span>
+            </div>
+            <div id="cap-clinical-skills"></div>
+          </div>
+
+          <!-- Right Card: Computational & Bioinformatics (Teal Top Accent) -->
+          <div class="capability-card accent-teal">
+            <div class="cap-header">
+              <i class="fa-solid fa-laptop-code" style="color: var(--primary);"></i>
+              <span>Computational &amp; Bioinformatics</span>
+            </div>
+            <div id="cap-computational-skills"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CARD E: PUBLICATIONS & MANUSCRIPTS (LIVE SEARCH + FILTER TABS) -->
+      <section class="feed-card border-teal" id="publications-sec">
+        <div class="card-header-row">
+          <div class="card-title-group">
+            <div class="card-icon-badge"><i class="fa-solid fa-newspaper"></i></div>
+            <div>
+              <h2 class="card-heading">Publications &amp; Manuscripts</h2>
+              <div class="card-subheading">Registered protocols, journal articles, and conference proceedings</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Live Search Toolbar + Filter Pills -->
+        <div class="pub-toolbar">
+          <div class="pub-search-wrapper">
+            <i class="fa-solid fa-magnifying-glass pub-search-icon"></i>
+            <input type="text" id="pub-search-input" class="pub-search-input" placeholder="Search title, topic, author, or DOI...">
+          </div>
+          <div class="pub-filter-pills">
+            <button class="pub-filter-btn active" data-filter="all">All</button>
+            <button class="pub-filter-btn" data-filter="osf">OSF Registered</button>
+            <button class="pub-filter-btn" data-filter="accepted">Accepted / Published</button>
+            <button class="pub-filter-btn" data-filter="ongoing">Ongoing</button>
+          </div>
+        </div>
+
+        <div class="pub-entries-list" id="publications-entries-container"></div>
+      </section>
+
+      <!-- CARD F: TRAINING & CERTIFICATION (3-COLUMN GRID + MODALS) -->
+      <section class="feed-card border-amber" id="training-sec">
+        <div class="card-header-row">
+          <div class="card-title-group">
+            <div class="card-icon-badge" style="background: var(--accent-amber-light); color: var(--accent-amber);"><i class="fa-solid fa-certificate"></i></div>
+            <div>
+              <h2 class="card-heading">Training &amp; Certifications</h2>
+              <div class="card-subheading">WHO certifications, public health workshops, and computational masterclasses</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="trainings-grid" id="trainings-grid-container"></div>
+      </section>
+
+      <!-- CARD G: AUTO-MOVING FIELDWORK & GALLERY CAROUSEL (MOVING IMAGES) -->
+      <section class="feed-card border-teal" id="gallery-sec">
+        <div class="card-header-row">
+          <div class="card-title-group">
+            <div class="card-icon-badge"><i class="fa-solid fa-images"></i></div>
+            <div>
+              <h2 class="card-heading">Fieldwork &amp; Media Gallery</h2>
+              <div class="card-subheading">Moving visual showcase of ectoparasite sampling, snake rescue &amp; diagnostics (pauses on hover)</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="gallery-section-wrapper">
+          <div class="gallery-filter-toolbar">
+            <button class="gallery-filter-pill active" data-filter="all">All Photos</button>
+            <button class="gallery-filter-pill" data-filter="fieldwork">Fieldwork &amp; Snake Rescue</button>
+            <button class="gallery-filter-pill" data-filter="lab">Lab &amp; Clinical</button>
+            <button class="gallery-filter-pill" data-filter="software">Data &amp; Architecture</button>
+            <button class="gallery-filter-pill" data-filter="conferences">Conferences &amp; Awards</button>
+          </div>
+
+          <div class="gallery-marquee-viewport">
+            <div class="gallery-marquee-track" id="gallery-marquee-track"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CARD H: EXTRA-CURRICULAR ACTIVITIES & LEADERSHIP -->
+      <section class="feed-card border-blue" id="leadership-sec">
+        <div class="card-header-row">
+          <div class="card-title-group">
+            <div class="card-icon-badge" style="background: var(--accent-blue-light); color: var(--accent-blue);"><i class="fa-solid fa-people-roof"></i></div>
+            <div>
+              <h2 class="card-heading">Leadership &amp; Affiliations</h2>
+              <div class="card-subheading">Active engagement in animal welfare, research societies, and ed-tech founding</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="leadership-list" id="leadership-list-container"></div>
+      </section>
+
+      <!-- CARD I: ACADEMIC REFERENCES & CONTACT ME -->
+      <section class="feed-card border-teal" id="references-sec">
+        <div class="card-header-row">
+          <div class="card-title-group">
+            <div class="card-icon-badge"><i class="fa-solid fa-address-book"></i></div>
+            <div>
+              <h2 class="card-heading">Academic References</h2>
+              <div class="card-subheading">Supervisors and collaborative mentors</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="references-grid" id="references-grid-container"></div>
+
+        <!-- Contact Badges Sub-section -->
+        <div style="border-top: 1px solid var(--border-color); padding-top: 1.75rem; margin-top: 1.5rem;" id="contact-sec">
+          <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 0.85rem; color: var(--text-primary);">
+            <i class="fa-solid fa-paper-plane" style="color: var(--primary); margin-right: 0.5rem;"></i> Connect With Me
+          </h3>
+          <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1.25rem;">
+            Feel free to reach out for research collaborations, dataset sharing, or academic inquiries.
+          </p>
+          <div class="contact-links-grid" id="contact-links-grid-container"></div>
+        </div>
+      </section>
+
     </div>
-  </section>
+  </main>
 
   <!-- ======================================================================
-       SECTION 3: RESEARCH & PUBLICATIONS
+       FLOATING QUICK-ACCESS PDF/CV BUTTON (BOTTOM RIGHT)
        ====================================================================== -->
-  <section class="section" id="research">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-badge"><i class="fa-solid fa-microscope"></i> One Health Investigations</span>
-        <h2 class="section-title">Research &amp; Systematic Inquiries</h2>
-        <p class="section-subtitle">Rigorous field surveillance, molecular characterization, nanovaccine meta-analyses, and clinical antimicrobial stewardship.</p>
-      </div>
-
-      <!-- Research Projects Grid -->
-      <div class="research-grid" id="research-projects-container">
-        <!-- Rendered dynamically from portfolio-data.json -->
-      </div>
-
-      <!-- Publications & Conferences Sub-section -->
-      <div class="section-header" style="margin-top: 5rem;" id="publications">
-        <span class="section-badge"><i class="fa-solid fa-book-bookmark"></i> Scholarly Output</span>
-        <h2 class="section-title">Publications, Conferences &amp; Certifications</h2>
-      </div>
-
-      <div class="pubs-grid">
-        <!-- Journal Articles & Preprints -->
-        <div class="glass-card pub-list-card">
-          <h3 class="pub-section-heading"><i class="fa-solid fa-newspaper"></i> Journal Articles &amp; Manuscripts</h3>
-          <div id="journal-articles-list"></div>
-        </div>
-
-        <!-- Conference Papers & Presentations -->
-        <div class="glass-card pub-list-card">
-          <h3 class="pub-section-heading"><i class="fa-solid fa-chalkboard-user"></i> Conference Proceedings</h3>
-          <div id="conference-papers-list"></div>
-        </div>
-      </div>
-
-      <!-- Professional Participations & Certifications -->
-      <div class="glass-card pub-list-card" style="margin-top: 2rem;">
-        <h3 class="pub-section-heading"><i class="fa-solid fa-certificate"></i> Specialized Courses &amp; Participations</h3>
-        <div id="participations-list"></div>
-      </div>
-    </div>
-  </section>
+  <a href="https://drive.google.com/file/d/1qGu8YABYXTTt2kRaoz-ByAeOz3GHP7-7/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="floating-cv-btn" id="floating-cv-btn" title="View / Download Official Academic CV (PDF)">
+    <i class="fa-solid fa-file-pdf"></i>
+    <span>CV (PDF)</span>
+  </a>
 
   <!-- ======================================================================
-       SECTION 4: SOFTWARE & DIGITAL PLATFORMS SHOWCASE
-       ====================================================================== -->
-  <section class="section section-alt" id="platforms">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-badge"><i class="fa-solid fa-code"></i> Engineering &amp; AI</span>
-        <h2 class="section-title">Software &amp; Digital Platforms</h2>
-        <p class="section-subtitle">Bridging veterinary medicine and software engineering through multimodal AI, clinical apps, and reproducible research tools.</p>
-      </div>
-
-      <!-- Filter Tabs -->
-      <div class="filter-tabs">
-        <button class="filter-btn software-filter-btn active" data-filter="all">All Platforms</button>
-        <button class="filter-btn software-filter-btn" data-filter="healthtech">HealthTech &amp; Vet Apps</button>
-        <button class="filter-btn software-filter-btn" data-filter="bioinformatics">Bioinformatics &amp; Data</button>
-        <button class="filter-btn software-filter-btn" data-filter="web">Web Platforms</button>
-      </div>
-
-      <!-- Software Grid -->
-      <div class="software-grid" id="software-grid-container">
-        <!-- Rendered dynamically from portfolio-data.json -->
-      </div>
-    </div>
-  </section>
-
-  <!-- ======================================================================
-       SECTION 5: FIELDWORK, WILDLIFE RESCUE & CREDENTIALS GALLERY
-       ====================================================================== -->
-  <section class="section" id="gallery">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-badge"><i class="fa-solid fa-camera-retro"></i> Practical Experience</span>
-        <h2 class="section-title">Fieldwork, Wildlife Rescue &amp; Credentials</h2>
-        <p class="section-subtitle">Visual documentation of ectoparasite sampling, wildlife rescue operations, laboratory diagnostics, and verified certifications.</p>
-      </div>
-
-      <!-- Filter Tabs -->
-      <div class="filter-tabs">
-        <button class="filter-btn gallery-filter-btn active" data-filter="all">All Media</button>
-        <button class="filter-btn gallery-filter-btn" data-filter="fieldwork">Fieldwork &amp; Wildlife Rescue</button>
-        <button class="filter-btn gallery-filter-btn" data-filter="lab">Lab &amp; Clinical</button>
-        <button class="filter-btn gallery-filter-btn" data-filter="software">Data &amp; Architecture</button>
-        <button class="filter-btn gallery-filter-btn" data-filter="certificates">Certificates &amp; Awards</button>
-        <button class="filter-btn gallery-filter-btn" data-filter="documents">Documents &amp; Reports</button>
-      </div>
-
-      <!-- Gallery Grid -->
-      <div class="gallery-grid" id="gallery-grid-container">
-        <!-- Rendered dynamically from portfolio-data.json -->
-      </div>
-    </div>
-  </section>
-
-  <!-- ======================================================================
-       AWARDS & LEADERSHIP AFFILIATIONS
-       ====================================================================== -->
-  <section class="section section-alt" id="leadership">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-badge"><i class="fa-solid fa-trophy"></i> Recognition &amp; Service</span>
-        <h2 class="section-title">Honors, Awards &amp; Leadership</h2>
-        <p class="section-subtitle">Active engagement across student leadership, animal welfare activism, and research societies.</p>
-      </div>
-
-      <div class="pubs-grid">
-        <div class="glass-card pub-list-card">
-          <h3 class="pub-section-heading"><i class="fa-solid fa-award"></i> Honors &amp; Awards</h3>
-          <div id="awards-list"></div>
-        </div>
-
-        <div class="glass-card pub-list-card">
-          <h3 class="pub-section-heading"><i class="fa-solid fa-people-group"></i> Leadership &amp; Affiliations</h3>
-          <div id="leadership-list"></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ======================================================================
-       SECTION 6: BOTTOM "📬 CONNECT WITH ME" SECTION (FINAL SECTION)
-       ====================================================================== -->
-  <section class="section" id="contact">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-badge"><i class="fa-solid fa-paper-plane"></i> Get in Touch</span>
-        <h2 class="section-title">📬 Connect With Me</h2>
-        <p class="section-subtitle">I welcome academic collaborations, research discussions, and professional inquiries in Veterinary Medicine, One Health, and Computational Science.</p>
-      </div>
-
-      <div class="contact-grid" id="contact-grid-container">
-        <!-- Rendered dynamically with all verified hyperlinks -->
-      </div>
-    </div>
-  </section>
-
-  <!-- ======================================================================
-       FOOTER & ADMIN PORTAL LOCK
+       FOOTER
        ====================================================================== -->
   <footer class="site-footer">
-    <div class="container footer-content">
-      <div class="footer-brand">Md. Nafizur Rahman</div>
-      <p class="footer-text">
-        Faculty of Veterinary and Animal Sciences, University of Rajshahi, Rajshahi-6205, Bangladesh. Dedicated to advancing One Health through scientific inquiry and computational innovation.
-      </p>
-
-      <div class="footer-bottom-bar">
-        <span>&copy; 2026 Md. Nafizur Rahman. All rights reserved. Hosted on GitHub Pages.</span>
-        
-        <!-- Subtle Admin Portal Lock Button -->
-        <button class="footer-admin-btn" id="admin-lock-btn" title="Open Admin Content Manager">
-          <i class="fa-solid fa-lock"></i>
-          <span>Admin Portal</span>
+    <div class="main-container footer-content">
+      <div>
+        <strong>Md. Nafizur Rahman</strong> &bull; Faculty of Veterinary and Animal Sciences, University of Rajshahi, Rajshahi-6205, Bangladesh.
+      </div>
+      <div>
+        <button class="footer-admin-btn" id="admin-lock-btn">
+          <i class="fa-solid fa-lock"></i> <span>Admin Portal</span>
         </button>
       </div>
     </div>
   </footer>
 
   <!-- ======================================================================
-       FULL-SCREEN LIGHTBOX / PREVIEW MODAL
+       FULL-SCREEN LIGHTBOX & DETAIL MODAL
        ====================================================================== -->
   <div class="lightbox-modal" id="lightbox-modal" role="dialog" aria-modal="true">
     <div class="lightbox-container">
       <div class="lightbox-header">
-        <h3 class="lightbox-title" id="lightbox-title">Media Preview</h3>
-        <button class="lightbox-close-btn" id="lightbox-close-btn" aria-label="Close Preview">&times;</button>
+        <h3 class="lightbox-title" id="lightbox-title">Media Detail</h3>
+        <button class="lightbox-close-btn" id="lightbox-close-btn">&times;</button>
       </div>
       <div class="lightbox-body">
         <div class="lightbox-media-container" id="lightbox-media-container"></div>
-        <div class="lightbox-info">
-          <p class="lightbox-caption-text" id="lightbox-caption"></p>
-          <div class="lightbox-actions" id="lightbox-actions"></div>
-        </div>
+        <p class="lightbox-caption-text" id="lightbox-caption"></p>
       </div>
     </div>
   </div>
@@ -409,164 +366,70 @@
        ADMIN CONTENT MANAGER DRAWER (100% CLIENT-SIDE RUNTIME AUTH)
        ====================================================================== -->
   <div class="admin-drawer-overlay" id="admin-drawer-overlay"></div>
-  <aside class="admin-drawer" id="admin-drawer" aria-label="Admin Content Manager">
+  <aside class="admin-drawer" id="admin-drawer">
     <div class="admin-drawer-header">
-      <h3 class="admin-header-title"><i class="fa-solid fa-sliders"></i> Admin Content Manager</h3>
-      <button class="admin-close-btn" id="admin-close-btn" aria-label="Close Drawer">&times;</button>
+      <h3 style="font-size: 1.15rem; font-weight: 700; display: flex; align-items: center; gap: 0.5rem;">
+        <i class="fa-solid fa-sliders" style="color: var(--primary);"></i> Admin Content Manager
+      </h3>
+      <button class="lightbox-close-btn" id="admin-close-btn">&times;</button>
     </div>
 
     <div class="admin-drawer-body">
-      <!-- Auth Gate Screen -->
-      <div class="admin-auth-box" id="admin-auth-gate">
-        <h4 class="admin-auth-title"><i class="fa-solid fa-shield-halved"></i> Client-Side Admin Authentication</h4>
-        <p class="admin-auth-info" id="admin-passcode-hint">
-          Enter your personal admin passcode and GitHub token to manage portfolio content directly from your browser.
+      <!-- Auth Screen -->
+      <div id="admin-auth-gate" style="display: flex; flex-direction: column; gap: 1rem;">
+        <h4 style="font-size: 1rem; font-weight: 700;">Client-Side Authentication</h4>
+        <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.5;">
+          Enter your admin passcode and GitHub token to manage updates, gallery photos, and certificates directly from your browser.
         </p>
 
-        <form id="admin-auth-form">
-          <div class="form-group">
-            <label class="form-label" for="admin-passcode-input">Admin Passcode</label>
-            <input type="password" id="admin-passcode-input" class="form-input" placeholder="Enter your 4-8 digit passcode" required>
-            <span class="form-help">Hashed via Web Crypto SHA-256 and kept strictly in your local browser.</span>
+        <form id="admin-auth-form" style="display: flex; flex-direction: column; gap: 0.85rem;">
+          <div>
+            <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 0.25rem;">Admin Passcode</label>
+            <input type="password" id="admin-passcode-input" style="width: 100%; padding: 0.65rem; border-radius: 6px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);" placeholder="Enter your personal passcode" required>
           </div>
-
-          <div class="form-group" style="margin-top: 1rem;">
-            <label class="form-label" for="admin-token-input">GitHub Fine-Grained Personal Access Token (PAT)</label>
-            <input type="password" id="admin-token-input" class="form-input" placeholder="Paste PAT (ghp_... or github_pat_...)">
-            <span class="form-help">Stored strictly in browser localStorage. Never saved in source code or sent to third-party servers.</span>
+          <div>
+            <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 0.25rem;">GitHub Fine-Grained PAT</label>
+            <input type="password" id="admin-token-input" style="width: 100%; padding: 0.65rem; border-radius: 6px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);" placeholder="Paste PAT (ghp_... or github_pat_...)">
+            <span style="font-size: 0.72rem; color: var(--text-muted);">Stored only in browser memory. Never saved in Git.</span>
           </div>
-
-          <button type="submit" class="btn-primary" style="margin-top: 1.5rem; width: 100%; justify-content: center;">
-            <i class="fa-solid fa-unlock"></i> Unlock Content Manager
+          <button type="submit" style="padding: 0.75rem; border-radius: 9999px; background: var(--primary); color: #fff; font-weight: 600; border: none; cursor: pointer; margin-top: 0.5rem;">
+            <i class="fa-solid fa-unlock"></i> Unlock Manager
           </button>
         </form>
       </div>
 
-      <!-- Main Manager (Displayed when unlocked) -->
+      <!-- Main Manager Screen -->
       <div id="admin-main-manager" style="display: none; flex-direction: column; gap: 1.25rem;">
         <div style="display: flex; justify-content: space-between; align-items: center;">
-          <span style="font-size: 0.85rem; color: var(--primary); font-weight: 600;">
+          <span style="font-size: 0.82rem; color: var(--primary); font-weight: 700;">
             <i class="fa-solid fa-circle-check"></i> Authenticated Session
           </span>
-          <button class="btn-outline" id="admin-logout-btn" style="padding: 0.25rem 0.75rem; font-size: 0.75rem;">
-            <i class="fa-solid fa-right-from-bracket"></i> Logout &amp; Clear Token
+          <button id="admin-logout-btn" style="padding: 0.25rem 0.65rem; font-size: 0.75rem; border-radius: 9999px; background: none; border: 1px solid var(--border-color); color: var(--text-muted); cursor: pointer;">
+            Logout
           </button>
         </div>
 
-        <!-- Tabbed Navigation -->
-        <div class="admin-tabs">
-          <button class="admin-tab-btn active" data-tab="admin-tab-profile">Profile</button>
-          <button class="admin-tab-btn" data-tab="admin-tab-research">Research</button>
-          <button class="admin-tab-btn" data-tab="admin-tab-software">Software</button>
-          <button class="admin-tab-btn" data-tab="admin-tab-gallery">Uploads &amp; Media</button>
-          <button class="admin-tab-btn" data-tab="admin-tab-json">Raw JSON</button>
+        <div>
+          <label style="font-size: 0.82rem; font-weight: 700; display: block; margin-bottom: 0.35rem;">Direct File Upload (Image / PDF)</label>
+          <input type="file" id="admin-file-upload" accept="image/*,.pdf" style="font-size: 0.82rem;">
         </div>
 
-        <!-- Tab 1: Profile -->
-        <div class="admin-tab-pane active" id="admin-tab-profile">
-          <div class="form-group">
-            <label class="form-label">Full Name</label>
-            <input type="text" id="admin-field-name" class="form-input">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Hero Greeting / Salutation</label>
-            <input type="text" id="admin-field-salutation" class="form-input">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Academic Designation</label>
-            <textarea id="admin-field-designation" class="form-textarea" rows="2"></textarea>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Institution</label>
-            <input type="text" id="admin-field-institution" class="form-input">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Academic Motto</label>
-            <input type="text" id="admin-field-motto" class="form-input">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Google Drive CV View URL</label>
-            <input type="url" id="admin-field-cv-url" class="form-input">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Bio Lead Text</label>
-            <textarea id="admin-field-bio-lead" class="form-textarea" rows="2"></textarea>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Bio Paragraphs (Separate with double line breaks)</label>
-            <textarea id="admin-field-bio-paragraphs" class="form-textarea" rows="6"></textarea>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Primary Email</label>
-            <input type="email" id="admin-field-email-primary" class="form-input">
-          </div>
-          <div class="form-group">
-            <label class="form-label">University Email</label>
-            <input type="email" id="admin-field-email-uni" class="form-input">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Cell / WhatsApp</label>
-            <input type="text" id="admin-field-phone" class="form-input">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Google Scholar Profile URL</label>
-            <input type="url" id="admin-field-scholar" class="form-input">
-          </div>
-          <div class="form-group">
-            <label class="form-label">ORCID Profile URL</label>
-            <input type="url" id="admin-field-orcid" class="form-input">
-          </div>
-          <div class="form-group">
-            <label class="form-label">GitHub Profile URL</label>
-            <input type="url" id="admin-field-github" class="form-input">
-          </div>
-        </div>
-
-        <!-- Tab 2: Research -->
-        <div class="admin-tab-pane" id="admin-tab-research">
-          <p class="form-help">Manage active research studies. Reorder or delete entries below.</p>
-          <div id="admin-research-list" style="display: flex; flex-direction: column; gap: 0.75rem;"></div>
-        </div>
-
-        <!-- Tab 3: Software -->
-        <div class="admin-tab-pane" id="admin-tab-software">
-          <p class="form-help">Manage software, healthtech applications, and computational repositories.</p>
-          <div id="admin-software-list" style="display: flex; flex-direction: column; gap: 0.75rem;"></div>
-        </div>
-
-        <!-- Tab 4: Uploads & Media -->
-        <div class="admin-tab-pane" id="admin-tab-gallery">
-          <div class="form-group">
-            <label class="form-label">Direct Device Upload (Image / PDF / Certificate)</label>
-            <input type="file" id="admin-file-upload" class="form-input" accept="image/*,.pdf,.docx">
-            <span class="form-help">Images are staged for `assets/images/`, and PDF documents for `assets/docs/`. They will be automatically committed to GitHub on Save &amp; Publish.</span>
-          </div>
-
-          <h5 style="margin-top: 1rem; font-size: 0.95rem; font-weight: 700;">Current Gallery &amp; Document Items</h5>
-          <div id="admin-gallery-list" style="display: flex; flex-direction: column; gap: 0.75rem;"></div>
-        </div>
-
-        <!-- Tab 5: Raw JSON Editor -->
-        <div class="admin-tab-pane" id="admin-tab-json">
-          <div class="form-group">
-            <label class="form-label">Full Portfolio JSON (`data/portfolio-data.json`)</label>
-            <textarea id="admin-raw-json" class="form-textarea" style="font-family: var(--font-mono); font-size: 0.78rem; min-height: 400px; white-space: pre;"></textarea>
-            <span class="form-help">Advanced: Edit complete JSON data structure directly. Syntax will be verified prior to commit.</span>
-          </div>
+        <div>
+          <label style="font-size: 0.82rem; font-weight: 700; display: block; margin-bottom: 0.35rem;">Portfolio Data (`data/portfolio-data.json`)</label>
+          <textarea id="admin-raw-json" style="width: 100%; min-height: 380px; font-family: var(--font-mono); font-size: 0.75rem; padding: 0.75rem; border-radius: 6px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);"></textarea>
         </div>
       </div>
     </div>
 
-    <!-- Admin Drawer Footer -->
     <div class="admin-drawer-footer">
-      <span class="admin-status-message" id="admin-publish-status">Ready</span>
-      <button class="btn-publish" id="admin-publish-btn">
+      <span id="admin-publish-status" style="font-size: 0.8rem; color: var(--text-muted);">Ready</span>
+      <button id="admin-publish-btn" style="padding: 0.6rem 1.25rem; border-radius: 9999px; background: var(--primary); color: #fff; font-weight: 700; border: none; cursor: pointer;">
         <i class="fa-solid fa-cloud-arrow-up"></i> Save &amp; Publish
       </button>
     </div>
   </aside>
 
-  <!-- Core Scripts -->
+  <!-- Core App Logic -->
   <script src="js/app.js"></script>
 </body>
 </html>

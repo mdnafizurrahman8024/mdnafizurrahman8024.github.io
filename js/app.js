@@ -1,643 +1,581 @@
 /**
  * MD. NAFIZUR RAHMAN — ACADEMIC & RESEARCH PORTFOLIO
- * Core JavaScript Engine: Dynamic Rendering, Themes, Lightbox & No-Code GitHub Sync CMS
+ * Next-Gen Two-Column Split Architecture Engine
+ * Features: Auto-scrolling ticker, Live search, Marquee carousel, Lightbox & No-Code GitHub CMS
  */
 
 'use strict';
 
-// Global Data Store
 window.portfolioData = null;
-let currentSoftwareFilter = 'all';
+let currentPubFilter = 'all';
+let currentPubSearch = '';
 let currentGalleryFilter = 'all';
-let currentResearchFilter = 'all';
-let stagedFileUploads = []; // Files to be committed to GitHub on publish
+let isTimelineExpanded = false;
+let stagedFileUploads = [];
 
 /* ==========================================================================
-   1. THEME CONTROLLER (DEFAULT: DARK MODE)
+   1. THEME MANAGER (DARK / LIGHT)
    ========================================================================== */
 function initTheme() {
-  const savedTheme = localStorage.getItem('theme') || 'dark';
-  document.documentElement.setAttribute('data-theme', savedTheme);
-  updateThemeIcon(savedTheme);
+  const saved = localStorage.getItem('theme') || 'dark';
+  document.documentElement.setAttribute('data-theme', saved);
+  updateThemeIcon(saved);
 
-  const toggleBtn = document.getElementById('theme-toggle');
-  if (toggleBtn) {
-    toggleBtn.addEventListener('click', () => {
-      const current = document.documentElement.getAttribute('data-theme') || 'dark';
-      const next = current === 'dark' ? 'light' : 'dark';
-      document.documentElement.setAttribute('data-theme', next);
-      localStorage.setItem('theme', next);
-      updateThemeIcon(next);
+  const btn = document.getElementById('theme-toggle');
+  if (btn) {
+    btn.addEventListener('click', () => {
+      const cur = document.documentElement.getAttribute('data-theme') || 'dark';
+      const nxt = cur === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', nxt);
+      localStorage.setItem('theme', nxt);
+      updateThemeIcon(nxt);
     });
   }
 }
 
 function updateThemeIcon(theme) {
-  const toggleBtn = document.getElementById('theme-toggle');
-  if (!toggleBtn) return;
-  toggleBtn.innerHTML = theme === 'dark' 
+  const btn = document.getElementById('theme-toggle');
+  if (!btn) return;
+  btn.innerHTML = theme === 'dark' 
     ? '<i class="fa-solid fa-sun"></i>' 
     : '<i class="fa-solid fa-moon"></i>';
-  toggleBtn.setAttribute('title', `Switch to ${theme === 'dark' ? 'Light' : 'Dark'} Mode`);
 }
 
 /* ==========================================================================
-   2. DATA LOADER & RENDERING ENGINE
+   2. DATA LOADER & MAIN RENDERER
    ========================================================================== */
-async function loadPortfolioData() {
+async function loadData() {
   try {
-    const response = await fetch('data/portfolio-data.json?v=' + Date.now());
-    if (!response.ok) throw new Error('Failed to load portfolio-data.json');
-    window.portfolioData = await response.json();
-    renderAllSections();
-  } catch (error) {
-    console.error('Error loading portfolio data:', error);
-    showToast('Failed to load portfolio data. Check console.', 'error');
+    const res = await fetch('data/portfolio-data.json?v=' + Date.now());
+    if (!res.ok) throw new Error('Could not fetch portfolio-data.json');
+    window.portfolioData = await res.json();
+    renderAll();
+  } catch (err) {
+    console.error('Data load error:', err);
+    showToast('Failed to load portfolio data.', 'error');
   }
 }
 
-function renderAllSections() {
+function renderAll() {
   if (!window.portfolioData) return;
-  const data = window.portfolioData;
+  const d = window.portfolioData;
 
-  renderHero(data.profile);
-  renderAnnouncements(data.announcements);
-  renderAbout(data.about, data.educationTimeline);
-  renderSkills(data.skills);
-  renderResearch(data.researchProjects);
-  renderPublications(data.publicationsAndConferences);
-  renderSoftware(data.softwareProjects);
-  renderGallery(data.gallery);
-  renderAwardsAndLeadership(data.awardsAndLeadership);
-  renderContact(data.profile);
+  renderTopNavbar(d.profile);
+  renderHeroBanner(d.profile);
+  renderStickySidebar(d.profile);
+  renderRecentUpdatesTicker(d.recentUpdates);
+  renderAboutBio(d.about);
+  renderTimelineAndKPIs(d.researchAndProjectsTimeline, d.kpis);
+  renderCapabilities(d.capabilities);
+  renderPublications();
+  renderTrainings(d.trainings);
+  renderGalleryMarquee();
+  renderLeadership(d.leadership);
+  renderReferences(d.references);
+  renderContact(d.profile);
 }
 
 /* --------------------------------------------------------------------------
-   Render Hero & Banner
+   Top Navbar & Hero Banner
    -------------------------------------------------------------------------- */
-function renderHero(profile) {
-  if (!profile) return;
-  
-  // Banner Image
-  const bannerImg = document.getElementById('hero-banner-img');
-  if (bannerImg) {
-    bannerImg.src = profile.banner || 'Banner.png';
+function renderTopNavbar(p) {
+  if (!p) return;
+  const avatar = document.getElementById('nav-avatar');
+  if (avatar) avatar.src = p.avatar || 'ZUN.png';
+  const name = document.getElementById('nav-name');
+  if (name) name.textContent = p.name;
+}
+
+function renderHeroBanner(p) {
+  if (!p) return;
+  const banner = document.getElementById('top-hero-banner-img');
+  if (banner) banner.src = p.banner || 'Banner.png';
+}
+
+/* --------------------------------------------------------------------------
+   Left Sticky Profile Card
+   -------------------------------------------------------------------------- */
+function renderStickySidebar(p) {
+  if (!p) return;
+
+  const avatar = document.getElementById('sidebar-avatar');
+  if (avatar) avatar.src = p.avatar || 'ZUN.png';
+
+  const pillsContainer = document.getElementById('sidebar-status-pills');
+  if (pillsContainer && p.statusPills) {
+    pillsContainer.innerHTML = p.statusPills.map(pill => `
+      <span class="status-pill">${escapeHTML(pill)}</span>
+    `).join('');
   }
 
-  // Avatar Image
-  const avatarImg = document.getElementById('hero-avatar-img');
-  if (avatarImg) {
-    avatarImg.src = profile.avatar || 'assets/images/profile-nafiz.png';
+  const name = document.getElementById('sidebar-name');
+  if (name) name.textContent = p.name;
+
+  const role = document.getElementById('sidebar-role');
+  if (role) {
+    role.innerHTML = `<strong>${escapeHTML(p.designation)}</strong><br>${escapeHTML(p.institution)}`;
   }
 
-  // Salutation & Details
-  const greetingEl = document.getElementById('hero-greeting');
-  if (greetingEl) greetingEl.textContent = profile.salutation || "Hi there, I'm Md. Nafizur Rahman! 👋";
-
-  const designationEl = document.getElementById('hero-designation');
-  if (designationEl) designationEl.textContent = profile.designation;
-
-  const affiliationEl = document.getElementById('hero-affiliation');
-  if (affiliationEl) {
-    affiliationEl.innerHTML = `<i class="fa-solid fa-building-columns"></i> ${profile.institution}`;
+  const emailBtn = document.getElementById('sidebar-email-box');
+  if (emailBtn && p.contact?.emailPrimary) {
+    emailBtn.innerHTML = `<i class="fa-solid fa-envelope"></i> ${escapeHTML(p.contact.emailPrimary)}`;
+    emailBtn.onclick = () => {
+      navigator.clipboard.writeText(p.contact.emailPrimary);
+      showToast('Email address copied to clipboard!', 'success');
+    };
   }
 
-  const mottoEl = document.getElementById('hero-motto');
-  if (mottoEl) {
-    mottoEl.innerHTML = `<i class="fa-solid fa-quote-left"></i> ${profile.motto || 'Knowledge. Investigation. Practice. Impact.'}`;
+  // 2-Column Grid of Clickable Profile Buttons
+  const btnGrid = document.getElementById('sidebar-buttons-grid');
+  if (btnGrid) {
+    const s = p.social || {};
+    btnGrid.innerHTML = `
+      <a href="${escapeHTML(p.cvDriveUrl)}" target="_blank" rel="noopener noreferrer" class="sidebar-btn btn-cv-featured">
+        <i class="fa-solid fa-file-pdf"></i> View CV (Google Drive)
+      </a>
+      <a href="${escapeHTML(s.scholar)}" target="_blank" rel="noopener noreferrer" class="sidebar-btn">
+        <i class="fa-brands fa-google-scholar"></i> Google Scholar
+      </a>
+      <a href="${escapeHTML(s.orcid)}" target="_blank" rel="noopener noreferrer" class="sidebar-btn">
+        <i class="fa-brands fa-orcid"></i> ORCID
+      </a>
+      <a href="${escapeHTML(s.linkedin)}" target="_blank" rel="noopener noreferrer" class="sidebar-btn">
+        <i class="fa-brands fa-linkedin"></i> LinkedIn
+      </a>
+      <a href="${escapeHTML(s.osf)}" target="_blank" rel="noopener noreferrer" class="sidebar-btn">
+        <i class="fa-solid fa-dna"></i> OSF (DOI)
+      </a>
+      <a href="${escapeHTML(s.researchgate)}" target="_blank" rel="noopener noreferrer" class="sidebar-btn">
+        <i class="fa-brands fa-researchgate"></i> ResearchGate
+      </a>
+      <a href="${escapeHTML(s.github)}" target="_blank" rel="noopener noreferrer" class="sidebar-btn">
+        <i class="fa-brands fa-github"></i> GitHub
+      </a>
+      <a href="${escapeHTML(p.contact?.whatsapp)}" target="_blank" rel="noopener noreferrer" class="sidebar-btn">
+        <i class="fa-brands fa-whatsapp"></i> WhatsApp
+      </a>
+      <a href="${escapeHTML(p.googleSitesUrl)}" target="_blank" rel="noopener noreferrer" class="sidebar-btn">
+        <i class="fa-solid fa-globe"></i> Google Sites
+      </a>
+    `;
   }
 
-  // Hero CTAs
-  const cvBtn = document.getElementById('hero-cv-btn');
-  if (cvBtn) {
-    cvBtn.href = profile.cvDriveUrl;
-  }
-  
-  const navCvBtn = document.getElementById('nav-quick-cv');
-  if (navCvBtn) {
-    navCvBtn.href = profile.cvDriveUrl;
+  // Floating Quick-Access CV Button
+  const floatCv = document.getElementById('floating-cv-btn');
+  if (floatCv) {
+    floatCv.href = p.cvDriveUrl;
   }
 }
 
 /* --------------------------------------------------------------------------
-   Render Announcements Banner
+   A. Continuous Vertical Auto-Scrolling Ticker ("Recent Updates")
    -------------------------------------------------------------------------- */
-function renderAnnouncements(announcements) {
-  const container = document.getElementById('announcements-container');
-  if (!container) return;
+function renderRecentUpdatesTicker(updates) {
+  const container = document.getElementById('updates-ticker-list');
+  if (!container || !updates) return;
 
-  if (!announcements || announcements.length === 0) {
-    container.style.display = 'none';
+  // Duplicate items to ensure a seamless infinite vertical scroll loop
+  const duplicated = [...updates, ...updates];
+
+  container.innerHTML = duplicated.map(u => `
+    <li class="ticker-item">
+      <div class="ticker-meta">
+        <span class="ticker-date">${escapeHTML(u.date)}</span>
+        <span class="ticker-badge">${escapeHTML(u.badge)}</span>
+      </div>
+      <div class="ticker-title">${escapeHTML(u.title)}</div>
+      <p class="ticker-desc">${escapeHTML(u.text)}</p>
+    </li>
+  `).join('');
+}
+
+/* --------------------------------------------------------------------------
+   B. About & Verbatim Google Sites Bio
+   -------------------------------------------------------------------------- */
+function renderAboutBio(about) {
+  if (!about) return;
+  const lead = document.getElementById('bio-lead-text');
+  if (lead) lead.textContent = about.lead || '';
+
+  const paras = document.getElementById('bio-paragraphs-wrapper');
+  if (paras && about.bioParagraphs) {
+    paras.innerHTML = about.bioParagraphs.map(p => `<p>${escapeHTML(p)}</p>`).join('');
+  }
+}
+
+/* --------------------------------------------------------------------------
+   C. Timeline & 4-Column KPI Metrics Bar
+   -------------------------------------------------------------------------- */
+function renderTimelineAndKPIs(timeline, kpis) {
+  const container = document.getElementById('experience-timeline-container');
+  if (!container || !timeline) return;
+
+  const displayList = isTimelineExpanded ? timeline : timeline.slice(0, 4);
+
+  container.innerHTML = displayList.map(item => `
+    <div class="timeline-entry">
+      <div class="entry-header">
+        <h4 class="entry-title">${escapeHTML(item.title)}</h4>
+        <span class="entry-badge">${escapeHTML(item.badge)}</span>
+      </div>
+      <div class="entry-meta">
+        <span><i class="fa-solid fa-building-columns"></i> ${escapeHTML(item.institution)}</span>
+        <span><i class="fa-solid fa-calendar-days"></i> ${escapeHTML(item.period)}</span>
+      </div>
+      <p class="entry-desc">${escapeHTML(item.summary)}</p>
+      <ul class="entry-tags">
+        ${(item.tags || []).map(t => `<li class="entry-tag-pill">#${escapeHTML(t)}</li>`).join('')}
+      </ul>
+    </div>
+  `).join('');
+
+  // Expand Toggle Button
+  const expandBtn = document.getElementById('timeline-expand-btn');
+  if (expandBtn) {
+    expandBtn.innerHTML = isTimelineExpanded
+      ? '<i class="fa-solid fa-chevron-up"></i> Show Less'
+      : `<i class="fa-solid fa-chevron-down"></i> See All Experience & Projects (${timeline.length})`;
+    expandBtn.onclick = () => {
+      isTimelineExpanded = !isTimelineExpanded;
+      renderTimelineAndKPIs(timeline, kpis);
+    };
+  }
+
+  // 4-Column KPI Metrics Bar
+  const kpiContainer = document.getElementById('kpi-metrics-container');
+  if (kpiContainer && kpis) {
+    kpiContainer.innerHTML = kpis.map(k => `
+      <div class="kpi-metric-box">
+        <div class="kpi-value">${escapeHTML(k.value)}</div>
+        <div class="kpi-label">${escapeHTML(k.label)}</div>
+      </div>
+    `).join('');
+  }
+}
+
+/* --------------------------------------------------------------------------
+   D. Technical Capabilities (2-Column Split Cards)
+   -------------------------------------------------------------------------- */
+function renderCapabilities(caps) {
+  if (!caps) return;
+
+  // Clinical Left Card
+  const clinContainer = document.getElementById('cap-clinical-skills');
+  if (clinContainer && caps.clinical?.skills) {
+    clinContainer.innerHTML = caps.clinical.skills.map(s => `
+      <div class="cap-skill-item">
+        <div class="cap-skill-name"><i class="fa-solid fa-circle-check" style="color: var(--accent-blue); margin-right: 0.35rem;"></i> ${escapeHTML(s.name)}</div>
+        <p class="cap-skill-desc">${escapeHTML(s.desc)}</p>
+      </div>
+    `).join('');
+  }
+
+  // Computational Right Card
+  const compContainer = document.getElementById('cap-computational-skills');
+  if (compContainer && caps.computational?.skills) {
+    compContainer.innerHTML = caps.computational.skills.map(s => `
+      <div class="cap-skill-item">
+        <div class="cap-skill-name"><i class="fa-solid fa-circle-check" style="color: var(--primary); margin-right: 0.35rem;"></i> ${escapeHTML(s.name)}</div>
+        <p class="cap-skill-desc">${escapeHTML(s.desc)}</p>
+      </div>
+    `).join('');
+  }
+}
+
+/* --------------------------------------------------------------------------
+   E. Publications & Manuscripts with Live Search + Filter Tabs
+   -------------------------------------------------------------------------- */
+function renderPublications() {
+  const container = document.getElementById('publications-entries-container');
+  if (!container || !window.portfolioData?.publications) return;
+
+  let pubs = window.portfolioData.publications;
+
+  // 1. Filter by status pill
+  if (currentPubFilter !== 'all') {
+    pubs = pubs.filter(p => p.filter === currentPubFilter);
+  }
+
+  // 2. Real-time keyword search
+  if (currentPubSearch.trim()) {
+    const q = currentPubSearch.toLowerCase().trim();
+    pubs = pubs.filter(p => 
+      p.title.toLowerCase().includes(q) ||
+      (p.authors && p.authors.toLowerCase().includes(q)) ||
+      (p.venue && p.venue.toLowerCase().includes(q)) ||
+      (p.doi && p.doi.toLowerCase().includes(q)) ||
+      (p.abstract && p.abstract.toLowerCase().includes(q))
+    );
+  }
+
+  if (pubs.length === 0) {
+    container.innerHTML = `
+      <div style="text-align: center; padding: 2rem; color: var(--text-muted);">
+        <i class="fa-solid fa-magnifying-glass" style="font-size: 1.5rem; margin-bottom: 0.5rem; display: block;"></i>
+        No matching publications found. Try adjusting your search query or filters.
+      </div>
+    `;
     return;
   }
 
-  container.style.display = 'block';
-  container.innerHTML = announcements.map(ann => `
-    <div class="announcement-item">
-      <span class="announcement-badge">${escapeHTML(ann.badge || 'News')}</span>
-      <span class="announcement-text">${escapeHTML(ann.text)}</span>
-      ${ann.link ? `
-        <a href="${escapeHTML(ann.link)}" target="_blank" rel="noopener noreferrer" class="announcement-link">
-          Explore <i class="fa-solid fa-arrow-up-right-from-square"></i>
-        </a>
-      ` : ''}
-    </div>
-  `).join('');
-}
-
-/* --------------------------------------------------------------------------
-   Render About & Timeline
-   -------------------------------------------------------------------------- */
-function renderAbout(about, timeline) {
-  if (!about) return;
-
-  const leadEl = document.getElementById('bio-lead');
-  if (leadEl) leadEl.textContent = about.lead || '';
-
-  const paragraphsEl = document.getElementById('bio-paragraphs');
-  if (paragraphsEl && about.bioParagraphs) {
-    paragraphsEl.innerHTML = about.bioParagraphs.map(p => `<p>${escapeHTML(p)}</p>`).join('');
-  }
-
-  // Focus Pillars
-  const pillarsContainer = document.getElementById('focus-pillars-container');
-  if (pillarsContainer && about.highlights) {
-    pillarsContainer.innerHTML = about.highlights.map(h => `
-      <div class="pillar-card">
-        <div class="pillar-icon"><i class="${escapeHTML(h.icon || 'fa-solid fa-star')}"></i></div>
-        <h4 class="pillar-title">${escapeHTML(h.title)}</h4>
-        <p class="pillar-desc">${escapeHTML(h.description)}</p>
+  container.innerHTML = pubs.map(p => `
+    <div class="pub-entry-card">
+      <div class="pub-year-col">
+        <div class="pub-year-badge">${escapeHTML(p.year)}</div>
+        <span class="pub-status-label">${escapeHTML(p.status)}</span>
       </div>
-    `).join('');
-  }
-
-  // Timeline
-  const timelineContainer = document.getElementById('timeline-container');
-  if (timelineContainer && timeline) {
-    timelineContainer.innerHTML = timeline.map(item => `
-      <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <span class="timeline-badge">${escapeHTML(item.badge || 'Academic')}</span>
-        <h4 class="timeline-degree">${escapeHTML(item.degree)}</h4>
-        <div class="timeline-institution">${escapeHTML(item.institution)}</div>
-        <div class="timeline-period">${escapeHTML(item.period)}</div>
-        <p class="timeline-details">${escapeHTML(item.details)}</p>
-      </div>
-    `).join('');
-  }
-}
-
-/* --------------------------------------------------------------------------
-   Render Skills Grid
-   -------------------------------------------------------------------------- */
-function renderSkills(skills) {
-  if (!skills) return;
-
-  const renderPillList = (items) => (items || []).map(s => `<li class="skill-pill">${escapeHTML(s)}</li>`).join('');
-
-  const elResearch = document.getElementById('skills-research-list');
-  if (elResearch) elResearch.innerHTML = renderPillList(skills.research);
-
-  const elLab = document.getElementById('skills-lab-list');
-  if (elLab) elLab.innerHTML = renderPillList(skills.laboratory);
-
-  const elBio = document.getElementById('skills-bio-list');
-  if (elBio) elBio.innerHTML = renderPillList(skills.bioinformatics);
-
-  const elSoftware = document.getElementById('skills-software-list');
-  if (elSoftware) elSoftware.innerHTML = renderPillList(skills.software);
-}
-
-/* --------------------------------------------------------------------------
-   Render Research Projects
-   -------------------------------------------------------------------------- */
-function renderResearch(projects) {
-  const container = document.getElementById('research-projects-container');
-  if (!container || !projects) return;
-
-  container.innerHTML = projects.map(proj => `
-    <div class="glass-card research-card">
-      <div class="research-header-bar">
-        <span class="research-category-tag">${escapeHTML(proj.category || 'Research')}</span>
-        <span class="research-status-badge"><i class="fa-solid fa-circle-check"></i> ${escapeHTML(proj.status || 'Active')}</span>
-      </div>
-      <h3 class="research-title">${escapeHTML(proj.title)}</h3>
-      <div class="research-meta">
-        <span class="research-meta-item"><i class="fa-solid fa-user-tag"></i> ${escapeHTML(proj.role || 'Investigator')}</span>
-        <span class="research-meta-item"><i class="fa-solid fa-calendar-days"></i> ${escapeHTML(proj.period || '2024–Present')}</span>
-      </div>
-      <p class="research-summary">${escapeHTML(proj.summary)}</p>
-      
-      ${proj.keyArtefacts && proj.keyArtefacts.length ? `
-        <div class="research-artefacts-box">
-          <div class="artefacts-title"><i class="fa-solid fa-flask"></i> Key Artefacts & Findings</div>
-          <ul class="artefacts-list">
-            ${proj.keyArtefacts.map(a => `<li>${escapeHTML(a)}</li>`).join('')}
-          </ul>
+      <div class="pub-content-col">
+        <div class="pub-title-row">
+          <h4 class="pub-paper-title">${escapeHTML(p.title)}</h4>
+          <div class="pub-badges-group">
+            ${p.doiUrl ? `
+              <a href="${escapeHTML(p.doiUrl)}" target="_blank" rel="noopener noreferrer" class="badge-doi">
+                <i class="fa-solid fa-fingerprint"></i> DOI
+              </a>
+            ` : ''}
+            ${p.scholarUrl ? `
+              <a href="${escapeHTML(p.scholarUrl)}" target="_blank" rel="noopener noreferrer" class="badge-doi" style="background: var(--primary-light); color: var(--primary); border-color: var(--primary);">
+                <i class="fa-brands fa-google-scholar"></i> Scholar
+              </a>
+            ` : ''}
+          </div>
         </div>
-      ` : ''}
-
-      <ul class="research-tags-list">
-        ${(proj.tags || []).map(t => `<li class="research-tag">#${escapeHTML(t)}</li>`).join('')}
-      </ul>
-
-      <div class="research-actions">
-        ${proj.doiUrl ? `
-          <a href="${escapeHTML(proj.doiUrl)}" target="_blank" rel="noopener noreferrer" class="btn-doi">
-            <i class="fa-solid fa-fingerprint"></i> DOI: ${escapeHTML(proj.doi)}
-          </a>
-        ` : ''}
-        ${proj.scholarUrl ? `
-          <a href="${escapeHTML(proj.scholarUrl)}" target="_blank" rel="noopener noreferrer" class="btn-outline">
-            <i class="fa-brands fa-google-scholar"></i> Google Scholar
-          </a>
-        ` : ''}
+        <div class="pub-authors-line">${escapeHTML(p.authors)}</div>
+        <div class="pub-venue-line">${escapeHTML(p.venue)}</div>
+        <p class="pub-abstract-text">${escapeHTML(p.abstract)}</p>
       </div>
     </div>
   `).join('');
 }
 
-/* --------------------------------------------------------------------------
-   Render Publications, Conferences & Participations
-   -------------------------------------------------------------------------- */
-function renderPublications(pubsData) {
-  if (!pubsData) return;
-
-  // Journal Articles
-  const journalContainer = document.getElementById('journal-articles-list');
-  if (journalContainer && pubsData.journalArticles) {
-    journalContainer.innerHTML = pubsData.journalArticles.map(art => `
-      <div class="pub-item">
-        <span class="pub-badge">${escapeHTML(art.badge || art.status || 'Published')}</span>
-        <h4 class="pub-title">${escapeHTML(art.title)}</h4>
-        <div class="pub-authors">${escapeHTML(art.authors)}</div>
-        <div class="pub-venue">${escapeHTML(art.journal)} (${escapeHTML(art.year)})</div>
-        ${art.link ? `
-          <a href="${escapeHTML(art.link)}" target="_blank" rel="noopener noreferrer" class="pub-link">
-            View Publication <i class="fa-solid fa-arrow-up-right-from-square"></i>
-          </a>
-        ` : ''}
-      </div>
-    `).join('');
+function initPubSearchAndFilters() {
+  const searchInput = document.getElementById('pub-search-input');
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      currentPubSearch = e.target.value;
+      renderPublications();
+    });
   }
 
-  // Conference Papers
-  const confContainer = document.getElementById('conference-papers-list');
-  if (confContainer && pubsData.conferencePapers) {
-    confContainer.innerHTML = pubsData.conferencePapers.map(conf => `
-      <div class="pub-item">
-        <span class="pub-badge">${escapeHTML(conf.badge || 'Conference Paper')}</span>
-        <h4 class="pub-title">${escapeHTML(conf.title)}</h4>
-        <div class="pub-authors">${escapeHTML(conf.authors)}</div>
-        <div class="pub-venue">${escapeHTML(conf.conference)} • ${escapeHTML(conf.location)}</div>
-        ${conf.link ? `
-          <a href="${escapeHTML(conf.link)}" target="_blank" rel="noopener noreferrer" class="pub-link">
-            Conference Details <i class="fa-solid fa-arrow-up-right-from-square"></i>
-          </a>
-        ` : ''}
-      </div>
-    `).join('');
-  }
-
-  // Participations & Workshops
-  const partContainer = document.getElementById('participations-list');
-  if (partContainer && pubsData.participations) {
-    partContainer.innerHTML = pubsData.participations.map(p => `
-      <div class="pub-item">
-        <span class="pub-badge">${escapeHTML(p.badge || 'Certificate')}</span>
-        <h4 class="pub-title">${escapeHTML(p.title)}</h4>
-        <div class="pub-authors">${escapeHTML(p.issuer)}</div>
-        <div class="pub-venue">${escapeHTML(p.date)}</div>
-      </div>
-    `).join('');
-  }
+  const filterBtns = document.querySelectorAll('.pub-filter-btn');
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentPubFilter = btn.getAttribute('data-filter') || 'all';
+      renderPublications();
+    });
+  });
 }
 
 /* --------------------------------------------------------------------------
-   Render Software & Digital Platforms
+   F. Training & Certification (3-Column Grid + Modals)
    -------------------------------------------------------------------------- */
-function renderSoftware(projects) {
-  const container = document.getElementById('software-grid-container');
-  if (!container || !projects) return;
+function renderTrainings(trainings) {
+  const container = document.getElementById('trainings-grid-container');
+  if (!container || !trainings) return;
 
-  const filtered = currentSoftwareFilter === 'all'
-    ? projects
-    : projects.filter(p => p.categoryFilter === currentSoftwareFilter);
-
-  container.innerHTML = filtered.map(item => `
-    <div class="glass-card software-card ${item.featured ? 'featured' : ''}">
-      <div class="software-logo-box">
-        ${item.logo ? `
-          <img src="${escapeHTML(item.logo)}" alt="${escapeHTML(item.title)} logo">
-        ` : `
-          <i class="fa-solid fa-code-branch software-logo-placeholder"></i>
-        `}
+  container.innerHTML = trainings.map((t, index) => `
+    <div class="training-card">
+      <div class="training-header">
+        <span class="training-badge">${escapeHTML(t.badge || 'Certificate')}</span>
+        <span class="training-date">${escapeHTML(t.date)}</span>
       </div>
-      <span class="software-category">${escapeHTML(item.category)}</span>
-      <h3 class="software-title">${escapeHTML(item.title)}</h3>
-      <div class="software-tagline">${escapeHTML(item.tagline)}</div>
-      <p class="software-desc">${escapeHTML(item.description)}</p>
-
-      <ul class="tech-stack-list">
-        ${(item.techStack || []).map(t => `<li class="tech-badge">${escapeHTML(t)}</li>`).join('')}
-      </ul>
-
-      <div class="software-actions">
-        ${item.githubUrl ? `
-          <a href="${escapeHTML(item.githubUrl)}" target="_blank" rel="noopener noreferrer" class="btn-repo">
-            <i class="fa-brands fa-github"></i> Repository
-          </a>
-        ` : `<span></span>`}
-        ${item.stats ? `<span class="software-metric-pill">${escapeHTML(item.stats)}</span>` : ''}
+      <h4 class="training-title">${escapeHTML(t.title)}</h4>
+      <div class="training-org"><i class="fa-solid fa-award"></i> ${escapeHTML(t.organization)}</div>
+      <p class="training-summary">${escapeHTML(t.summary)}</p>
+      <div class="training-footer-actions">
+        <button class="btn-training-more" onclick="openTrainingDetailModal(${index})">
+          ...more
+        </button>
+        <button class="btn-credentials" onclick="openCredentialsLightbox(${index})">
+          <i class="fa-solid fa-certificate"></i> Credentials
+        </button>
       </div>
     </div>
   `).join('');
 }
 
-/* --------------------------------------------------------------------------
-   Render Fieldwork, Wildlife & Credentials Gallery
-   -------------------------------------------------------------------------- */
-function renderGallery(galleryItems) {
-  const container = document.getElementById('gallery-grid-container');
-  if (!container || !galleryItems) return;
+function openTrainingDetailModal(index) {
+  const t = window.portfolioData?.trainings[index];
+  if (!t) return;
 
-  const filtered = currentGalleryFilter === 'all'
-    ? galleryItems
-    : galleryItems.filter(g => g.categoryFilter === currentGalleryFilter);
+  const modal = document.getElementById('lightbox-modal');
+  const title = document.getElementById('lightbox-title');
+  const media = document.getElementById('lightbox-media-container');
+  const caption = document.getElementById('lightbox-caption');
 
-  container.innerHTML = filtered.map((item, index) => `
-    <div class="gallery-card" onclick="openLightbox(${index})">
-      <div class="gallery-media-wrapper">
-        <img src="${escapeHTML(item.thumbnail || item.mediaUrl)}" alt="${escapeHTML(item.title)}" class="gallery-media-img">
-        <span class="gallery-type-badge">
-          <i class="${item.type === 'document' ? 'fa-solid fa-file-pdf' : item.type === 'video' ? 'fa-solid fa-play' : 'fa-solid fa-image'}"></i>
-          ${escapeHTML(item.badge || item.type)}
-        </span>
-        <div class="gallery-overlay-btn">
-          <i class="fa-solid fa-expand"></i> Preview
-        </div>
+  title.textContent = t.title;
+  media.innerHTML = `
+    <div style="padding: 2.5rem; text-align: left; width: 100%; color: #fff;">
+      <div style="font-size: 0.85rem; color: #14b8a6; font-weight: 700; margin-bottom: 0.5rem;">
+        <i class="fa-solid fa-building-columns"></i> ${escapeHTML(t.issuer || t.organization)} • ${escapeHTML(t.date)}
       </div>
-      <div class="gallery-content">
-        <div class="gallery-header-meta">
-          <span class="gallery-category-tag">${escapeHTML(item.category)}</span>
-          <span class="gallery-date">${escapeHTML(item.date || '')}</span>
-        </div>
-        <h4 class="gallery-title">${escapeHTML(item.title)}</h4>
-        <p class="gallery-caption">${escapeHTML(item.caption || '')}</p>
+      <h3 style="font-size: 1.35rem; margin-bottom: 1rem; color: #fff;">${escapeHTML(t.title)}</h3>
+      <p style="font-size: 0.98rem; line-height: 1.7; color: #cbd5e1;">${escapeHTML(t.fullDetails || t.summary)}</p>
+    </div>
+  `;
+  caption.textContent = `Issued by: ${t.organization} (${t.date})`;
+
+  modal.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function openCredentialsLightbox(index) {
+  const t = window.portfolioData?.trainings[index];
+  if (!t) return;
+
+  const modal = document.getElementById('lightbox-modal');
+  const title = document.getElementById('lightbox-title');
+  const media = document.getElementById('lightbox-media-container');
+  const caption = document.getElementById('lightbox-caption');
+
+  title.textContent = `${t.title} — Verified Credential`;
+  media.innerHTML = `<img src="${escapeHTML(t.credentialUrl || 'Banner.png')}" alt="${escapeHTML(t.title)} Credential">`;
+  caption.textContent = `Official verification for ${t.title} (${t.organization}).`;
+
+  modal.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+/* --------------------------------------------------------------------------
+   G. Auto-Moving Fieldwork & Gallery Carousel (Moving Images)
+   -------------------------------------------------------------------------- */
+function renderGalleryMarquee() {
+  const container = document.getElementById('gallery-marquee-track');
+  if (!container || !window.portfolioData?.gallery) return;
+
+  let items = window.portfolioData.gallery;
+  if (currentGalleryFilter !== 'all') {
+    items = items.filter(g => g.categoryFilter === currentGalleryFilter);
+  }
+
+  // Duplicate for seamless infinite marquee loop
+  const duplicated = [...items, ...items];
+
+  container.innerHTML = duplicated.map((item, idx) => `
+    <div class="gallery-photo-card" onclick="openGalleryItem(${idx % items.length})">
+      <div class="gallery-photo-img-wrapper">
+        <img src="${escapeHTML(item.thumbnail || item.mediaUrl)}" alt="${escapeHTML(item.title)}" class="gallery-photo-img">
+        <span class="gallery-photo-badge">${escapeHTML(item.badge || item.category)}</span>
+      </div>
+      <div class="gallery-photo-info">
+        <h4 class="gallery-photo-title">${escapeHTML(item.title)}</h4>
+        <p class="gallery-photo-caption">${escapeHTML(item.caption)}</p>
       </div>
     </div>
   `).join('');
 }
 
-/* --------------------------------------------------------------------------
-   Render Awards & Leadership
-   -------------------------------------------------------------------------- */
-function renderAwardsAndLeadership(data) {
-  if (!data) return;
-
-  const awardsContainer = document.getElementById('awards-list');
-  if (awardsContainer && data.awards) {
-    awardsContainer.innerHTML = data.awards.map(a => `
-      <div class="pub-item">
-        <span class="pub-badge">Award</span>
-        <h4 class="pub-title">${escapeHTML(a.title)}</h4>
-        <div class="pub-authors">${escapeHTML(a.organization)} (${escapeHTML(a.date)})</div>
-        <div class="pub-venue">${escapeHTML(a.description || '')}</div>
-      </div>
-    `).join('');
-  }
-
-  const leadershipContainer = document.getElementById('leadership-list');
-  if (leadershipContainer && data.leadership) {
-    leadershipContainer.innerHTML = data.leadership.map(l => `
-      <div class="pub-item">
-        <span class="pub-badge">${escapeHTML(l.role)}</span>
-        <h4 class="pub-title">${escapeHTML(l.organization)}</h4>
-        <div class="pub-authors">${escapeHTML(l.period)}</div>
-        <div class="pub-venue">${escapeHTML(l.details || '')}</div>
-      </div>
-    `).join('');
-  }
+function initGalleryFilters() {
+  const pills = document.querySelectorAll('.gallery-filter-pill');
+  pills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      pills.forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      currentGalleryFilter = pill.getAttribute('data-filter') || 'all';
+      renderGalleryMarquee();
+    });
+  });
 }
 
-/* --------------------------------------------------------------------------
-   Render Connect With Me Section (Verified Clickable Hyperlinks)
-   -------------------------------------------------------------------------- */
-function renderContact(profile) {
-  const container = document.getElementById('contact-grid-container');
-  if (!container || !profile) return;
-
-  const c = profile.contact || {};
-  const s = profile.social || {};
-
-  const contacts = [
-    {
-      label: 'Direct CV Access',
-      value: 'Google Drive Online View',
-      link: profile.cvDriveUrl,
-      icon: 'fa-solid fa-file-pdf',
-      hint: 'Instant high-res preview'
-    },
-    {
-      label: 'Primary Email',
-      value: c.emailPrimary,
-      link: `mailto:${c.emailPrimary}`,
-      icon: 'fa-solid fa-envelope',
-      hint: 'Click to compose email'
-    },
-    {
-      label: 'University Email',
-      value: c.emailUniversity,
-      link: `mailto:${c.emailUniversity}`,
-      icon: 'fa-solid fa-graduation-cap',
-      hint: 'Academic correspondence'
-    },
-    {
-      label: 'Cell / WhatsApp',
-      value: c.phone,
-      link: c.whatsapp,
-      icon: 'fa-brands fa-whatsapp',
-      hint: 'Direct chat & voice'
-    },
-    {
-      label: 'Google Scholar',
-      value: 'Md. Nafizur Rahman',
-      link: s.scholar,
-      icon: 'fa-brands fa-google-scholar',
-      hint: 'Citations & publication index'
-    },
-    {
-      label: 'ORCID Identifier',
-      value: '0009-0008-3918-187X',
-      link: s.orcid,
-      icon: 'fa-brands fa-orcid',
-      hint: 'Verified researcher profile'
-    },
-    {
-      label: 'ResearchGate',
-      value: 'Md. Rahman',
-      link: s.researchgate,
-      icon: 'fa-brands fa-researchgate',
-      hint: 'Preprints & network'
-    },
-    {
-      label: 'Open Science Framework',
-      value: 'Rabies Nanovaccines Protocol',
-      link: s.osf,
-      icon: 'fa-solid fa-dna',
-      hint: 'DOI: 10.17605/OSF.IO/9AQS3'
-    },
-    {
-      label: 'GitHub Profile',
-      value: 'mdnafizurrahman8024',
-      link: s.github,
-      icon: 'fa-brands fa-github',
-      hint: 'Software & bioinformatics repos'
-    },
-    {
-      label: 'LinkedIn',
-      value: 'md-nafizur-rahman-ru',
-      link: s.linkedin,
-      icon: 'fa-brands fa-linkedin',
-      hint: 'Professional network'
-    },
-    {
-      label: 'Facebook',
-      value: 'mdnafizurrahman8024',
-      link: s.facebook,
-      icon: 'fa-brands fa-facebook',
-      hint: 'Public profile'
-    },
-    {
-      label: 'Instagram',
-      value: '@nafizun_8024',
-      link: s.instagram,
-      icon: 'fa-brands fa-instagram',
-      hint: 'Fieldwork & photography'
-    },
-    {
-      label: 'Google Sites',
-      value: 'Original Academic Portfolio',
-      link: profile.googleSitesUrl,
-      icon: 'fa-solid fa-globe',
-      hint: 'Previous web presence'
-    }
-  ];
-
-  container.innerHTML = contacts.map(item => `
-    <a href="${escapeHTML(item.link)}" target="_blank" rel="noopener noreferrer" class="glass-card contact-card">
-      <div class="contact-icon-box">
-        <i class="${escapeHTML(item.icon)}"></i>
-      </div>
-      <span class="contact-label">${escapeHTML(item.label)}</span>
-      <span class="contact-value">${escapeHTML(item.value)}</span>
-      <span class="contact-hint">
-        ${escapeHTML(item.hint)} <i class="fa-solid fa-arrow-up-right-from-square"></i>
-      </span>
-    </a>
-  `).join('');
-}
-
-/* ==========================================================================
-   3. LIGHTBOX PREVIEW MODAL (PHOTOS, VIDEOS, PDFS)
-   ========================================================================== */
-function openLightbox(index) {
-  if (!window.portfolioData || !window.portfolioData.gallery) return;
-  const filtered = currentGalleryFilter === 'all'
-    ? window.portfolioData.gallery
-    : window.portfolioData.gallery.filter(g => g.categoryFilter === currentGalleryFilter);
-  
-  const item = filtered[index];
+function openGalleryItem(index) {
+  const item = window.portfolioData?.gallery[index];
   if (!item) return;
 
   const modal = document.getElementById('lightbox-modal');
-  const titleEl = document.getElementById('lightbox-title');
-  const mediaContainer = document.getElementById('lightbox-media-container');
-  const captionEl = document.getElementById('lightbox-caption');
-  const actionsEl = document.getElementById('lightbox-actions');
+  const title = document.getElementById('lightbox-title');
+  const media = document.getElementById('lightbox-media-container');
+  const caption = document.getElementById('lightbox-caption');
 
-  titleEl.textContent = item.title;
-  captionEl.textContent = item.caption || '';
+  title.textContent = item.title;
+  caption.textContent = item.caption;
 
-  // Render media based on type
-  if (item.type === 'image') {
-    mediaContainer.innerHTML = `<img src="${escapeHTML(item.mediaUrl)}" alt="${escapeHTML(item.title)}">`;
-    actionsEl.innerHTML = `
-      <a href="${escapeHTML(item.mediaUrl)}" target="_blank" rel="noopener noreferrer" class="btn-primary">
-        <i class="fa-solid fa-download"></i> View Full Image
-      </a>
-    `;
-  } else if (item.type === 'document') {
-    // If Google Drive link, provide preview iframe or download button
-    const drivePreviewUrl = item.mediaUrl.replace('/view?usp=drive_link', '/preview').replace('/view', '/preview');
-    mediaContainer.innerHTML = `
-      <iframe src="${escapeHTML(drivePreviewUrl)}" allow="autoplay"></iframe>
-    `;
-    actionsEl.innerHTML = `
-      <a href="${escapeHTML(item.mediaUrl)}" target="_blank" rel="noopener noreferrer" class="btn-primary">
-        <i class="fa-solid fa-file-pdf"></i> Open / Download PDF
-      </a>
-    `;
+  if (item.type === 'document') {
+    const drivePreview = item.mediaUrl.replace('/view?usp=drive_link', '/preview').replace('/view', '/preview');
+    media.innerHTML = `<iframe src="${escapeHTML(drivePreview)}" allow="autoplay"></iframe>`;
   } else if (item.type === 'video') {
-    mediaContainer.innerHTML = `
-      <iframe src="${escapeHTML(item.mediaUrl)}" frameborder="0" allowfullscreen></iframe>
-    `;
-    actionsEl.innerHTML = '';
+    media.innerHTML = `<iframe src="${escapeHTML(item.mediaUrl)}" frameborder="0" allowfullscreen></iframe>`;
+  } else {
+    media.innerHTML = `<img src="${escapeHTML(item.mediaUrl)}" alt="${escapeHTML(item.title)}">`;
   }
 
   modal.classList.add('active');
   document.body.style.overflow = 'hidden';
 }
 
-function closeLightbox() {
-  const modal = document.getElementById('lightbox-modal');
-  if (modal) {
-    modal.classList.remove('active');
-    document.getElementById('lightbox-media-container').innerHTML = '';
-    document.body.style.overflow = '';
-  }
+/* --------------------------------------------------------------------------
+   H. Leadership & References
+   -------------------------------------------------------------------------- */
+function renderLeadership(leadership) {
+  const container = document.getElementById('leadership-list-container');
+  if (!container || !leadership) return;
+
+  container.innerHTML = leadership.map(l => `
+    <div class="leadership-card">
+      <div class="lead-role">${escapeHTML(l.role)}</div>
+      <div class="lead-org">${escapeHTML(l.organization)}</div>
+      <div class="lead-period">${escapeHTML(l.period)}</div>
+      <p class="lead-desc">${escapeHTML(l.details)}</p>
+    </div>
+  `).join('');
+}
+
+function renderReferences(refs) {
+  const container = document.getElementById('references-grid-container');
+  if (!container || !refs) return;
+
+  container.innerHTML = refs.map(r => `
+    <div class="reference-card">
+      <div class="ref-name">${escapeHTML(r.name)}</div>
+      <div class="ref-desig">${escapeHTML(r.designation)}</div>
+      <div class="ref-inst">${escapeHTML(r.institution)}</div>
+      <div class="ref-email"><i class="fa-solid fa-envelope"></i> ${escapeHTML(r.email)}</div>
+    </div>
+  `).join('');
+}
+
+/* --------------------------------------------------------------------------
+   I. Contact Links & Badges
+   -------------------------------------------------------------------------- */
+function renderContact(p) {
+  const container = document.getElementById('contact-links-grid-container');
+  if (!container || !p) return;
+
+  const c = p.contact || {};
+  const s = p.social || {};
+
+  const links = [
+    { name: 'Google Drive CV', icon: 'fa-solid fa-file-pdf', url: p.cvDriveUrl },
+    { name: 'Primary Email', icon: 'fa-solid fa-envelope', url: `mailto:${c.emailPrimary}` },
+    { name: 'University Email', icon: 'fa-solid fa-graduation-cap', url: `mailto:${c.emailUniversity}` },
+    { name: 'WhatsApp', icon: 'fa-brands fa-whatsapp', url: c.whatsapp },
+    { name: 'Google Scholar', icon: 'fa-brands fa-google-scholar', url: s.scholar },
+    { name: 'ORCID Profile', icon: 'fa-brands fa-orcid', url: s.orcid },
+    { name: 'ResearchGate', icon: 'fa-brands fa-researchgate', url: s.researchgate },
+    { name: 'OSF Rabies Protocol', icon: 'fa-solid fa-dna', url: s.osf },
+    { name: 'GitHub Repositories', icon: 'fa-brands fa-github', url: s.github },
+    { name: 'LinkedIn Profile', icon: 'fa-brands fa-linkedin', url: s.linkedin },
+    { name: 'Facebook', icon: 'fa-brands fa-facebook', url: s.facebook },
+    { name: 'Instagram', icon: 'fa-brands fa-instagram', url: s.instagram }
+  ];
+
+  container.innerHTML = links.map(l => `
+    <a href="${escapeHTML(l.url)}" target="_blank" rel="noopener noreferrer" class="contact-pill-link">
+      <i class="${escapeHTML(l.icon)}"></i>
+      <span>${escapeHTML(l.name)}</span>
+    </a>
+  `).join('');
 }
 
 /* ==========================================================================
-   4. FILTER TABS CONTROLLERS
+   3. NO-CODE GITHUB AUTO-SYNC CMS (100% RUNTIME BROWSER AUTH)
    ========================================================================== */
-function initFilters() {
-  // Software Tabs
-  const softBtns = document.querySelectorAll('.software-filter-btn');
-  softBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      softBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      currentSoftwareFilter = btn.getAttribute('data-filter') || 'all';
-      if (window.portfolioData) renderSoftware(window.portfolioData.softwareProjects);
-    });
-  });
-
-  // Gallery Tabs
-  const galBtns = document.querySelectorAll('.gallery-filter-btn');
-  galBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      galBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      currentGalleryFilter = btn.getAttribute('data-filter') || 'all';
-      if (window.portfolioData) renderGallery(window.portfolioData.gallery);
-    });
-  });
-}
-
-/* ==========================================================================
-   5. ADMIN CONTENT MANAGER (100% CLIENT-SIDE RUNTIME AUTH & GITHUB AUTO-SYNC)
-   ========================================================================== */
-
-/**
- * Web Crypto SHA-256 Hasher for Passcode
- */
 async function hashPasscode(passcode) {
   const encoder = new TextEncoder();
   const data = encoder.encode(passcode);
   const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-  const hashArray = Array.from(new Uint8Array(hashBuffer));
-  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
 }
 
 function initAdminPortal() {
@@ -646,51 +584,21 @@ function initAdminPortal() {
   const overlay = document.getElementById('admin-drawer-overlay');
   const closeBtn = document.getElementById('admin-close-btn');
 
-  if (lockBtn) {
-    lockBtn.addEventListener('click', openAdminDrawer);
-  }
-  if (closeBtn) {
-    closeBtn.addEventListener('click', closeAdminDrawer);
-  }
-  if (overlay) {
-    overlay.addEventListener('click', closeAdminDrawer);
-  }
+  if (lockBtn) lockBtn.onclick = openAdminDrawer;
+  if (closeBtn) closeBtn.onclick = closeAdminDrawer;
+  if (overlay) overlay.onclick = closeAdminDrawer;
 
-  // Admin Auth Gate Form Handlers
   const authForm = document.getElementById('admin-auth-form');
-  if (authForm) {
-    authForm.addEventListener('submit', handleAdminAuthSubmit);
-  }
+  if (authForm) authForm.onsubmit = handleAdminAuthSubmit;
 
   const logoutBtn = document.getElementById('admin-logout-btn');
-  if (logoutBtn) {
-    logoutBtn.addEventListener('click', handleAdminLogout);
-  }
+  if (logoutBtn) logoutBtn.onclick = handleAdminLogout;
 
-  // Tab switching inside admin drawer
-  const adminTabBtns = document.querySelectorAll('.admin-tab-btn');
-  adminTabBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      adminTabBtns.forEach(b => b.classList.remove('active'));
-      document.querySelectorAll('.admin-tab-pane').forEach(p => p.classList.remove('active'));
-      
-      btn.classList.add('active');
-      const targetPane = document.getElementById(btn.getAttribute('data-tab'));
-      if (targetPane) targetPane.classList.add('active');
-    });
-  });
-
-  // Save & Publish Button
   const publishBtn = document.getElementById('admin-publish-btn');
-  if (publishBtn) {
-    publishBtn.addEventListener('click', handlePublishToGitHub);
-  }
+  if (publishBtn) publishBtn.onclick = handlePublishToGitHub;
 
-  // File Upload Handlers (Images & Docs)
   const fileInput = document.getElementById('admin-file-upload');
-  if (fileInput) {
-    fileInput.addEventListener('change', handleFileUploadStaging);
-  }
+  if (fileInput) fileInput.onchange = handleFileUploadStaging;
 }
 
 function openAdminDrawer() {
@@ -717,471 +625,246 @@ function closeAdminDrawer() {
 function checkAdminAuthState() {
   const storedHash = localStorage.getItem('admin_passcode_hash');
   const storedToken = localStorage.getItem('admin_gh_token');
-  const authBox = document.getElementById('admin-auth-gate');
+  const authGate = document.getElementById('admin-auth-gate');
   const mainManager = document.getElementById('admin-main-manager');
-  const passcodeHint = document.getElementById('admin-passcode-hint');
 
-  if (!storedHash) {
-    // First time setup
-    if (passcodeHint) passcodeHint.textContent = 'Setup Mode: Enter a new personal passcode to secure your portal.';
-  } else {
-    if (passcodeHint) passcodeHint.textContent = 'Enter your admin passcode and GitHub token to unlock.';
-  }
-
-  if (storedHash && storedToken && sessionStorage.getItem('admin_session_unlocked') === 'true') {
-    authBox.style.display = 'none';
+  if (storedHash && storedToken && sessionStorage.getItem('admin_unlocked') === 'true') {
+    authGate.style.display = 'none';
     mainManager.style.display = 'flex';
     populateAdminForms();
   } else {
-    authBox.style.display = 'flex';
+    authGate.style.display = 'flex';
     mainManager.style.display = 'none';
   }
 }
 
 async function handleAdminAuthSubmit(e) {
   e.preventDefault();
-  const passcodeInput = document.getElementById('admin-passcode-input').value.trim();
-  const tokenInput = document.getElementById('admin-token-input').value.trim();
+  const pass = document.getElementById('admin-passcode-input').value.trim();
+  const token = document.getElementById('admin-token-input').value.trim();
   const storedHash = localStorage.getItem('admin_passcode_hash');
 
-  if (!passcodeInput) {
-    showToast('Please enter an admin passcode.', 'error');
-    return;
-  }
-
-  const enteredHash = await hashPasscode(passcodeInput);
+  if (!pass) return showToast('Please enter passcode.', 'error');
+  const hashed = await hashPasscode(pass);
 
   if (!storedHash) {
-    // Setup new passcode
-    localStorage.setItem('admin_passcode_hash', enteredHash);
-    showToast('Admin Passcode configured successfully!', 'success');
-  } else if (enteredHash !== storedHash) {
-    showToast('Incorrect passcode. Authentication failed.', 'error');
-    return;
+    localStorage.setItem('admin_passcode_hash', hashed);
+    showToast('Admin Passcode configured!', 'success');
+  } else if (hashed !== storedHash) {
+    return showToast('Incorrect passcode.', 'error');
   }
 
-  // Save PAT to localStorage strictly (never committed to code)
-  if (tokenInput) {
-    localStorage.setItem('admin_gh_token', tokenInput);
+  if (token) {
+    localStorage.setItem('admin_gh_token', token);
   } else if (!localStorage.getItem('admin_gh_token')) {
-    showToast('Please enter your GitHub Personal Access Token.', 'error');
-    return;
+    return showToast('Please provide your GitHub Fine-Grained PAT.', 'error');
   }
 
-  sessionStorage.setItem('admin_session_unlocked', 'true');
-  showToast('Admin Portal Unlocked!', 'success');
+  sessionStorage.setItem('admin_unlocked', 'true');
+  showToast('Admin Manager Unlocked!', 'success');
   checkAdminAuthState();
 }
 
 function handleAdminLogout() {
   localStorage.removeItem('admin_gh_token');
   localStorage.removeItem('admin_passcode_hash');
-  sessionStorage.removeItem('admin_session_unlocked');
-  document.getElementById('admin-passcode-input').value = '';
-  document.getElementById('admin-token-input').value = '';
-  showToast('Logged out and credentials cleared from browser storage.', 'success');
+  sessionStorage.removeItem('admin_unlocked');
+  showToast('Credentials cleared.', 'success');
   checkAdminAuthState();
 }
 
-/* --------------------------------------------------------------------------
-   Populate Admin Forms with Current JSON Data
-   -------------------------------------------------------------------------- */
 function populateAdminForms() {
   if (!window.portfolioData) return;
-  const p = window.portfolioData.profile || {};
-  const a = window.portfolioData.about || {};
-
-  // Profile Form
-  setValue('admin-field-name', p.name);
-  setValue('admin-field-salutation', p.salutation);
-  setValue('admin-field-designation', p.designation);
-  setValue('admin-field-institution', p.institution);
-  setValue('admin-field-motto', p.motto);
-  setValue('admin-field-cv-url', p.cvDriveUrl);
-  setValue('admin-field-email-primary', p.contact?.emailPrimary);
-  setValue('admin-field-email-uni', p.contact?.emailUniversity);
-  setValue('admin-field-phone', p.contact?.phone);
-  setValue('admin-field-scholar', p.social?.scholar);
-  setValue('admin-field-orcid', p.social?.orcid);
-  setValue('admin-field-github', p.social?.github);
-
-  // Bio Form
-  setValue('admin-field-bio-lead', a.lead);
-  setValue('admin-field-bio-paragraphs', (a.bioParagraphs || []).join('\n\n'));
-
-  // Raw JSON Editor
-  const rawJsonEl = document.getElementById('admin-raw-json');
-  if (rawJsonEl) {
-    rawJsonEl.value = JSON.stringify(window.portfolioData, null, 2);
-  }
-
-  renderAdminResearchList();
-  renderAdminSoftwareList();
-  renderAdminGalleryList();
+  const raw = document.getElementById('admin-raw-json');
+  if (raw) raw.value = JSON.stringify(window.portfolioData, null, 2);
 }
 
-function setValue(id, val) {
-  const el = document.getElementById(id);
-  if (el) el.value = val || '';
-}
-
-function renderAdminResearchList() {
-  const list = document.getElementById('admin-research-list');
-  if (!list || !window.portfolioData?.researchProjects) return;
-
-  list.innerHTML = window.portfolioData.researchProjects.map((p, idx) => `
-    <div class="admin-item-row">
-      <div class="admin-item-info">
-        <div class="admin-item-title">${escapeHTML(p.title)}</div>
-        <div class="admin-item-sub">${escapeHTML(p.category)} • ${escapeHTML(p.status)}</div>
-      </div>
-      <div class="admin-item-actions">
-        <button class="btn-icon danger" onclick="deleteAdminItem('researchProjects', ${idx})" title="Delete Project">
-          <i class="fa-solid fa-trash"></i>
-        </button>
-      </div>
-    </div>
-  `).join('');
-}
-
-function renderAdminSoftwareList() {
-  const list = document.getElementById('admin-software-list');
-  if (!list || !window.portfolioData?.softwareProjects) return;
-
-  list.innerHTML = window.portfolioData.softwareProjects.map((s, idx) => `
-    <div class="admin-item-row">
-      <div class="admin-item-info">
-        <div class="admin-item-title">${escapeHTML(s.title)}</div>
-        <div class="admin-item-sub">${escapeHTML(s.category)}</div>
-      </div>
-      <div class="admin-item-actions">
-        <button class="btn-icon danger" onclick="deleteAdminItem('softwareProjects', ${idx})" title="Delete Platform">
-          <i class="fa-solid fa-trash"></i>
-        </button>
-      </div>
-    </div>
-  `).join('');
-}
-
-function renderAdminGalleryList() {
-  const list = document.getElementById('admin-gallery-list');
-  if (!list || !window.portfolioData?.gallery) return;
-
-  list.innerHTML = window.portfolioData.gallery.map((g, idx) => `
-    <div class="admin-item-row">
-      <div class="admin-item-info">
-        <div class="admin-item-title">${escapeHTML(g.title)}</div>
-        <div class="admin-item-sub">${escapeHTML(g.category)} • ${escapeHTML(g.type)}</div>
-      </div>
-      <div class="admin-item-actions">
-        <button class="btn-icon danger" onclick="deleteAdminItem('gallery', ${idx})" title="Delete Item">
-          <i class="fa-solid fa-trash"></i>
-        </button>
-      </div>
-    </div>
-  `).join('');
-}
-
-window.deleteAdminItem = function(collection, index) {
-  if (!confirm('Are you sure you want to delete this item?')) return;
-  window.portfolioData[collection].splice(index, 1);
-  if (collection === 'researchProjects') renderAdminResearchList();
-  if (collection === 'softwareProjects') renderAdminSoftwareList();
-  if (collection === 'gallery') renderAdminGalleryList();
-  showToast('Item deleted locally. Click "Save & Publish" to sync to GitHub.', 'success');
-};
-
-/* --------------------------------------------------------------------------
-   File Upload Staging (Direct Image / PDF uploads)
-   -------------------------------------------------------------------------- */
 function handleFileUploadStaging(e) {
   const file = e.target.files[0];
   if (!file) return;
 
   const reader = new FileReader();
   reader.onload = function(evt) {
-    const base64Content = evt.target.result.split(',')[1];
-    const isDoc = file.type === 'application/pdf' || file.name.endsWith('.pdf') || file.name.endsWith('.docx');
+    const base64 = evt.target.result.split(',')[1];
+    const isDoc = file.name.endsWith('.pdf') || file.type === 'application/pdf';
     const folder = isDoc ? 'assets/docs/' : 'assets/images/';
-    const sanitizedName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
-    const fullPath = folder + sanitizedName;
+    const path = folder + file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
 
-    stagedFileUploads.push({
-      path: fullPath,
-      content: base64Content,
-      name: file.name
-    });
+    stagedFileUploads.push({ path, content: base64, name: file.name });
 
-    // Auto-create gallery item
-    const newGalleryItem = {
+    // Append to gallery
+    window.portfolioData.gallery.unshift({
       id: 'gal-' + Date.now(),
       title: file.name.replace(/\.[^/.]+$/, "").replace(/_/g, " "),
-      category: isDoc ? "Documents & Reports" : "Certificates & Awards",
-      categoryFilter: isDoc ? "documents" : "certificates",
+      category: isDoc ? "Documents & Reports" : "Fieldwork & Snake Rescue",
+      categoryFilter: isDoc ? "documents" : "fieldwork",
       type: isDoc ? "document" : "image",
-      mediaUrl: fullPath,
-      thumbnail: isDoc ? "Banner.png" : fullPath,
-      caption: `Uploaded via Admin Content Manager: ${file.name}`,
-      date: new Date().getFullYear().toString(),
-      badge: isDoc ? "Uploaded PDF" : "Uploaded Image"
-    };
+      mediaUrl: path,
+      thumbnail: isDoc ? "Banner.png" : path,
+      caption: `Uploaded file: ${file.name}`,
+      badge: isDoc ? "PDF Document" : "Fieldwork Media"
+    });
 
-    window.portfolioData.gallery.unshift(newGalleryItem);
-    renderAdminGalleryList();
-    showToast(`File staged: ${file.name}. Click "Save & Publish" to push to GitHub.`, 'success');
+    renderGalleryMarquee();
+    populateAdminForms();
+    showToast(`File staged: ${file.name}. Click "Save & Publish" to commit.`, 'success');
   };
-
   reader.readAsDataURL(file);
 }
 
-/* --------------------------------------------------------------------------
-   Save & Publish to GitHub via Contents API
-   -------------------------------------------------------------------------- */
 async function handlePublishToGitHub() {
   const token = localStorage.getItem('admin_gh_token');
-  if (!token) {
-    showToast('Missing GitHub Personal Access Token. Please enter it in the auth screen.', 'error');
-    return;
-  }
+  if (!token) return showToast('Missing GitHub PAT.', 'error');
 
-  const publishBtn = document.getElementById('admin-publish-btn');
-  const statusEl = document.getElementById('admin-publish-status');
-  publishBtn.disabled = true;
-  statusEl.textContent = 'Collecting updates...';
+  const btn = document.getElementById('admin-publish-btn');
+  const status = document.getElementById('admin-publish-status');
+  btn.disabled = true;
+  status.textContent = 'Syncing...';
 
   try {
-    // 1. Synchronize form inputs into window.portfolioData
-    syncFormInputsToData();
+    const rawVal = document.getElementById('admin-raw-json').value;
+    window.portfolioData = JSON.parse(rawVal);
 
-    // 2. Commit any staged file uploads to GitHub first
     const owner = 'mdnafizurrahman8024';
     const repo = 'mdnafizurrahman8024.github.io';
     const branch = 'main';
 
-    for (const file of stagedFileUploads) {
-      statusEl.textContent = `Uploading ${file.name}...`;
-      await uploadFileToGitHub(owner, repo, file.path, file.content, `upload: add ${file.name} via admin cms`, token);
+    // Commit staged files
+    for (const f of stagedFileUploads) {
+      status.textContent = `Uploading ${f.name}...`;
+      await uploadFileToGitHub(owner, repo, f.path, f.content, `upload: add ${f.name} via admin cms`, token);
     }
-    stagedFileUploads = []; // Clear staged files
+    stagedFileUploads = [];
 
-    // 3. Fetch current SHA of data/portfolio-data.json
-    statusEl.textContent = 'Verifying GitHub repository state...';
+    // Get SHA
+    status.textContent = 'Fetching JSON SHA...';
     const jsonPath = 'data/portfolio-data.json';
-    const fileInfoUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${jsonPath}?ref=${branch}`;
-    
-    let sha = null;
-    const getRes = await fetch(fileInfoUrl, {
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Accept': 'application/vnd.github+json'
-      }
+    const getRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${jsonPath}?ref=${branch}`, {
+      headers: { 'Authorization': `Bearer ${token}` }
     });
+    const curSha = getRes.ok ? (await getRes.json()).sha : null;
 
-    if (getRes.ok) {
-      const fileData = await getRes.json();
-      sha = fileData.sha;
-    }
-
-    // 4. PUT updated data/portfolio-data.json
-    statusEl.textContent = 'Committing content updates to main...';
-    const updatedJsonString = JSON.stringify(window.portfolioData, null, 2);
-    const encodedJson = btoa(unescape(encodeURIComponent(updatedJsonString)));
-
+    // Commit JSON
+    status.textContent = 'Publishing portfolio-data.json...';
+    const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(window.portfolioData, null, 2))));
     const putRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${jsonPath}`, {
       method: 'PUT',
       headers: {
         'Authorization': `Bearer ${token}`,
-        'Accept': 'application/vnd.github+json',
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        message: 'content(cms): update portfolio data via admin content manager',
-        content: encodedJson,
-        sha: sha,
-        branch: branch
+        message: 'content(cms): update academic portfolio data',
+        content: encoded,
+        sha: curSha,
+        branch
       })
     });
 
-    if (!putRes.ok) {
-      const err = await putRes.json();
-      throw new Error(err.message || 'GitHub commit failed');
-    }
+    if (!putRes.ok) throw new Error((await putRes.json()).message);
 
-    statusEl.textContent = 'Published to GitHub Pages successfully! 🎉';
-    showToast('Changes committed directly to main! GitHub Pages will update in 1-2 minutes.', 'success');
-    renderAllSections();
-  } catch (error) {
-    console.error('Publish error:', error);
-    statusEl.textContent = 'Error publishing changes.';
-    showToast('Publish failed: ' + error.message, 'error');
+    status.textContent = 'Published successfully! 🎉';
+    showToast('Live site updated on GitHub Pages!', 'success');
+    renderAll();
+  } catch (err) {
+    status.textContent = 'Publish failed.';
+    showToast('Publish error: ' + err.message, 'error');
   } finally {
-    publishBtn.disabled = false;
+    btn.disabled = false;
   }
 }
 
-async function uploadFileToGitHub(owner, repo, path, base64Content, commitMessage, token) {
-  // Check if file already exists to get SHA
+async function uploadFileToGitHub(owner, repo, path, base64, msg, token) {
   let sha = null;
   const getRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`, {
     headers: { 'Authorization': `Bearer ${token}` }
   });
-  if (getRes.ok) {
-    const data = await getRes.json();
-    sha = data.sha;
-  }
+  if (getRes.ok) sha = (await getRes.json()).sha;
 
   const putRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`, {
     method: 'PUT',
     headers: {
       'Authorization': `Bearer ${token}`,
-      'Accept': 'application/vnd.github+json',
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({
-      message: commitMessage,
-      content: base64Content,
-      sha: sha
-    })
+    body: JSON.stringify({ message: msg, content: base64, sha })
   });
 
-  if (!putRes.ok) {
-    const err = await putRes.json();
-    throw new Error(`Failed to upload ${path}: ${err.message}`);
-  }
-}
-
-function syncFormInputsToData() {
-  // Check if user edited via Raw JSON tab
-  const activeTab = document.querySelector('.admin-tab-btn.active');
-  if (activeTab && activeTab.getAttribute('data-tab') === 'admin-tab-json') {
-    const rawVal = document.getElementById('admin-raw-json').value;
-    try {
-      window.portfolioData = JSON.parse(rawVal);
-      return;
-    } catch (e) {
-      throw new Error('Invalid JSON format in Raw Editor. Please fix syntax errors.');
-    }
-  }
-
-  // Otherwise sync from individual form fields
-  const p = window.portfolioData.profile;
-  p.name = getValue('admin-field-name', p.name);
-  p.salutation = getValue('admin-field-salutation', p.salutation);
-  p.designation = getValue('admin-field-designation', p.designation);
-  p.institution = getValue('admin-field-institution', p.institution);
-  p.motto = getValue('admin-field-motto', p.motto);
-  p.cvDriveUrl = getValue('admin-field-cv-url', p.cvDriveUrl);
-  
-  if (!p.contact) p.contact = {};
-  p.contact.emailPrimary = getValue('admin-field-email-primary', p.contact.emailPrimary);
-  p.contact.emailUniversity = getValue('admin-field-email-uni', p.contact.emailUniversity);
-  p.contact.phone = getValue('admin-field-phone', p.contact.phone);
-
-  if (!p.social) p.social = {};
-  p.social.scholar = getValue('admin-field-scholar', p.social.scholar);
-  p.social.orcid = getValue('admin-field-orcid', p.social.orcid);
-  p.social.github = getValue('admin-field-github', p.social.github);
-
-  const a = window.portfolioData.about;
-  a.lead = getValue('admin-field-bio-lead', a.lead);
-  const rawParas = getValue('admin-field-bio-paragraphs', '');
-  if (rawParas) {
-    a.bioParagraphs = rawParas.split('\n\n').map(s => s.trim()).filter(Boolean);
-  }
-}
-
-function getValue(id, defaultVal) {
-  const el = document.getElementById(id);
-  return el ? el.value.trim() : defaultVal;
+  if (!putRes.ok) throw new Error(`Upload error on ${path}`);
 }
 
 /* ==========================================================================
-   6. UI UTILITIES & TOASTS
+   4. UTILITIES & DOM EVENT LISTENERS
    ========================================================================== */
-function showToast(message, type = 'success') {
-  let container = document.getElementById('toast-container');
-  if (!container) {
-    container = document.createElement('div');
-    container.id = 'toast-container';
-    container.className = 'toast-container';
-    document.body.appendChild(container);
+function showToast(msg, type = 'success') {
+  let c = document.getElementById('toast-container');
+  if (!c) {
+    c = document.createElement('div');
+    c.id = 'toast-container';
+    c.className = 'toast-container';
+    document.body.appendChild(c);
   }
-
-  const toast = document.createElement('div');
-  toast.className = `toast ${type}`;
-  toast.innerHTML = `
-    <i class="${type === 'success' ? 'fa-solid fa-circle-check' : 'fa-solid fa-circle-exclamation'}"></i>
-    <span>${escapeHTML(message)}</span>
-  `;
-
-  container.appendChild(toast);
-  setTimeout(() => {
-    toast.style.opacity = '0';
-    setTimeout(() => toast.remove(), 300);
-  }, 4000);
+  const t = document.createElement('div');
+  t.className = `toast ${type}`;
+  t.innerHTML = `<i class="${type === 'success' ? 'fa-solid fa-circle-check' : 'fa-solid fa-circle-exclamation'}"></i> <span>${escapeHTML(msg)}</span>`;
+  c.appendChild(t);
+  setTimeout(() => { t.style.opacity = '0'; setTimeout(() => t.remove(), 300); }, 3500);
 }
 
-function escapeHTML(str) {
-  if (!str) return '';
-  return String(str)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;');
+function escapeHTML(s) {
+  if (!s) return '';
+  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
 }
 
-/* ==========================================================================
-   7. INITIALIZATION ON DOM READY
-   ========================================================================== */
 document.addEventListener('DOMContentLoaded', () => {
   initTheme();
-  loadPortfolioData();
-  initFilters();
+  loadData();
+  initPubSearchAndFilters();
+  initGalleryFilters();
   initAdminPortal();
 
-  // Mobile menu toggle
-  const mobileBtn = document.getElementById('mobile-menu-btn');
-  const navLinks = document.getElementById('nav-links');
-  if (mobileBtn && navLinks) {
-    mobileBtn.addEventListener('click', () => {
-      navLinks.classList.toggle('active');
-    });
-
-    document.querySelectorAll('.nav-link').forEach(link => {
-      link.addEventListener('click', () => {
-        navLinks.classList.remove('active');
-      });
+  // Mobile menu
+  const mBtn = document.getElementById('mobile-menu-btn');
+  const mMenu = document.getElementById('nav-menu');
+  if (mBtn && mMenu) {
+    mBtn.onclick = () => mMenu.classList.toggle('active');
+    document.querySelectorAll('.nav-pill').forEach(l => {
+      l.addEventListener('click', () => mMenu.classList.remove('active'));
     });
   }
 
-  // Lightbox close listeners
-  const closeLbBtn = document.getElementById('lightbox-close-btn');
-  if (closeLbBtn) closeLbBtn.addEventListener('click', closeLightbox);
-
+  // Lightbox close
+  const lbClose = document.getElementById('lightbox-close-btn');
   const lbModal = document.getElementById('lightbox-modal');
+  if (lbClose) {
+    lbClose.onclick = () => {
+      lbModal.classList.remove('active');
+      document.body.style.overflow = '';
+    };
+  }
   if (lbModal) {
-    lbModal.addEventListener('click', (e) => {
-      if (e.target === lbModal) closeLightbox();
-    });
+    lbModal.onclick = (e) => {
+      if (e.target === lbModal) {
+        lbModal.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    };
   }
 
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
-      closeLightbox();
+      if (lbModal) lbModal.classList.remove('active');
       closeAdminDrawer();
+      document.body.style.overflow = '';
     }
   });
 
-  // Navbar scroll background effect
+  // Navbar scroll effect
   window.addEventListener('scroll', () => {
-    const navbar = document.getElementById('navbar');
-    if (navbar) {
-      if (window.scrollY > 40) {
-        navbar.classList.add('scrolled');
-      } else {
-        navbar.classList.remove('scrolled');
-      }
+    const nav = document.getElementById('navbar');
+    if (nav) {
+      if (window.scrollY > 30) nav.classList.add('scrolled');
+      else nav.classList.remove('scrolled');
     }
   });
 });
