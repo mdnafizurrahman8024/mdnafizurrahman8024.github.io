@@ -57,12 +57,12 @@
           <li><a href="#skills-sec" class="nav-pill">Skills</a></li>
           <li><a href="#publications-sec" class="nav-pill">Publications</a></li>
           <li><a href="#training-sec" class="nav-pill">Training &amp; Certs</a></li>
-          <li><a href="#updates-sec" class="nav-pill">Updates</a></li>
           <li><a href="#gallery-sec" class="nav-pill">Gallery</a></li>
+          <li><a href="#updates-sec" class="nav-pill">Updates</a></li>
           <li class="nav-dropdown">
             <a href="javascript:void(0)" class="nav-pill">More <i class="fa-solid fa-chevron-down" style="font-size: 0.7rem; margin-left: 2px;"></i></a>
             <ul class="nav-dropdown-menu">
-              <li><a href="#leadership-sec" class="nav-dropdown-item"><i class="fa-solid fa-users"></i> Affiliations</a></li>
+              <li><a href="#leadership-sec" class="nav-dropdown-item"><i class="fa-solid fa-users"></i> Leadership</a></li>
               <li><a href="#references-sec" class="nav-dropdown-item"><i class="fa-solid fa-user-tie"></i> References</a></li>
               <li><a href="#contact-sec" class="nav-dropdown-item"><i class="fa-solid fa-envelope"></i> Contact Me</a></li>
             </ul>
@@ -82,20 +82,7 @@
   </header>
 
   <!-- ======================================================================
-       1. FIXED TOP HERO BANNER (BANNER.PNG — 100% UNCLIPPED & ZERO CROPPING)
-       ====================================================================== -->
-  <div class="top-hero-banner-container" id="home">
-    <div class="banner-frame-wrapper">
-      <img src="Banner.png" alt="University of Rajshahi - Dept of Veterinary and Animal Sciences" class="top-hero-banner-img" id="top-hero-banner-img">
-      <div class="banner-overlay-tag">
-        <span class="banner-pulse-dot"></span>
-        <span>University of Rajshahi &bull; Dept. of Veterinary &amp; Animal Sciences</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- ======================================================================
-       2. TWO-COLUMN SPLIT ACADEMIC LAYOUT
+       TWO-COLUMN SPLIT ACADEMIC LAYOUT
        ====================================================================== -->
   <main class="main-container split-layout-wrapper">
     
@@ -118,7 +105,7 @@
         <i class="fa-solid fa-envelope"></i> mdnafizurrahman8024@gmail.com
       </a>
 
-      <!-- 2-Column Grid of Clickable Pill Buttons (All Verified Links) -->
+      <!-- Compact 3-Row Micro-Badges Grid (All Verified Links) -->
       <div class="sidebar-buttons-grid" id="sidebar-buttons-grid"></div>
 
       <div class="sidebar-motto-quote">
@@ -131,7 +118,12 @@
          -------------------------------------------------------------------- -->
     <div class="scrollable-feed">
 
-      <!-- 1. "HI, THIS IS NAFIZ" (FIRST CARD ON RIGHT) -->
+      <!-- 1. TOP COVER BANNER (FULL WIDTH OF RIGHT COLUMN) -->
+      <div class="feed-top-banner" id="home">
+        <img src="Banner.png" alt="University of Rajshahi - Dept of Veterinary and Animal Sciences" class="feed-banner-img" id="top-hero-banner-img">
+      </div>
+
+      <!-- 2. "HI, THIS IS NAFIZ" (DIRECTLY BELOW BANNER) -->
       <section class="feed-card border-teal" id="about-sec">
         <div class="card-header-row">
           <div class="card-title-group">
@@ -230,9 +222,9 @@
             <input type="text" id="pub-search-input" class="pub-search-input" placeholder="Search title, topic, author, or DOI...">
           </div>
           <div class="pub-filter-pills">
-            <button class="pub-filter-btn active" data-filter="all">All</button>
+            <button class="pub-filter-btn active" data-filter="all">All Manuscripts</button>
             <button class="pub-filter-btn" data-filter="osf">OSF Registered</button>
-            <button class="pub-filter-btn" data-filter="accepted">Accepted / Published</button>
+            <button class="pub-filter-btn" data-filter="accepted">Published / Accepted</button>
             <button class="pub-filter-btn" data-filter="ongoing">Ongoing</button>
           </div>
         </div>
@@ -240,7 +232,7 @@
         <div class="pub-entries-list" id="publications-entries-container"></div>
       </section>
 
-      <!-- 6. TRAINING & CERTIFICATIONS (3-COLUMN GRID WITH 26 CERTIFICATES + MODALS) -->
+      <!-- 7. TRAINING & CERTIFICATIONS (3-COLUMN GRID WITH 26 CERTIFICATES + MODALS) -->
       <section class="feed-card border-amber" id="training-sec">
         <div class="card-header-row">
           <div class="card-title-group">
@@ -253,23 +245,6 @@
         </div>
 
         <div class="trainings-grid" id="trainings-grid-container"></div>
-      </section>
-
-      <!-- 7. RECENT UPDATES (AUTO-SCROLLING VERTICAL TICKER) -->
-      <section class="feed-card border-teal" id="updates-sec">
-        <div class="card-header-row">
-          <div class="card-title-group">
-            <div class="card-icon-badge"><i class="fa-solid fa-bolt"></i></div>
-            <div>
-              <h2 class="card-heading">Recent Updates &amp; Milestones</h2>
-              <div class="card-subheading">Continuous feed of active publications, research protocols &amp; deployments (pauses on hover)</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="updates-ticker-viewport" id="updates-ticker-viewport">
-          <ul class="updates-ticker-list" id="updates-ticker-list"></ul>
-        </div>
       </section>
 
       <!-- 8. FIELDWORK & MEDIA GALLERY (AUTO-MOVING HORIZONTAL CAROUSEL) -->
@@ -299,7 +274,24 @@
         </div>
       </section>
 
-      <!-- 9. EXTRA-CURRICULAR ACTIVITIES & LEADERSHIP -->
+      <!-- 9. RECENT UPDATES (AUTO-SCROLLING VERTICAL TICKER) -->
+      <section class="feed-card border-teal" id="updates-sec">
+        <div class="card-header-row">
+          <div class="card-title-group">
+            <div class="card-icon-badge"><i class="fa-solid fa-bolt"></i></div>
+            <div>
+              <h2 class="card-heading">Recent Updates &amp; Milestones</h2>
+              <div class="card-subheading">Continuous feed of active publications, research protocols &amp; deployments (pauses on hover)</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="updates-ticker-viewport" id="updates-ticker-viewport">
+          <ul class="updates-ticker-list" id="updates-ticker-list"></ul>
+        </div>
+      </section>
+
+      <!-- 10. EXTRA-CURRICULAR ACTIVITIES & LEADERSHIP -->
       <section class="feed-card border-blue" id="leadership-sec">
         <div class="card-header-row">
           <div class="card-title-group">
@@ -314,7 +306,7 @@
         <div class="leadership-list" id="leadership-list-container"></div>
       </section>
 
-      <!-- 10. ACADEMIC REFERENCES & CONTACT ME -->
+      <!-- 11. ACADEMIC REFERENCES -->
       <section class="feed-card border-teal" id="references-sec">
         <div class="card-header-row">
           <div class="card-title-group">
@@ -327,15 +319,50 @@
         </div>
 
         <div class="references-grid" id="references-grid-container"></div>
+      </section>
 
-        <!-- Contact Badges Sub-section -->
-        <div style="border-top: 1px solid var(--border-color); padding-top: 1.75rem; margin-top: 1.5rem;" id="contact-sec">
-          <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 0.85rem; color: var(--text-primary);">
-            <i class="fa-solid fa-paper-plane" style="color: var(--primary); margin-right: 0.5rem;"></i> Connect With Me
-          </h3>
-          <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1.25rem;">
-            Feel free to reach out for research collaborations, dataset sharing, or academic inquiries.
-          </p>
+      <!-- 12. CONTACT ME (MATCHING REFERENCE DESIGN) -->
+      <section class="feed-card border-blue" id="contact-sec">
+        <div class="card-header-row" style="margin-bottom: 0.35rem;">
+          <div>
+            <span class="contact-eyebrow">Get in touch</span>
+            <h2 class="card-heading" style="margin-top: 0.2rem;">Contact Me</h2>
+          </div>
+        </div>
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem;">
+          Feel free to reach out for research collaborations, dataset sharing, or academic inquiries.
+        </p>
+
+        <!-- Inner Form Card with 3px Solid Royal-Blue Top Border -->
+        <div class="contact-form-card">
+          <form id="contact-form" class="contact-form">
+            <div class="contact-form-row">
+              <div class="contact-field-group">
+                <label for="contact-name" class="contact-label">Your name</label>
+                <input type="text" id="contact-name" class="contact-input" placeholder="Your name" required>
+              </div>
+              <div class="contact-field-group">
+                <label for="contact-email" class="contact-label">Your email</label>
+                <input type="email" id="contact-email" class="contact-input" placeholder="Your email" required>
+              </div>
+            </div>
+            <div class="contact-field-group">
+              <label for="contact-message" class="contact-label">Message</label>
+              <textarea id="contact-message" class="contact-textarea" rows="4" placeholder="Message" required></textarea>
+            </div>
+            <div class="contact-form-footer">
+              <a href="mailto:mdnafizurrahman8024@gmail.com" class="contact-direct-email">
+                <i class="fa-solid fa-envelope"></i> mdnafizurrahman8024@gmail.com
+              </a>
+              <button type="submit" class="contact-send-btn">
+                <i class="fa-solid fa-paper-plane"></i> Send Message
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Compact Clickable Social/Academic Pills Underneath -->
+        <div class="contact-pills-wrapper">
           <div class="contact-links-grid" id="contact-links-grid-container"></div>
         </div>
       </section>

@@ -28,19 +28,20 @@
 
 ## ✨ Architectural Layout & Motion Design
 
-### 1. Zero-Cropping Framed Top Banner (`Banner.png`)
-- Sleek framed hero container right below the sticky navigation bar with `width: 100%; height: auto; object-fit: contain;`.
-- Displays every word from `"University of Rajshahi, Bangladesh"` down to `"Knowledge. Investigation. Practice. Impact."` with 100% full visibility on desktop and mobile.
+### 1. Right-Column Top Cover Banner (`Banner.png` — Zero Cropping)
+- Placed directly at the top of the right scrollable content column, seamlessly aligning width with feed cards.
+- Displays every word from `"University of Rajshahi, Bangladesh"` down to `"Knowledge. Investigation. Practice. Impact."` with 100% full visibility and zero cropping across desktop and mobile.
 
 ### 2. Two-Column Split Academic Architecture (Reference Aligned)
-- **Left Sticky Profile Card (`position: sticky; top: 84px;`)**:
-  - Rich dark navy-to-deep-teal gradient (`linear-gradient(160deg, #0b1f3a 0%, #0d3b4c 55%, #0f5257 100%)`) with rounded corners (`20px`) and glowing cyan-teal border.
-  - Rounded-square portrait avatar using `ZUN.png` with subtle glowing border.
-  - Status pills: `DVM Student (L-4, S-2)` and `One Health & AMR`.
-  - Large white serif name: **`Md. Nafizur Rahman`**.
+- **Left Sticky Profile Card (`position: sticky; top: 82px; width: 310px;`)**:
+  - Compact height engineered to fit completely inside a standard 720p laptop screen without clipping.
+  - Rich dark navy-to-deep-teal gradient (`linear-gradient(165deg, #07192f 0%, #0b3948 55%, #0e4f55 100%)`) with rounded corners (`20px`).
+  - Rounded-square portrait avatar using `ZUN.png` (`width: 175px; height: 190px; border-radius: 16px; border: 2px solid #38bdf8;`).
+  - Compact status pills: `DVM Student (L-4, S-2)` and `One Health & AMR`.
+  - Serif name: **`Md. Nafizur Rahman`**.
   - Role & Affiliation: *Undergraduate Student, Dept. of Veterinary and Animal Sciences, University of Rajshahi, Rajshahi-6205, Bangladesh*.
   - Clickable email: `mdnafizurrahman8024@gmail.com`.
-  - Compact 2-column grid of clickable pill buttons for all 11 verified links:
+  - Compact 3-row micro-badges grid (`padding: 5px 9px; font-size: 11px; border-radius: 6px;`) for all 11 verified links:
     - **View CV** (Google Drive Direct Link)
     - **Google Scholar**
     - **ORCID**
@@ -54,21 +55,25 @@
     - **Instagram**
   - Floating quick-access PDF/CV button anchored at the bottom-right corner.
 
-- **Right Scrollable Content Column**:
-  1. **"Hi, This is Nafiz" (1st Card on Right)**: Serif heading with horizontal divider and verbatim Google Sites & CV bio.
-  2. **Academic Credentials & Education**: Timeline dots covering DVM, HSC, and SSC.
-  3. **Research Experience & Software Projects**: Timeline cards + `"See all"` toggle + **4-Column KPI Bar** (`4+ Research Papers`, `6+ Software & Apps`, `10+ Certifications`, `2+ Yrs Field & Clinical Exp.`).
-  4. **Technical Capabilities (2-Column Split)**:
+- **Right Scrollable Content Column (Exact Sequence)**:
+  1. **Top Cover Banner (`Banner.png`)**: Full width of the right column with zero cropping.
+  2. **"Hi, This is Nafiz"**: Serif heading with divider line and verbatim Google Sites & CV bio.
+  3. **Academic Credentials & Education**: Timeline dots covering DVM, HSC, and SSC.
+  4. **Research Experience & Software Projects**: Timeline cards + `"See all"` toggle + **4-Column KPI Bar** (`4+ Research Papers`, `6+ Software & Apps`, `10+ Certifications`, `2+ Yrs Field & Clinical Exp.`).
+  5. **Technical Capabilities (2-Column Split)**:
      - Left: Veterinary Clinical, Wet-Lab & Field Epidemiology.
      - Right: Computational, Bioinformatics & Software Development.
-  5. **Publications & Manuscripts**: Real-time live search bar + status filter pills (`All`, `OSF Registered`, `Accepted / Published`, `Ongoing`) + clickable DOI badges ([DOI: 10.17605/OSF.IO/9AQS3](https://doi.org/10.17605/OSF.IO/9AQS3)).
-  6. **Training & Certification (26 Verified Certificate Cards)**:
+  6. **Publications & Manuscripts**: Real-time live search bar + status filter pills (`All Manuscripts`, `OSF Registered`, `Published / Accepted`, `Ongoing`) + clickable DOI badges ([DOI: 10.17605/OSF.IO/9AQS3](https://doi.org/10.17605/OSF.IO/9AQS3)).
+  7. **Training & Certification (26 Verified Certificate Cards)**:
      - 3-Column grid with gold/amber top accents.
      - Auto-imports all 26 certificate images from `Certificate/` (WHO, WOAH, United Nations, AMMnet, NVDC/FAO, etc.).
      - Clickable **`...more`** button: opens full modal with detailed syllabus and context.
-     - Clickable **`View Certificate`** button: opens full-resolution certificate image in Lightbox viewer with zoom and download.
-  7. **Recent Updates (Vertical Auto-Scrolling Ticker)** & **Fieldwork & Media Gallery (Horizontal Auto-Moving Marquee with Lightbox)**.
-  8. **Extra-Curricular Activities & Leadership**, **Academic References**, and **Contact Me** section.
+     - Clickable **`Credentials`** button: opens full-resolution certificate image in Lightbox viewer with zoom and download.
+  8. **Fieldwork & Media Gallery**: Filter pills + smooth horizontal auto-moving marquee with Lightbox viewer.
+  9. **Recent Updates**: Smooth vertical auto-scrolling ticker card.
+  10. **Extra-Curricular Activities & Leadership**: Co-curricular initiatives with blue accent borders.
+  11. **Academic References**: Mentors and supervisors in 2-column cards.
+  12. **Contact Me**: Form card with 3px solid royal-blue top border, light-gray inputs, Send Message mailto pre-fill, direct email, and compact social/academic pills.
 
 ---
 

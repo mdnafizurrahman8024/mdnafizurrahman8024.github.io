@@ -125,42 +125,43 @@ function renderStickySidebar(p) {
     emailBtn.title = "Click to send email";
   }
 
-  // Compact Grid of Clickable Pill Buttons (All Verified Links)
+  // Compact 3-Row Micro-Badges Grid (All Verified Links)
   const btnGrid = document.getElementById('sidebar-buttons-grid');
   if (btnGrid) {
     const s = p.social || {};
+    const c = p.contact || {};
     btnGrid.innerHTML = `
-      <a href="${escapeHTML(p.cvDriveUrl)}" target="_blank" rel="noopener noreferrer" class="sidebar-btn btn-cv-featured">
-        <i class="fa-solid fa-file-pdf"></i> View CV (Google Drive)
+      <a href="${escapeHTML(p.cvDriveUrl)}" target="_blank" rel="noopener noreferrer" class="sidebar-micro-badge badge-cv">
+        <i class="fa-solid fa-file-pdf"></i> View CV
       </a>
-      <a href="${escapeHTML(s.scholar)}" target="_blank" rel="noopener noreferrer" class="sidebar-btn">
+      <a href="${escapeHTML(s.scholar)}" target="_blank" rel="noopener noreferrer" class="sidebar-micro-badge">
         <i class="fa-brands fa-google-scholar"></i> Google Scholar
       </a>
-      <a href="${escapeHTML(s.orcid)}" target="_blank" rel="noopener noreferrer" class="sidebar-btn">
+      <a href="${escapeHTML(s.orcid)}" target="_blank" rel="noopener noreferrer" class="sidebar-micro-badge">
         <i class="fa-brands fa-orcid"></i> ORCID
       </a>
-      <a href="${escapeHTML(s.linkedin)}" target="_blank" rel="noopener noreferrer" class="sidebar-btn">
+      <a href="${escapeHTML(s.linkedin)}" target="_blank" rel="noopener noreferrer" class="sidebar-micro-badge">
         <i class="fa-brands fa-linkedin"></i> LinkedIn
       </a>
-      <a href="${escapeHTML(s.osf)}" target="_blank" rel="noopener noreferrer" class="sidebar-btn">
-        <i class="fa-solid fa-dna"></i> OSF (DOI)
+      <a href="${escapeHTML(s.osf)}" target="_blank" rel="noopener noreferrer" class="sidebar-micro-badge">
+        <i class="fa-solid fa-dna"></i> OSF
       </a>
-      <a href="${escapeHTML(s.researchgate)}" target="_blank" rel="noopener noreferrer" class="sidebar-btn">
+      <a href="${escapeHTML(s.researchgate)}" target="_blank" rel="noopener noreferrer" class="sidebar-micro-badge">
         <i class="fa-brands fa-researchgate"></i> ResearchGate
       </a>
-      <a href="${escapeHTML(s.github)}" target="_blank" rel="noopener noreferrer" class="sidebar-btn">
+      <a href="${escapeHTML(s.github)}" target="_blank" rel="noopener noreferrer" class="sidebar-micro-badge">
         <i class="fa-brands fa-github"></i> GitHub
       </a>
-      <a href="${escapeHTML(p.googleSitesUrl)}" target="_blank" rel="noopener noreferrer" class="sidebar-btn">
+      <a href="${escapeHTML(p.googleSitesUrl)}" target="_blank" rel="noopener noreferrer" class="sidebar-micro-badge">
         <i class="fa-solid fa-globe"></i> Google Sites
       </a>
-      <a href="${escapeHTML(p.contact?.whatsapp)}" target="_blank" rel="noopener noreferrer" class="sidebar-btn">
+      <a href="${escapeHTML(c.whatsapp)}" target="_blank" rel="noopener noreferrer" class="sidebar-micro-badge">
         <i class="fa-brands fa-whatsapp"></i> WhatsApp
       </a>
-      <a href="${escapeHTML(s.facebook)}" target="_blank" rel="noopener noreferrer" class="sidebar-btn">
+      <a href="${escapeHTML(s.facebook)}" target="_blank" rel="noopener noreferrer" class="sidebar-micro-badge">
         <i class="fa-brands fa-facebook"></i> Facebook
       </a>
-      <a href="${escapeHTML(s.instagram)}" target="_blank" rel="noopener noreferrer" class="sidebar-btn">
+      <a href="${escapeHTML(s.instagram)}" target="_blank" rel="noopener noreferrer" class="sidebar-micro-badge">
         <i class="fa-brands fa-instagram"></i> Instagram
       </a>
     `;
@@ -334,7 +335,7 @@ function renderPublications() {
           <div class="pub-badges-group">
             ${p.doiUrl ? `
               <a href="${escapeHTML(p.doiUrl)}" target="_blank" rel="noopener noreferrer" class="badge-doi">
-                <i class="fa-solid fa-fingerprint"></i> DOI
+                <i class="fa-solid ${p.doiUrl.includes('osf.io') || p.filter === 'osf' ? 'fa-dna' : 'fa-fingerprint'}"></i> ${p.doiUrl.includes('osf.io') || p.filter === 'osf' ? 'OSF (DOI)' : 'DOI'}
               </a>
             ` : ''}
             ${p.scholarUrl ? `
@@ -393,7 +394,7 @@ function renderTrainings(trainings) {
           ...more
         </button>
         <button class="btn-credentials" onclick="openCredentialsLightbox(${index})">
-          <i class="fa-solid fa-certificate"></i> View Certificate
+          <i class="fa-solid fa-certificate"></i> Credentials
         </button>
       </div>
     </div>
@@ -581,26 +582,45 @@ function renderContact(p) {
   const s = p.social || {};
 
   const links = [
-    { name: 'Google Drive CV', icon: 'fa-solid fa-file-pdf', url: p.cvDriveUrl },
+    { name: 'View CV (Google Drive)', icon: 'fa-solid fa-file-pdf', url: p.cvDriveUrl },
     { name: 'Primary Email', icon: 'fa-solid fa-envelope', url: `mailto:${c.emailPrimary}` },
     { name: 'University Email', icon: 'fa-solid fa-graduation-cap', url: `mailto:${c.emailUniversity}` },
     { name: 'WhatsApp', icon: 'fa-brands fa-whatsapp', url: c.whatsapp },
     { name: 'Google Scholar', icon: 'fa-brands fa-google-scholar', url: s.scholar },
-    { name: 'ORCID Profile', icon: 'fa-brands fa-orcid', url: s.orcid },
+    { name: 'ORCID', icon: 'fa-brands fa-orcid', url: s.orcid },
+    { name: 'LinkedIn', icon: 'fa-brands fa-linkedin', url: s.linkedin },
+    { name: 'OSF (DOI)', icon: 'fa-solid fa-dna', url: s.osf },
     { name: 'ResearchGate', icon: 'fa-brands fa-researchgate', url: s.researchgate },
-    { name: 'OSF Rabies Protocol', icon: 'fa-solid fa-dna', url: s.osf },
-    { name: 'GitHub Repositories', icon: 'fa-brands fa-github', url: s.github },
-    { name: 'LinkedIn Profile', icon: 'fa-brands fa-linkedin', url: s.linkedin },
+    { name: 'GitHub', icon: 'fa-brands fa-github', url: s.github },
+    { name: 'Google Sites', icon: 'fa-solid fa-globe', url: p.googleSitesUrl },
     { name: 'Facebook', icon: 'fa-brands fa-facebook', url: s.facebook },
     { name: 'Instagram', icon: 'fa-brands fa-instagram', url: s.instagram }
   ];
 
-  container.innerHTML = links.map(l => `
+  container.innerHTML = links.filter(l => l.url).map(l => `
     <a href="${escapeHTML(l.url)}" target="_blank" rel="noopener noreferrer" class="contact-pill-link">
       <i class="${escapeHTML(l.icon)}"></i>
       <span>${escapeHTML(l.name)}</span>
     </a>
   `).join('');
+}
+
+function initContactForm() {
+  const form = document.getElementById('contact-form');
+  if (!form) return;
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = document.getElementById('contact-name')?.value.trim() || '';
+    const email = document.getElementById('contact-email')?.value.trim() || '';
+    const message = document.getElementById('contact-message')?.value.trim() || '';
+
+    const subject = `Research & Academic Inquiry from ${name}`;
+    const body = `Hi Nafiz,\n\n${message}\n\nBest regards,\n${name}\nEmail: ${email}`;
+
+    window.location.href = `mailto:mdnafizurrahman8024@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    showToast('Opening your email client to send your message...', 'success');
+  });
 }
 
 /* ==========================================================================
@@ -853,6 +873,7 @@ document.addEventListener('DOMContentLoaded', () => {
   loadData();
   initPubSearchAndFilters();
   initGalleryFilters();
+  initContactForm();
   initAdminPortal();
 
   // Mobile menu
