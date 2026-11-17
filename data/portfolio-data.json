@@ -41,10 +41,22 @@
     }
   },
   "kpis": [
-    { "value": "4+", "label": "Research Papers" },
-    { "value": "6+", "label": "Software & Apps" },
-    { "value": "10+", "label": "Certifications" },
-    { "value": "2+ Yrs", "label": "Field & Clinical Exp." }
+    {
+      "value": "4+",
+      "label": "Research Papers"
+    },
+    {
+      "value": "6+",
+      "label": "Software & Apps"
+    },
+    {
+      "value": "10+",
+      "label": "Certifications"
+    },
+    {
+      "value": "2+ Yrs",
+      "label": "Field & Clinical Exp."
+    }
   ],
   "recentUpdates": [
     {
@@ -176,11 +188,26 @@
       "icon": "fa-solid fa-microscope",
       "accent": "blue",
       "skills": [
-        { "name": "Clinical Diagnostic Triage", "desc": "TVT management, myiasis, severe wound debridement, clinical examination, fluid therapy & surgical assistance" },
-        { "name": "Parasitological Diagnostics", "desc": "Morphological & oculometric parasite identification, Baermann technique, Formalin-Ether Sedimentation (MGL), permanent slide preparation" },
-        { "name": "Antimicrobial Stewardship & Surveillance", "desc": "Clinical prescribing audit, owner KAP evaluation, unauthorized self-medication analysis, One Health epidemiological frameworks" },
-        { "name": "Biofilm & Environmental Microbiology", "desc": "Trough bacterial biofilm scraping, water degradation assays, heavy metal bioaccumulation pathology in ruminants" },
-        { "name": "Field Sampling & SWAN Wildlife Rescue", "desc": "Large-cohort synanthropic animal sampling, BG-Sentinel mosquito trapping, reptile & venomous/non-venomous snake handling with SWAN" }
+        {
+          "name": "Clinical Diagnostic Triage",
+          "desc": "TVT management, myiasis, severe wound debridement, clinical examination, fluid therapy & surgical assistance"
+        },
+        {
+          "name": "Parasitological Diagnostics",
+          "desc": "Morphological & oculometric parasite identification, Baermann technique, Formalin-Ether Sedimentation (MGL), permanent slide preparation"
+        },
+        {
+          "name": "Antimicrobial Stewardship & Surveillance",
+          "desc": "Clinical prescribing audit, owner KAP evaluation, unauthorized self-medication analysis, One Health epidemiological frameworks"
+        },
+        {
+          "name": "Biofilm & Environmental Microbiology",
+          "desc": "Trough bacterial biofilm scraping, water degradation assays, heavy metal bioaccumulation pathology in ruminants"
+        },
+        {
+          "name": "Field Sampling & SWAN Wildlife Rescue",
+          "desc": "Large-cohort synanthropic animal sampling, BG-Sentinel mosquito trapping, reptile & venomous/non-venomous snake handling with SWAN"
+        }
       ]
     },
     "computational": {
@@ -188,10 +215,22 @@
       "icon": "fa-solid fa-laptop-code",
       "accent": "teal",
       "skills": [
-        { "name": "Python & Data Analytics", "desc": "NumPy, Pandas, GeoPandas spatial mapping, Matplotlib visualization, automated web scraping, Colab & Jupyter notebooks" },
-        { "name": "Statistical Modeling & Biometrics", "desc": "R & RStudio, negative binomial regression, logistic regression, IBM SPSS multivariate & Chi-square tests, RTutor" },
-        { "name": "Bioinformatics & In-Silico Drug/Vaccine Design", "desc": "NCBI, BLAST, PyMOL, IEDB, Multiple Sequence Alignment, Reverse Vaccinology, Molecular Docking & Meta-Analysis" },
-        { "name": "AI-Integrated Full-Stack Development", "desc": "VS Code, Git/GitHub, SQL/PostgreSQL, FastAPI, Django 5+, React 19, Docker Compose, Gemini API & RAG workflows" }
+        {
+          "name": "Python & Data Analytics",
+          "desc": "NumPy, Pandas, GeoPandas spatial mapping, Matplotlib visualization, automated web scraping, Colab & Jupyter notebooks"
+        },
+        {
+          "name": "Statistical Modeling & Biometrics",
+          "desc": "R & RStudio, negative binomial regression, logistic regression, IBM SPSS multivariate & Chi-square tests, RTutor"
+        },
+        {
+          "name": "Bioinformatics & In-Silico Drug/Vaccine Design",
+          "desc": "NCBI, BLAST, PyMOL, IEDB, Multiple Sequence Alignment, Reverse Vaccinology, Molecular Docking & Meta-Analysis"
+        },
+        {
+          "name": "AI-Integrated Full-Stack Development",
+          "desc": "VS Code, Git/GitHub, SQL/PostgreSQL, FastAPI, Django 5+, React 19, Docker Compose, Gemini API & RAG workflows"
+        }
       ]
     }
   },
@@ -207,7 +246,13 @@
       "badgeType": "osf",
       "link": "https://doi.org/10.17605/OSF.IO/9AQS3",
       "summary": "Synthesizing preclinical in vivo murine data following PRISMA guidelines using a Random-Effects Model to evaluate Virus-Neutralizing Antibody (VNA) kinetics, post-challenge survival rates, and platform-specific safety profiles across mRNA-LNPs, VLPs, lipopolyplexes, and nano-adjuvants.",
-      "tags": ["Nanomedicine", "Rabies Vaccines", "Meta-Analysis", "OSF", "Immunology"]
+      "tags": [
+        "Nanomedicine",
+        "Rabies Vaccines",
+        "Meta-Analysis",
+        "OSF",
+        "Immunology"
+      ]
     },
     {
       "id": "res-2",
@@ -220,7 +265,12 @@
       "badgeType": "clinical",
       "link": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en",
       "summary": "A 12-month prospective clinical surveillance investigating veterinary prescribing patterns, clinical syndrome frequencies, owner Knowledge, Attitude, and Practices (KAP), and hazardous home self-medication behaviors across private practices in Rajshahi.",
-      "tags": ["One Health", "AMR Stewardship", "Prescribing Surveillance", "KAP Study"]
+      "tags": [
+        "One Health",
+        "AMR Stewardship",
+        "Prescribing Surveillance",
+        "KAP Study"
+      ]
     },
     {
       "id": "res-3",
@@ -233,7 +283,12 @@
       "badgeType": "clinical",
       "link": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en",
       "summary": "Sampled 310 free-roaming dogs, collected 2,908 ectoparasites, established the first morphological records of Ctenocephalides orientis and Heterodoxus spiniger in Bangladesh, and conducted COX1/18S rRNA molecular sequencing of Haemaphysalis bispinosa and Dermacentor ticks.",
-      "tags": ["Barind Tract", "Parasitology", "Molecular Sequencing", "R Analysis"]
+      "tags": [
+        "Barind Tract",
+        "Parasitology",
+        "Molecular Sequencing",
+        "R Analysis"
+      ]
     },
     {
       "id": "res-4",
@@ -246,7 +301,12 @@
       "badgeType": "clinical",
       "link": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en",
       "summary": "Cross-sectional survey evaluating infestation rates, environmental sanitation risk factors, and sleep disturbances across a 370-bed cohort in high-density student residences.",
-      "tags": ["Cimex spp.", "Vector Biology", "Public Health", "Student Hostels"]
+      "tags": [
+        "Cimex spp.",
+        "Vector Biology",
+        "Public Health",
+        "Student Hostels"
+      ]
     },
     {
       "id": "res-5",
@@ -259,7 +319,12 @@
       "badgeType": "clinical",
       "link": "https://www.facebook.com/swan.org.bd/",
       "summary": "Participating in emergency snake rescue (venomous/non-venomous), reptile rehabilitation, raptor release, and community biodiversity coexistence drives across Rajshahi and Northern Bangladesh.",
-      "tags": ["Wildlife Rescue", "Herpetology", "Biodiversity", "Conservation"]
+      "tags": [
+        "Wildlife Rescue",
+        "Herpetology",
+        "Biodiversity",
+        "Conservation"
+      ]
     },
     {
       "id": "res-6",
@@ -272,7 +337,12 @@
       "badgeType": "clinical",
       "link": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en",
       "summary": "Investigating prevalence, histopathological lesions in the crop and esophagus, and molecular sequencing of Capillaria spp. infecting indigenous backyard scavenging chickens in the Barind agro-ecological zone.",
-      "tags": ["Avian Parasitology", "Capillaria spp.", "Histopathology", "Poultry Health"]
+      "tags": [
+        "Avian Parasitology",
+        "Capillaria spp.",
+        "Histopathology",
+        "Poultry Health"
+      ]
     }
   ],
   "softwareProjects": [
@@ -284,7 +354,14 @@
       "typeBadge": "Mobile & AI App",
       "role": "Project Lead & Principal Conceptualizer",
       "period": "Sept 2026 – Present",
-      "techStack": ["React 19", "Python / FastAPI", "Gemini API", "Supabase", "RAG & OCR", "Tailwind CSS"],
+      "techStack": [
+        "React 19",
+        "Python / FastAPI",
+        "Gemini API",
+        "Supabase",
+        "RAG & OCR",
+        "Tailwind CSS"
+      ],
       "description": "It's an AI-driven veterinary diagnostic and epidemiological platform designed for marginal poultry farmers in Bangladesh. Rooted in the 'One Health' framework, it utilizes multi-modal AI to accurately diagnose poultry diseases and actively combat Antimicrobial Resistance (AMR) by enforcing medication withdrawal periods through automated prescription scanning.",
       "repoUrl": "https://github.com/mdnafizurrahman8024/PoultryMedix-Project-Overview",
       "liveUrl": "https://github.com/mdnafizurrahman8024/PoultryMedix-Project-Overview",
@@ -298,7 +375,14 @@
       "typeBadge": "Research Software",
       "role": "Lead Architect & Developer",
       "period": "2026 – Present",
-      "techStack": ["Python 3.12", "FastAPI", "React 19", "Docker Compose", "PostgreSQL", "Pandas"],
+      "techStack": [
+        "Python 3.12",
+        "FastAPI",
+        "React 19",
+        "Docker Compose",
+        "PostgreSQL",
+        "Pandas"
+      ],
       "description": "An evidence-grounded computational research workbench engineered for veterinary epidemiologists, One Health scientists, and molecular researchers, featuring end-to-end data provenance tracking, literature synthesis pipelines, and Dockerized reproducibility.",
       "repoUrl": "https://github.com/mdnafizurrahman8024/ZunSync-Software",
       "liveUrl": "https://github.com/mdnafizurrahman8024/ZunSync-Software",
@@ -312,7 +396,13 @@
       "typeBadge": "Educational Platform",
       "role": "Founder & Full-Stack Architect",
       "period": "2025 – Present",
-      "techStack": ["Python Backend", "Tailwind CSS", "JavaScript", "HTML5", "Responsive UI"],
+      "techStack": [
+        "Python Backend",
+        "Tailwind CSS",
+        "JavaScript",
+        "HTML5",
+        "Responsive UI"
+      ],
       "description": "Official repository for Zun Synthesis Academy—a premium ed-tech platform bridging biology and technology. Built with a scalable Python backend and Tailwind CSS frontend, offering dynamic programs in Bioinformatics, Data Analytics, and AI-Powered Research & Vibe Coding. Founded by Md. Nafizur Rahman.",
       "repoUrl": "https://github.com/mdnafizurrahman8024/Zun-Synthesis-Academy-Website",
       "liveUrl": "https://github.com/mdnafizurrahman8024/Zun-Synthesis-Academy-Website",
@@ -326,7 +416,13 @@
       "typeBadge": "Clinical Web App",
       "role": "Full-Stack Developer",
       "period": "2025 – Present",
-      "techStack": ["Python 3.12", "Django 5+", "SQLite/PostgreSQL", "Tailwind CSS", "Admin Panel"],
+      "techStack": [
+        "Python 3.12",
+        "Django 5+",
+        "SQLite/PostgreSQL",
+        "Tailwind CSS",
+        "Admin Panel"
+      ],
       "description": "A robust Django webapp / website for 'Professor's Vet & Pet Care'. It seamlessly combines a veterinary clinic management system (doctor bookings, surgery gallery, schedules) with a pet e-commerce store (medicines, real-time POS inventory). Features a responsive UI, theme toggle, and powerful admin panel. Supervised by Dr. Abdulla Al Mamun Bhuyan (Associate Professor, RU).",
       "repoUrl": "https://github.com/mdnafizurrahman8024/Professors-Vet-And-Pet-Care-Website",
       "liveUrl": "https://github.com/mdnafizurrahman8024/Professors-Vet-And-Pet-Care-Website",
@@ -340,7 +436,12 @@
       "typeBadge": "E-Commerce Website",
       "role": "Frontend Developer & Designer",
       "period": "2024 – 2025",
-      "techStack": ["HTML5", "CSS3 / Modern Grid", "JavaScript", "Cart State Management"],
+      "techStack": [
+        "HTML5",
+        "CSS3 / Modern Grid",
+        "JavaScript",
+        "Cart State Management"
+      ],
       "description": "Modern E-Commerce storefront & order management web application with dynamic product catalog browsing, responsive mobile-first UI, real-time cart state management, and streamlined checkout experience.",
       "repoUrl": "https://github.com/mdnafizurrahman8024/Najiaa-Shop-website",
       "liveUrl": "https://github.com/mdnafizurrahman8024/Najiaa-Shop-website",
@@ -354,7 +455,13 @@
       "typeBadge": "Python Tool",
       "role": "Developer & Author",
       "period": "2024",
-      "techStack": ["Python 3", "Google Colab", "Data Structures", "Algorithms", "Colab Notebooks"],
+      "techStack": [
+        "Python 3",
+        "Google Colab",
+        "Data Structures",
+        "Algorithms",
+        "Colab Notebooks"
+      ],
       "description": "A 21-day coding challenge documenting my daily Python practice and progress on Google Colab. Dedicated to building consistency, computational algorithms, and practical coding habits for biological research.",
       "repoUrl": "https://github.com/mdnafizurrahman8024/Python-Foundation-21-Days",
       "liveUrl": "https://github.com/mdnafizurrahman8024/Python-Foundation-21-Days",
@@ -368,7 +475,12 @@
       "typeBadge": "Python Tool",
       "role": "Developer",
       "period": "2024",
-      "techStack": ["Python 3", "OOP Architecture", "File I/O", "Encapsulation & Polymorphism"],
+      "techStack": [
+        "Python 3",
+        "OOP Architecture",
+        "File I/O",
+        "Encapsulation & Polymorphism"
+      ],
       "description": "A Python-based Bank Management System that demonstrates the core pillars of Object-Oriented Programming (OOP). The project utilizes abstraction, encapsulation, inheritance, and polymorphism to simulate banking operations for different types of bank accounts.",
       "repoUrl": "https://github.com/mdnafizurrahman8024/project-bank-management-system",
       "liveUrl": "https://github.com/mdnafizurrahman8024/project-bank-management-system",
@@ -387,7 +499,13 @@
       "badgeType": "osf",
       "link": "https://doi.org/10.17605/OSF.IO/9AQS3",
       "summary": "Synthesizing preclinical in vivo murine data following PRISMA guidelines using a Random-Effects Model to evaluate Virus-Neutralizing Antibody (VNA) kinetics, post-challenge survival rates, and platform-specific safety profiles across mRNA-LNPs, VLPs, lipopolyplexes, and nano-adjuvants.",
-      "tags": ["Nanomedicine", "Rabies Vaccines", "Meta-Analysis", "OSF", "Immunology"]
+      "tags": [
+        "Nanomedicine",
+        "Rabies Vaccines",
+        "Meta-Analysis",
+        "OSF",
+        "Immunology"
+      ]
     },
     {
       "id": "exp-2",
@@ -400,7 +518,12 @@
       "badgeType": "clinical",
       "link": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en",
       "summary": "A 12-month prospective clinical surveillance investigating veterinary prescribing patterns, clinical syndrome frequencies, owner Knowledge, Attitude, and Practices (KAP), and hazardous home self-medication behaviors across private practices in Rajshahi.",
-      "tags": ["One Health", "AMR Stewardship", "Prescribing Surveillance", "KAP Study"]
+      "tags": [
+        "One Health",
+        "AMR Stewardship",
+        "Prescribing Surveillance",
+        "KAP Study"
+      ]
     },
     {
       "id": "exp-3",
@@ -413,7 +536,12 @@
       "badgeType": "clinical",
       "link": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en",
       "summary": "Sampled 310 free-roaming dogs, collected 2,908 ectoparasites, established the first morphological records of Ctenocephalides orientis and Heterodoxus spiniger in Bangladesh, and conducted COX1/18S rRNA molecular sequencing of Haemaphysalis bispinosa and Dermacentor ticks.",
-      "tags": ["Barind Tract", "Parasitology", "Molecular Sequencing", "R Analysis"]
+      "tags": [
+        "Barind Tract",
+        "Parasitology",
+        "Molecular Sequencing",
+        "R Analysis"
+      ]
     },
     {
       "id": "exp-4",
@@ -426,7 +554,12 @@
       "badgeType": "clinical",
       "link": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en",
       "summary": "Cross-sectional survey evaluating infestation rates, environmental sanitation risk factors, and sleep disturbances across a 370-bed cohort in high-density student residences.",
-      "tags": ["Cimex spp.", "Vector Biology", "Public Health", "Student Hostels"]
+      "tags": [
+        "Cimex spp.",
+        "Vector Biology",
+        "Public Health",
+        "Student Hostels"
+      ]
     },
     {
       "id": "exp-5",
@@ -439,7 +572,12 @@
       "badgeType": "clinical",
       "link": "https://www.facebook.com/swan.org.bd/",
       "summary": "Participating in emergency snake rescue (venomous/non-venomous), reptile rehabilitation, raptor release, and community biodiversity coexistence drives across Rajshahi and Northern Bangladesh.",
-      "tags": ["Wildlife Rescue", "Herpetology", "Biodiversity", "Conservation"]
+      "tags": [
+        "Wildlife Rescue",
+        "Herpetology",
+        "Biodiversity",
+        "Conservation"
+      ]
     },
     {
       "id": "exp-6",
@@ -452,7 +590,12 @@
       "badgeType": "clinical",
       "link": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en",
       "summary": "Investigating prevalence, histopathological lesions in the crop and esophagus, and molecular sequencing of Capillaria spp. infecting indigenous backyard scavenging chickens in the Barind agro-ecological zone.",
-      "tags": ["Avian Parasitology", "Capillaria spp.", "Histopathology", "Poultry Health"]
+      "tags": [
+        "Avian Parasitology",
+        "Capillaria spp.",
+        "Histopathology",
+        "Poultry Health"
+      ]
     }
   ],
   "publications": [
@@ -538,289 +681,263 @@
   "trainings": [
     {
       "id": "cert-1",
-      "title": "Course on Research Ethics",
-      "organization": "World Health Organization (WHO)",
-      "issuer": "WHO Ethics Review Committee Secretariat, Global Health Ethics & Governance Unit",
-      "date": "July 05, 2026",
-      "summary": "Comprehensive certification in bioethics, biomedical human/animal research protocol governance, and informed consent.",
-      "fullDetails": "Comprehensive course covering the core ethical principles of biomedical research, protocols for vulnerable populations, risk-benefit evaluations, conflict-of-interest disclosures, and international review standards mandated by the World Health Organization (WHO) Ethics Review Committee.",
-      "certificateFile": "Certificate/R.Ethics.png",
-      "badge": "WHO Ethics"
+      "title": "RT-PCR & Molecular Diagnostic Techniques in Parasitology & Virology",
+      "description": "Hands-on molecular diagnostic training covering nucleic acid extraction, primer design, master mix preparation, thermal cycling protocols, real-time quantitative PCR (RT-qPCR) amplification, and agarose gel electrophoresis for avian and zoonotic pathogen detection.",
+      "date": "2025 - 2026",
+      "issuer": "Faculty of Veterinary & Animal Sciences, University of Rajshahi",
+      "credentialId": "MOL-RTPCR-RU-2026",
+      "credentialUrl": "https://www.ru.ac.bd/",
+      "image": "Certificate/Vectoract.jpeg"
     },
     {
       "id": "cert-2",
       "title": "One Health: Multisectoral Collaboration at the Interface",
-      "organization": "WHO Academy, World Health Organization",
+      "description": "Comprehensive international global health certification on operationalizing multisectoral collaboration principles across the human-animal-environmental interface under the International Health Regulations (IHR).",
+      "date": "04/06/2026",
       "issuer": "WHO Academy, World Health Organization",
-      "date": "June 04, 2026",
-      "summary": "Multisectoral collaboration mechanisms at the human-animal-environment interface for zoonotic pathogen prevention.",
-      "fullDetails": "In-depth study of operationalizing the One Health Joint Plan of Action (OH JPA), joint risk assessment (JRA) tools, cross-sectoral epidemiological information sharing, and integrated surveillance across veterinary and human health sectors.",
-      "certificateFile": "Certificate/OHA full.jpg",
-      "badge": "WHO Academy"
+      "credentialId": "",
+      "credentialUrl": "https://academy.who.int/",
+      "image": "Certificate/OHA full.jpg"
     },
     {
       "id": "cert-3",
-      "title": "Managing Infrastructures for Medical Research: Part 1",
-      "organization": "WHO Academy, World Health Organization",
-      "issuer": "WHO Academy, World Health Organization",
-      "date": "June 02, 2026",
-      "summary": "Core operational principles for establishing, calibrating, and maintaining biomedical research facilities.",
-      "fullDetails": "Comprehensive WHO Academy module on research infrastructure maintenance, laboratory biosafety levels, equipment calibration, quality assurance systems, and institutional research governance.",
-      "certificateFile": "Certificate/M.Infrast.Full.jpg",
-      "badge": "WHO Academy"
+      "title": "2nd Bangladesh Veterinary Olympiad 2023",
+      "description": "National competitive qualification in clinical diagnostics, infectious disease triage, and veterinary epidemiology, organized by NVDC with technical support from FAO and USAID.",
+      "date": "07/10/2023",
+      "issuer": "National Veterinary Dean Council (NVDC) & FAO / USAID",
+      "credentialId": "BVO-2023-RU",
+      "credentialUrl": "https://www.fao.org/bangladesh/",
+      "image": "Certificate/Vet. Olympiad.jpeg"
     },
     {
       "id": "cert-4",
-      "title": "Healthcare Associated Infection (HAI) Surveillance",
-      "organization": "World Health Organization (WHO)",
-      "issuer": "Infection Prevention and Control Unit & Hub (IPC Unit), WHO",
-      "date": "May 27, 2026",
-      "summary": "Methodologies for active and passive nosocomial infection surveillance, data validation, and IPC indicator monitoring.",
-      "fullDetails": "Detailed instruction in active case finding, surgical site infection (SSI) tracking, environmental sanitation audits, epidemiological feedback loops, and IPC surveillance indicators.",
-      "certificateFile": "Certificate/Healthcare.jpg",
-      "badge": "WHO IPC"
+      "title": "30-Day Data Analytics Bootcamp (Python, SQL, Power BI, Excel)",
+      "description": "Intensive 30-day professional data science program covering exploratory data analysis (EDA), automated data cleaning pipelines, statistical modeling in Python, relational SQL querying, and executive dashboards in Power BI and Excel.",
+      "date": "21/09/2026",
+      "issuer": "Gobeshona Learning Academy",
+      "credentialId": "GLA-DA-2026-921",
+      "credentialUrl": "",
+      "image": "Certificate/Data_analytics.png"
     },
     {
       "id": "cert-5",
-      "title": "Antimicrobial Stewardship Programmes in LMIC Facilities",
-      "organization": "World Health Organization (WHO)",
-      "issuer": "Department of Antimicrobial Resistance (AMR), WHO",
-      "date": "July 12, 2026",
-      "summary": "Specialized training on implementing AMS toolkits in low- and middle-income country healthcare and veterinary facilities.",
-      "fullDetails": "Covers diagnostic stewardship, surveillance of antimicrobial consumption (AWaRe classification), prescription auditing, behavioral change interventions, and institutional stewardship frameworks designed specifically for LMIC settings.",
-      "certificateFile": "Certificate/Screenshot 2026-06-03 102337.jpg",
-      "badge": "WHO Toolkit"
+      "title": "1st Scientific Conference of Veterinary & Animal Sciences (Oral Presentation)",
+      "description": "Delivered an oral scientific research presentation on veterinary clinical care, feed management, and companion animal welfare challenges before academic deans, veterinary clinicians, and national researchers.",
+      "date": "29/11/2025",
+      "issuer": "Faculty of Veterinary and Animal Sciences, University of Rajshahi",
+      "credentialId": "SCVAS-2025-ORAL",
+      "credentialUrl": "https://www.ru.ac.bd/",
+      "image": "Certificate/Vet. Conf..jpeg"
     },
     {
       "id": "cert-6",
-      "title": "Sensitization Workshop on Antimicrobial Resistance (AMR)",
-      "organization": "World Organisation for Animal Health (WOAH)",
-      "issuer": "WOAH & RMCH / University of Rajshahi",
-      "date": "2025",
-      "summary": "Global standards for veterinary antimicrobial use, prudent prescribing, and national action plan (NAP) alignment.",
-      "fullDetails": "Trainee workshop reviewing WOAH Terrestrial Animal Health Code standards, veterinary critically important antimicrobials (VCIAs), farm-level biosecurity, and inter-agency collaboration between livestock and health departments.",
-      "certificateFile": "Certificate/AMR.png",
-      "badge": "WOAH Workshop"
+      "title": "Computational Vaccine Design: Immuno-informatics & Reverse Vaccinology",
+      "description": "Applied bioinformatics certification covering computer-aided multi-epitope vaccine formulation, B-cell and T-cell (CTL/HTL) epitope mapping, MHC binding affinity screening, molecular docking, and MD simulations against zoonotic pathogens.",
+      "date": "2026",
+      "issuer": "VitaNova International Alliance for Sciences",
+      "credentialId": "VN-IMM-VAC-2026",
+      "credentialUrl": "https://vitanovaresearch.org/",
+      "image": "Certificate/Medical Infrastructure.png"
     },
     {
       "id": "cert-7",
-      "title": "21-Day Python Programming Masterclass",
-      "organization": "Google Colab Hands-On Bootcamp",
-      "issuer": "Computational Science Initiative",
-      "date": "July 28, 2026",
-      "summary": "Daily intensive coding bootcamp covering OOP, data structures, automation, web scraping, and biological data processing.",
-      "fullDetails": "Comprehensive curriculum covering abstraction, encapsulation, inheritance, polymorphism, regex, pandas data cleaning, matplotlib visualization, and algorithm implementation for life-science data.",
-      "certificateFile": "Certificate/Md_Nafizur_Rahman_Python_free_Certificate_21_days_masterclass.png",
-      "badge": "Python Certified"
+      "title": "RURS 2nd International Conference & Research Fair 2026 (RICRF26)",
+      "description": "Presented co-authored epidemiological research paper 'Epidemiology and Distribution of Ectoparasites in Free-Roaming Dogs from the Semi-Arid Barind Tract, Northwestern Bangladesh' with formal statistical models.",
+      "date": "02/10/2026",
+      "issuer": "Rajshahi University Research Society (RURS), University of Rajshahi",
+      "credentialId": "RICRF26-AC017",
+      "credentialUrl": "https://www.ru.ac.bd/",
+      "image": "Certificate/Dog ectoparasite.jpeg"
     },
     {
       "id": "cert-8",
-      "title": "30 Days Data Analytics Bootcamp",
-      "organization": "Data Science & Analytics Training Program",
-      "issuer": "Professional Data Initiative",
-      "date": "September 2026",
-      "summary": "Intensive 30-day program in exploratory data analysis, visualization, and statistical modeling with Python and SQL.",
-      "fullDetails": "Comprehensive hands-on data cleaning, multivariate statistics, SQL queries, and interactive reporting using Python, Excel, and Power BI for research workflows.",
-      "certificateFile": "Certificate/Data_analytics.png",
-      "badge": "Data Analytics"
+      "title": "Young SDG Fellow — Commonwealth Students' Association",
+      "description": "Awarded Certificate of Fellowship demonstrating exceptional youth commitment to the United Nations Sustainable Development Goals (SDGs), One Health advocacy, and global youth engagement across rounds 1 and 2.",
+      "date": "17/05/2026",
+      "issuer": "Commonwealth Students' Association (CSA) & Zero Olympiad",
+      "credentialId": "ZO-26-FEL-938AA7",
+      "credentialUrl": "https://www.commonwealthstudents.org/",
+      "image": "Certificate/Screenshot 2026-06-03 102537.jpg"
     },
     {
       "id": "cert-9",
-      "title": "AMMnet Insights: Malaria Modeling Workshop",
-      "organization": "Applied Malaria Modeling Network & University of Rajshahi",
-      "issuer": "Applied Malaria Modeling Network (AMMnet)",
-      "date": "2026",
-      "summary": "Mathematical and spatial modeling of vector transmission dynamics for public health professionals in Bangladesh.",
-      "fullDetails": "Hands-on trainee workshop on compartmental infectious disease models (SIR/SEIR), calculating entomological inoculation rates (EIR), incorporating rainfall and temperature covariates, and forecasting transmission hot-spots.",
-      "certificateFile": "Certificate/Malaria Modeling.jpeg",
-      "badge": "AMMnet Trainee"
+      "title": "21-Day Python Programming Masterclass",
+      "description": "Webinar and hands-on coding masterclass covering Python algorithms, data structures, object-oriented programming, and scientific computing workflows.",
+      "date": "28/07/2026",
+      "issuer": "Gobeshona Learning Academy",
+      "credentialId": "",
+      "credentialUrl": "",
+      "image": "Certificate/Md_Nafizur_Rahman_Python_free_Certificate_21_days_masterclass.png"
     },
     {
       "id": "cert-10",
-      "title": "Free-Roaming Dogs Ectoparasite Field Surveillance",
-      "organization": "Department of Veterinary & Animal Sciences, University of Rajshahi",
-      "issuer": "Faculty of Veterinary and Animal Sciences, RU",
-      "date": "2024–2025",
-      "badge": "Field Research",
-      "certificateFile": "Certificate/Dog ectoparasite.jpeg",
-      "summary": "Year-long field surveillance across 310 free-roaming dogs in the semi-arid Barind Tract, northwestern Bangladesh.",
-      "fullDetails": "Field investigator certification recognizing primary specimen collection (2,908 ectoparasites), animal handling, ocular morphometrics, and molecular validation."
+      "title": "Course on Research Ethics",
+      "description": "Certified in international ethical standards for biomedical and clinical research involving animal models and human populations, biobanking governance, and informed consent principles.",
+      "date": "05/07/2026",
+      "issuer": "WHO Ethics Review Committee Secretariat, World Health Organization",
+      "credentialId": "",
+      "credentialUrl": "https://www.who.int/ethics",
+      "image": "Certificate/R.Ethics.png"
     },
     {
       "id": "cert-11",
-      "title": "1st Scientific Conference of Veterinary & Animal Sciences",
-      "organization": "Faculty of Veterinary & Animal Sciences, University of Rajshahi",
-      "issuer": "University of Rajshahi, Bangladesh",
-      "date": "November 29, 2025",
-      "badge": "Conference Presenter",
-      "certificateFile": "Certificate/Vet. Conf..jpeg",
-      "summary": "Co-authored and presented conference paper on pet welfare, ethics, and veterinary access in Bangladesh.",
-      "fullDetails": "Presented findings on ownership dynamics, education-linked vaccination compliance, and healthcare barriers in companion animal welfare across Bangladesh."
+      "title": "Managing Infrastructures for Medical Research: Part 1",
+      "description": "WHO Academy certified training covering physical, institutional, and regulatory frameworks required to manage advanced biomedical research facilities and laboratories.",
+      "date": "02/06/2026",
+      "issuer": "WHO Academy, World Health Organization",
+      "credentialId": "",
+      "credentialUrl": "https://academy.who.int/",
+      "image": "Certificate/M.Infrast.Full.jpg"
     },
     {
       "id": "cert-12",
-      "title": "2nd Bangladesh Veterinary Olympiad 2023",
-      "organization": "National Veterinary Dean Council (NVDC)",
-      "issuer": "NVDC, FAO & USAID",
-      "date": "October 7, 2023",
-      "summary": "Nationwide competitive veterinary examination testing clinical diagnosis, infectious diseases, and animal production.",
-      "fullDetails": "Rigorous multi-round competitive Olympiad testing veterinary pharmacology, pathology, surgery, epidemiology, and livestock economics among top DVM students across Bangladesh.",
-      "certificateFile": "Certificate/Vet. Olympiad.jpeg",
-      "badge": "National Olympiad"
+      "title": "Antimicrobial Stewardship Programmes in LMIC Facilities",
+      "description": "Mastered the WHO practical toolkit for establishing, monitoring, and evaluating antimicrobial stewardship initiatives and combating AMR in health facilities.",
+      "date": "12/07/2026",
+      "issuer": "Department of Antimicrobial Resistance (AMR), WHO",
+      "credentialId": "",
+      "credentialUrl": "https://www.who.int/teams/surveillance-prevention-control-AMR",
+      "image": "Certificate/AMR.png"
     },
     {
       "id": "cert-13",
-      "title": "Young SDG Fellow — Zero Olympiad",
-      "organization": "Commonwealth Students' Association (CSA)",
-      "issuer": "Commonwealth Students' Association & Faatiha Aayat",
-      "date": "May 17, 2026",
-      "summary": "Officially recognized by Commonwealth Students' Association for demonstrated commitment to the UN SDGs.",
-      "fullDetails": "Demonstrated outstanding youth leadership in sustainable development, climate action, and community welfare through competitive rounds of the Zero Olympiad.",
-      "certificateFile": "Certificate/Screenshot 2026-06-03 102537.jpg",
-      "badge": "SDG Fellow"
+      "title": "Healthcare Associated Infection (HAI) Surveillance",
+      "description": "Comprehensive training on epidemiological methodologies for tracking nosocomial infections, IPC protocol compliance, and hospital outbreak mitigation.",
+      "date": "27/05/2026",
+      "issuer": "Infection Prevention and Control Unit & Hub (IPC Unit), WHO",
+      "credentialId": "",
+      "credentialUrl": "https://www.who.int/teams/integrated-health-services/infection-prevention-control",
+      "image": "Certificate/Healthcare.jpg"
     },
     {
       "id": "cert-14",
-      "title": "Outstanding Volunteer Contribution Award",
-      "organization": "Rajshahi University Student Welfare Association (RUSWA)",
-      "issuer": "RUSWA Executive Committee",
-      "date": "October 27, 2024",
-      "summary": "Awarded for dedicated volunteer contributions and student welfare initiatives from September to October 2024.",
-      "fullDetails": "Official recognition for exemplary campus welfare mobilization, humanitarian relief support, and leadership across university halls.",
-      "certificateFile": "Certificate/RUSWA volunteer.jpeg",
-      "badge": "Volunteer Award"
+      "title": "AMMnet Insights: Malaria Modelling Workshop",
+      "description": "Applied mathematical and computational modeling workshop focusing on compartmental transmission dynamics, vector interventions, and climate covariates in malaria epidemiology.",
+      "date": "27-28/03/2026",
+      "issuer": "Applied Malaria Modeling Network (AMMnet), Northwestern University & RU",
+      "credentialId": "",
+      "credentialUrl": "https://ammnet.org/",
+      "image": "Certificate/Malaria Modeling.jpeg"
     },
     {
       "id": "cert-15",
-      "title": "Climate Change International Legal Regime",
-      "organization": "United Nations (UNITAR, UNEP & InforMEA)",
-      "issuer": "UNITAR, UN Environment Programme & InforMEA",
-      "date": "May 09, 2026",
-      "summary": "International environmental law, multilateral biodiversity treaties, and climate adaptation frameworks.",
-      "fullDetails": "Examination of UNFCCC, Paris Agreement mechanisms, biodiversity conventions, and their direct linkages to emerging infectious diseases, habitat fragmentation, and global environmental health.",
-      "certificateFile": "Certificate/Screenshot 2026-06-03 102303.jpg",
-      "badge": "UN Certification"
+      "title": "Research Data Analysis Using IBM SPSS with Real Data",
+      "description": "Hands-on statistical workshop covering variable coding, parametric and non-parametric testing, ANOVA, multivariate regression, and reporting for peer-reviewed publication.",
+      "date": "2025",
+      "issuer": "Scholars Academy",
+      "credentialId": "",
+      "credentialUrl": "",
+      "image": "Certificate/Research Academy SPSS.jpeg"
     },
     {
       "id": "cert-16",
-      "title": "RUEC 1st International Research Conference 2025",
-      "organization": "Rajshahi University Education Club (RUEC)",
-      "issuer": "Rajshahi University Education Club",
-      "date": "September 6–7, 2025",
-      "summary": "Participation in Advancing Knowledge and Innovation Across Disciplines for Social Transformation.",
-      "fullDetails": "Participated in multidisciplinary research symposia, peer review sessions, and translational public health discussions.",
-      "certificateFile": "Certificate/RUEC Int. Audience.jpeg",
-      "badge": "International Conf"
+      "title": "Monitoring, Assessing and Mitigating the Risks of Vector-Borne Diseases",
+      "description": "European Union-funded MOOC on vector biology, trapping strategies, bioclimatic risk mapping, and integrated vector management across endemic zones.",
+      "date": "2026",
+      "issuer": "VECTORACT Building Capacity (EU Grant #101083215)",
+      "credentialId": "",
+      "credentialUrl": "",
+      "image": "Certificate/Vectoract.jpeg"
     },
     {
       "id": "cert-17",
-      "title": "RUHERF Summit 2025: Shaping Future Through Research",
-      "organization": "Rajshahi University Higher Education and Research Forum",
-      "issuer": "RUHERF Executive Board",
-      "date": "August 17, 2025",
-      "summary": "University-wide research summit focused on global education, methodology, and student research development.",
-      "fullDetails": "Department representative participating in higher education research strategy, international scholarship preparation, and interdisciplinary collaboration.",
-      "certificateFile": "Certificate/RUHERF Research Summit.jpeg",
-      "badge": "Research Summit"
+      "title": "Climate Change International Legal Regime",
+      "description": "Multilateral environmental agreement analysis focusing on the UNFCCC, Paris Agreement, Kyoto Protocol, and global climate litigation frameworks.",
+      "date": "09/05/2026",
+      "issuer": "UNITAR, UN Environment Programme (UNEP) & InforMEA",
+      "credentialId": "",
+      "credentialUrl": "https://www.informea.org/",
+      "image": "Certificate/Screenshot 2026-06-03 102303.jpg"
     },
     {
       "id": "cert-18",
-      "title": "International Career Summit 2026",
-      "organization": "Rajshahi University Readers' Forum",
-      "issuer": "RU Readers' Forum",
-      "date": "September 04, 2026",
-      "summary": "International career leadership, scientific communication, and global academic opportunities.",
-      "fullDetails": "Participated in sessions covering cross-border research collaborations, academic publishing, and professional career transitions in biological and veterinary sciences.",
-      "certificateFile": "Certificate/Career summit 2026-09-14 at 9.24.46 PM.jpeg",
-      "badge": "Career Summit"
+      "title": "Zero Olympiad — Round 2 Achievement of Appreciation",
+      "description": "Certificate of Achievement acknowledging successful advancement and competitive completion in Round 2 of the Zero Olympiad on Sustainable Development.",
+      "date": "18/05/2026",
+      "issuer": "Zero Olympiad (Faatiha Aayat)",
+      "credentialId": "ZO-26-R2P-938AA7",
+      "credentialUrl": "",
+      "image": "Certificate/Screenshot 2026-06-03 102509.jpg"
     },
     {
       "id": "cert-19",
-      "title": "Impactra National Quiz Competition 2026",
-      "organization": "Impactra",
-      "issuer": "Impactra (Season 01)",
-      "date": "June 18, 2026",
-      "summary": "National competitive quiz participant demonstrating multi-disciplinary scientific knowledge.",
-      "fullDetails": "Recognized for top-tier analytical thinking and scientific aptitude across multi-round national competition.",
-      "certificateFile": "Certificate/mpactra National Quiz Competition.png",
-      "badge": "National Quiz"
+      "title": "Zero Olympiad — Round 1 Achievement of Appreciation",
+      "description": "Certificate of Achievement acknowledging successful participation in Round 1 of the national Zero Olympiad examining global sustainability goals.",
+      "date": "17/05/2026",
+      "issuer": "Zero Olympiad (Faatiha Aayat)",
+      "credentialId": "ZO-26-R1-938AA7",
+      "credentialUrl": "",
+      "image": "Certificate/Screenshot 2026-06-03 102337.jpg"
     },
     {
       "id": "cert-20",
-      "title": "Research Data Analysis Using IBM SPSS with Real Data",
-      "organization": "Research Academy",
-      "issuer": "Research Academy Bangladesh",
-      "date": "2025",
-      "summary": "Hands-on statistical analysis workshop utilizing real-world public health and epidemiological datasets.",
-      "fullDetails": "Parametric & non-parametric testing, Chi-Square independence, Spearman correlation, ANOVA, multiple linear regression, and logistic regression modeling.",
-      "certificateFile": "Certificate/Research Academy SPSS.jpeg",
-      "badge": "SPSS Analytics"
+      "title": "RUHERF Summit 2025: Shaping Future Through Research & Global Education",
+      "description": "Participated in international academic discourse on multidisciplinary scientific publishing, research methodology, and international fellowship pathways.",
+      "date": "17/08/2025",
+      "issuer": "Rajshahi University Higher Education and Research Forum (RUHERF)",
+      "credentialId": "",
+      "credentialUrl": "https://www.ru.ac.bd/",
+      "image": "Certificate/RUHERF Research Summit.jpeg"
     },
     {
       "id": "cert-21",
-      "title": "Seminar on Bridging Theory-Practice Gap in Science Education",
-      "organization": "Kekuléon Research & Training Center (KRTC)",
-      "issuer": "Kekuléon Research & Training Center",
-      "date": "2025",
-      "summary": "Participated in pedagogical innovation and practical laboratory translation seminar.",
-      "fullDetails": "Explored experiential learning models, practical laboratory training in biological curricula, and science communication in Bangladesh.",
-      "certificateFile": "Certificate/Kekuleon.png",
-      "badge": "Science Education"
+      "title": "RUEC 1st International Research Conference 2025",
+      "description": "International conference participation under the theme 'Advancing Knowledge and Innovation Across Disciplines for Social Transformation'.",
+      "date": "06-07/09/2025",
+      "issuer": "Rajshahi University Education Club (RUEC)",
+      "credentialId": "",
+      "credentialUrl": "https://www.ru.ac.bd/",
+      "image": "Certificate/RUEC Int. Audience.jpeg"
     },
     {
       "id": "cert-22",
-      "title": "Vector-Borne Disease Risk Assessment & Mitigation",
-      "organization": "Global Health Vector Control Initiative",
-      "issuer": "MOOC on Vector-Borne Diseases",
-      "date": "2025",
-      "summary": "MOOC on Monitoring, Assessing and Mitigating the Risks of Vector-Borne Diseases.",
-      "fullDetails": "Integrated vector management (IVM), entomological risk indices, surveillance of Aedes and Culex populations, and community mitigation.",
-      "certificateFile": "Certificate/Screenshot 2026-06-03 102509.jpg",
-      "badge": "Vector Ecology"
+      "title": "Certificate of Best Volunteer Award",
+      "description": "Awarded for outstanding volunteer leadership, community engagement, and dedicated organizational service from September to October 2024.",
+      "date": "27/10/2024",
+      "issuer": "Rajshahi University Student Welfare Association (RUSWA)",
+      "credentialId": "",
+      "credentialUrl": "",
+      "image": "Certificate/RUSWA volunteer.jpeg"
     },
     {
       "id": "cert-23",
-      "title": "Entomo-Virological Vector Surveillance Certification",
-      "organization": "Infectious Disease & Entomology Network",
-      "issuer": "Vector Surveillance Network",
-      "date": "2025",
-      "summary": "Field and laboratory certification in mosquito vector trapping and arbovirus surveillance.",
-      "fullDetails": "Field operation of BG-Sentinel traps, taxonomic separation of culicid species, pool preparation, and viral transport logistics.",
-      "certificateFile": "Certificate/Vectoract.jpeg",
-      "badge": "Entomology"
+      "title": "Cyber Hygiene — Training Completion Certificate",
+      "description": "Digital security certification covering threat vector analysis, operational privacy, phishing mitigation, and cryptographic best practices supported by Google.org.",
+      "date": "23/05/2026",
+      "issuer": "The Asia Foundation & SAJIDA Foundation (Google.org)",
+      "credentialId": "",
+      "credentialUrl": "https://asiafoundation.org/",
+      "image": "Certificate/Cyber Security.jpg"
     },
     {
       "id": "cert-24",
-      "title": "Cyber Hygiene & Security Training",
-      "organization": "Digital Security & Cyber Hygiene Initiative",
-      "issuer": "Cyber Hygiene Network",
-      "date": "2025",
-      "summary": "Best practices in digital asset protection, research data confidentiality, and cyber threat awareness.",
-      "fullDetails": "Training in secure research computing, safe credential management, phishing prevention, and data confidentiality for scientific and clinical projects.",
-      "certificateFile": "Certificate/Cyber Security.jpg",
-      "badge": "Cyber Hygiene"
+      "title": "Impactra National Quiz Competition 2026 (Season 01)",
+      "description": "National competition certificate awarded for excellence in scientific curiosity, general knowledge, and intellectual engagement.",
+      "date": "18/06/2026",
+      "issuer": "Impactra",
+      "credentialId": "",
+      "credentialUrl": "",
+      "image": "Certificate/mpactra National Quiz Competition.png"
     },
     {
       "id": "cert-25",
-      "title": "Digital Communications & Scientific Outreach",
-      "organization": "Professional Skills Development",
-      "issuer": "Digital Skills Academy",
-      "date": "2025",
-      "summary": "Digital campaign strategy, scientific outreach, and online public health communication.",
-      "fullDetails": "Strategic digital communication techniques to disseminate veterinary public health messages, campaign analytics, and community engagement.",
-      "certificateFile": "Certificate/Digital Marketing.jpeg",
-      "badge": "Communications"
+      "title": "Seminar on Bridging the Theory-Practice Gap in Science Education",
+      "description": "Pedagogical seminar examining experiential laboratory instruction, translational research translation, and secondary education enrichment in Bangladesh.",
+      "date": "2026",
+      "issuer": "Kekuléon Research & Training Center (KRTC)",
+      "credentialId": "",
+      "credentialUrl": "",
+      "image": "Certificate/Kekuleon.png"
     },
     {
       "id": "cert-26",
-      "title": "Medical Research Infrastructure Governance",
-      "organization": "World Health Organization (WHO Academy)",
-      "issuer": "WHO Academy, World Health Organization",
-      "date": "June 02, 2026",
-      "summary": "Official credential badge for managing biomedical research infrastructures.",
-      "fullDetails": "Quality management systems, diagnostic laboratory logistics, sample biorepository preservation, and compliance with international biosafety directives.",
-      "certificateFile": "Certificate/Medical Infrastructure.png",
-      "badge": "WHO Certified"
+      "title": "Professional Online Digital Marketing",
+      "description": "Professional digital communication certification covering search optimization, audience targeting, outreach analytics, and multi-channel content strategies.",
+      "date": "13/07/2023",
+      "issuer": "UY LAB",
+      "credentialId": "02309048024",
+      "credentialUrl": "https://uylab.org/",
+      "image": "Certificate/Digital Marketing.jpeg"
     }
   ],
   "gallery": [
@@ -959,6 +1076,268 @@
       "institution": "University of Rajshahi, Rajshahi-6205, Bangladesh",
       "email": "mdnafizurrahman8024@gmail.com",
       "relationship": "One Health & Parasitology Research Mentorship"
+    }
+  ],
+  "certificates": [
+    {
+      "id": "cert-1",
+      "title": "RT-PCR & Molecular Diagnostic Techniques in Parasitology & Virology",
+      "description": "Hands-on molecular diagnostic training covering nucleic acid extraction, primer design, master mix preparation, thermal cycling protocols, real-time quantitative PCR (RT-qPCR) amplification, and agarose gel electrophoresis for avian and zoonotic pathogen detection.",
+      "date": "2025 - 2026",
+      "issuer": "Faculty of Veterinary & Animal Sciences, University of Rajshahi",
+      "credentialId": "MOL-RTPCR-RU-2026",
+      "credentialUrl": "https://www.ru.ac.bd/",
+      "image": "Certificate/Vectoract.jpeg"
+    },
+    {
+      "id": "cert-2",
+      "title": "One Health: Multisectoral Collaboration at the Interface",
+      "description": "Comprehensive international global health certification on operationalizing multisectoral collaboration principles across the human-animal-environmental interface under the International Health Regulations (IHR).",
+      "date": "04/06/2026",
+      "issuer": "WHO Academy, World Health Organization",
+      "credentialId": "",
+      "credentialUrl": "https://academy.who.int/",
+      "image": "Certificate/OHA full.jpg"
+    },
+    {
+      "id": "cert-3",
+      "title": "2nd Bangladesh Veterinary Olympiad 2023",
+      "description": "National competitive qualification in clinical diagnostics, infectious disease triage, and veterinary epidemiology, organized by NVDC with technical support from FAO and USAID.",
+      "date": "07/10/2023",
+      "issuer": "National Veterinary Dean Council (NVDC) & FAO / USAID",
+      "credentialId": "BVO-2023-RU",
+      "credentialUrl": "https://www.fao.org/bangladesh/",
+      "image": "Certificate/Vet. Olympiad.jpeg"
+    },
+    {
+      "id": "cert-4",
+      "title": "30-Day Data Analytics Bootcamp (Python, SQL, Power BI, Excel)",
+      "description": "Intensive 30-day professional data science program covering exploratory data analysis (EDA), automated data cleaning pipelines, statistical modeling in Python, relational SQL querying, and executive dashboards in Power BI and Excel.",
+      "date": "21/09/2026",
+      "issuer": "Gobeshona Learning Academy",
+      "credentialId": "GLA-DA-2026-921",
+      "credentialUrl": "",
+      "image": "Certificate/Data_analytics.png"
+    },
+    {
+      "id": "cert-5",
+      "title": "1st Scientific Conference of Veterinary & Animal Sciences (Oral Presentation)",
+      "description": "Delivered an oral scientific research presentation on veterinary clinical care, feed management, and companion animal welfare challenges before academic deans, veterinary clinicians, and national researchers.",
+      "date": "29/11/2025",
+      "issuer": "Faculty of Veterinary and Animal Sciences, University of Rajshahi",
+      "credentialId": "SCVAS-2025-ORAL",
+      "credentialUrl": "https://www.ru.ac.bd/",
+      "image": "Certificate/Vet. Conf..jpeg"
+    },
+    {
+      "id": "cert-6",
+      "title": "Computational Vaccine Design: Immuno-informatics & Reverse Vaccinology",
+      "description": "Applied bioinformatics certification covering computer-aided multi-epitope vaccine formulation, B-cell and T-cell (CTL/HTL) epitope mapping, MHC binding affinity screening, molecular docking, and MD simulations against zoonotic pathogens.",
+      "date": "2026",
+      "issuer": "VitaNova International Alliance for Sciences",
+      "credentialId": "VN-IMM-VAC-2026",
+      "credentialUrl": "https://vitanovaresearch.org/",
+      "image": "Certificate/Medical Infrastructure.png"
+    },
+    {
+      "id": "cert-7",
+      "title": "RURS 2nd International Conference & Research Fair 2026 (RICRF26)",
+      "description": "Presented co-authored epidemiological research paper 'Epidemiology and Distribution of Ectoparasites in Free-Roaming Dogs from the Semi-Arid Barind Tract, Northwestern Bangladesh' with formal statistical models.",
+      "date": "02/10/2026",
+      "issuer": "Rajshahi University Research Society (RURS), University of Rajshahi",
+      "credentialId": "RICRF26-AC017",
+      "credentialUrl": "https://www.ru.ac.bd/",
+      "image": "Certificate/Dog ectoparasite.jpeg"
+    },
+    {
+      "id": "cert-8",
+      "title": "Young SDG Fellow — Commonwealth Students' Association",
+      "description": "Awarded Certificate of Fellowship demonstrating exceptional youth commitment to the United Nations Sustainable Development Goals (SDGs), One Health advocacy, and global youth engagement across rounds 1 and 2.",
+      "date": "17/05/2026",
+      "issuer": "Commonwealth Students' Association (CSA) & Zero Olympiad",
+      "credentialId": "ZO-26-FEL-938AA7",
+      "credentialUrl": "https://www.commonwealthstudents.org/",
+      "image": "Certificate/Screenshot 2026-06-03 102537.jpg"
+    },
+    {
+      "id": "cert-9",
+      "title": "21-Day Python Programming Masterclass",
+      "description": "Webinar and hands-on coding masterclass covering Python algorithms, data structures, object-oriented programming, and scientific computing workflows.",
+      "date": "28/07/2026",
+      "issuer": "Gobeshona Learning Academy",
+      "credentialId": "",
+      "credentialUrl": "",
+      "image": "Certificate/Md_Nafizur_Rahman_Python_free_Certificate_21_days_masterclass.png"
+    },
+    {
+      "id": "cert-10",
+      "title": "Course on Research Ethics",
+      "description": "Certified in international ethical standards for biomedical and clinical research involving animal models and human populations, biobanking governance, and informed consent principles.",
+      "date": "05/07/2026",
+      "issuer": "WHO Ethics Review Committee Secretariat, World Health Organization",
+      "credentialId": "",
+      "credentialUrl": "https://www.who.int/ethics",
+      "image": "Certificate/R.Ethics.png"
+    },
+    {
+      "id": "cert-11",
+      "title": "Managing Infrastructures for Medical Research: Part 1",
+      "description": "WHO Academy certified training covering physical, institutional, and regulatory frameworks required to manage advanced biomedical research facilities and laboratories.",
+      "date": "02/06/2026",
+      "issuer": "WHO Academy, World Health Organization",
+      "credentialId": "",
+      "credentialUrl": "https://academy.who.int/",
+      "image": "Certificate/M.Infrast.Full.jpg"
+    },
+    {
+      "id": "cert-12",
+      "title": "Antimicrobial Stewardship Programmes in LMIC Facilities",
+      "description": "Mastered the WHO practical toolkit for establishing, monitoring, and evaluating antimicrobial stewardship initiatives and combating AMR in health facilities.",
+      "date": "12/07/2026",
+      "issuer": "Department of Antimicrobial Resistance (AMR), WHO",
+      "credentialId": "",
+      "credentialUrl": "https://www.who.int/teams/surveillance-prevention-control-AMR",
+      "image": "Certificate/AMR.png"
+    },
+    {
+      "id": "cert-13",
+      "title": "Healthcare Associated Infection (HAI) Surveillance",
+      "description": "Comprehensive training on epidemiological methodologies for tracking nosocomial infections, IPC protocol compliance, and hospital outbreak mitigation.",
+      "date": "27/05/2026",
+      "issuer": "Infection Prevention and Control Unit & Hub (IPC Unit), WHO",
+      "credentialId": "",
+      "credentialUrl": "https://www.who.int/teams/integrated-health-services/infection-prevention-control",
+      "image": "Certificate/Healthcare.jpg"
+    },
+    {
+      "id": "cert-14",
+      "title": "AMMnet Insights: Malaria Modelling Workshop",
+      "description": "Applied mathematical and computational modeling workshop focusing on compartmental transmission dynamics, vector interventions, and climate covariates in malaria epidemiology.",
+      "date": "27-28/03/2026",
+      "issuer": "Applied Malaria Modeling Network (AMMnet), Northwestern University & RU",
+      "credentialId": "",
+      "credentialUrl": "https://ammnet.org/",
+      "image": "Certificate/Malaria Modeling.jpeg"
+    },
+    {
+      "id": "cert-15",
+      "title": "Research Data Analysis Using IBM SPSS with Real Data",
+      "description": "Hands-on statistical workshop covering variable coding, parametric and non-parametric testing, ANOVA, multivariate regression, and reporting for peer-reviewed publication.",
+      "date": "2025",
+      "issuer": "Scholars Academy",
+      "credentialId": "",
+      "credentialUrl": "",
+      "image": "Certificate/Research Academy SPSS.jpeg"
+    },
+    {
+      "id": "cert-16",
+      "title": "Monitoring, Assessing and Mitigating the Risks of Vector-Borne Diseases",
+      "description": "European Union-funded MOOC on vector biology, trapping strategies, bioclimatic risk mapping, and integrated vector management across endemic zones.",
+      "date": "2026",
+      "issuer": "VECTORACT Building Capacity (EU Grant #101083215)",
+      "credentialId": "",
+      "credentialUrl": "",
+      "image": "Certificate/Vectoract.jpeg"
+    },
+    {
+      "id": "cert-17",
+      "title": "Climate Change International Legal Regime",
+      "description": "Multilateral environmental agreement analysis focusing on the UNFCCC, Paris Agreement, Kyoto Protocol, and global climate litigation frameworks.",
+      "date": "09/05/2026",
+      "issuer": "UNITAR, UN Environment Programme (UNEP) & InforMEA",
+      "credentialId": "",
+      "credentialUrl": "https://www.informea.org/",
+      "image": "Certificate/Screenshot 2026-06-03 102303.jpg"
+    },
+    {
+      "id": "cert-18",
+      "title": "Zero Olympiad — Round 2 Achievement of Appreciation",
+      "description": "Certificate of Achievement acknowledging successful advancement and competitive completion in Round 2 of the Zero Olympiad on Sustainable Development.",
+      "date": "18/05/2026",
+      "issuer": "Zero Olympiad (Faatiha Aayat)",
+      "credentialId": "ZO-26-R2P-938AA7",
+      "credentialUrl": "",
+      "image": "Certificate/Screenshot 2026-06-03 102509.jpg"
+    },
+    {
+      "id": "cert-19",
+      "title": "Zero Olympiad — Round 1 Achievement of Appreciation",
+      "description": "Certificate of Achievement acknowledging successful participation in Round 1 of the national Zero Olympiad examining global sustainability goals.",
+      "date": "17/05/2026",
+      "issuer": "Zero Olympiad (Faatiha Aayat)",
+      "credentialId": "ZO-26-R1-938AA7",
+      "credentialUrl": "",
+      "image": "Certificate/Screenshot 2026-06-03 102337.jpg"
+    },
+    {
+      "id": "cert-20",
+      "title": "RUHERF Summit 2025: Shaping Future Through Research & Global Education",
+      "description": "Participated in international academic discourse on multidisciplinary scientific publishing, research methodology, and international fellowship pathways.",
+      "date": "17/08/2025",
+      "issuer": "Rajshahi University Higher Education and Research Forum (RUHERF)",
+      "credentialId": "",
+      "credentialUrl": "https://www.ru.ac.bd/",
+      "image": "Certificate/RUHERF Research Summit.jpeg"
+    },
+    {
+      "id": "cert-21",
+      "title": "RUEC 1st International Research Conference 2025",
+      "description": "International conference participation under the theme 'Advancing Knowledge and Innovation Across Disciplines for Social Transformation'.",
+      "date": "06-07/09/2025",
+      "issuer": "Rajshahi University Education Club (RUEC)",
+      "credentialId": "",
+      "credentialUrl": "https://www.ru.ac.bd/",
+      "image": "Certificate/RUEC Int. Audience.jpeg"
+    },
+    {
+      "id": "cert-22",
+      "title": "Certificate of Best Volunteer Award",
+      "description": "Awarded for outstanding volunteer leadership, community engagement, and dedicated organizational service from September to October 2024.",
+      "date": "27/10/2024",
+      "issuer": "Rajshahi University Student Welfare Association (RUSWA)",
+      "credentialId": "",
+      "credentialUrl": "",
+      "image": "Certificate/RUSWA volunteer.jpeg"
+    },
+    {
+      "id": "cert-23",
+      "title": "Cyber Hygiene — Training Completion Certificate",
+      "description": "Digital security certification covering threat vector analysis, operational privacy, phishing mitigation, and cryptographic best practices supported by Google.org.",
+      "date": "23/05/2026",
+      "issuer": "The Asia Foundation & SAJIDA Foundation (Google.org)",
+      "credentialId": "",
+      "credentialUrl": "https://asiafoundation.org/",
+      "image": "Certificate/Cyber Security.jpg"
+    },
+    {
+      "id": "cert-24",
+      "title": "Impactra National Quiz Competition 2026 (Season 01)",
+      "description": "National competition certificate awarded for excellence in scientific curiosity, general knowledge, and intellectual engagement.",
+      "date": "18/06/2026",
+      "issuer": "Impactra",
+      "credentialId": "",
+      "credentialUrl": "",
+      "image": "Certificate/mpactra National Quiz Competition.png"
+    },
+    {
+      "id": "cert-25",
+      "title": "Seminar on Bridging the Theory-Practice Gap in Science Education",
+      "description": "Pedagogical seminar examining experiential laboratory instruction, translational research translation, and secondary education enrichment in Bangladesh.",
+      "date": "2026",
+      "issuer": "Kekuléon Research & Training Center (KRTC)",
+      "credentialId": "",
+      "credentialUrl": "",
+      "image": "Certificate/Kekuleon.png"
+    },
+    {
+      "id": "cert-26",
+      "title": "Professional Online Digital Marketing",
+      "description": "Professional digital communication certification covering search optimization, audience targeting, outreach analytics, and multi-channel content strategies.",
+      "date": "13/07/2023",
+      "issuer": "UY LAB",
+      "credentialId": "02309048024",
+      "credentialUrl": "https://uylab.org/",
+      "image": "Certificate/Digital Marketing.jpeg"
     }
   ]
 }

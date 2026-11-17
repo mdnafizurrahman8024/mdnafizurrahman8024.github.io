@@ -13,6 +13,7 @@ let currentPubSearch = '';
 let currentGalleryFilter = 'all';
 let currentSoftwareFilter = 'all';
 let isTimelineExpanded = false;
+let isCertificatesExpanded = false;
 let stagedFileUploads = [];
 
 /* ==========================================================================
@@ -72,7 +73,7 @@ function renderAll() {
   renderSoftwareProjects(d.softwareProjects);
   renderCapabilities(d.capabilities);
   renderPublications();
-  renderTrainings(d.trainings);
+  renderTrainings(d.certificates || d.trainings);
   renderGalleryMarquee();
   renderLeadership(d.leadership);
   renderReferences(d.references);
@@ -456,33 +457,80 @@ function initPubSearchAndFilters() {
 /* --------------------------------------------------------------------------
    6. Training & Certification (3-Column Grid with 26 Certificates & Modals)
    -------------------------------------------------------------------------- */
-function renderTrainings(trainings) {
+/* --------------------------------------------------------------------------
+   6. Training & Certification (4-Column Grid with 8 Initial Prioritized Cards)
+   -------------------------------------------------------------------------- */
+function renderTrainings(certs) {
   const container = document.getElementById('trainings-grid-container');
-  if (!container || !trainings) return;
+  if (!container) return;
 
-  container.innerHTML = trainings.map((t, index) => `
-    <div class="training-card">
-      <div class="training-header">
-        <span class="training-badge">${escapeHTML(t.badge || 'Certificate')}</span>
-        <span class="training-date">${escapeHTML(t.date)}</span>
+  const allCerts = certs || window.portfolioData?.certificates || window.portfolioData?.trainings || [];
+  const displayList = isCertificatesExpanded ? allCerts : allCerts.slice(0, 8);
+
+  container.innerHTML = displayList.map((t, index) => {
+    const fullIndex = allCerts.indexOf(t) !== -1 ? allCerts.indexOf(t) : index;
+    const issuer = t.issuer || t.organization || 'Issuing Authority';
+    const desc = t.description || t.summary || '';
+
+    return `
+      <div class="training-card">
+        <div>
+          <div class="training-header">
+            <span class="training-badge"><i class="fa-solid fa-award"></i> Certificate</span>
+            <span class="training-date">${escapeHTML(t.date || '')}</span>
+          </div>
+          <h4 class="training-title" title="${escapeHTML(t.title)}">${escapeHTML(t.title)}</h4>
+          <div class="training-org" title="${escapeHTML(issuer)}">
+            <i class="fa-solid fa-building-columns"></i> ${escapeHTML(issuer)}
+          </div>
+          <p class="training-summary">${escapeHTML(desc)}</p>
+          ${t.credentialId ? `
+            <div class="training-credential-badge" title="Credential ID: ${escapeHTML(t.credentialId)}">
+              <i class="fa-solid fa-id-badge"></i> ID: ${escapeHTML(t.credentialId)}
+            </div>
+          ` : ''}
+        </div>
+
+        <div class="training-footer-actions">
+          <button class="btn-training-more" onclick="openTrainingDetailModal(${fullIndex})">
+            ...more
+          </button>
+          <div style="display: flex; gap: 0.35rem; align-items: center;">
+            ${t.credentialUrl ? `
+              <a href="${escapeHTML(t.credentialUrl)}" target="_blank" rel="noopener noreferrer" class="btn-credentials" style="padding: 0.3rem 0.5rem; background: var(--accent-blue-light); color: var(--accent-blue); border-color: var(--accent-blue);" title="Verify Online">
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+              </a>
+            ` : ''}
+            <button class="btn-credentials" onclick="openCredentialsLightbox(${fullIndex})">
+              <i class="fa-solid fa-certificate"></i> Credentials
+            </button>
+          </div>
+        </div>
       </div>
-      <h4 class="training-title">${escapeHTML(t.title)}</h4>
-      <div class="training-org"><i class="fa-solid fa-award"></i> ${escapeHTML(t.organization)}</div>
-      <p class="training-summary">${escapeHTML(t.summary)}</p>
-      <div class="training-footer-actions">
-        <button class="btn-training-more" onclick="openTrainingDetailModal(${index})">
-          ...more
-        </button>
-        <button class="btn-credentials" onclick="openCredentialsLightbox(${index})">
-          <i class="fa-solid fa-certificate"></i> Credentials
-        </button>
-      </div>
-    </div>
-  `).join('');
+    `;
+  }).join('');
+
+  // Clean Centered Expand Button (No hardcoded numbers!)
+  const expandBtn = document.getElementById('certificates-expand-btn');
+  if (expandBtn) {
+    if (allCerts.length <= 8) {
+      expandBtn.style.display = 'none';
+    } else {
+      expandBtn.style.display = 'inline-flex';
+      expandBtn.innerHTML = isCertificatesExpanded
+        ? '<i class="fa-solid fa-chevron-up"></i> Show Less'
+        : '<i class="fa-solid fa-chevron-down"></i> See All Certificates';
+      expandBtn.onclick = () => {
+        isCertificatesExpanded = !isCertificatesExpanded;
+        renderTrainings(allCerts);
+      };
+    }
+  }
 }
 
 function openTrainingDetailModal(index) {
-  const t = window.portfolioData?.trainings[index];
+  const allCerts = window.portfolioData?.certificates || window.portfolioData?.trainings || [];
+  const t = allCerts[index];
   if (!t) return;
 
   const modal = document.getElementById('lightbox-modal');
@@ -490,29 +538,45 @@ function openTrainingDetailModal(index) {
   const media = document.getElementById('lightbox-media-container');
   const caption = document.getElementById('lightbox-caption');
 
+  const issuer = t.issuer || t.organization || 'Issuing Authority';
+  const desc = t.description || t.fullDetails || t.summary || '';
+
   title.textContent = t.title;
   media.innerHTML = `
     <div style="padding: 2.25rem; text-align: left; width: 100%; color: #fff;">
       <div style="font-size: 0.85rem; color: #14b8a6; font-weight: 700; margin-bottom: 0.5rem;">
-        <i class="fa-solid fa-building-columns"></i> ${escapeHTML(t.issuer || t.organization)} &bull; ${escapeHTML(t.date)}
+        <i class="fa-solid fa-building-columns"></i> ${escapeHTML(issuer)} &bull; ${escapeHTML(t.date || '')}
       </div>
       <h3 style="font-size: 1.35rem; margin-bottom: 1rem; color: #fff;">${escapeHTML(t.title)}</h3>
-      <p style="font-size: 0.98rem; line-height: 1.75; color: #cbd5e1;">${escapeHTML(t.fullDetails || t.summary)}</p>
-      <div style="margin-top: 1.5rem;">
-        <button class="btn-credentials" onclick="openCredentialsLightbox(${index})">
+      <p style="font-size: 0.98rem; line-height: 1.75; color: #cbd5e1; margin-bottom: 1.25rem;">${escapeHTML(desc)}</p>
+      
+      ${t.credentialId ? `
+        <div style="font-family: var(--font-mono); font-size: 0.85rem; color: #38bdf8; margin-bottom: 1.25rem; background: rgba(56, 189, 248, 0.1); padding: 0.5rem 0.85rem; border-radius: 6px; border: 1px solid rgba(56, 189, 248, 0.25); display: inline-block;">
+          <i class="fa-solid fa-id-badge"></i> Credential ID: <strong>${escapeHTML(t.credentialId)}</strong>
+        </div>
+      ` : ''}
+
+      <div style="margin-top: 1rem; display: flex; gap: 0.75rem; flex-wrap: wrap;">
+        ${t.credentialUrl ? `
+          <a href="${escapeHTML(t.credentialUrl)}" target="_blank" rel="noopener noreferrer" class="btn-credentials" style="background: #0284c7; color: #fff; border: none; padding: 0.5rem 1rem;">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i> Verify Online
+          </a>
+        ` : ''}
+        <button class="btn-credentials" onclick="openCredentialsLightbox(${index})" style="padding: 0.5rem 1rem;">
           <i class="fa-solid fa-image"></i> Open Certificate Image
         </button>
       </div>
     </div>
   `;
-  caption.textContent = `Issued by: ${t.organization} (${t.date})`;
+  caption.textContent = `Issued by: ${issuer} (${t.date || ''})`;
 
   modal.classList.add('active');
   document.body.style.overflow = 'hidden';
 }
 
 function openCredentialsLightbox(index) {
-  const t = window.portfolioData?.trainings[index];
+  const allCerts = window.portfolioData?.certificates || window.portfolioData?.trainings || [];
+  const t = allCerts[index];
   if (!t) return;
 
   const modal = document.getElementById('lightbox-modal');
@@ -520,18 +584,25 @@ function openCredentialsLightbox(index) {
   const media = document.getElementById('lightbox-media-container');
   const caption = document.getElementById('lightbox-caption');
 
-  const file = t.certificateFile || 'Banner.png';
+  const file = t.image || t.certificateFile || 'Banner.png';
+  const issuer = t.issuer || t.organization || 'Issuing Authority';
 
   title.textContent = `${t.title} — Verified Certificate`;
   media.innerHTML = `
     <img src="${escapeHTML(file)}" alt="${escapeHTML(t.title)} Certificate" style="max-height: 520px; width: auto; max-width: 100%; object-fit: contain;">
   `;
   caption.innerHTML = `
-    <div><strong>${escapeHTML(t.title)}</strong> &bull; ${escapeHTML(t.organization)} (${escapeHTML(t.date)})</div>
-    <div class="lightbox-actions-bar">
-      <a href="${escapeHTML(file)}" target="_blank" download class="btn-credentials" style="margin-top: 0.5rem; display: inline-flex;">
+    <div><strong>${escapeHTML(t.title)}</strong> &bull; ${escapeHTML(issuer)} (${escapeHTML(t.date || '')})</div>
+    ${t.credentialId ? `<div style="font-size: 0.78rem; font-family: var(--font-mono); color: #38bdf8; margin-top: 0.25rem;">Credential ID: ${escapeHTML(t.credentialId)}</div>` : ''}
+    <div class="lightbox-actions-bar" style="margin-top: 0.75rem; display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap;">
+      <a href="${escapeHTML(file)}" target="_blank" download class="btn-credentials">
         <i class="fa-solid fa-download"></i> Download Certificate
       </a>
+      ${t.credentialUrl ? `
+        <a href="${escapeHTML(t.credentialUrl)}" target="_blank" rel="noopener noreferrer" class="btn-credentials" style="background: #0284c7; color: #fff; border: none;">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i> Verify Online
+        </a>
+      ` : ''}
     </div>
   `;
 
@@ -734,6 +805,9 @@ function initAdminPortal() {
 
   const fileInput = document.getElementById('admin-file-upload');
   if (fileInput) fileInput.onchange = handleFileUploadStaging;
+
+  const addCertForm = document.getElementById('admin-add-cert-form');
+  if (addCertForm) addCertForm.onsubmit = handleAddCertificateSubmit;
 }
 
 function openAdminDrawer() {
@@ -814,6 +888,55 @@ function populateAdminForms() {
   if (raw) raw.value = JSON.stringify(window.portfolioData, null, 2);
 }
 
+function handleAddCertificateSubmit(e) {
+  e.preventDefault();
+  const title = document.getElementById('admin-cert-title').value.trim();
+  const issuer = document.getElementById('admin-cert-issuer').value.trim();
+  const date = document.getElementById('admin-cert-date').value.trim();
+  const desc = document.getElementById('admin-cert-desc').value.trim();
+  const credId = document.getElementById('admin-cert-id').value.trim();
+  const credUrl = document.getElementById('admin-cert-url').value.trim();
+  const fileInput = document.getElementById('admin-cert-file');
+
+  if (!title || !issuer || !date || !desc) {
+    return showToast('Please fill all required certificate fields.', 'error');
+  }
+
+  const file = fileInput.files && fileInput.files[0];
+  if (!file) {
+    return showToast('Please select a certificate image file.', 'error');
+  }
+
+  const reader = new FileReader();
+  reader.onload = function(evt) {
+    const base64 = evt.target.result.split(',')[1];
+    const path = 'Certificate/' + file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+
+    stagedFileUploads.push({ path, content: base64, name: file.name });
+
+    const newCert = {
+      id: 'cert-' + Date.now(),
+      title,
+      description: desc,
+      date,
+      issuer,
+      credentialId: credId,
+      credentialUrl: credUrl,
+      image: path
+    };
+
+    if (!window.portfolioData.certificates) window.portfolioData.certificates = [];
+    window.portfolioData.certificates.unshift(newCert);
+    window.portfolioData.trainings = window.portfolioData.certificates;
+
+    renderTrainings(window.portfolioData.certificates);
+    populateAdminForms();
+    e.target.reset();
+    showToast(`Certificate "${title}" staged! Click "Save & Publish" to push to GitHub.`, 'success');
+  };
+  reader.readAsDataURL(file);
+}
+
 function handleFileUploadStaging(e) {
   const file = e.target.files[0];
   if (!file) return;
@@ -827,22 +950,24 @@ function handleFileUploadStaging(e) {
 
     stagedFileUploads.push({ path, content: base64, name: file.name });
 
-    // Append to trainings
-    window.portfolioData.trainings.unshift({
+    const newCert = {
       id: 'cert-' + Date.now(),
       title: file.name.replace(/\.[^/.]+$/, "").replace(/_/g, " "),
-      organization: "Uploaded Credential",
-      issuer: "Verified Certificate",
+      description: `Uploaded credential document: ${file.name}`,
       date: new Date().getFullYear().toString(),
-      summary: `Uploaded credential document: ${file.name}`,
-      fullDetails: `Uploaded certificate file staged at ${path}`,
-      certificateFile: path,
-      badge: "New Certificate"
-    });
+      issuer: "Verified Credential",
+      credentialId: "",
+      credentialUrl: "",
+      image: path
+    };
 
-    renderTrainings(window.portfolioData.trainings);
+    if (!window.portfolioData.certificates) window.portfolioData.certificates = [];
+    window.portfolioData.certificates.unshift(newCert);
+    window.portfolioData.trainings = window.portfolioData.certificates;
+
+    renderTrainings(window.portfolioData.certificates);
     populateAdminForms();
-    showToast(`Certificate staged: ${file.name}. Click "Save & Publish" to commit.`, 'success');
+    showToast(`File staged: ${file.name}. Click "Save & Publish" to commit.`, 'success');
   };
   reader.readAsDataURL(file);
 }

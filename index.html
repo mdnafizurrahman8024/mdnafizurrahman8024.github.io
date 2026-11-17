@@ -23,7 +23,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-  <link rel="stylesheet" href="css/style.css?v=11">
+  <link rel="stylesheet" href="css/style.css?v=12">
 
   <script>
     (function() {
@@ -275,19 +275,25 @@
         <div class="pub-entries-list" id="publications-entries-container"></div>
       </section>
 
-      <!-- 9. TRAINING & CERTIFICATIONS (3-COLUMN GRID WITH 26 CERTIFICATES + MODALS) -->
+      <!-- 9. TRAINING & CERTIFICATIONS (4-COLUMN GRID WITH PRIORITIZED CERTIFICATES + MODALS) -->
       <section class="feed-card" id="training-sec">
         <div class="card-header-row">
           <div class="card-title-group">
             <div class="card-icon-badge" style="background: var(--accent-amber-light); color: var(--accent-amber);"><i class="fa-solid fa-certificate"></i></div>
             <div>
               <h2 class="card-heading">Training &amp; Certifications</h2>
-              <div class="card-subheading">26 verified certificates from WHO, WOAH, United Nations &amp; national institutions</div>
+              <div class="card-subheading">Verified credentials across diagnostics, global health, Olympiads, programming &amp; bioinformatics</div>
             </div>
           </div>
         </div>
 
         <div class="trainings-grid" id="trainings-grid-container"></div>
+        
+        <div style="text-align: center; margin-top: 1.5rem;">
+          <button class="timeline-expand-btn" id="certificates-expand-btn">
+            <i class="fa-solid fa-chevron-down"></i> See All Certificates
+          </button>
+        </div>
       </section>
 
       <!-- 10. FIELDWORK & MEDIA GALLERY (AUTO-MOVING HORIZONTAL CAROUSEL) -->
@@ -484,14 +490,58 @@
           </button>
         </div>
 
+        <!-- Add New Certificate Form (7-Field Schema) -->
+        <div style="background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: 8px; padding: 1rem;">
+          <h5 style="font-size: 0.88rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--text-primary); display: flex; align-items: center; gap: 0.4rem;">
+            <i class="fa-solid fa-certificate" style="color: var(--accent-amber);"></i> Add / Stage New Certificate
+          </h5>
+          <form id="admin-add-cert-form" style="display: flex; flex-direction: column; gap: 0.65rem;">
+            <div>
+              <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Certificate Title *</label>
+              <input type="text" id="admin-cert-title" style="width: 100%; padding: 0.45rem; font-size: 0.8rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);" placeholder="e.g., Advanced Diagnostic Techniques" required>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+              <div>
+                <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Issuer Authority *</label>
+                <input type="text" id="admin-cert-issuer" style="width: 100%; padding: 0.45rem; font-size: 0.8rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);" placeholder="e.g., WHO Academy" required>
+              </div>
+              <div>
+                <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Issue Date *</label>
+                <input type="text" id="admin-cert-date" style="width: 100%; padding: 0.45rem; font-size: 0.8rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);" placeholder="e.g., 2026 or 15/08/2026" required>
+              </div>
+            </div>
+            <div>
+              <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Description *</label>
+              <textarea id="admin-cert-desc" rows="2" style="width: 100%; padding: 0.45rem; font-size: 0.8rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);" placeholder="Brief academic overview of skills and competencies covered..." required></textarea>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+              <div>
+                <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Credential ID</label>
+                <input type="text" id="admin-cert-id" style="width: 100%; padding: 0.45rem; font-size: 0.8rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);" placeholder="Optional ID (e.g. ZO-26-FEL)">
+              </div>
+              <div>
+                <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Verification URL</label>
+                <input type="url" id="admin-cert-url" style="width: 100%; padding: 0.45rem; font-size: 0.8rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);" placeholder="https://...">
+              </div>
+            </div>
+            <div>
+              <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Upload Certificate Image *</label>
+              <input type="file" id="admin-cert-file" accept="image/*,.pdf" style="font-size: 0.75rem;" required>
+            </div>
+            <button type="submit" style="padding: 0.5rem 1rem; border-radius: 6px; background: var(--primary); color: #fff; font-size: 0.8rem; font-weight: 600; border: none; cursor: pointer; margin-top: 0.25rem;">
+              <i class="fa-solid fa-plus"></i> Stage Certificate to Top
+            </button>
+          </form>
+        </div>
+
         <div>
-          <label style="font-size: 0.82rem; font-weight: 700; display: block; margin-bottom: 0.35rem;">Direct File Upload (Image / PDF)</label>
+          <label style="font-size: 0.82rem; font-weight: 700; display: block; margin-bottom: 0.35rem;">General File Upload (Image / PDF)</label>
           <input type="file" id="admin-file-upload" accept="image/*,.pdf" style="font-size: 0.82rem;">
         </div>
 
         <div>
           <label style="font-size: 0.82rem; font-weight: 700; display: block; margin-bottom: 0.35rem;">Portfolio Data (`data/portfolio-data.json`)</label>
-          <textarea id="admin-raw-json" style="width: 100%; min-height: 380px; font-family: var(--font-mono); font-size: 0.75rem; padding: 0.75rem; border-radius: 6px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);"></textarea>
+          <textarea id="admin-raw-json" style="width: 100%; min-height: 280px; font-family: var(--font-mono); font-size: 0.75rem; padding: 0.75rem; border-radius: 6px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);"></textarea>
         </div>
       </div>
     </div>
@@ -505,6 +555,6 @@
   </aside>
 
   <!-- Core App Logic -->
-  <script src="js/app.js?v=11"></script>
+  <script src="js/app.js?v=12"></script>
 </body>
 </html>
