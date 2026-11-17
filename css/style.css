@@ -14,6 +14,7 @@
   --bg-surface: #ffffff;
   --bg-surface-elevated: #ffffff;
   --bg-card: #ffffff;
+  --card-bg: #ffffff;
   --bg-glass: rgba(255, 255, 255, 0.85);
   
   --text-primary: #0f172a;
@@ -44,7 +45,7 @@
   --shadow-glow: 0 0 25px rgba(13, 148, 136, 0.18);
 
   --radius-sm: 8px;
-  --radius-md: 14px;
+  --radius-md: 16px;
   --radius-lg: 20px;
   --radius-full: 9999px;
 
@@ -64,6 +65,7 @@
   --bg-surface: #111b30;
   --bg-surface-elevated: #16233f;
   --bg-card: rgba(17, 27, 48, 0.9);
+  --card-bg: rgba(17, 27, 48, 0.9);
   --bg-glass: rgba(17, 27, 48, 0.75);
   
   --text-primary: #f8fafc;
@@ -351,26 +353,26 @@ button, input, textarea, select {
 /* --------------------------------------------------------------------------
    TOP COVER BANNER (ATOP RIGHT COLUMN — ZERO CROPPING)
    -------------------------------------------------------------------------- */
+.right-banner-card,
 .feed-top-banner {
   width: 100%;
   max-width: 100%;
-  height: auto;
-  display: block;
   border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  border: 1px solid var(--border-color, #e2e8f0);
+  overflow: hidden;
   margin-bottom: 20px;
-  border: 1px solid var(--border-color);
-  background: var(--bg-surface);
+  background: var(--card-bg, #ffffff);
+  box-shadow: var(--shadow-md);
   box-sizing: border-box;
 }
 
+.right-banner-card img,
 .feed-banner-img {
-  width: 100%;
-  max-width: 100%;
-  height: auto;
-  display: block;
-  object-fit: contain;
-  border-radius: 16px;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  display: block !important;
+  object-fit: contain !important;
 }
 
 /* --------------------------------------------------------------------------
