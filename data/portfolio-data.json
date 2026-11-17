@@ -681,13 +681,13 @@
   "trainings": [
     {
       "id": "cert-1",
-      "title": "RT-PCR & Molecular Diagnostic Techniques in Parasitology & Virology",
-      "description": "Hands-on molecular diagnostic training covering nucleic acid extraction, primer design, master mix preparation, thermal cycling protocols, real-time quantitative PCR (RT-qPCR) amplification, and agarose gel electrophoresis for avian and zoonotic pathogen detection.",
-      "date": "2025 - 2026",
-      "issuer": "Faculty of Veterinary & Animal Sciences, University of Rajshahi",
-      "credentialId": "MOL-RTPCR-RU-2026",
-      "credentialUrl": "https://www.ru.ac.bd/",
-      "image": "Certificate/Vectoract.jpeg"
+      "title": "Relative Gene Expression Analysis Using RT-PCR: Principles, Methodology & Research Applications",
+      "description": "Exclusive molecular diagnostics seminar on principles and workflows of RT-PCR/qRT-PCR techniques, primer validation, master mix preparation, and genomic data interpretation conducted by the JUST Genome Center.",
+      "date": "10/09/2026",
+      "issuer": "Research Gateway & JUST Genome Center",
+      "credentialId": "RG/FSRTPCR-20261187",
+      "credentialUrl": "",
+      "image": "Certificate/RT-PCR.png"
     },
     {
       "id": "cert-2",
@@ -737,7 +737,7 @@
       "issuer": "VitaNova International Alliance for Sciences",
       "credentialId": "VN-IMM-VAC-2026",
       "credentialUrl": "https://vitanovaresearch.org/",
-      "image": "Certificate/Medical Infrastructure.png"
+      "image": "Certificate/Vectoract.jpeg"
     },
     {
       "id": "cert-7",
@@ -757,7 +757,7 @@
       "issuer": "Commonwealth Students' Association (CSA) & Zero Olympiad",
       "credentialId": "ZO-26-FEL-938AA7",
       "credentialUrl": "https://www.commonwealthstudents.org/",
-      "image": "Certificate/Screenshot 2026-06-03 102537.jpg"
+      "image": "Certificate/Young SDG fellow.jpg"
     },
     {
       "id": "cert-9",
@@ -767,7 +767,7 @@
       "issuer": "Gobeshona Learning Academy",
       "credentialId": "",
       "credentialUrl": "",
-      "image": "Certificate/Md_Nafizur_Rahman_Python_free_Certificate_21_days_masterclass.png"
+      "image": "Certificate/Python_Certificate_21_days.png"
     },
     {
       "id": "cert-10",
@@ -787,7 +787,7 @@
       "issuer": "WHO Academy, World Health Organization",
       "credentialId": "",
       "credentialUrl": "https://academy.who.int/",
-      "image": "Certificate/M.Infrast.Full.jpg"
+      "image": "Certificate/Medical Infrastructure.png"
     },
     {
       "id": "cert-12",
@@ -831,46 +831,36 @@
     },
     {
       "id": "cert-16",
-      "title": "Monitoring, Assessing and Mitigating the Risks of Vector-Borne Diseases",
-      "description": "European Union-funded MOOC on vector biology, trapping strategies, bioclimatic risk mapping, and integrated vector management across endemic zones.",
-      "date": "2026",
-      "issuer": "VECTORACT Building Capacity (EU Grant #101083215)",
-      "credentialId": "",
-      "credentialUrl": "",
-      "image": "Certificate/Vectoract.jpeg"
-    },
-    {
-      "id": "cert-17",
       "title": "Climate Change International Legal Regime",
       "description": "Multilateral environmental agreement analysis focusing on the UNFCCC, Paris Agreement, Kyoto Protocol, and global climate litigation frameworks.",
       "date": "09/05/2026",
       "issuer": "UNITAR, UN Environment Programme (UNEP) & InforMEA",
       "credentialId": "",
       "credentialUrl": "https://www.informea.org/",
-      "image": "Certificate/Screenshot 2026-06-03 102303.jpg"
+      "image": "Certificate/UNITAR.jpg"
     },
     {
-      "id": "cert-18",
+      "id": "cert-17",
       "title": "Zero Olympiad — Round 2 Achievement of Appreciation",
       "description": "Certificate of Achievement acknowledging successful advancement and competitive completion in Round 2 of the Zero Olympiad on Sustainable Development.",
       "date": "18/05/2026",
       "issuer": "Zero Olympiad (Faatiha Aayat)",
       "credentialId": "ZO-26-R2P-938AA7",
       "credentialUrl": "",
-      "image": "Certificate/Screenshot 2026-06-03 102509.jpg"
+      "image": "Certificate/Zero olypiad round-2.jpg"
     },
     {
-      "id": "cert-19",
+      "id": "cert-18",
       "title": "Zero Olympiad — Round 1 Achievement of Appreciation",
       "description": "Certificate of Achievement acknowledging successful participation in Round 1 of the national Zero Olympiad examining global sustainability goals.",
       "date": "17/05/2026",
       "issuer": "Zero Olympiad (Faatiha Aayat)",
       "credentialId": "ZO-26-R1-938AA7",
       "credentialUrl": "",
-      "image": "Certificate/Screenshot 2026-06-03 102337.jpg"
+      "image": "Certificate/Zero olypiad round-1.jpg"
     },
     {
-      "id": "cert-20",
+      "id": "cert-19",
       "title": "RUHERF Summit 2025: Shaping Future Through Research & Global Education",
       "description": "Participated in international academic discourse on multidisciplinary scientific publishing, research methodology, and international fellowship pathways.",
       "date": "17/08/2025",
@@ -880,7 +870,7 @@
       "image": "Certificate/RUHERF Research Summit.jpeg"
     },
     {
-      "id": "cert-21",
+      "id": "cert-20",
       "title": "RUEC 1st International Research Conference 2025",
       "description": "International conference participation under the theme 'Advancing Knowledge and Innovation Across Disciplines for Social Transformation'.",
       "date": "06-07/09/2025",
@@ -890,7 +880,7 @@
       "image": "Certificate/RUEC Int. Audience.jpeg"
     },
     {
-      "id": "cert-22",
+      "id": "cert-21",
       "title": "Certificate of Best Volunteer Award",
       "description": "Awarded for outstanding volunteer leadership, community engagement, and dedicated organizational service from September to October 2024.",
       "date": "27/10/2024",
@@ -900,7 +890,7 @@
       "image": "Certificate/RUSWA volunteer.jpeg"
     },
     {
-      "id": "cert-23",
+      "id": "cert-22",
       "title": "Cyber Hygiene — Training Completion Certificate",
       "description": "Digital security certification covering threat vector analysis, operational privacy, phishing mitigation, and cryptographic best practices supported by Google.org.",
       "date": "23/05/2026",
@@ -910,7 +900,7 @@
       "image": "Certificate/Cyber Security.jpg"
     },
     {
-      "id": "cert-24",
+      "id": "cert-23",
       "title": "Impactra National Quiz Competition 2026 (Season 01)",
       "description": "National competition certificate awarded for excellence in scientific curiosity, general knowledge, and intellectual engagement.",
       "date": "18/06/2026",
@@ -920,7 +910,7 @@
       "image": "Certificate/mpactra National Quiz Competition.png"
     },
     {
-      "id": "cert-25",
+      "id": "cert-24",
       "title": "Seminar on Bridging the Theory-Practice Gap in Science Education",
       "description": "Pedagogical seminar examining experiential laboratory instruction, translational research translation, and secondary education enrichment in Bangladesh.",
       "date": "2026",
@@ -928,6 +918,16 @@
       "credentialId": "",
       "credentialUrl": "",
       "image": "Certificate/Kekuleon.png"
+    },
+    {
+      "id": "cert-25",
+      "title": "International Career Summit 2026 Event",
+      "description": "Participated in career acceleration sessions focusing on higher education navigation, research proposal writing, and competitive global admissions.",
+      "date": "04/09/2026",
+      "issuer": "Rajshahi University Readers' Forum",
+      "credentialId": "",
+      "credentialUrl": "",
+      "image": "Certificate/Career summit 2026-09-14 at 9.24.46 PM.jpeg"
     },
     {
       "id": "cert-26",
@@ -1081,13 +1081,13 @@
   "certificates": [
     {
       "id": "cert-1",
-      "title": "RT-PCR & Molecular Diagnostic Techniques in Parasitology & Virology",
-      "description": "Hands-on molecular diagnostic training covering nucleic acid extraction, primer design, master mix preparation, thermal cycling protocols, real-time quantitative PCR (RT-qPCR) amplification, and agarose gel electrophoresis for avian and zoonotic pathogen detection.",
-      "date": "2025 - 2026",
-      "issuer": "Faculty of Veterinary & Animal Sciences, University of Rajshahi",
-      "credentialId": "MOL-RTPCR-RU-2026",
-      "credentialUrl": "https://www.ru.ac.bd/",
-      "image": "Certificate/Vectoract.jpeg"
+      "title": "Relative Gene Expression Analysis Using RT-PCR: Principles, Methodology & Research Applications",
+      "description": "Exclusive molecular diagnostics seminar on principles and workflows of RT-PCR/qRT-PCR techniques, primer validation, master mix preparation, and genomic data interpretation conducted by the JUST Genome Center.",
+      "date": "10/09/2026",
+      "issuer": "Research Gateway & JUST Genome Center",
+      "credentialId": "RG/FSRTPCR-20261187",
+      "credentialUrl": "",
+      "image": "Certificate/RT-PCR.png"
     },
     {
       "id": "cert-2",
@@ -1137,7 +1137,7 @@
       "issuer": "VitaNova International Alliance for Sciences",
       "credentialId": "VN-IMM-VAC-2026",
       "credentialUrl": "https://vitanovaresearch.org/",
-      "image": "Certificate/Medical Infrastructure.png"
+      "image": "Certificate/Vectoract.jpeg"
     },
     {
       "id": "cert-7",
@@ -1157,7 +1157,7 @@
       "issuer": "Commonwealth Students' Association (CSA) & Zero Olympiad",
       "credentialId": "ZO-26-FEL-938AA7",
       "credentialUrl": "https://www.commonwealthstudents.org/",
-      "image": "Certificate/Screenshot 2026-06-03 102537.jpg"
+      "image": "Certificate/Young SDG fellow.jpg"
     },
     {
       "id": "cert-9",
@@ -1167,7 +1167,7 @@
       "issuer": "Gobeshona Learning Academy",
       "credentialId": "",
       "credentialUrl": "",
-      "image": "Certificate/Md_Nafizur_Rahman_Python_free_Certificate_21_days_masterclass.png"
+      "image": "Certificate/Python_Certificate_21_days.png"
     },
     {
       "id": "cert-10",
@@ -1187,7 +1187,7 @@
       "issuer": "WHO Academy, World Health Organization",
       "credentialId": "",
       "credentialUrl": "https://academy.who.int/",
-      "image": "Certificate/M.Infrast.Full.jpg"
+      "image": "Certificate/Medical Infrastructure.png"
     },
     {
       "id": "cert-12",
@@ -1231,46 +1231,36 @@
     },
     {
       "id": "cert-16",
-      "title": "Monitoring, Assessing and Mitigating the Risks of Vector-Borne Diseases",
-      "description": "European Union-funded MOOC on vector biology, trapping strategies, bioclimatic risk mapping, and integrated vector management across endemic zones.",
-      "date": "2026",
-      "issuer": "VECTORACT Building Capacity (EU Grant #101083215)",
-      "credentialId": "",
-      "credentialUrl": "",
-      "image": "Certificate/Vectoract.jpeg"
-    },
-    {
-      "id": "cert-17",
       "title": "Climate Change International Legal Regime",
       "description": "Multilateral environmental agreement analysis focusing on the UNFCCC, Paris Agreement, Kyoto Protocol, and global climate litigation frameworks.",
       "date": "09/05/2026",
       "issuer": "UNITAR, UN Environment Programme (UNEP) & InforMEA",
       "credentialId": "",
       "credentialUrl": "https://www.informea.org/",
-      "image": "Certificate/Screenshot 2026-06-03 102303.jpg"
+      "image": "Certificate/UNITAR.jpg"
     },
     {
-      "id": "cert-18",
+      "id": "cert-17",
       "title": "Zero Olympiad — Round 2 Achievement of Appreciation",
       "description": "Certificate of Achievement acknowledging successful advancement and competitive completion in Round 2 of the Zero Olympiad on Sustainable Development.",
       "date": "18/05/2026",
       "issuer": "Zero Olympiad (Faatiha Aayat)",
       "credentialId": "ZO-26-R2P-938AA7",
       "credentialUrl": "",
-      "image": "Certificate/Screenshot 2026-06-03 102509.jpg"
+      "image": "Certificate/Zero olypiad round-2.jpg"
     },
     {
-      "id": "cert-19",
+      "id": "cert-18",
       "title": "Zero Olympiad — Round 1 Achievement of Appreciation",
       "description": "Certificate of Achievement acknowledging successful participation in Round 1 of the national Zero Olympiad examining global sustainability goals.",
       "date": "17/05/2026",
       "issuer": "Zero Olympiad (Faatiha Aayat)",
       "credentialId": "ZO-26-R1-938AA7",
       "credentialUrl": "",
-      "image": "Certificate/Screenshot 2026-06-03 102337.jpg"
+      "image": "Certificate/Zero olypiad round-1.jpg"
     },
     {
-      "id": "cert-20",
+      "id": "cert-19",
       "title": "RUHERF Summit 2025: Shaping Future Through Research & Global Education",
       "description": "Participated in international academic discourse on multidisciplinary scientific publishing, research methodology, and international fellowship pathways.",
       "date": "17/08/2025",
@@ -1280,7 +1270,7 @@
       "image": "Certificate/RUHERF Research Summit.jpeg"
     },
     {
-      "id": "cert-21",
+      "id": "cert-20",
       "title": "RUEC 1st International Research Conference 2025",
       "description": "International conference participation under the theme 'Advancing Knowledge and Innovation Across Disciplines for Social Transformation'.",
       "date": "06-07/09/2025",
@@ -1290,7 +1280,7 @@
       "image": "Certificate/RUEC Int. Audience.jpeg"
     },
     {
-      "id": "cert-22",
+      "id": "cert-21",
       "title": "Certificate of Best Volunteer Award",
       "description": "Awarded for outstanding volunteer leadership, community engagement, and dedicated organizational service from September to October 2024.",
       "date": "27/10/2024",
@@ -1300,7 +1290,7 @@
       "image": "Certificate/RUSWA volunteer.jpeg"
     },
     {
-      "id": "cert-23",
+      "id": "cert-22",
       "title": "Cyber Hygiene — Training Completion Certificate",
       "description": "Digital security certification covering threat vector analysis, operational privacy, phishing mitigation, and cryptographic best practices supported by Google.org.",
       "date": "23/05/2026",
@@ -1310,7 +1300,7 @@
       "image": "Certificate/Cyber Security.jpg"
     },
     {
-      "id": "cert-24",
+      "id": "cert-23",
       "title": "Impactra National Quiz Competition 2026 (Season 01)",
       "description": "National competition certificate awarded for excellence in scientific curiosity, general knowledge, and intellectual engagement.",
       "date": "18/06/2026",
@@ -1320,7 +1310,7 @@
       "image": "Certificate/mpactra National Quiz Competition.png"
     },
     {
-      "id": "cert-25",
+      "id": "cert-24",
       "title": "Seminar on Bridging the Theory-Practice Gap in Science Education",
       "description": "Pedagogical seminar examining experiential laboratory instruction, translational research translation, and secondary education enrichment in Bangladesh.",
       "date": "2026",
@@ -1328,6 +1318,16 @@
       "credentialId": "",
       "credentialUrl": "",
       "image": "Certificate/Kekuleon.png"
+    },
+    {
+      "id": "cert-25",
+      "title": "International Career Summit 2026 Event",
+      "description": "Participated in career acceleration sessions focusing on higher education navigation, research proposal writing, and competitive global admissions.",
+      "date": "04/09/2026",
+      "issuer": "Rajshahi University Readers' Forum",
+      "credentialId": "",
+      "credentialUrl": "",
+      "image": "Certificate/Career summit 2026-09-14 at 9.24.46 PM.jpeg"
     },
     {
       "id": "cert-26",
