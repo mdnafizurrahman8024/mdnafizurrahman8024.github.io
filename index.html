@@ -23,7 +23,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-  <link rel="stylesheet" href="css/style.css?v=12">
+  <link rel="stylesheet" href="css/style.css?v=16">
 
   <script>
     (function() {
@@ -387,10 +387,16 @@
               <a href="mailto:mdnafizurrahman8024@gmail.com" class="contact-direct-email">
                 <i class="fa-solid fa-envelope"></i> mdnafizurrahman8024@gmail.com
               </a>
-              <button type="submit" class="contact-send-btn">
-                <i class="fa-solid fa-paper-plane"></i> Send Message
-              </button>
+              <div class="contact-buttons-group">
+                <a href="mailto:mdnafizurrahman8024@gmail.com" class="contact-mail-app-btn" id="contact-mail-app-link" title="Send directly via default email client">
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i> Send via Mail App
+                </a>
+                <button type="submit" class="contact-send-btn" id="contact-submit-btn">
+                  <i class="fa-solid fa-paper-plane"></i> <span id="contact-btn-text">Send Message</span>
+                </button>
+              </div>
             </div>
+            <div id="contact-status-msg" class="contact-status-msg" style="display: none;"></div>
           </form>
         </div>
 
@@ -416,11 +422,11 @@
        ====================================================================== -->
   <footer class="site-footer">
     <div class="main-container footer-content">
-      <div>
-        <strong>Md. Nafizur Rahman</strong> &bull; Faculty of Veterinary and Animal Sciences, University of Rajshahi, Rajshahi-6205, Bangladesh.
+      <div class="footer-copyright">
+        &copy; 2026 Md. Nafizur Rahman. All Rights Reserved.
       </div>
-      <div>
-        <button class="footer-admin-btn" id="admin-lock-btn">
+      <div class="footer-actions">
+        <button class="footer-admin-btn" id="admin-lock-btn" title="Admin Portal" aria-label="Open Admin Content Manager">
           <i class="fa-solid fa-lock"></i> <span>Admin Portal</span>
         </button>
       </div>
@@ -555,6 +561,6 @@
   </aside>
 
   <!-- Core App Logic -->
-  <script src="js/app.js?v=12"></script>
+  <script src="js/app.js?v=16"></script>
 </body>
 </html>

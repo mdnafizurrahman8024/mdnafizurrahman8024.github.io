@@ -731,12 +731,12 @@
     },
     {
       "id": "cert-6",
-      "title": "Computational Vaccine Design: Immuno-informatics & Reverse Vaccinology",
-      "description": "Applied bioinformatics certification covering computer-aided multi-epitope vaccine formulation, B-cell and T-cell (CTL/HTL) epitope mapping, MHC binding affinity screening, molecular docking, and MD simulations against zoonotic pathogens.",
+      "title": "Monitoring, Assessing and Mitigating the Risks of Vector-Borne Diseases (MOOC)",
+      "description": "Completed international MOOC on monitoring, assessing, and mitigating the risks of vector-borne diseases, organized by VECTORACT.",
       "date": "2026",
-      "issuer": "VitaNova International Alliance for Sciences",
-      "credentialId": "VN-IMM-VAC-2026",
-      "credentialUrl": "https://vitanovaresearch.org/",
+      "issuer": "VECTORACT (Funded by EU under GA #101083215)",
+      "credentialId": "",
+      "credentialUrl": "",
       "image": "Certificate/Vectoract.jpeg"
     },
     {
@@ -1131,12 +1131,12 @@
     },
     {
       "id": "cert-6",
-      "title": "Computational Vaccine Design: Immuno-informatics & Reverse Vaccinology",
-      "description": "Applied bioinformatics certification covering computer-aided multi-epitope vaccine formulation, B-cell and T-cell (CTL/HTL) epitope mapping, MHC binding affinity screening, molecular docking, and MD simulations against zoonotic pathogens.",
+      "title": "Monitoring, Assessing and Mitigating the Risks of Vector-Borne Diseases (MOOC)",
+      "description": "Completed international MOOC on monitoring, assessing, and mitigating the risks of vector-borne diseases, organized by VECTORACT.",
       "date": "2026",
-      "issuer": "VitaNova International Alliance for Sciences",
-      "credentialId": "VN-IMM-VAC-2026",
-      "credentialUrl": "https://vitanovaresearch.org/",
+      "issuer": "VECTORACT (Funded by EU under GA #101083215)",
+      "credentialId": "",
+      "credentialUrl": "",
       "image": "Certificate/Vectoract.jpeg"
     },
     {

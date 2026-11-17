@@ -760,17 +760,90 @@ function initContactForm() {
   const form = document.getElementById('contact-form');
   if (!form) return;
 
-  form.addEventListener('submit', (e) => {
+  const submitBtn = document.getElementById('contact-submit-btn') || form.querySelector('button[type="submit"]');
+  const btnText = document.getElementById('contact-btn-text');
+  const statusMsg = document.getElementById('contact-status-msg');
+  const mailAppLink = document.getElementById('contact-mail-app-link');
+
+  // Dynamically update mailto fallback href as user types
+  function updateMailtoFallback() {
+    if (!mailAppLink) return;
+    const name = document.getElementById('contact-name')?.value.trim() || '';
+    const message = document.getElementById('contact-message')?.value.trim() || '';
+    const subject = encodeURIComponent(name ? `Portfolio Inquiry from ${name}` : 'Portfolio Inquiry');
+    const body = encodeURIComponent(message || 'Hello Nafiz,');
+    mailAppLink.href = `mailto:mdnafizurrahman8024@gmail.com?subject=${subject}&body=${body}`;
+  }
+
+  ['contact-name', 'contact-email', 'contact-message'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('input', updateMailtoFallback);
+  });
+
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const name = document.getElementById('contact-name')?.value.trim() || '';
     const email = document.getElementById('contact-email')?.value.trim() || '';
     const message = document.getElementById('contact-message')?.value.trim() || '';
 
-    const subject = `Research & Academic Inquiry from ${name}`;
-    const body = `Hi Nafiz,\n\n${message}\n\nBest regards,\n${name}\nEmail: ${email}`;
+    if (!name || !email || !message) {
+      showToast('Please fill out all fields.', 'error');
+      return;
+    }
 
-    window.location.href = `mailto:mdnafizurrahman8024@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    showToast('Opening your email client to send your message...', 'success');
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      if (btnText) btnText.textContent = 'Sending...';
+      else submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
+    }
+
+    try {
+      const res = await fetch("https://formsubmit.co/ajax/mdnafizurrahman8024@gmail.com", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          message,
+          _subject: "Portfolio Inquiry from " + name
+        })
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        form.reset();
+        updateMailtoFallback();
+        showToast('Thank you! Your message has been sent to mdnafizurrahman8024@gmail.com.', 'success');
+        if (statusMsg) {
+          statusMsg.style.display = 'block';
+          statusMsg.style.background = 'rgba(16, 185, 129, 0.15)';
+          statusMsg.style.color = '#10b981';
+          statusMsg.style.border = '1px solid rgba(16, 185, 129, 0.3)';
+          statusMsg.innerHTML = '<i class="fa-solid fa-circle-check"></i> Thank you! Your message has been sent to mdnafizurrahman8024@gmail.com.';
+        }
+      } else {
+        throw new Error(data.message || 'Transmission failed');
+      }
+    } catch (err) {
+      console.warn('FormSubmit network notice, fallback enabled:', err);
+      showToast('Notice: Could not send directly. Please use "Send via Mail App".', 'error');
+      if (statusMsg) {
+        statusMsg.style.display = 'block';
+        statusMsg.style.background = 'rgba(239, 68, 68, 0.15)';
+        statusMsg.style.color = '#ef4444';
+        statusMsg.style.border = '1px solid rgba(239, 68, 68, 0.3)';
+        statusMsg.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> Could not send automatically. Please click <strong>Send via Mail App</strong> to send directly.';
+      }
+    } finally {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        if (btnText) btnText.textContent = 'Send Message';
+        else submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Message';
+      }
+    }
   });
 }
 
