@@ -11,6 +11,7 @@ window.portfolioData = null;
 let currentPubFilter = 'all';
 let currentPubSearch = '';
 let currentGalleryFilter = 'all';
+let currentSoftwareFilter = 'all';
 let isTimelineExpanded = false;
 let stagedFileUploads = [];
 
@@ -66,11 +67,12 @@ function renderAll() {
   renderStickySidebar(d.profile);
   renderAboutBio(d.about);
   renderEducation(d.educationTimeline);
-  renderTimelineAndKPIs(d.researchAndProjectsTimeline, d.kpis);
+  renderRecentUpdatesTicker(d.recentUpdates);
+  renderTimelineAndKPIs(d.scientificResearch || d.researchAndProjectsTimeline, d.kpis);
+  renderSoftwareProjects(d.softwareProjects);
   renderCapabilities(d.capabilities);
   renderPublications();
   renderTrainings(d.trainings);
-  renderRecentUpdatesTicker(d.recentUpdates);
   renderGalleryMarquee();
   renderLeadership(d.leadership);
   renderReferences(d.references);
@@ -209,10 +211,10 @@ function renderEducation(edu) {
 }
 
 /* --------------------------------------------------------------------------
-   3. Research Experience, Software & KPI Counter Bar
+   5. Research Experience & Scientific Projects + KPI Bar
    -------------------------------------------------------------------------- */
 function renderTimelineAndKPIs(timeline, kpis) {
-  const container = document.getElementById('experience-timeline-container');
+  const container = document.getElementById('research-timeline-container') || document.getElementById('experience-timeline-container');
   if (!container || !timeline) return;
 
   const displayList = isTimelineExpanded ? timeline : timeline.slice(0, 4);
@@ -239,7 +241,7 @@ function renderTimelineAndKPIs(timeline, kpis) {
   if (expandBtn) {
     expandBtn.innerHTML = isTimelineExpanded
       ? '<i class="fa-solid fa-chevron-up"></i> Show Less'
-      : `<i class="fa-solid fa-chevron-down"></i> See All Experience &amp; Projects (${timeline.length})`;
+      : `<i class="fa-solid fa-chevron-down"></i> See All Research Projects (${timeline.length})`;
     expandBtn.onclick = () => {
       isTimelineExpanded = !isTimelineExpanded;
       renderTimelineAndKPIs(timeline, kpis);
@@ -256,6 +258,84 @@ function renderTimelineAndKPIs(timeline, kpis) {
       </div>
     `).join('');
   }
+}
+
+/* --------------------------------------------------------------------------
+   6. Apps, Websites & Software Engineering
+   -------------------------------------------------------------------------- */
+function renderSoftwareProjects(projects) {
+  const container = document.getElementById('software-cards-container');
+  if (!container) return;
+
+  const list = projects || window.portfolioData?.softwareProjects || [];
+  let filtered = list;
+  if (currentSoftwareFilter !== 'all') {
+    filtered = list.filter(p => p.category === currentSoftwareFilter || p.categoryFilter === currentSoftwareFilter);
+  }
+
+  if (filtered.length === 0) {
+    container.innerHTML = `
+      <div style="grid-column: 1 / -1; text-align: center; padding: 2.5rem; color: var(--text-muted);">
+        <i class="fa-solid fa-code" style="font-size: 1.75rem; margin-bottom: 0.5rem; display: block; color: #6366f1;"></i>
+        No projects found matching the selected filter.
+      </div>
+    `;
+    return;
+  }
+
+  container.innerHTML = filtered.map(item => `
+    <div class="software-card">
+      <div class="software-card-top">
+        <div class="software-card-header">
+          <span class="software-type-badge">${escapeHTML(item.type || 'Software')}</span>
+          ${item.stars !== undefined && item.stars > 0 ? `
+            <span class="software-stars-badge"><i class="fa-solid fa-star" style="color: #f59e0b;"></i> ${escapeHTML(item.stars)}</span>
+          ` : `
+            <span class="software-stars-badge"><i class="fa-solid fa-circle" style="font-size: 0.55rem; color: #6366f1;"></i> ${escapeHTML(item.language || 'Code')}</span>
+          `}
+        </div>
+        <h4 class="software-card-title">${escapeHTML(item.title)}</h4>
+        <p class="software-card-desc">${escapeHTML(item.description)}</p>
+        
+        ${item.highlights && item.highlights.length > 0 ? `
+          <ul class="software-card-highlights">
+            ${item.highlights.map(h => `<li>${escapeHTML(h)}</li>`).join('')}
+          </ul>
+        ` : ''}
+
+        <div class="software-tech-pills">
+          ${(item.techStack || []).map(t => `<span class="tech-pill">${escapeHTML(t)}</span>`).join('')}
+        </div>
+      </div>
+
+      <div class="software-card-footer">
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+          ${item.githubUrl ? `
+            <a href="${escapeHTML(item.githubUrl)}" target="_blank" rel="noopener noreferrer" class="software-action-btn">
+              <i class="fa-brands fa-github"></i> Repository
+            </a>
+          ` : ''}
+          ${item.liveDemoUrl ? `
+            <a href="${escapeHTML(item.liveDemoUrl)}" target="_blank" rel="noopener noreferrer" class="software-action-btn" style="background: var(--primary-light); color: var(--primary); border-color: var(--primary);">
+              <i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo
+            </a>
+          ` : ''}
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function initSoftwareFilters() {
+  const filterBtns = document.querySelectorAll('.software-filter-btn');
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentSoftwareFilter = btn.getAttribute('data-filter') || 'all';
+      renderSoftwareProjects(window.portfolioData?.softwareProjects);
+    });
+  });
 }
 
 /* --------------------------------------------------------------------------
@@ -871,6 +951,7 @@ function escapeHTML(s) {
 document.addEventListener('DOMContentLoaded', () => {
   initTheme();
   loadData();
+  initSoftwareFilters();
   initPubSearchAndFilters();
   initGalleryFilters();
   initContactForm();

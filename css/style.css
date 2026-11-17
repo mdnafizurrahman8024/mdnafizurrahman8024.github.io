@@ -583,11 +583,138 @@ button, input, textarea, select {
   border-color: var(--border-color-hover);
 }
 
-/* Colored Top Border Accents */
-.feed-card.border-teal { border-top: 4px solid var(--primary); }
-.feed-card.border-blue { border-top: 4px solid var(--accent-blue); }
-.feed-card.border-amber { border-top: 4px solid var(--accent-amber); }
-.feed-card.border-purple { border-top: 4px solid var(--accent-purple); }
+/* --------------------------------------------------------------------------
+   DOMAIN-RELEVANT CARD COLOR PALETTES & 3PX TOP ACCENT BORDERS
+   Subtle academic pastel tints for Light mode + Deep muted dark surfaces
+   -------------------------------------------------------------------------- */
+/* 2. Hi, This is Nafiz */
+#about-sec {
+  background: #f8fcfb;
+  border-top: 3px solid #0d9488;
+}
+[data-theme="dark"] #about-sec {
+  background: #091a1f;
+  border-top: 3px solid #14b8a6;
+}
+
+/* 3. Academic Credentials */
+#education-sec {
+  background: #eff8f6;
+  border-top: 3px solid #0f766e;
+}
+[data-theme="dark"] #education-sec {
+  background: #09191a;
+  border-top: 3px solid #2dd4bf;
+}
+
+/* 4. Recent Updates */
+#updates-sec {
+  background: #fffbeb;
+  border-top: 3px solid #d97706;
+}
+[data-theme="dark"] #updates-sec {
+  background: #19160d;
+  border-top: 3px solid #f59e0b;
+}
+
+/* 5. Research Experience & Scientific Projects */
+#research-sec {
+  background: #f0f7ff;
+  border-top: 3px solid #2563eb;
+}
+[data-theme="dark"] #research-sec {
+  background: #0c172a;
+  border-top: 3px solid #3b82f6;
+}
+
+/* 6. Apps, Websites & Software Engineering */
+#software-sec {
+  background: #f3f4ff;
+  border-top: 3px solid #4f46e5;
+}
+[data-theme="dark"] #software-sec {
+  background: #101126;
+  border-top: 3px solid #6366f1;
+}
+
+/* 7. Technical Capabilities (Split Cards) */
+#skills-sec .capability-card.accent-blue {
+  background: #f0f9ff;
+  border-top: 3px solid #0284c7;
+}
+[data-theme="dark"] #skills-sec .capability-card.accent-blue {
+  background: #091726;
+  border-top: 3px solid #38bdf8;
+}
+
+#skills-sec .capability-card.accent-teal {
+  background: #f0fdfa;
+  border-top: 3px solid #0d9488;
+}
+[data-theme="dark"] #skills-sec .capability-card.accent-teal {
+  background: #081919;
+  border-top: 3px solid #14b8a6;
+}
+
+/* 8. Publications & Manuscripts */
+#publications-sec {
+  background: #f5f8fc;
+  border-top: 3px solid #0e7490;
+}
+[data-theme="dark"] #publications-sec {
+  background: #0a1822;
+  border-top: 3px solid #06b6d4;
+}
+
+/* 9. Training and Certification */
+#training-sec {
+  background: #fefce8;
+  border-top: 3px solid #ca8a04;
+}
+[data-theme="dark"] #training-sec {
+  background: #19180a;
+  border-top: 3px solid #eab308;
+}
+
+/* 10. Fieldwork & Media Gallery */
+#gallery-sec {
+  background: #f4f7fb;
+  border-top: 3px solid #0284c7;
+}
+[data-theme="dark"] #gallery-sec {
+  background: #0c1626;
+  border-top: 3px solid #38bdf8;
+}
+
+/* 11. Extra-Curricular Activities & Leadership */
+#leadership-sec {
+  background: #f2f9f8;
+  border-top: 3px solid #0d9488;
+}
+[data-theme="dark"] #leadership-sec {
+  background: #091818;
+  border-top: 3px solid #14b8a6;
+}
+
+/* 12. Academic References */
+#references-sec {
+  background: #f4f7fb;
+  border-top: 3px solid #0f766e;
+}
+[data-theme="dark"] #references-sec {
+  background: #0a181e;
+  border-top: 3px solid #2dd4bf;
+}
+
+/* 13. Contact Me */
+#contact-sec {
+  background: #f0f7ff;
+  border-top: 3px solid #2563eb;
+}
+[data-theme="dark"] #contact-sec {
+  background: #0c1628;
+  border-top: 3px solid #38bdf8;
+}
 
 .card-header-row {
   display: flex;
@@ -862,6 +989,201 @@ button, input, textarea, select {
   font-size: 0.78rem;
   font-weight: 600;
   color: var(--text-muted);
+}
+
+/* --------------------------------------------------------------------------
+   6. APPS, WEBSITES & SOFTWARE ENGINEERING
+   -------------------------------------------------------------------------- */
+.software-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #6366f1;
+  margin-bottom: 0.25rem;
+}
+
+[data-theme="dark"] .software-eyebrow {
+  color: #818cf8;
+}
+
+.software-filter-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1.25rem 0 1.5rem 0;
+}
+
+.software-filter-btn {
+  padding: 0.4rem 1rem;
+  border-radius: var(--radius-full);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.software-filter-btn:hover {
+  border-color: #6366f1;
+  color: #6366f1;
+}
+
+.software-filter-btn.active {
+  background: #6366f1;
+  border-color: #6366f1;
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+}
+
+.software-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 1.25rem;
+}
+
+.software-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1.35rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.25s ease;
+  position: relative;
+}
+
+.software-card:hover {
+  transform: translateY(-3px);
+  border-color: #6366f1;
+  box-shadow: 0 8px 24px rgba(99, 102, 241, 0.14);
+}
+
+.software-card-top {
+  margin-bottom: 0.85rem;
+}
+
+.software-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.65rem;
+}
+
+.software-type-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-full);
+  background: rgba(99, 102, 241, 0.12);
+  color: #6366f1;
+  border: 1px solid rgba(99, 102, 241, 0.25);
+}
+
+[data-theme="dark"] .software-type-badge {
+  background: rgba(129, 140, 248, 0.16);
+  color: #a5b4fc;
+  border-color: rgba(129, 140, 248, 0.3);
+}
+
+.software-card-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.45rem;
+  line-height: 1.35;
+}
+
+.software-card-desc {
+  font-size: 0.84rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+  margin-bottom: 0.75rem;
+}
+
+.software-card-highlights {
+  list-style: none;
+  margin-bottom: 0.85rem;
+  padding: 0;
+}
+
+.software-card-highlights li {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+  position: relative;
+  padding-left: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+.software-card-highlights li::before {
+  content: "▹";
+  position: absolute;
+  left: 0;
+  color: #6366f1;
+  font-weight: bold;
+}
+
+.software-tech-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-bottom: 1rem;
+}
+
+.tech-pill {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-sm);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+}
+
+.software-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--border-color);
+  margin-top: auto;
+}
+
+.software-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-full);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.software-action-btn:hover {
+  background: #6366f1;
+  color: #ffffff;
+  border-color: #6366f1;
+  transform: translateY(-1px);
+}
+
+.software-stars-badge {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
 }
 
 /* --------------------------------------------------------------------------
@@ -2018,6 +2340,10 @@ button, input, textarea, select {
   }
 
   .trainings-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .software-grid {
     grid-template-columns: 1fr;
   }
 

@@ -23,7 +23,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=11">
 
   <script>
     (function() {
@@ -53,15 +53,16 @@
         <ul class="nav-menu" id="nav-menu">
           <li><a href="#about-sec" class="nav-pill">About</a></li>
           <li><a href="#education-sec" class="nav-pill">Education</a></li>
-          <li><a href="#experience-sec" class="nav-pill">Experience</a></li>
+          <li><a href="#updates-sec" class="nav-pill">Updates</a></li>
+          <li><a href="#research-sec" class="nav-pill">Research</a></li>
+          <li><a href="#software-sec" class="nav-pill">Apps &amp; Web</a></li>
           <li><a href="#skills-sec" class="nav-pill">Skills</a></li>
           <li><a href="#publications-sec" class="nav-pill">Publications</a></li>
           <li><a href="#training-sec" class="nav-pill">Training &amp; Certs</a></li>
-          <li><a href="#gallery-sec" class="nav-pill">Gallery</a></li>
-          <li><a href="#updates-sec" class="nav-pill">Updates</a></li>
           <li class="nav-dropdown">
             <a href="javascript:void(0)" class="nav-pill">More <i class="fa-solid fa-chevron-down" style="font-size: 0.7rem; margin-left: 2px;"></i></a>
             <ul class="nav-dropdown-menu">
+              <li><a href="#gallery-sec" class="nav-dropdown-item"><i class="fa-solid fa-images"></i> Gallery</a></li>
               <li><a href="#leadership-sec" class="nav-dropdown-item"><i class="fa-solid fa-users"></i> Leadership</a></li>
               <li><a href="#references-sec" class="nav-dropdown-item"><i class="fa-solid fa-user-tie"></i> References</a></li>
               <li><a href="#contact-sec" class="nav-dropdown-item"><i class="fa-solid fa-envelope"></i> Contact Me</a></li>
@@ -124,7 +125,7 @@
       </div>
 
       <!-- 2. "HI, THIS IS NAFIZ" (DIRECTLY BELOW BANNER) -->
-      <section class="feed-card border-teal" id="about-sec">
+      <section class="feed-card" id="about-sec">
         <div class="card-header-row">
           <div class="card-title-group">
             <div class="card-icon-badge"><i class="fa-solid fa-hand-wave"></i></div>
@@ -142,7 +143,7 @@
       </section>
 
       <!-- 2. ACADEMIC CREDENTIALS / EDUCATION -->
-      <section class="feed-card border-blue" id="education-sec">
+      <section class="feed-card" id="education-sec">
         <div class="card-header-row">
           <div class="card-title-group">
             <div class="card-icon-badge" style="background: var(--accent-blue-light); color: var(--accent-blue);"><i class="fa-solid fa-graduation-cap"></i></div>
@@ -156,23 +157,40 @@
         <div class="education-timeline-list" id="education-timeline-container"></div>
       </section>
 
-      <!-- 3. RESEARCH EXPERIENCE & SOFTWARE PROJECTS + 4-COLUMN KPI METRICS BAR -->
-      <section class="feed-card border-purple" id="experience-sec">
+      <!-- 4. RECENT UPDATES (AUTO-SCROLLING VERTICAL TICKER) -->
+      <section class="feed-card" id="updates-sec">
         <div class="card-header-row">
           <div class="card-title-group">
-            <div class="card-icon-badge" style="background: var(--accent-purple-light); color: var(--accent-purple);"><i class="fa-solid fa-flask-vial"></i></div>
+            <div class="card-icon-badge" style="background: var(--accent-amber-light); color: var(--accent-amber);"><i class="fa-solid fa-bolt"></i></div>
             <div>
-              <h2 class="card-heading">Research Experience &amp; Digital Platforms</h2>
-              <div class="card-subheading">Field surveillance, One Health investigations, and software engineering</div>
+              <h2 class="card-heading">Recent Updates &amp; Milestones</h2>
+              <div class="card-subheading">Continuous feed of active publications, research protocols &amp; deployments (pauses on hover)</div>
             </div>
           </div>
         </div>
 
-        <div class="timeline-list" id="experience-timeline-container"></div>
+        <div class="updates-ticker-viewport" id="updates-ticker-viewport">
+          <ul class="updates-ticker-list" id="updates-ticker-list"></ul>
+        </div>
+      </section>
+
+      <!-- 5. RESEARCH EXPERIENCE & SCIENTIFIC PROJECTS + 4-COLUMN KPI METRICS BAR -->
+      <section class="feed-card" id="research-sec">
+        <div class="card-header-row">
+          <div class="card-title-group">
+            <div class="card-icon-badge" style="background: var(--accent-blue-light); color: var(--accent-blue);"><i class="fa-solid fa-flask-vial"></i></div>
+            <div>
+              <h2 class="card-heading">Research Experience &amp; Scientific Projects</h2>
+              <div class="card-subheading">Field surveillance, One Health investigations, and clinical research</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-list" id="research-timeline-container"></div>
         
         <div style="text-align: center;">
           <button class="timeline-expand-btn" id="timeline-expand-btn">
-            <i class="fa-solid fa-chevron-down"></i> See All Experience &amp; Projects
+            <i class="fa-solid fa-chevron-down"></i> See All Research Projects
           </button>
         </div>
 
@@ -180,8 +198,33 @@
         <div class="kpi-metrics-bar" id="kpi-metrics-container"></div>
       </section>
 
-      <!-- 4. TECHNICAL CAPABILITIES (2-COLUMN SPLIT CARDS) -->
-      <section class="feed-card" id="skills-sec" style="padding: 1rem 0; background: transparent; border: none; box-shadow: none;">
+      <!-- 6. APPS, WEBSITES & SOFTWARE ENGINEERING -->
+      <section class="feed-card" id="software-sec">
+        <div class="card-header-row" style="margin-bottom: 0.5rem;">
+          <div class="card-title-group">
+            <div class="card-icon-badge" style="background: var(--accent-purple-light); color: var(--accent-purple);"><i class="fa-solid fa-laptop-code"></i></div>
+            <div>
+              <span class="software-eyebrow"><i class="fa-solid fa-code"></i> Foundational Programming &amp; AI-Integrated VS Code</span>
+              <h2 class="card-heading" style="margin-top: 0.2rem;">Apps, Websites &amp; Software Engineering</h2>
+              <div class="card-subheading">Digital platforms, AI-assisted tools, and computational systems engineered for veterinary and scientific workflows</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Software Category Filter Pills -->
+        <div class="software-filter-pills">
+          <button class="software-filter-btn active" data-filter="all">All Builds</button>
+          <button class="software-filter-btn" data-filter="mobile">Mobile &amp; AI Apps</button>
+          <button class="software-filter-btn" data-filter="web">Websites &amp; Platforms</button>
+          <button class="software-filter-btn" data-filter="research-soft">Research Software</button>
+        </div>
+
+        <!-- Software Grid Container -->
+        <div class="software-grid" id="software-cards-container"></div>
+      </section>
+
+      <!-- 7. TECHNICAL CAPABILITIES (2-COLUMN SPLIT CARDS) -->
+      <section class="feed-card" id="skills-sec" style="padding: 0; background: transparent; border: none; box-shadow: none;">
         <div class="capabilities-split-grid">
           <!-- Left Card: Clinical & Wet-Lab (Blue Top Accent) -->
           <div class="capability-card accent-blue">
@@ -203,8 +246,8 @@
         </div>
       </section>
 
-      <!-- 5. PUBLICATIONS & MANUSCRIPTS (LIVE SEARCH + FILTER TABS) -->
-      <section class="feed-card border-teal" id="publications-sec">
+      <!-- 8. PUBLICATIONS & MANUSCRIPTS (LIVE SEARCH + FILTER TABS) -->
+      <section class="feed-card" id="publications-sec">
         <div class="card-header-row">
           <div class="card-title-group">
             <div class="card-icon-badge"><i class="fa-solid fa-newspaper"></i></div>
@@ -232,8 +275,8 @@
         <div class="pub-entries-list" id="publications-entries-container"></div>
       </section>
 
-      <!-- 7. TRAINING & CERTIFICATIONS (3-COLUMN GRID WITH 26 CERTIFICATES + MODALS) -->
-      <section class="feed-card border-amber" id="training-sec">
+      <!-- 9. TRAINING & CERTIFICATIONS (3-COLUMN GRID WITH 26 CERTIFICATES + MODALS) -->
+      <section class="feed-card" id="training-sec">
         <div class="card-header-row">
           <div class="card-title-group">
             <div class="card-icon-badge" style="background: var(--accent-amber-light); color: var(--accent-amber);"><i class="fa-solid fa-certificate"></i></div>
@@ -247,8 +290,8 @@
         <div class="trainings-grid" id="trainings-grid-container"></div>
       </section>
 
-      <!-- 8. FIELDWORK & MEDIA GALLERY (AUTO-MOVING HORIZONTAL CAROUSEL) -->
-      <section class="feed-card border-teal" id="gallery-sec">
+      <!-- 10. FIELDWORK & MEDIA GALLERY (AUTO-MOVING HORIZONTAL CAROUSEL) -->
+      <section class="feed-card" id="gallery-sec">
         <div class="card-header-row">
           <div class="card-title-group">
             <div class="card-icon-badge"><i class="fa-solid fa-images"></i></div>
@@ -274,25 +317,9 @@
         </div>
       </section>
 
-      <!-- 9. RECENT UPDATES (AUTO-SCROLLING VERTICAL TICKER) -->
-      <section class="feed-card border-teal" id="updates-sec">
-        <div class="card-header-row">
-          <div class="card-title-group">
-            <div class="card-icon-badge"><i class="fa-solid fa-bolt"></i></div>
-            <div>
-              <h2 class="card-heading">Recent Updates &amp; Milestones</h2>
-              <div class="card-subheading">Continuous feed of active publications, research protocols &amp; deployments (pauses on hover)</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="updates-ticker-viewport" id="updates-ticker-viewport">
-          <ul class="updates-ticker-list" id="updates-ticker-list"></ul>
-        </div>
-      </section>
 
       <!-- 10. EXTRA-CURRICULAR ACTIVITIES & LEADERSHIP -->
-      <section class="feed-card border-blue" id="leadership-sec">
+      <section class="feed-card" id="leadership-sec">
         <div class="card-header-row">
           <div class="card-title-group">
             <div class="card-icon-badge" style="background: var(--accent-blue-light); color: var(--accent-blue);"><i class="fa-solid fa-people-roof"></i></div>
@@ -307,7 +334,7 @@
       </section>
 
       <!-- 11. ACADEMIC REFERENCES -->
-      <section class="feed-card border-teal" id="references-sec">
+      <section class="feed-card" id="references-sec">
         <div class="card-header-row">
           <div class="card-title-group">
             <div class="card-icon-badge"><i class="fa-solid fa-address-book"></i></div>
@@ -322,7 +349,7 @@
       </section>
 
       <!-- 12. CONTACT ME (MATCHING REFERENCE DESIGN) -->
-      <section class="feed-card border-blue" id="contact-sec">
+      <section class="feed-card" id="contact-sec">
         <div class="card-header-row" style="margin-bottom: 0.35rem;">
           <div>
             <span class="contact-eyebrow">Get in touch</span>
@@ -478,6 +505,6 @@
   </aside>
 
   <!-- Core App Logic -->
-  <script src="js/app.js"></script>
+  <script src="js/app.js?v=11"></script>
 </body>
 </html>
