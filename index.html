@@ -23,7 +23,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-  <link rel="stylesheet" href="css/style.css?v=16">
+  <link rel="stylesheet" href="css/style.css?v=19">
 
   <script>
     (function() {
@@ -54,8 +54,8 @@
           <li><a href="#about-sec" class="nav-pill">About</a></li>
           <li><a href="#education-sec" class="nav-pill">Education</a></li>
           <li><a href="#updates-sec" class="nav-pill">Updates</a></li>
-          <li><a href="#research-sec" class="nav-pill">Research</a></li>
-          <li><a href="#software-sec" class="nav-pill">Apps &amp; Web</a></li>
+          <li><a href="#research-sec" class="nav-pill">Research &amp; Appointments</a></li>
+          <li><a href="#software-sec" class="nav-pill">Projects &amp; Platforms</a></li>
           <li><a href="#skills-sec" class="nav-pill">Skills</a></li>
           <li><a href="#publications-sec" class="nav-pill">Publications</a></li>
           <li><a href="#training-sec" class="nav-pill">Training &amp; Certs</a></li>
@@ -174,23 +174,24 @@
         </div>
       </section>
 
-      <!-- 5. RESEARCH EXPERIENCE & SCIENTIFIC PROJECTS + 4-COLUMN KPI METRICS BAR -->
+      <!-- 5. RESEARCH EXPERIENCE & APPOINTMENTS + 4-COLUMN KPI METRICS BAR -->
       <section class="feed-card" id="research-sec">
         <div class="card-header-row">
           <div class="card-title-group">
             <div class="card-icon-badge" style="background: var(--accent-blue-light); color: var(--accent-blue);"><i class="fa-solid fa-flask-vial"></i></div>
             <div>
-              <h2 class="card-heading">Research Experience &amp; Scientific Projects</h2>
-              <div class="card-subheading">Field surveillance, One Health investigations, and clinical research</div>
+              <span class="software-eyebrow" style="color: var(--accent-blue);"><i class="fa-solid fa-microscope"></i> Academic Appointments, Field Surveillance &amp; One Health Research</span>
+              <h2 class="card-heading" style="margin-top: 0.2rem;">Research Experience &amp; Appointments</h2>
+              <div class="card-subheading">Field surveillance, One Health investigations, and clinical research appointments</div>
             </div>
           </div>
         </div>
 
         <div class="timeline-list" id="research-timeline-container"></div>
         
-        <div style="text-align: center;">
+        <div style="text-align: center; margin: 1rem 0 1.5rem 0;">
           <button class="timeline-expand-btn" id="timeline-expand-btn">
-            <i class="fa-solid fa-chevron-down"></i> See All Research Projects
+            <i class="fa-solid fa-chevron-down"></i> See All Research &amp; Appointments
           </button>
         </div>
 
@@ -198,22 +199,22 @@
         <div class="kpi-metrics-bar" id="kpi-metrics-container"></div>
       </section>
 
-      <!-- 6. APPS, WEBSITES & SOFTWARE ENGINEERING -->
+      <!-- 6. SCIENTIFIC PROJECTS & DIGITAL PLATFORMS -->
       <section class="feed-card" id="software-sec">
         <div class="card-header-row" style="margin-bottom: 0.5rem;">
           <div class="card-title-group">
             <div class="card-icon-badge" style="background: var(--accent-purple-light); color: var(--accent-purple);"><i class="fa-solid fa-laptop-code"></i></div>
             <div>
-              <span class="software-eyebrow"><i class="fa-solid fa-code"></i> Foundational Programming &amp; AI-Integrated VS Code</span>
-              <h2 class="card-heading" style="margin-top: 0.2rem;">Apps, Websites &amp; Software Engineering</h2>
-              <div class="card-subheading">Digital platforms, AI-assisted tools, and computational systems engineered for veterinary and scientific workflows</div>
+              <span class="software-eyebrow"><i class="fa-solid fa-code"></i> Apps, Websites &amp; Computational Research Software</span>
+              <h2 class="card-heading" style="margin-top: 0.2rem;">Scientific Projects &amp; Digital Platforms</h2>
+              <div class="card-subheading">Building scientific tools, AI-powered veterinary apps, clinical &amp; e-commerce websites, and research software</div>
             </div>
           </div>
         </div>
 
         <!-- Software Category Filter Pills -->
         <div class="software-filter-pills">
-          <button class="software-filter-btn active" data-filter="all">All Builds</button>
+          <button class="software-filter-btn active" data-filter="all">All Projects</button>
           <button class="software-filter-btn" data-filter="mobile">Mobile &amp; AI Apps</button>
           <button class="software-filter-btn" data-filter="web">Websites &amp; Platforms</button>
           <button class="software-filter-btn" data-filter="research-soft">Research Software</button>
@@ -450,6 +451,66 @@
   </div>
 
   <!-- ======================================================================
+       PROJECT DETAILS & INTERACTIVE GALLERY MODAL
+       ====================================================================== -->
+  <div class="project-modal-backdrop" id="project-details-modal" role="dialog" aria-modal="true">
+    <div class="project-modal-dialog">
+      <div class="project-modal-header">
+        <div class="project-modal-header-left">
+          <h3 class="project-modal-title" id="project-modal-title">Project Details</h3>
+          <span class="software-type-badge" id="project-modal-badge">Mobile App</span>
+        </div>
+        <button class="project-modal-close-btn" id="project-modal-close-btn" title="Close Modal">&times;</button>
+      </div>
+
+      <div class="project-modal-body">
+        <!-- Gallery Carousel -->
+        <div class="project-carousel-container" id="project-carousel-wrap">
+          <div class="project-carousel-viewport" id="project-carousel-viewport">
+            <img src="" alt="Project Slide" id="project-carousel-main-img" class="project-carousel-slide-img">
+            <button class="project-carousel-nav-btn prev" id="project-carousel-prev" title="Previous Image"><i class="fa-solid fa-chevron-left"></i></button>
+            <button class="project-carousel-nav-btn next" id="project-carousel-next" title="Next Image"><i class="fa-solid fa-chevron-right"></i></button>
+            <div class="project-carousel-badge-group">
+              <span class="project-carousel-counter" id="project-carousel-counter">1 / 1</span>
+              <a href="#" target="_blank" class="project-carousel-zoom-btn" id="project-carousel-zoom" title="Open Full Image in New Tab"><i class="fa-solid fa-up-right-and-down-left-from-center"></i></a>
+            </div>
+          </div>
+          <!-- Clickable Thumbnails Strip -->
+          <div class="project-carousel-thumbs" id="project-carousel-thumbs"></div>
+        </div>
+
+        <!-- Project Details & Features -->
+        <div class="project-modal-details-grid">
+          <div class="project-modal-meta-row" id="project-modal-meta"></div>
+          <div>
+            <h4 class="project-modal-features-title"><i class="fa-solid fa-circle-info" style="color: #6366f1;"></i> Project Overview</h4>
+            <p class="project-modal-desc" id="project-modal-desc"></p>
+          </div>
+
+          <div id="project-modal-features-wrap">
+            <h4 class="project-modal-features-title"><i class="fa-solid fa-list-check" style="color: #10b981;"></i> Key Features &amp; Capabilities</h4>
+            <ul class="project-modal-features-list" id="project-modal-features-list"></ul>
+          </div>
+
+          <div>
+            <h4 class="project-modal-features-title" style="margin-bottom: 0.5rem;"><i class="fa-solid fa-layer-group" style="color: #f59e0b;"></i> Tech Stack &amp; Architecture</h4>
+            <div class="software-tech-pills" id="project-modal-tech-pills"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-modal-footer">
+        <a href="#" target="_blank" rel="noopener noreferrer" class="project-modal-action-btn github" id="project-modal-repo-btn">
+          <i class="fa-brands fa-github"></i> GitHub Repository
+        </a>
+        <a href="#" target="_blank" rel="noopener noreferrer" class="project-modal-action-btn live" id="project-modal-live-btn">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo / Platform
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================================
        ADMIN CONTENT MANAGER DRAWER (100% CLIENT-SIDE RUNTIME AUTH)
        ====================================================================== -->
   <div class="admin-drawer-overlay" id="admin-drawer-overlay"></div>
@@ -496,58 +557,178 @@
           </button>
         </div>
 
-        <!-- Add New Certificate Form (7-Field Schema) -->
-        <div style="background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: 8px; padding: 1rem;">
-          <h5 style="font-size: 0.88rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--text-primary); display: flex; align-items: center; gap: 0.4rem;">
-            <i class="fa-solid fa-certificate" style="color: var(--accent-amber);"></i> Add / Stage New Certificate
-          </h5>
-          <form id="admin-add-cert-form" style="display: flex; flex-direction: column; gap: 0.65rem;">
-            <div>
-              <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Certificate Title *</label>
-              <input type="text" id="admin-cert-title" style="width: 100%; padding: 0.45rem; font-size: 0.8rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);" placeholder="e.g., Advanced Diagnostic Techniques" required>
-            </div>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
-              <div>
-                <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Issuer Authority *</label>
-                <input type="text" id="admin-cert-issuer" style="width: 100%; padding: 0.45rem; font-size: 0.8rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);" placeholder="e.g., WHO Academy" required>
-              </div>
-              <div>
-                <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Issue Date *</label>
-                <input type="text" id="admin-cert-date" style="width: 100%; padding: 0.45rem; font-size: 0.8rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);" placeholder="e.g., 2026 or 15/08/2026" required>
-              </div>
-            </div>
-            <div>
-              <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Description *</label>
-              <textarea id="admin-cert-desc" rows="2" style="width: 100%; padding: 0.45rem; font-size: 0.8rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);" placeholder="Brief academic overview of skills and competencies covered..." required></textarea>
-            </div>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
-              <div>
-                <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Credential ID</label>
-                <input type="text" id="admin-cert-id" style="width: 100%; padding: 0.45rem; font-size: 0.8rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);" placeholder="Optional ID (e.g. ZO-26-FEL)">
-              </div>
-              <div>
-                <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Verification URL</label>
-                <input type="url" id="admin-cert-url" style="width: 100%; padding: 0.45rem; font-size: 0.8rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);" placeholder="https://...">
-              </div>
-            </div>
-            <div>
-              <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Upload Certificate Image *</label>
-              <input type="file" id="admin-cert-file" accept="image/*,.pdf" style="font-size: 0.75rem;" required>
-            </div>
-            <button type="submit" style="padding: 0.5rem 1rem; border-radius: 6px; background: var(--primary); color: #fff; font-size: 0.8rem; font-weight: 600; border: none; cursor: pointer; margin-top: 0.25rem;">
-              <i class="fa-solid fa-plus"></i> Stage Certificate to Top
-            </button>
-          </form>
+        <!-- Manager Tabs -->
+        <div class="admin-tabs-nav">
+          <button type="button" class="admin-tab-nav-btn active" id="admin-nav-btn-projects" onclick="switchAdminTab('projects')">
+            <i class="fa-solid fa-folder-tree"></i> Projects
+          </button>
+          <button type="button" class="admin-tab-nav-btn" id="admin-nav-btn-certs" onclick="switchAdminTab('certs')">
+            <i class="fa-solid fa-certificate"></i> Certificates
+          </button>
+          <button type="button" class="admin-tab-nav-btn" id="admin-nav-btn-json" onclick="switchAdminTab('json')">
+            <i class="fa-solid fa-code"></i> Raw JSON
+          </button>
         </div>
 
-        <div>
-          <label style="font-size: 0.82rem; font-weight: 700; display: block; margin-bottom: 0.35rem;">General File Upload (Image / PDF)</label>
-          <input type="file" id="admin-file-upload" accept="image/*,.pdf" style="font-size: 0.82rem;">
+        <!-- TAB 1: PROJECTS CMS -->
+        <div class="admin-tab-pane active" id="admin-pane-projects">
+          <div style="background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: 8px; padding: 1rem;">
+            <h5 style="font-size: 0.88rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--text-primary); display: flex; align-items: center; justify-content: space-between;">
+              <span><i class="fa-solid fa-laptop-code" style="color: #6366f1;"></i> Project Content &amp; Image Manager</span>
+            </h5>
+
+            <div style="margin-bottom: 0.85rem;">
+              <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.25rem;">Select Project to Edit or Create New</label>
+              <select id="admin-proj-select" style="width: 100%; padding: 0.45rem; font-size: 0.8rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);">
+                <option value="__new__">+ Add New Project</option>
+              </select>
+            </div>
+
+            <form id="admin-project-form" style="display: flex; flex-direction: column; gap: 0.65rem;">
+              <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 0.5rem;">
+                <div>
+                  <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Project Title *</label>
+                  <input type="text" id="admin-proj-title" style="width: 100%; padding: 0.45rem; font-size: 0.8rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);" required>
+                </div>
+                <div>
+                  <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Category *</label>
+                  <select id="admin-proj-category" style="width: 100%; padding: 0.45rem; font-size: 0.8rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);">
+                    <option value="mobile">Mobile &amp; AI Apps</option>
+                    <option value="web">Websites &amp; Platforms</option>
+                    <option value="research-soft">Research Software</option>
+                  </select>
+                </div>
+              </div>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+                <div>
+                  <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Type Badge *</label>
+                  <input type="text" id="admin-proj-badge" style="width: 100%; padding: 0.45rem; font-size: 0.8rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);" placeholder="e.g., AI Diagnostic App">
+                </div>
+                <div>
+                  <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Folder Name (in `Github image/`)</label>
+                  <input type="text" id="admin-proj-folder" style="width: 100%; padding: 0.45rem; font-size: 0.8rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);" placeholder="e.g., PoultryMedix">
+                </div>
+              </div>
+
+              <div>
+                <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Card Brief Summary *</label>
+                <textarea id="admin-proj-brief" rows="2" style="width: 100%; padding: 0.45rem; font-size: 0.8rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);" placeholder="Concise summary shown on the main project card..." required></textarea>
+              </div>
+
+              <div>
+                <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Full Description (Modal)</label>
+                <textarea id="admin-proj-desc" rows="3" style="width: 100%; padding: 0.45rem; font-size: 0.8rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);" placeholder="Detailed architectural description for the modal..."></textarea>
+              </div>
+
+              <div>
+                <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Key Features (One per line)</label>
+                <textarea id="admin-proj-features" rows="3" style="width: 100%; padding: 0.45rem; font-size: 0.8rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);" placeholder="Feature 1&#10;Feature 2&#10;Feature 3"></textarea>
+              </div>
+
+              <div>
+                <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Tech Stack (comma-separated)</label>
+                <input type="text" id="admin-proj-tech" style="width: 100%; padding: 0.45rem; font-size: 0.8rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);" placeholder="Python, Django, Tailwind CSS">
+              </div>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+                <div>
+                  <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">GitHub Repo URL</label>
+                  <input type="url" id="admin-proj-repo" style="width: 100%; padding: 0.45rem; font-size: 0.8rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);" placeholder="https://github.com/...">
+                </div>
+                <div>
+                  <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Live Demo URL</label>
+                  <input type="url" id="admin-proj-live" style="width: 100%; padding: 0.45rem; font-size: 0.8rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);" placeholder="https://...">
+                </div>
+              </div>
+
+              <!-- Project Images Management & Multi-Upload -->
+              <div style="border-top: 1px solid var(--border-color); padding-top: 0.75rem; margin-top: 0.25rem;">
+                <label style="font-size: 0.75rem; font-weight: 700; display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+                  <span>Project Images (Cover is #1)</span>
+                  <span id="admin-proj-img-count" style="color: var(--primary);">0 images</span>
+                </label>
+                
+                <div class="admin-img-preview-grid" id="admin-proj-img-grid">
+                  <div style="grid-column: 1 / -1; font-size: 0.75rem; color: var(--text-muted); padding: 0.5rem; text-align: center;">No images attached yet.</div>
+                </div>
+
+                <div style="margin-top: 0.65rem;">
+                  <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.25rem; color: #6366f1;">
+                    <i class="fa-solid fa-cloud-arrow-up"></i> Upload Multiple Images at Once
+                  </label>
+                  <input type="file" id="admin-proj-images-input" multiple accept="image/*" style="font-size: 0.75rem; width: 100%;">
+                  <span style="font-size: 0.7rem; color: var(--text-muted); display: block; margin-top: 2px;">
+                    Select multiple files to automatically stage into <code>Github image/&lt;Folder&gt;/</code>.
+                  </span>
+                </div>
+              </div>
+
+              <button type="submit" style="padding: 0.55rem 1rem; border-radius: 6px; background: #6366f1; color: #fff; font-size: 0.8rem; font-weight: 600; border: none; cursor: pointer; margin-top: 0.4rem;">
+                <i class="fa-solid fa-check"></i> Stage Project Updates
+              </button>
+            </form>
+          </div>
         </div>
 
-        <div>
-          <label style="font-size: 0.82rem; font-weight: 700; display: block; margin-bottom: 0.35rem;">Portfolio Data (`data/portfolio-data.json`)</label>
-          <textarea id="admin-raw-json" style="width: 100%; min-height: 280px; font-family: var(--font-mono); font-size: 0.75rem; padding: 0.75rem; border-radius: 6px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);"></textarea>
+        <!-- TAB 2: CERTIFICATES CMS -->
+        <div class="admin-tab-pane" id="admin-pane-certs">
+          <!-- Add New Certificate Form (7-Field Schema) -->
+          <div style="background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: 8px; padding: 1rem;">
+            <h5 style="font-size: 0.88rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--text-primary); display: flex; align-items: center; gap: 0.4rem;">
+              <i class="fa-solid fa-certificate" style="color: var(--accent-amber);"></i> Add / Stage New Certificate
+            </h5>
+            <form id="admin-add-cert-form" style="display: flex; flex-direction: column; gap: 0.65rem;">
+              <div>
+                <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Certificate Title *</label>
+                <input type="text" id="admin-cert-title" style="width: 100%; padding: 0.45rem; font-size: 0.8rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);" placeholder="e.g., Advanced Diagnostic Techniques" required>
+              </div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+                <div>
+                  <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Issuer Authority *</label>
+                  <input type="text" id="admin-cert-issuer" style="width: 100%; padding: 0.45rem; font-size: 0.8rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);" placeholder="e.g., WHO Academy" required>
+                </div>
+                <div>
+                  <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Issue Date *</label>
+                  <input type="text" id="admin-cert-date" style="width: 100%; padding: 0.45rem; font-size: 0.8rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);" placeholder="e.g., 2026 or 15/08/2026" required>
+                </div>
+              </div>
+              <div>
+                <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Description *</label>
+                <textarea id="admin-cert-desc" rows="2" style="width: 100%; padding: 0.45rem; font-size: 0.8rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);" placeholder="Brief academic overview of skills and competencies covered..." required></textarea>
+              </div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+                <div>
+                  <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Credential ID</label>
+                  <input type="text" id="admin-cert-id" style="width: 100%; padding: 0.45rem; font-size: 0.8rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);" placeholder="Optional ID (e.g. ZO-26-FEL)">
+                </div>
+                <div>
+                  <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Verification URL</label>
+                  <input type="url" id="admin-cert-url" style="width: 100%; padding: 0.45rem; font-size: 0.8rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);" placeholder="https://...">
+                </div>
+              </div>
+              <div>
+                <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Upload Certificate Image *</label>
+                <input type="file" id="admin-cert-file" accept="image/*,.pdf" style="font-size: 0.75rem;" required>
+              </div>
+              <button type="submit" style="padding: 0.5rem 1rem; border-radius: 6px; background: var(--primary); color: #fff; font-size: 0.8rem; font-weight: 600; border: none; cursor: pointer; margin-top: 0.25rem;">
+                <i class="fa-solid fa-plus"></i> Stage Certificate to Top
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <!-- TAB 3: RAW JSON & GENERAL FILE CMS -->
+        <div class="admin-tab-pane" id="admin-pane-json">
+          <div>
+            <label style="font-size: 0.82rem; font-weight: 700; display: block; margin-bottom: 0.35rem;">General File Upload (Image / PDF)</label>
+            <input type="file" id="admin-file-upload" accept="image/*,.pdf" style="font-size: 0.82rem;">
+          </div>
+
+          <div>
+            <label style="font-size: 0.82rem; font-weight: 700; display: block; margin-bottom: 0.35rem;">Portfolio Data (`data/portfolio-data.json`)</label>
+            <textarea id="admin-raw-json" style="width: 100%; min-height: 280px; font-family: var(--font-mono); font-size: 0.75rem; padding: 0.75rem; border-radius: 6px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);"></textarea>
+          </div>
         </div>
       </div>
     </div>
@@ -561,6 +742,6 @@
   </aside>
 
   <!-- Core App Logic -->
-  <script src="js/app.js?v=16"></script>
+  <script src="js/app.js?v=19"></script>
 </body>
 </html>

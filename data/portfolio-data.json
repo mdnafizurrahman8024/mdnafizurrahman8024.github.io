@@ -237,365 +237,508 @@
   "scientificResearch": [
     {
       "id": "res-1",
-      "title": "Comparative Immunogenicity, Protective Efficacy, and Safety of Nanoparticle-Based Rabies Vaccines in Mice",
-      "category": "Meta-Analysis & Nanomedicine",
-      "role": "Principal Conceptualizer & Investigator",
-      "institution": "Open Science Framework (OSF Registered)",
-      "period": "July 2026 – Present",
-      "badge": "OSF DOI: 10.17605/OSF.IO/9AQS3",
-      "badgeType": "osf",
-      "link": "https://doi.org/10.17605/OSF.IO/9AQS3",
-      "summary": "Synthesizing preclinical in vivo murine data following PRISMA guidelines using a Random-Effects Model to evaluate Virus-Neutralizing Antibody (VNA) kinetics, post-challenge survival rates, and platform-specific safety profiles across mRNA-LNPs, VLPs, lipopolyplexes, and nano-adjuvants.",
+      "title": "Undergraduate Research Assistant",
+      "institution": "Dr. Abdulla Al Mamun Bhuyan's Lab, Dept. of Veterinary and Animal Sciences, University of Rajshahi",
+      "period": "Jan 2023 – Present",
+      "role": "Undergraduate Research Assistant",
+      "badge": "Undergraduate Research Assistant",
+      "category": "Academic Research Appointment",
+      "summary": "Assisting in laboratory diagnostics, infectious disease surveillance, data curation, and veterinary research investigations at the University of Rajshahi.",
       "tags": [
-        "Nanomedicine",
-        "Rabies Vaccines",
-        "Meta-Analysis",
-        "OSF",
-        "Immunology"
-      ]
+        "Lab Diagnostics",
+        "Disease Surveillance",
+        "Data Curation",
+        "Veterinary Research"
+      ],
+      "link": "https://www.ru.ac.bd/"
     },
     {
       "id": "res-2",
-      "title": "Clinical Surveillance and Antimicrobial Stewardship in Companion Animals (Rajshahi)",
-      "category": "One Health & AMR Surveillance",
-      "role": "Principal Conceptualizer & Investigator",
-      "institution": "Faculty of Veterinary & Animal Sciences, University of Rajshahi",
-      "period": "Aug 2026 – Present",
-      "badge": "Active Clinical Surveillance",
-      "badgeType": "clinical",
-      "link": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en",
-      "summary": "A 12-month prospective clinical surveillance investigating veterinary prescribing patterns, clinical syndrome frequencies, owner Knowledge, Attitude, and Practices (KAP), and hazardous home self-medication behaviors across private practices in Rajshahi.",
-      "tags": [
-        "One Health",
-        "AMR Stewardship",
-        "Prescribing Surveillance",
-        "KAP Study"
-      ]
-    },
-    {
-      "id": "res-3",
-      "title": "Epidemiology and Distribution of Ectoparasites in Free-Roaming Dogs (Barind Tract)",
-      "category": "Parasitology & Molecular Genetics",
-      "role": "Co-Investigator & Data Analyst",
-      "institution": "Faculty of Veterinary & Animal Sciences, University of Rajshahi",
-      "period": "Nov 2024 – Dec 2025",
-      "badge": "Manuscript Prepared",
-      "badgeType": "clinical",
-      "link": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en",
-      "summary": "Sampled 310 free-roaming dogs, collected 2,908 ectoparasites, established the first morphological records of Ctenocephalides orientis and Heterodoxus spiniger in Bangladesh, and conducted COX1/18S rRNA molecular sequencing of Haemaphysalis bispinosa and Dermacentor ticks.",
-      "tags": [
-        "Barind Tract",
-        "Parasitology",
-        "Molecular Sequencing",
-        "R Analysis"
-      ]
-    },
-    {
-      "id": "res-4",
-      "title": "Species Distribution and Risk Factors of Bedbug (Cimex spp.) Infestation in Student Residences",
-      "category": "Vector Biology & Public Health",
-      "role": "Principal Investigator",
+      "title": "Species Distribution and Risk Factors of Bedbug (Cimex spp.) Infestation in Student Residences at the University of Rajshahi",
       "institution": "University of Rajshahi Residential Halls",
       "period": "Oct 2026 – Present",
-      "badge": "Active Survey",
-      "badgeType": "clinical",
-      "link": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en",
-      "summary": "Cross-sectional survey evaluating infestation rates, environmental sanitation risk factors, and sleep disturbances across a 370-bed cohort in high-density student residences.",
+      "role": "Principal Investigator",
+      "badge": "Principal Investigator",
+      "category": "Vector Biology & Public Health",
+      "summary": "Cross-sectional epidemiological survey evaluating infestation rates, environmental sanitation risk factors, and sleep disturbances among hostel residents.",
       "tags": [
         "Cimex spp.",
         "Vector Biology",
         "Public Health",
-        "Student Hostels"
-      ]
+        "Epidemiology"
+      ],
+      "link": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en"
+    },
+    {
+      "id": "res-3",
+      "title": "Clinical Surveillance and Antimicrobial Stewardship in Companion Animals: Evaluating Veterinary Prescribing Patterns, Owner KAP, and Self-Medication Behaviors in Rajshahi, Bangladesh (A One Health Perspective)",
+      "institution": "Dept. of Veterinary and Animal Sciences, University of Rajshahi",
+      "period": "Aug 2026 – Present",
+      "role": "Principal Conceptualizer & Investigator",
+      "badge": "Principal Conceptualizer & Investigator",
+      "category": "One Health & AMR Surveillance",
+      "summary": "Conducting clinical surveillance to evaluate veterinary prescribing patterns, owner KAP, and antimicrobial stewardship gaps.",
+      "tags": [
+        "One Health",
+        "AMR Stewardship",
+        "Prescribing Patterns",
+        "KAP Study"
+      ],
+      "link": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en"
+    },
+    {
+      "id": "res-4",
+      "title": "Comparative Immunogenicity, Protective Efficacy, and Safety of Nanoparticle-Based Rabies Vaccines in Mice: A Systematic Review and Meta-Analysis",
+      "institution": "Open Science Framework (OSF Registered)",
+      "period": "July 2026 – Present",
+      "role": "Principal Conceptualizer & Investigator",
+      "badge": "OSF DOI: 10.17605/OSF.IO/9AQS3",
+      "category": "Meta-Analysis & Nanomedicine",
+      "summary": "Synthesizing preclinical in vivo murine data following PRISMA guidelines using a Random-Effects Model to evaluate VNA kinetics, survival rates, and safety profiles.",
+      "tags": [
+        "Nanomedicine",
+        "Rabies Vaccines",
+        "Meta-Analysis",
+        "PRISMA"
+      ],
+      "link": "https://doi.org/10.17605/OSF.IO/9AQS3"
     },
     {
       "id": "res-5",
-      "title": "Save Wildlife and Nature (SWAN) Bangladesh Operations",
-      "category": "Wildlife Rescue & Biodiversity",
-      "role": "Active Team Member & Rescuer",
-      "institution": "SWAN Bangladesh",
-      "period": "2025 – Present",
-      "badge": "Field Rescue Volunteer",
-      "badgeType": "clinical",
-      "link": "https://www.facebook.com/swan.org.bd/",
-      "summary": "Participating in emergency snake rescue (venomous/non-venomous), reptile rehabilitation, raptor release, and community biodiversity coexistence drives across Rajshahi and Northern Bangladesh.",
-      "tags": [
-        "Wildlife Rescue",
-        "Herpetology",
-        "Biodiversity",
-        "Conservation"
-      ]
-    },
-    {
-      "id": "res-6",
-      "title": "Molecular Characterization and Histopathology of Capillaria spp. in Native Poultry",
-      "category": "Avian Parasitology & Histopathology",
-      "role": "Co-Investigator & Parasitology Researcher",
-      "institution": "Dept. of Veterinary & Animal Sciences, University of Rajshahi",
-      "period": "2025 – 2026",
-      "badge": "Active Research",
-      "badgeType": "clinical",
-      "link": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en",
-      "summary": "Investigating prevalence, histopathological lesions in the crop and esophagus, and molecular sequencing of Capillaria spp. infecting indigenous backyard scavenging chickens in the Barind agro-ecological zone.",
+      "title": "Morphological and Molecular Detection of Capillaria spp. in Native Chicken and Duck of Northern Bangladesh",
+      "institution": "Dept. of Veterinary and Animal Sciences, University of Rajshahi",
+      "period": "Dec 2025 – Present",
+      "role": "Research Assistant",
+      "badge": "Research Assistant",
+      "category": "Avian Parasitology & Molecular Genetics",
+      "summary": "Assisting in field sample collection, laboratory investigations, and molecular characterization of parasites under faculty supervision.",
       "tags": [
         "Avian Parasitology",
         "Capillaria spp.",
-        "Histopathology",
-        "Poultry Health"
-      ]
+        "Molecular Detection",
+        "Histopathology"
+      ],
+      "link": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en"
+    },
+    {
+      "id": "res-6",
+      "title": "Epidemiology and Distribution of Ectoparasites in Free-Roaming Dogs from the Semi-Arid Barind Tract, Northwestern Bangladesh",
+      "institution": "Barind Tract, Northwestern Bangladesh",
+      "period": "Nov 2024 – Present",
+      "role": "Co-Investigator & Data Analyst",
+      "badge": "Co-Investigator & Data Analyst",
+      "category": "Parasitology & Ecological Modeling",
+      "summary": "Managed project administration and core methodology, conducted primary field investigations, and performed comprehensive data curation, formal analysis, and visualization using R.",
+      "tags": [
+        "Barind Tract",
+        "Parasitology",
+        "Ectoparasites",
+        "R Analysis"
+      ],
+      "link": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en"
+    },
+    {
+      "id": "res-7",
+      "title": "Socio-Veterinary Determinants of Pet Healthcare Behavior: A Comprehensive Statistical Study of Pet Ownership Patterns in Bangladesh",
+      "institution": "Bangladesh",
+      "period": "2024 – Present",
+      "role": "Co-Investigator",
+      "badge": "Co-Investigator",
+      "category": "Socio-Veterinary & Statistical Analysis",
+      "summary": "Analyzing socio-economic data and ownership patterns to determine factors influencing veterinary healthcare-seeking behaviors.",
+      "tags": [
+        "Socio-Veterinary",
+        "Healthcare Behavior",
+        "Statistical Modeling",
+        "Survey Data"
+      ],
+      "link": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en"
     }
   ],
   "softwareProjects": [
     {
-      "id": "soft-1",
-      "name": "PoultryMedix: Autonomous Multimodal AI for Avian Health & AMR Stewardship",
+      "id": "proj-poultrymedix",
+      "name": "PoultryMedix",
+      "title": "PoultryMedix",
       "category": "mobile",
       "categoryLabel": "Mobile & AI Apps",
-      "typeBadge": "Mobile & AI App",
-      "role": "Project Lead & Principal Conceptualizer",
-      "period": "Sept 2026 – Present",
-      "techStack": [
-        "React 19",
-        "Python / FastAPI",
-        "Gemini API",
-        "Supabase",
-        "RAG & OCR",
-        "Tailwind CSS"
+      "typeBadge": "AI Veterinary Diagnostic Platform",
+      "role": "Founder, Lead Researcher & Architect",
+      "period": "2025 – Present",
+      "stars": "Active Research Platform",
+      "brief": "It's an AI-driven veterinary diagnostic and epidemiological platform designed for marginal poultry farmers in Bangladesh. Rooted in the \"One Health\" framework, it utilizes multi-modal AI to accurately diagnose poultry diseases and actively combat antimicrobial resistance (AMR) by enforcing medication withdrawal periods through automated prescription scanning.",
+      "description": "PoultryMedix is an AI-powered veterinary healthcare ecosystem engineered specifically for marginal poultry farmers, paravets, and veterinary clinicians in Bangladesh. Rooted in the One Health framework, the platform integrates real-time symptom diagnosis with deep-learning vision models, antimicrobial resistance (AMR) mitigation surveillance, automated veterinary prescription scanning, disease outbreak mapping across regional farming clusters, and structured tele-consultation channels.",
+      "features": [
+        "Multi-Modal AI Symptom & Lesion Diagnostic Engine for rapid poultry disease triage",
+        "AMR Mitigation & Drug Withdrawal Tracker with automated prescription optical analysis",
+        "Outbreak Geo-Mapping & Epidemiological Hotspot Surveillance across regional poultry farms",
+        "Bilingual Clinical Consultation & Paravet Advisory Hub with audio & image support",
+        "Integrated Consultation Records, Vaccination Schedules, and Biosecurity Checklists"
       ],
-      "description": "It's an AI-driven veterinary diagnostic and epidemiological platform designed for marginal poultry farmers in Bangladesh. Rooted in the 'One Health' framework, it utilizes multi-modal AI to accurately diagnose poultry diseases and actively combat Antimicrobial Resistance (AMR) by enforcing medication withdrawal periods through automated prescription scanning.",
+      "techStack": [
+        "Multi-Modal AI",
+        "Computer Vision",
+        "FastAPI / Python",
+        "React Native",
+        "PostgreSQL",
+        "One Health GIS"
+      ],
       "repoUrl": "https://github.com/mdnafizurrahman8024/PoultryMedix-Project-Overview",
       "liveUrl": "https://github.com/mdnafizurrahman8024/PoultryMedix-Project-Overview",
-      "stars": "AI Battle Winner (UK)"
+      "folder": "PoultryMedix",
+      "images": [
+        "Github image/PoultryMedix/Home-1png.png",
+        "Github image/PoultryMedix/AI-1.png",
+        "Github image/PoultryMedix/Consultation-1.png",
+        "Github image/PoultryMedix/Login-1.png",
+        "Github image/PoultryMedix/Setting-1.png",
+        "Github image/PoultryMedix/AMR-2.png",
+        "Github image/PoultryMedix/Login-2.png",
+        "Github image/PoultryMedix/S.Diag-2.png",
+        "Github image/PoultryMedix/3 Mode.png",
+        "Github image/PoultryMedix/Consultation-3.png",
+        "Github image/PoultryMedix/Consultation-5.png",
+        "Github image/PoultryMedix/AI chatbot.png",
+        "Github image/PoultryMedix/AMR & Govt.info.png",
+        "Github image/PoultryMedix/C.Log.png",
+        "Github image/PoultryMedix/Map.png",
+        "Github image/PoultryMedix/Pres.analysis.png",
+        "Github image/PoultryMedix/R.Hub.png",
+        "Github image/PoultryMedix/Servey.png"
+      ]
     },
     {
-      "id": "soft-2",
-      "name": "ZunSync (Evidentara): Reproducible AI Research Platform",
+      "id": "proj-zunsync",
+      "name": "ZunSync",
+      "title": "ZunSync",
       "category": "research-soft",
       "categoryLabel": "Research Software",
-      "typeBadge": "Research Software",
+      "typeBadge": "One Health Computational Workbench",
       "role": "Lead Architect & Developer",
-      "period": "2026 – Present",
+      "period": "2025 – Present",
+      "stars": "Active Development",
+      "brief": "An evidence-grounded computational research workbench engineered for veterinary epidemiologists, One Health scientists, and molecular researchers, featuring end-to-end data provenance tracking, literature synthesis pipelines, and Dockerized reproducibility.",
+      "description": "ZunSync is a specialized computational platform developed to harmonize veterinary field surveillance data with molecular genetics and biomedical informatics. It bridges the gap between field epidemiology and laboratory bioinformatics by offering structured pipelines for PRISMA-compliant meta-analyses, sequence annotation workflows, automated statistical modeling in R/Python, and reproducible Docker containerization.",
+      "features": [
+        "Literature Screening & Systematic Extraction Pipeline for PRISMA-compliant meta-analyses",
+        "Genomic & Parasitological Sequence Data Harmonization (COX1, 18S rRNA, phylogenetic trees)",
+        "Statistical Pipeline Automation: Random-effects modeling, forest plots, and funnel plot analysis",
+        "Real-time Data Provenance Audit Trail with Git-backed versioning and DOI integration",
+        "Full Docker Compose deployment environment for guaranteed cross-platform reproducibility"
+      ],
       "techStack": [
         "Python 3.12",
         "FastAPI",
         "React 19",
         "Docker Compose",
         "PostgreSQL",
-        "Pandas"
+        "Pandas & Biopython"
       ],
-      "description": "An evidence-grounded computational research workbench engineered for veterinary epidemiologists, One Health scientists, and molecular researchers, featuring end-to-end data provenance tracking, literature synthesis pipelines, and Dockerized reproducibility.",
-      "repoUrl": "https://github.com/mdnafizurrahman8024/ZunSync-Software",
-      "liveUrl": "https://github.com/mdnafizurrahman8024/ZunSync-Software",
-      "stars": "Active Development"
+      "repoUrl": "https://github.com/mdnafizurrahman8024/mdnafizurrahman8024",
+      "liveUrl": "https://github.com/mdnafizurrahman8024",
+      "folder": "ZunSync",
+      "images": [
+        "Github image/ZunSync/Image-1.png",
+        "Github image/ZunSync/Image-2.png",
+        "Github image/ZunSync/Image-3.png",
+        "Github image/ZunSync/Image-4.png",
+        "Github image/ZunSync/Image-5.png",
+        "Github image/ZunSync/Image-6.png",
+        "Github image/ZunSync/Image-7.png",
+        "Github image/ZunSync/Image-8.png",
+        "Github image/ZunSync/Image-9.png",
+        "Github image/ZunSync/Image-10.png"
+      ]
     },
     {
-      "id": "soft-3",
-      "name": "Zun Synthesis Academy (ZSA) Web Platform",
+      "id": "proj-professors-clinic",
+      "name": "Professor's Vet & Pet Care Clinic",
+      "title": "Professor's Vet & Pet Care Clinic",
       "category": "web",
       "categoryLabel": "Websites & Platforms",
-      "typeBadge": "Educational Platform",
+      "typeBadge": "Clinical Management & E-Commerce Web App",
+      "role": "Full-Stack Developer",
+      "period": "2025 – Present",
+      "stars": "Clinical System",
+      "brief": "A robust Django webapp / website for \"Professor's Vet & Pet Care\". It seamlessly combines a veterinary clinic management system (doctor bookings, surgery gallery, schedules) with a pet e-commerce store (medicines, real-time POS inventory). Features a responsive UI, theme toggle, and powerful admin panel.",
+      "description": "A robust Django web application for \"Professor's Vet & Pet Care\" engineered under the supervision of Dr. Abdulla Al Mamun Bhuyan (Associate Professor, Dept. of Veterinary & Animal Sciences, University of Rajshahi). It seamlessly combines a veterinary clinic management system (doctor bookings, surgery gallery, schedules) with a pet e-commerce store (medicines, real-time POS inventory). Features a responsive UI, theme toggle, and powerful admin panel.",
+      "features": [
+        "Veterinary Clinical Appointment & Doctor Scheduling Engine",
+        "Pet Health Records & Surgical Case Documentation Gallery",
+        "E-Commerce Storefront for Pet Food, Accessories, and Veterinary Therapeutics",
+        "Real-Time POS Inventory Tracking & Order Management System",
+        "Modern Responsive Interface with Light/Dark Theme Switcher and Secure Django Admin"
+      ],
+      "techStack": [
+        "Python 3.12",
+        "Django 5+",
+        "SQLite / PostgreSQL",
+        "Tailwind CSS",
+        "Responsive UI",
+        "Django Admin"
+      ],
+      "repoUrl": "https://github.com/mdnafizurrahman8024/Professors-Vet-And-Pet-Care-Website",
+      "liveUrl": "https://github.com/mdnafizurrahman8024/Professors-Vet-And-Pet-Care-Website",
+      "folder": "Professor's Vet & Pet Clinic",
+      "images": [
+        "Github image/Professor's Vet & Pet Clinic/Image-1.png",
+        "Github image/Professor's Vet & Pet Clinic/Image-2.png",
+        "Github image/Professor's Vet & Pet Clinic/Image-3.png",
+        "Github image/Professor's Vet & Pet Clinic/Image-4.png",
+        "Github image/Professor's Vet & Pet Clinic/Image-5.png"
+      ]
+    },
+    {
+      "id": "proj-zun-academy",
+      "name": "Zun Synthesis Academy (ZSA)",
+      "title": "Zun Synthesis Academy (ZSA)",
+      "category": "web",
+      "categoryLabel": "Websites & Platforms",
+      "typeBadge": "Ed-Tech & Scientific Training Hub",
       "role": "Founder & Full-Stack Architect",
       "period": "2025 – Present",
+      "stars": "Live Educational Hub",
+      "brief": "Official repository for Zun Synthesis Academy—a premium ed-tech platform bridging biology and technology. Built with a scalable Python backend and Tailwind CSS frontend, offering dynamic programs in Bioinformatics, Data Analytics, and AI-Powered Research & Vibe Coding.",
+      "description": "Official repository for Zun Synthesis Academy—a premium ed-tech platform bridging biology and technology. Built with a scalable Python backend and Tailwind CSS frontend, offering dynamic programs in Bioinformatics, Data Analytics, and AI-Powered Research & Vibe Coding. Founded by Md. Nafizur Rahman to democratize advanced computational skills for researchers in biological and veterinary sciences.",
+      "features": [
+        "Curated Course Tracks in Bioinformatics, Data Analytics, and AI Research Automation",
+        "Interactive Syllabus Explorer with Lecture Materials and Hands-on Notebooks",
+        "Student Enrollment & Capstone Project Submission Workflows",
+        "Modern High-Performance Tailwind CSS Frontend with Dark Mode Aesthetics",
+        "Scalable Python Backend Architecture for Course and Resource Management"
+      ],
       "techStack": [
         "Python Backend",
         "Tailwind CSS",
         "JavaScript",
         "HTML5",
-        "Responsive UI"
+        "Responsive Web Design"
       ],
-      "description": "Official repository for Zun Synthesis Academy—a premium ed-tech platform bridging biology and technology. Built with a scalable Python backend and Tailwind CSS frontend, offering dynamic programs in Bioinformatics, Data Analytics, and AI-Powered Research & Vibe Coding. Founded by Md. Nafizur Rahman.",
       "repoUrl": "https://github.com/mdnafizurrahman8024/Zun-Synthesis-Academy-Website",
       "liveUrl": "https://github.com/mdnafizurrahman8024/Zun-Synthesis-Academy-Website",
-      "stars": "Live Educational Hub"
+      "folder": "Zun Synthesis Academy",
+      "images": [
+        "Github image/Zun Synthesis Academy/Image-1.png",
+        "Github image/Zun Synthesis Academy/Image-2.png",
+        "Github image/Zun Synthesis Academy/Image-3.png",
+        "Github image/Zun Synthesis Academy/Image-4.png",
+        "Github image/Zun Synthesis Academy/Image-5.png"
+      ]
     },
     {
-      "id": "soft-4",
-      "name": "Professor's Vet & Pet Care Clinic Website",
+      "id": "proj-najiaa-shop",
+      "name": "Najiaa Shop (নাজিআ শপ)",
+      "title": "Najiaa Shop (নাজিআ শপ)",
       "category": "web",
       "categoryLabel": "Websites & Platforms",
-      "typeBadge": "Clinical Web App",
-      "role": "Full-Stack Developer",
-      "period": "2025 – Present",
-      "techStack": [
-        "Python 3.12",
-        "Django 5+",
-        "SQLite/PostgreSQL",
-        "Tailwind CSS",
-        "Admin Panel"
-      ],
-      "description": "A robust Django webapp / website for 'Professor's Vet & Pet Care'. It seamlessly combines a veterinary clinic management system (doctor bookings, surgery gallery, schedules) with a pet e-commerce store (medicines, real-time POS inventory). Features a responsive UI, theme toggle, and powerful admin panel. Supervised by Dr. Abdulla Al Mamun Bhuyan (Associate Professor, RU).",
-      "repoUrl": "https://github.com/mdnafizurrahman8024/Professors-Vet-And-Pet-Care-Website",
-      "liveUrl": "https://github.com/mdnafizurrahman8024/Professors-Vet-And-Pet-Care-Website",
-      "stars": "Clinical System"
-    },
-    {
-      "id": "soft-5",
-      "name": "Naziha Shop E-Commerce Website",
-      "category": "web",
-      "categoryLabel": "Websites & Platforms",
-      "typeBadge": "E-Commerce Website",
+      "typeBadge": "E-Commerce Storefront & Order System",
       "role": "Frontend Developer & Designer",
       "period": "2024 – 2025",
+      "stars": "Storefront Web App",
+      "brief": "An elegant, responsive bilingual e-commerce web platform for Najiaa Shop (নাজিআ শপ), showcasing high-quality Islamic lifestyle and artisanal items with cart management and seamless customer order workflows.",
+      "description": "An elegant, responsive bilingual e-commerce web platform for Najiaa Shop (নাজিআ শপ), showcasing high-quality Islamic lifestyle and artisanal items. Designed with a clean mobile-first interface, dynamic product filtering, persistent client-side shopping cart state management, and streamlined customer checkout.",
+      "features": [
+        "Bilingual Interface (Bangla & English) with Cultural Lifestyle Branding",
+        "Dynamic Product Catalog Filtering, Search, and Category Browsing",
+        "Client-Side Shopping Cart State Management with LocalStorage Persistence",
+        "Streamlined Checkout & Direct WhatsApp / Phone Order Dispatching",
+        "Mobile-Optimized Lightweight Layout with Instant Page Loads"
+      ],
       "techStack": [
         "HTML5",
         "CSS3 / Modern Grid",
-        "JavaScript",
-        "Cart State Management"
+        "JavaScript (ES6+)",
+        "LocalStorage State",
+        "Mobile-First Design"
       ],
-      "description": "Modern E-Commerce storefront & order management web application with dynamic product catalog browsing, responsive mobile-first UI, real-time cart state management, and streamlined checkout experience.",
       "repoUrl": "https://github.com/mdnafizurrahman8024/Najiaa-Shop-website",
       "liveUrl": "https://github.com/mdnafizurrahman8024/Najiaa-Shop-website",
-      "stars": "Storefront Web App"
+      "folder": "Najiaa Shop website",
+      "images": [
+        "Github image/Najiaa Shop website/Image-1.png",
+        "Github image/Najiaa Shop website/Image-2.png",
+        "Github image/Najiaa Shop website/Image-3.png"
+      ]
     },
     {
-      "id": "soft-6",
-      "name": "Python Foundation 21 Days Masterclass",
+      "id": "proj-python-21-days",
+      "name": "Python Foundation 21 Days",
+      "title": "Python Foundation 21 Days",
       "category": "research-soft",
       "categoryLabel": "Research Software",
-      "typeBadge": "Python Tool",
-      "role": "Developer & Author",
+      "typeBadge": "Open-Source Python Curriculum",
+      "role": "Author & Developer",
       "period": "2024",
+      "stars": "Open-Source Course",
+      "brief": "A 21-day coding challenge documenting daily Python practice and progress on Google Colab. Dedicated to building consistency, computational algorithms, and practical coding habits for biological research.",
+      "description": "An open-source interactive learning repository documenting 21 days of progressive programming challenges in Python. Tailored for life sciences and veterinary researchers looking to build core competencies in algorithmic problem solving, string manipulation, file handling, and computational data processing.",
+      "features": [
+        "Structured 21-Day Modular Progression from Basics to Advanced Concepts",
+        "Jupyter / Google Colab Notebooks with Runnable Research Problem Sets",
+        "Practical Exercises in Data Cleaning, Sequence Strings, and File Parsing",
+        "Comprehensive Code Comments and Pedagogical Explanations"
+      ],
       "techStack": [
         "Python 3",
         "Google Colab",
-        "Data Structures",
+        "Jupyter Notebooks",
         "Algorithms",
-        "Colab Notebooks"
+        "Data Structures"
       ],
-      "description": "A 21-day coding challenge documenting my daily Python practice and progress on Google Colab. Dedicated to building consistency, computational algorithms, and practical coding habits for biological research.",
       "repoUrl": "https://github.com/mdnafizurrahman8024/Python-Foundation-21-Days",
       "liveUrl": "https://github.com/mdnafizurrahman8024/Python-Foundation-21-Days",
-      "stars": "Open-Source Course"
+      "folder": "",
+      "images": []
     },
     {
-      "id": "soft-7",
+      "id": "proj-bank-management",
       "name": "Project Bank Management System",
+      "title": "Project Bank Management System",
       "category": "research-soft",
       "categoryLabel": "Research Software",
-      "typeBadge": "Python Tool",
+      "typeBadge": "Python OOP Simulation",
       "role": "Developer",
       "period": "2024",
+      "stars": "OOP Simulation",
+      "brief": "A Python-based Bank Management System that demonstrates the core pillars of Object-Oriented Programming (OOP). The project utilizes abstraction, encapsulation, inheritance, and polymorphism to simulate banking operations for different types of bank accounts.",
+      "description": "A Python-based Bank Management System demonstrating the core pillars of Object-Oriented Programming (OOP): abstraction, encapsulation, inheritance, and polymorphism. Features simulated account transactions, balance validations, and persistent file records.",
+      "features": [
+        "Rigorous OOP Implementation: Abstraction, Encapsulation, Inheritance, and Polymorphism",
+        "Multi-Account Simulation (Savings, Current, Fixed Deposit)",
+        "Persistent Transaction Ledger and Account Storage via File I/O",
+        "Comprehensive Error Handling and Input Boundary Checking"
+      ],
       "techStack": [
         "Python 3",
-        "OOP Architecture",
+        "Object-Oriented Programming",
         "File I/O",
-        "Encapsulation & Polymorphism"
+        "Data Structures"
       ],
-      "description": "A Python-based Bank Management System that demonstrates the core pillars of Object-Oriented Programming (OOP). The project utilizes abstraction, encapsulation, inheritance, and polymorphism to simulate banking operations for different types of bank accounts.",
       "repoUrl": "https://github.com/mdnafizurrahman8024/project-bank-management-system",
       "liveUrl": "https://github.com/mdnafizurrahman8024/project-bank-management-system",
-      "stars": "OOP Simulation"
+      "folder": "",
+      "images": []
     }
   ],
   "researchAndProjectsTimeline": [
     {
-      "id": "exp-1",
-      "title": "Comparative Immunogenicity, Protective Efficacy, and Safety of Nanoparticle-Based Rabies Vaccines in Mice",
-      "category": "Meta-Analysis & Nanomedicine",
-      "role": "Principal Conceptualizer & Investigator",
-      "institution": "Open Science Framework (OSF Registered)",
-      "period": "July 2026 – Present",
-      "badge": "OSF DOI: 10.17605/OSF.IO/9AQS3",
-      "badgeType": "osf",
-      "link": "https://doi.org/10.17605/OSF.IO/9AQS3",
-      "summary": "Synthesizing preclinical in vivo murine data following PRISMA guidelines using a Random-Effects Model to evaluate Virus-Neutralizing Antibody (VNA) kinetics, post-challenge survival rates, and platform-specific safety profiles across mRNA-LNPs, VLPs, lipopolyplexes, and nano-adjuvants.",
+      "id": "res-1",
+      "title": "Undergraduate Research Assistant",
+      "institution": "Dr. Abdulla Al Mamun Bhuyan's Lab, Dept. of Veterinary and Animal Sciences, University of Rajshahi",
+      "period": "Jan 2023 – Present",
+      "role": "Undergraduate Research Assistant",
+      "badge": "Undergraduate Research Assistant",
+      "category": "Academic Research Appointment",
+      "summary": "Assisting in laboratory diagnostics, infectious disease surveillance, data curation, and veterinary research investigations at the University of Rajshahi.",
       "tags": [
-        "Nanomedicine",
-        "Rabies Vaccines",
-        "Meta-Analysis",
-        "OSF",
-        "Immunology"
-      ]
+        "Lab Diagnostics",
+        "Disease Surveillance",
+        "Data Curation",
+        "Veterinary Research"
+      ],
+      "link": "https://www.ru.ac.bd/"
     },
     {
-      "id": "exp-2",
-      "title": "Clinical Surveillance and Antimicrobial Stewardship in Companion Animals (Rajshahi)",
-      "category": "One Health & AMR Surveillance",
-      "role": "Principal Conceptualizer & Investigator",
-      "institution": "Faculty of Veterinary & Animal Sciences, University of Rajshahi",
-      "period": "Aug 2026 – Present",
-      "badge": "Active Clinical Surveillance",
-      "badgeType": "clinical",
-      "link": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en",
-      "summary": "A 12-month prospective clinical surveillance investigating veterinary prescribing patterns, clinical syndrome frequencies, owner Knowledge, Attitude, and Practices (KAP), and hazardous home self-medication behaviors across private practices in Rajshahi.",
-      "tags": [
-        "One Health",
-        "AMR Stewardship",
-        "Prescribing Surveillance",
-        "KAP Study"
-      ]
-    },
-    {
-      "id": "exp-3",
-      "title": "Epidemiology and Distribution of Ectoparasites in Free-Roaming Dogs (Barind Tract)",
-      "category": "Parasitology & Molecular Genetics",
-      "role": "Co-Investigator & Data Analyst",
-      "institution": "Faculty of Veterinary & Animal Sciences, University of Rajshahi",
-      "period": "Nov 2024 – Dec 2025",
-      "badge": "Manuscript Prepared",
-      "badgeType": "clinical",
-      "link": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en",
-      "summary": "Sampled 310 free-roaming dogs, collected 2,908 ectoparasites, established the first morphological records of Ctenocephalides orientis and Heterodoxus spiniger in Bangladesh, and conducted COX1/18S rRNA molecular sequencing of Haemaphysalis bispinosa and Dermacentor ticks.",
-      "tags": [
-        "Barind Tract",
-        "Parasitology",
-        "Molecular Sequencing",
-        "R Analysis"
-      ]
-    },
-    {
-      "id": "exp-4",
-      "title": "Species Distribution and Risk Factors of Bedbug (Cimex spp.) Infestation in Student Residences",
-      "category": "Vector Biology & Public Health",
-      "role": "Principal Investigator",
+      "id": "res-2",
+      "title": "Species Distribution and Risk Factors of Bedbug (Cimex spp.) Infestation in Student Residences at the University of Rajshahi",
       "institution": "University of Rajshahi Residential Halls",
       "period": "Oct 2026 – Present",
-      "badge": "Active Survey",
-      "badgeType": "clinical",
-      "link": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en",
-      "summary": "Cross-sectional survey evaluating infestation rates, environmental sanitation risk factors, and sleep disturbances across a 370-bed cohort in high-density student residences.",
+      "role": "Principal Investigator",
+      "badge": "Principal Investigator",
+      "category": "Vector Biology & Public Health",
+      "summary": "Cross-sectional epidemiological survey evaluating infestation rates, environmental sanitation risk factors, and sleep disturbances among hostel residents.",
       "tags": [
         "Cimex spp.",
         "Vector Biology",
         "Public Health",
-        "Student Hostels"
-      ]
+        "Epidemiology"
+      ],
+      "link": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en"
     },
     {
-      "id": "exp-5",
-      "title": "Save Wildlife and Nature (SWAN) Bangladesh Operations",
-      "category": "Wildlife Rescue & Biodiversity",
-      "role": "Active Team Member & Rescuer",
-      "institution": "SWAN Bangladesh",
-      "period": "2025 – Present",
-      "badge": "Field Rescue Volunteer",
-      "badgeType": "clinical",
-      "link": "https://www.facebook.com/swan.org.bd/",
-      "summary": "Participating in emergency snake rescue (venomous/non-venomous), reptile rehabilitation, raptor release, and community biodiversity coexistence drives across Rajshahi and Northern Bangladesh.",
+      "id": "res-3",
+      "title": "Clinical Surveillance and Antimicrobial Stewardship in Companion Animals: Evaluating Veterinary Prescribing Patterns, Owner KAP, and Self-Medication Behaviors in Rajshahi, Bangladesh (A One Health Perspective)",
+      "institution": "Dept. of Veterinary and Animal Sciences, University of Rajshahi",
+      "period": "Aug 2026 – Present",
+      "role": "Principal Conceptualizer & Investigator",
+      "badge": "Principal Conceptualizer & Investigator",
+      "category": "One Health & AMR Surveillance",
+      "summary": "Conducting clinical surveillance to evaluate veterinary prescribing patterns, owner KAP, and antimicrobial stewardship gaps.",
       "tags": [
-        "Wildlife Rescue",
-        "Herpetology",
-        "Biodiversity",
-        "Conservation"
-      ]
+        "One Health",
+        "AMR Stewardship",
+        "Prescribing Patterns",
+        "KAP Study"
+      ],
+      "link": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en"
     },
     {
-      "id": "exp-6",
-      "title": "Molecular Characterization and Histopathology of Capillaria spp. in Native Poultry",
-      "category": "Avian Parasitology & Histopathology",
-      "role": "Co-Investigator & Parasitology Researcher",
-      "institution": "Dept. of Veterinary & Animal Sciences, University of Rajshahi",
-      "period": "2025 – 2026",
-      "badge": "Active Research",
-      "badgeType": "clinical",
-      "link": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en",
-      "summary": "Investigating prevalence, histopathological lesions in the crop and esophagus, and molecular sequencing of Capillaria spp. infecting indigenous backyard scavenging chickens in the Barind agro-ecological zone.",
+      "id": "res-4",
+      "title": "Comparative Immunogenicity, Protective Efficacy, and Safety of Nanoparticle-Based Rabies Vaccines in Mice: A Systematic Review and Meta-Analysis",
+      "institution": "Open Science Framework (OSF Registered)",
+      "period": "July 2026 – Present",
+      "role": "Principal Conceptualizer & Investigator",
+      "badge": "OSF DOI: 10.17605/OSF.IO/9AQS3",
+      "category": "Meta-Analysis & Nanomedicine",
+      "summary": "Synthesizing preclinical in vivo murine data following PRISMA guidelines using a Random-Effects Model to evaluate VNA kinetics, survival rates, and safety profiles.",
+      "tags": [
+        "Nanomedicine",
+        "Rabies Vaccines",
+        "Meta-Analysis",
+        "PRISMA"
+      ],
+      "link": "https://doi.org/10.17605/OSF.IO/9AQS3"
+    },
+    {
+      "id": "res-5",
+      "title": "Morphological and Molecular Detection of Capillaria spp. in Native Chicken and Duck of Northern Bangladesh",
+      "institution": "Dept. of Veterinary and Animal Sciences, University of Rajshahi",
+      "period": "Dec 2025 – Present",
+      "role": "Research Assistant",
+      "badge": "Research Assistant",
+      "category": "Avian Parasitology & Molecular Genetics",
+      "summary": "Assisting in field sample collection, laboratory investigations, and molecular characterization of parasites under faculty supervision.",
       "tags": [
         "Avian Parasitology",
         "Capillaria spp.",
-        "Histopathology",
-        "Poultry Health"
-      ]
+        "Molecular Detection",
+        "Histopathology"
+      ],
+      "link": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en"
+    },
+    {
+      "id": "res-6",
+      "title": "Epidemiology and Distribution of Ectoparasites in Free-Roaming Dogs from the Semi-Arid Barind Tract, Northwestern Bangladesh",
+      "institution": "Barind Tract, Northwestern Bangladesh",
+      "period": "Nov 2024 – Present",
+      "role": "Co-Investigator & Data Analyst",
+      "badge": "Co-Investigator & Data Analyst",
+      "category": "Parasitology & Ecological Modeling",
+      "summary": "Managed project administration and core methodology, conducted primary field investigations, and performed comprehensive data curation, formal analysis, and visualization using R.",
+      "tags": [
+        "Barind Tract",
+        "Parasitology",
+        "Ectoparasites",
+        "R Analysis"
+      ],
+      "link": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en"
+    },
+    {
+      "id": "res-7",
+      "title": "Socio-Veterinary Determinants of Pet Healthcare Behavior: A Comprehensive Statistical Study of Pet Ownership Patterns in Bangladesh",
+      "institution": "Bangladesh",
+      "period": "2024 – Present",
+      "role": "Co-Investigator",
+      "badge": "Co-Investigator",
+      "category": "Socio-Veterinary & Statistical Analysis",
+      "summary": "Analyzing socio-economic data and ownership patterns to determine factors influencing veterinary healthcare-seeking behaviors.",
+      "tags": [
+        "Socio-Veterinary",
+        "Healthcare Behavior",
+        "Statistical Modeling",
+        "Survey Data"
+      ],
+      "link": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en"
     }
   ],
   "publications": [
@@ -1338,6 +1481,392 @@
       "credentialId": "02309048024",
       "credentialUrl": "https://uylab.org/",
       "image": "Certificate/Digital Marketing.jpeg"
+    }
+  ],
+  "research": [
+    {
+      "id": "res-1",
+      "title": "Undergraduate Research Assistant",
+      "institution": "Dr. Abdulla Al Mamun Bhuyan's Lab, Dept. of Veterinary and Animal Sciences, University of Rajshahi",
+      "period": "Jan 2023 – Present",
+      "role": "Undergraduate Research Assistant",
+      "badge": "Undergraduate Research Assistant",
+      "category": "Academic Research Appointment",
+      "summary": "Assisting in laboratory diagnostics, infectious disease surveillance, data curation, and veterinary research investigations at the University of Rajshahi.",
+      "tags": [
+        "Lab Diagnostics",
+        "Disease Surveillance",
+        "Data Curation",
+        "Veterinary Research"
+      ],
+      "link": "https://www.ru.ac.bd/"
+    },
+    {
+      "id": "res-2",
+      "title": "Species Distribution and Risk Factors of Bedbug (Cimex spp.) Infestation in Student Residences at the University of Rajshahi",
+      "institution": "University of Rajshahi Residential Halls",
+      "period": "Oct 2026 – Present",
+      "role": "Principal Investigator",
+      "badge": "Principal Investigator",
+      "category": "Vector Biology & Public Health",
+      "summary": "Cross-sectional epidemiological survey evaluating infestation rates, environmental sanitation risk factors, and sleep disturbances among hostel residents.",
+      "tags": [
+        "Cimex spp.",
+        "Vector Biology",
+        "Public Health",
+        "Epidemiology"
+      ],
+      "link": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en"
+    },
+    {
+      "id": "res-3",
+      "title": "Clinical Surveillance and Antimicrobial Stewardship in Companion Animals: Evaluating Veterinary Prescribing Patterns, Owner KAP, and Self-Medication Behaviors in Rajshahi, Bangladesh (A One Health Perspective)",
+      "institution": "Dept. of Veterinary and Animal Sciences, University of Rajshahi",
+      "period": "Aug 2026 – Present",
+      "role": "Principal Conceptualizer & Investigator",
+      "badge": "Principal Conceptualizer & Investigator",
+      "category": "One Health & AMR Surveillance",
+      "summary": "Conducting clinical surveillance to evaluate veterinary prescribing patterns, owner KAP, and antimicrobial stewardship gaps.",
+      "tags": [
+        "One Health",
+        "AMR Stewardship",
+        "Prescribing Patterns",
+        "KAP Study"
+      ],
+      "link": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en"
+    },
+    {
+      "id": "res-4",
+      "title": "Comparative Immunogenicity, Protective Efficacy, and Safety of Nanoparticle-Based Rabies Vaccines in Mice: A Systematic Review and Meta-Analysis",
+      "institution": "Open Science Framework (OSF Registered)",
+      "period": "July 2026 – Present",
+      "role": "Principal Conceptualizer & Investigator",
+      "badge": "OSF DOI: 10.17605/OSF.IO/9AQS3",
+      "category": "Meta-Analysis & Nanomedicine",
+      "summary": "Synthesizing preclinical in vivo murine data following PRISMA guidelines using a Random-Effects Model to evaluate VNA kinetics, survival rates, and safety profiles.",
+      "tags": [
+        "Nanomedicine",
+        "Rabies Vaccines",
+        "Meta-Analysis",
+        "PRISMA"
+      ],
+      "link": "https://doi.org/10.17605/OSF.IO/9AQS3"
+    },
+    {
+      "id": "res-5",
+      "title": "Morphological and Molecular Detection of Capillaria spp. in Native Chicken and Duck of Northern Bangladesh",
+      "institution": "Dept. of Veterinary and Animal Sciences, University of Rajshahi",
+      "period": "Dec 2025 – Present",
+      "role": "Research Assistant",
+      "badge": "Research Assistant",
+      "category": "Avian Parasitology & Molecular Genetics",
+      "summary": "Assisting in field sample collection, laboratory investigations, and molecular characterization of parasites under faculty supervision.",
+      "tags": [
+        "Avian Parasitology",
+        "Capillaria spp.",
+        "Molecular Detection",
+        "Histopathology"
+      ],
+      "link": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en"
+    },
+    {
+      "id": "res-6",
+      "title": "Epidemiology and Distribution of Ectoparasites in Free-Roaming Dogs from the Semi-Arid Barind Tract, Northwestern Bangladesh",
+      "institution": "Barind Tract, Northwestern Bangladesh",
+      "period": "Nov 2024 – Present",
+      "role": "Co-Investigator & Data Analyst",
+      "badge": "Co-Investigator & Data Analyst",
+      "category": "Parasitology & Ecological Modeling",
+      "summary": "Managed project administration and core methodology, conducted primary field investigations, and performed comprehensive data curation, formal analysis, and visualization using R.",
+      "tags": [
+        "Barind Tract",
+        "Parasitology",
+        "Ectoparasites",
+        "R Analysis"
+      ],
+      "link": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en"
+    },
+    {
+      "id": "res-7",
+      "title": "Socio-Veterinary Determinants of Pet Healthcare Behavior: A Comprehensive Statistical Study of Pet Ownership Patterns in Bangladesh",
+      "institution": "Bangladesh",
+      "period": "2024 – Present",
+      "role": "Co-Investigator",
+      "badge": "Co-Investigator",
+      "category": "Socio-Veterinary & Statistical Analysis",
+      "summary": "Analyzing socio-economic data and ownership patterns to determine factors influencing veterinary healthcare-seeking behaviors.",
+      "tags": [
+        "Socio-Veterinary",
+        "Healthcare Behavior",
+        "Statistical Modeling",
+        "Survey Data"
+      ],
+      "link": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en"
+    }
+  ],
+  "projects": [
+    {
+      "id": "proj-poultrymedix",
+      "name": "PoultryMedix",
+      "title": "PoultryMedix",
+      "category": "mobile",
+      "categoryLabel": "Mobile & AI Apps",
+      "typeBadge": "AI Veterinary Diagnostic Platform",
+      "role": "Founder, Lead Researcher & Architect",
+      "period": "2025 – Present",
+      "stars": "Active Research Platform",
+      "brief": "It's an AI-driven veterinary diagnostic and epidemiological platform designed for marginal poultry farmers in Bangladesh. Rooted in the \"One Health\" framework, it utilizes multi-modal AI to accurately diagnose poultry diseases and actively combat antimicrobial resistance (AMR) by enforcing medication withdrawal periods through automated prescription scanning.",
+      "description": "PoultryMedix is an AI-powered veterinary healthcare ecosystem engineered specifically for marginal poultry farmers, paravets, and veterinary clinicians in Bangladesh. Rooted in the One Health framework, the platform integrates real-time symptom diagnosis with deep-learning vision models, antimicrobial resistance (AMR) mitigation surveillance, automated veterinary prescription scanning, disease outbreak mapping across regional farming clusters, and structured tele-consultation channels.",
+      "features": [
+        "Multi-Modal AI Symptom & Lesion Diagnostic Engine for rapid poultry disease triage",
+        "AMR Mitigation & Drug Withdrawal Tracker with automated prescription optical analysis",
+        "Outbreak Geo-Mapping & Epidemiological Hotspot Surveillance across regional poultry farms",
+        "Bilingual Clinical Consultation & Paravet Advisory Hub with audio & image support",
+        "Integrated Consultation Records, Vaccination Schedules, and Biosecurity Checklists"
+      ],
+      "techStack": [
+        "Multi-Modal AI",
+        "Computer Vision",
+        "FastAPI / Python",
+        "React Native",
+        "PostgreSQL",
+        "One Health GIS"
+      ],
+      "repoUrl": "https://github.com/mdnafizurrahman8024/PoultryMedix-Project-Overview",
+      "liveUrl": "https://github.com/mdnafizurrahman8024/PoultryMedix-Project-Overview",
+      "folder": "PoultryMedix",
+      "images": [
+        "Github image/PoultryMedix/Home-1png.png",
+        "Github image/PoultryMedix/AI-1.png",
+        "Github image/PoultryMedix/Consultation-1.png",
+        "Github image/PoultryMedix/Login-1.png",
+        "Github image/PoultryMedix/Setting-1.png",
+        "Github image/PoultryMedix/AMR-2.png",
+        "Github image/PoultryMedix/Login-2.png",
+        "Github image/PoultryMedix/S.Diag-2.png",
+        "Github image/PoultryMedix/3 Mode.png",
+        "Github image/PoultryMedix/Consultation-3.png",
+        "Github image/PoultryMedix/Consultation-5.png",
+        "Github image/PoultryMedix/AI chatbot.png",
+        "Github image/PoultryMedix/AMR & Govt.info.png",
+        "Github image/PoultryMedix/C.Log.png",
+        "Github image/PoultryMedix/Map.png",
+        "Github image/PoultryMedix/Pres.analysis.png",
+        "Github image/PoultryMedix/R.Hub.png",
+        "Github image/PoultryMedix/Servey.png"
+      ]
+    },
+    {
+      "id": "proj-zunsync",
+      "name": "ZunSync",
+      "title": "ZunSync",
+      "category": "research-soft",
+      "categoryLabel": "Research Software",
+      "typeBadge": "One Health Computational Workbench",
+      "role": "Lead Architect & Developer",
+      "period": "2025 – Present",
+      "stars": "Active Development",
+      "brief": "An evidence-grounded computational research workbench engineered for veterinary epidemiologists, One Health scientists, and molecular researchers, featuring end-to-end data provenance tracking, literature synthesis pipelines, and Dockerized reproducibility.",
+      "description": "ZunSync is a specialized computational platform developed to harmonize veterinary field surveillance data with molecular genetics and biomedical informatics. It bridges the gap between field epidemiology and laboratory bioinformatics by offering structured pipelines for PRISMA-compliant meta-analyses, sequence annotation workflows, automated statistical modeling in R/Python, and reproducible Docker containerization.",
+      "features": [
+        "Literature Screening & Systematic Extraction Pipeline for PRISMA-compliant meta-analyses",
+        "Genomic & Parasitological Sequence Data Harmonization (COX1, 18S rRNA, phylogenetic trees)",
+        "Statistical Pipeline Automation: Random-effects modeling, forest plots, and funnel plot analysis",
+        "Real-time Data Provenance Audit Trail with Git-backed versioning and DOI integration",
+        "Full Docker Compose deployment environment for guaranteed cross-platform reproducibility"
+      ],
+      "techStack": [
+        "Python 3.12",
+        "FastAPI",
+        "React 19",
+        "Docker Compose",
+        "PostgreSQL",
+        "Pandas & Biopython"
+      ],
+      "repoUrl": "https://github.com/mdnafizurrahman8024/mdnafizurrahman8024",
+      "liveUrl": "https://github.com/mdnafizurrahman8024",
+      "folder": "ZunSync",
+      "images": [
+        "Github image/ZunSync/Image-1.png",
+        "Github image/ZunSync/Image-2.png",
+        "Github image/ZunSync/Image-3.png",
+        "Github image/ZunSync/Image-4.png",
+        "Github image/ZunSync/Image-5.png",
+        "Github image/ZunSync/Image-6.png",
+        "Github image/ZunSync/Image-7.png",
+        "Github image/ZunSync/Image-8.png",
+        "Github image/ZunSync/Image-9.png",
+        "Github image/ZunSync/Image-10.png"
+      ]
+    },
+    {
+      "id": "proj-professors-clinic",
+      "name": "Professor's Vet & Pet Care Clinic",
+      "title": "Professor's Vet & Pet Care Clinic",
+      "category": "web",
+      "categoryLabel": "Websites & Platforms",
+      "typeBadge": "Clinical Management & E-Commerce Web App",
+      "role": "Full-Stack Developer",
+      "period": "2025 – Present",
+      "stars": "Clinical System",
+      "brief": "A robust Django webapp / website for \"Professor's Vet & Pet Care\". It seamlessly combines a veterinary clinic management system (doctor bookings, surgery gallery, schedules) with a pet e-commerce store (medicines, real-time POS inventory). Features a responsive UI, theme toggle, and powerful admin panel.",
+      "description": "A robust Django web application for \"Professor's Vet & Pet Care\" engineered under the supervision of Dr. Abdulla Al Mamun Bhuyan (Associate Professor, Dept. of Veterinary & Animal Sciences, University of Rajshahi). It seamlessly combines a veterinary clinic management system (doctor bookings, surgery gallery, schedules) with a pet e-commerce store (medicines, real-time POS inventory). Features a responsive UI, theme toggle, and powerful admin panel.",
+      "features": [
+        "Veterinary Clinical Appointment & Doctor Scheduling Engine",
+        "Pet Health Records & Surgical Case Documentation Gallery",
+        "E-Commerce Storefront for Pet Food, Accessories, and Veterinary Therapeutics",
+        "Real-Time POS Inventory Tracking & Order Management System",
+        "Modern Responsive Interface with Light/Dark Theme Switcher and Secure Django Admin"
+      ],
+      "techStack": [
+        "Python 3.12",
+        "Django 5+",
+        "SQLite / PostgreSQL",
+        "Tailwind CSS",
+        "Responsive UI",
+        "Django Admin"
+      ],
+      "repoUrl": "https://github.com/mdnafizurrahman8024/Professors-Vet-And-Pet-Care-Website",
+      "liveUrl": "https://github.com/mdnafizurrahman8024/Professors-Vet-And-Pet-Care-Website",
+      "folder": "Professor's Vet & Pet Clinic",
+      "images": [
+        "Github image/Professor's Vet & Pet Clinic/Image-1.png",
+        "Github image/Professor's Vet & Pet Clinic/Image-2.png",
+        "Github image/Professor's Vet & Pet Clinic/Image-3.png",
+        "Github image/Professor's Vet & Pet Clinic/Image-4.png",
+        "Github image/Professor's Vet & Pet Clinic/Image-5.png"
+      ]
+    },
+    {
+      "id": "proj-zun-academy",
+      "name": "Zun Synthesis Academy (ZSA)",
+      "title": "Zun Synthesis Academy (ZSA)",
+      "category": "web",
+      "categoryLabel": "Websites & Platforms",
+      "typeBadge": "Ed-Tech & Scientific Training Hub",
+      "role": "Founder & Full-Stack Architect",
+      "period": "2025 – Present",
+      "stars": "Live Educational Hub",
+      "brief": "Official repository for Zun Synthesis Academy—a premium ed-tech platform bridging biology and technology. Built with a scalable Python backend and Tailwind CSS frontend, offering dynamic programs in Bioinformatics, Data Analytics, and AI-Powered Research & Vibe Coding.",
+      "description": "Official repository for Zun Synthesis Academy—a premium ed-tech platform bridging biology and technology. Built with a scalable Python backend and Tailwind CSS frontend, offering dynamic programs in Bioinformatics, Data Analytics, and AI-Powered Research & Vibe Coding. Founded by Md. Nafizur Rahman to democratize advanced computational skills for researchers in biological and veterinary sciences.",
+      "features": [
+        "Curated Course Tracks in Bioinformatics, Data Analytics, and AI Research Automation",
+        "Interactive Syllabus Explorer with Lecture Materials and Hands-on Notebooks",
+        "Student Enrollment & Capstone Project Submission Workflows",
+        "Modern High-Performance Tailwind CSS Frontend with Dark Mode Aesthetics",
+        "Scalable Python Backend Architecture for Course and Resource Management"
+      ],
+      "techStack": [
+        "Python Backend",
+        "Tailwind CSS",
+        "JavaScript",
+        "HTML5",
+        "Responsive Web Design"
+      ],
+      "repoUrl": "https://github.com/mdnafizurrahman8024/Zun-Synthesis-Academy-Website",
+      "liveUrl": "https://github.com/mdnafizurrahman8024/Zun-Synthesis-Academy-Website",
+      "folder": "Zun Synthesis Academy",
+      "images": [
+        "Github image/Zun Synthesis Academy/Image-1.png",
+        "Github image/Zun Synthesis Academy/Image-2.png",
+        "Github image/Zun Synthesis Academy/Image-3.png",
+        "Github image/Zun Synthesis Academy/Image-4.png",
+        "Github image/Zun Synthesis Academy/Image-5.png"
+      ]
+    },
+    {
+      "id": "proj-najiaa-shop",
+      "name": "Najiaa Shop (নাজিআ শপ)",
+      "title": "Najiaa Shop (নাজিআ শপ)",
+      "category": "web",
+      "categoryLabel": "Websites & Platforms",
+      "typeBadge": "E-Commerce Storefront & Order System",
+      "role": "Frontend Developer & Designer",
+      "period": "2024 – 2025",
+      "stars": "Storefront Web App",
+      "brief": "An elegant, responsive bilingual e-commerce web platform for Najiaa Shop (নাজিআ শপ), showcasing high-quality Islamic lifestyle and artisanal items with cart management and seamless customer order workflows.",
+      "description": "An elegant, responsive bilingual e-commerce web platform for Najiaa Shop (নাজিআ শপ), showcasing high-quality Islamic lifestyle and artisanal items. Designed with a clean mobile-first interface, dynamic product filtering, persistent client-side shopping cart state management, and streamlined customer checkout.",
+      "features": [
+        "Bilingual Interface (Bangla & English) with Cultural Lifestyle Branding",
+        "Dynamic Product Catalog Filtering, Search, and Category Browsing",
+        "Client-Side Shopping Cart State Management with LocalStorage Persistence",
+        "Streamlined Checkout & Direct WhatsApp / Phone Order Dispatching",
+        "Mobile-Optimized Lightweight Layout with Instant Page Loads"
+      ],
+      "techStack": [
+        "HTML5",
+        "CSS3 / Modern Grid",
+        "JavaScript (ES6+)",
+        "LocalStorage State",
+        "Mobile-First Design"
+      ],
+      "repoUrl": "https://github.com/mdnafizurrahman8024/Najiaa-Shop-website",
+      "liveUrl": "https://github.com/mdnafizurrahman8024/Najiaa-Shop-website",
+      "folder": "Najiaa Shop website",
+      "images": [
+        "Github image/Najiaa Shop website/Image-1.png",
+        "Github image/Najiaa Shop website/Image-2.png",
+        "Github image/Najiaa Shop website/Image-3.png"
+      ]
+    },
+    {
+      "id": "proj-python-21-days",
+      "name": "Python Foundation 21 Days",
+      "title": "Python Foundation 21 Days",
+      "category": "research-soft",
+      "categoryLabel": "Research Software",
+      "typeBadge": "Open-Source Python Curriculum",
+      "role": "Author & Developer",
+      "period": "2024",
+      "stars": "Open-Source Course",
+      "brief": "A 21-day coding challenge documenting daily Python practice and progress on Google Colab. Dedicated to building consistency, computational algorithms, and practical coding habits for biological research.",
+      "description": "An open-source interactive learning repository documenting 21 days of progressive programming challenges in Python. Tailored for life sciences and veterinary researchers looking to build core competencies in algorithmic problem solving, string manipulation, file handling, and computational data processing.",
+      "features": [
+        "Structured 21-Day Modular Progression from Basics to Advanced Concepts",
+        "Jupyter / Google Colab Notebooks with Runnable Research Problem Sets",
+        "Practical Exercises in Data Cleaning, Sequence Strings, and File Parsing",
+        "Comprehensive Code Comments and Pedagogical Explanations"
+      ],
+      "techStack": [
+        "Python 3",
+        "Google Colab",
+        "Jupyter Notebooks",
+        "Algorithms",
+        "Data Structures"
+      ],
+      "repoUrl": "https://github.com/mdnafizurrahman8024/Python-Foundation-21-Days",
+      "liveUrl": "https://github.com/mdnafizurrahman8024/Python-Foundation-21-Days",
+      "folder": "",
+      "images": []
+    },
+    {
+      "id": "proj-bank-management",
+      "name": "Project Bank Management System",
+      "title": "Project Bank Management System",
+      "category": "research-soft",
+      "categoryLabel": "Research Software",
+      "typeBadge": "Python OOP Simulation",
+      "role": "Developer",
+      "period": "2024",
+      "stars": "OOP Simulation",
+      "brief": "A Python-based Bank Management System that demonstrates the core pillars of Object-Oriented Programming (OOP). The project utilizes abstraction, encapsulation, inheritance, and polymorphism to simulate banking operations for different types of bank accounts.",
+      "description": "A Python-based Bank Management System demonstrating the core pillars of Object-Oriented Programming (OOP): abstraction, encapsulation, inheritance, and polymorphism. Features simulated account transactions, balance validations, and persistent file records.",
+      "features": [
+        "Rigorous OOP Implementation: Abstraction, Encapsulation, Inheritance, and Polymorphism",
+        "Multi-Account Simulation (Savings, Current, Fixed Deposit)",
+        "Persistent Transaction Ledger and Account Storage via File I/O",
+        "Comprehensive Error Handling and Input Boundary Checking"
+      ],
+      "techStack": [
+        "Python 3",
+        "Object-Oriented Programming",
+        "File I/O",
+        "Data Structures"
+      ],
+      "repoUrl": "https://github.com/mdnafizurrahman8024/project-bank-management-system",
+      "liveUrl": "https://github.com/mdnafizurrahman8024/project-bank-management-system",
+      "folder": "",
+      "images": []
     }
   ]
 }

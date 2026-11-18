@@ -16,6 +16,22 @@ let isTimelineExpanded = false;
 let isCertificatesExpanded = false;
 let stagedFileUploads = [];
 
+// Project Modal & Carousel State
+let currentActiveProject = null;
+let currentProjectSlideIdx = 0;
+let projectCarouselTimer = null;
+let currentAdminTab = 'projects';
+let currentEditingProject = null;
+
+/**
+ * Robust URI encoder for folder and image file paths.
+ * Encodes spaces (%20), apostrophes (%27), and ampersands (%26) safely.
+ */
+function formatImagePath(path) {
+  if (!path) return '';
+  return path.split('/').map(seg => encodeURIComponent(seg).replace(/'/g, '%27')).join('/');
+}
+
 /* ==========================================================================
    1. THEME MANAGER (DARK / LIGHT)
    ========================================================================== */
@@ -212,37 +228,38 @@ function renderEducation(edu) {
 }
 
 /* --------------------------------------------------------------------------
-   5. Research Experience & Scientific Projects + KPI Bar
+   5. Research Experience & Appointments + KPI Bar
    -------------------------------------------------------------------------- */
 function renderTimelineAndKPIs(timeline, kpis) {
   const container = document.getElementById('research-timeline-container') || document.getElementById('experience-timeline-container');
   if (!container || !timeline) return;
 
-  const displayList = isTimelineExpanded ? timeline : timeline.slice(0, 4);
+  // Show top 3 initially, full list when expanded
+  const displayList = isTimelineExpanded ? timeline : timeline.slice(0, 3);
 
   container.innerHTML = displayList.map(item => `
     <div class="timeline-entry">
       <div class="entry-header">
         <h4 class="entry-title">${escapeHTML(item.title)}</h4>
-        <span class="entry-badge">${escapeHTML(item.badge)}</span>
+        <span class="entry-badge">${escapeHTML(item.badge || item.role)}</span>
       </div>
       <div class="entry-meta">
-        <span><i class="fa-solid fa-building-columns"></i> ${escapeHTML(item.institution)}</span>
-        <span><i class="fa-solid fa-calendar-days"></i> ${escapeHTML(item.period)}</span>
+        <span><i class="fa-solid fa-building-columns"></i> ${escapeHTML(item.institution || item.lab || '')}</span>
+        <span><i class="fa-solid fa-calendar-days"></i> ${escapeHTML(item.period || '')}</span>
       </div>
-      <p class="entry-desc">${escapeHTML(item.summary)}</p>
+      <p class="entry-desc">${escapeHTML(item.summary || item.description || '')}</p>
       <ul class="entry-tags">
         ${(item.tags || []).map(t => `<li class="entry-tag-pill">#${escapeHTML(t)}</li>`).join('')}
       </ul>
     </div>
   `).join('');
 
-  // Expand Toggle Button
+  // Expand Toggle Button (Centered)
   const expandBtn = document.getElementById('timeline-expand-btn');
   if (expandBtn) {
     expandBtn.innerHTML = isTimelineExpanded
       ? '<i class="fa-solid fa-chevron-up"></i> Show Less'
-      : `<i class="fa-solid fa-chevron-down"></i> See All Research Projects (${timeline.length})`;
+      : `<i class="fa-solid fa-chevron-down"></i> See All Research &amp; Appointments (${timeline.length})`;
     expandBtn.onclick = () => {
       isTimelineExpanded = !isTimelineExpanded;
       renderTimelineAndKPIs(timeline, kpis);
@@ -262,13 +279,13 @@ function renderTimelineAndKPIs(timeline, kpis) {
 }
 
 /* --------------------------------------------------------------------------
-   6. Apps, Websites & Software Engineering
+   6. Scientific Projects & Digital Platforms
    -------------------------------------------------------------------------- */
 function renderSoftwareProjects(projects) {
   const container = document.getElementById('software-cards-container');
   if (!container) return;
 
-  const list = projects || window.portfolioData?.softwareProjects || [];
+  const list = projects || window.portfolioData?.softwareProjects || window.portfolioData?.projects || [];
   let filtered = list;
   if (currentSoftwareFilter !== 'all') {
     filtered = list.filter(p => p.category === currentSoftwareFilter || p.categoryFilter === currentSoftwareFilter);
@@ -284,47 +301,67 @@ function renderSoftwareProjects(projects) {
     return;
   }
 
-  container.innerHTML = filtered.map(item => `
-    <div class="software-card">
-      <div class="software-card-top">
-        <div class="software-card-header">
-          <span class="software-type-badge">${escapeHTML(item.type || 'Software')}</span>
-          ${item.stars !== undefined && item.stars > 0 ? `
-            <span class="software-stars-badge"><i class="fa-solid fa-star" style="color: #f59e0b;"></i> ${escapeHTML(item.stars)}</span>
+  container.innerHTML = filtered.map(item => {
+    const hasImages = Array.isArray(item.images) && item.images.length > 0;
+    const coverImage = hasImages ? item.images[0] : (item.image || '');
+    const photoCount = hasImages ? item.images.length : 0;
+    const projectTitle = item.name || item.title || 'Project';
+    const typeBadge = item.typeBadge || item.type || 'Platform';
+    const briefSummary = item.brief || item.description || '';
+
+    return `
+      <div class="software-card" onclick="openProjectModal('${escapeHTML(item.id)}', event)" tabindex="0" role="button" aria-label="View ${escapeHTML(projectTitle)} details">
+        <!-- 16:9 Static Cover Thumbnail Frame -->
+        <div class="software-card-thumb-wrap">
+          ${coverImage ? `
+            <img src="${formatImagePath(coverImage)}" alt="${escapeHTML(projectTitle)} Preview" class="software-card-thumb-img" loading="lazy">
           ` : `
-            <span class="software-stars-badge"><i class="fa-solid fa-circle" style="font-size: 0.55rem; color: #6366f1;"></i> ${escapeHTML(item.language || 'Code')}</span>
+            <div class="software-card-thumb-placeholder">
+              <i class="fa-brands fa-python"></i>
+            </div>
           `}
-        </div>
-        <h4 class="software-card-title">${escapeHTML(item.title)}</h4>
-        <p class="software-card-desc">${escapeHTML(item.description)}</p>
-        
-        ${item.highlights && item.highlights.length > 0 ? `
-          <ul class="software-card-highlights">
-            ${item.highlights.map(h => `<li>${escapeHTML(h)}</li>`).join('')}
-          </ul>
-        ` : ''}
-
-        <div class="software-tech-pills">
-          ${(item.techStack || []).map(t => `<span class="tech-pill">${escapeHTML(t)}</span>`).join('')}
-        </div>
-      </div>
-
-      <div class="software-card-footer">
-        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-          ${item.githubUrl ? `
-            <a href="${escapeHTML(item.githubUrl)}" target="_blank" rel="noopener noreferrer" class="software-action-btn">
-              <i class="fa-brands fa-github"></i> Repository
-            </a>
-          ` : ''}
-          ${item.liveDemoUrl ? `
-            <a href="${escapeHTML(item.liveDemoUrl)}" target="_blank" rel="noopener noreferrer" class="software-action-btn" style="background: var(--primary-light); color: var(--primary); border-color: var(--primary);">
-              <i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo
-            </a>
+          ${photoCount > 0 ? `
+            <span class="software-photo-count-pill">
+              <i class="fa-solid fa-camera"></i> ${photoCount} Photos
+            </span>
           ` : ''}
         </div>
+
+        <div class="software-card-body">
+          <div class="software-card-top">
+            <div class="software-card-header">
+              <span class="software-type-badge">${escapeHTML(typeBadge)}</span>
+              ${item.period ? `<span style="font-size: 0.72rem; color: var(--text-muted); font-weight: 500;"><i class="fa-solid fa-clock"></i> ${escapeHTML(item.period)}</span>` : ''}
+            </div>
+            <h4 class="software-card-title">${escapeHTML(projectTitle)}</h4>
+            <p class="software-card-desc">${escapeHTML(briefSummary)}</p>
+            
+            <div class="software-tech-pills">
+              ${(item.techStack || []).map(t => `<span class="tech-pill">${escapeHTML(t)}</span>`).join('')}
+            </div>
+          </div>
+
+          <div class="software-card-footer">
+            <button type="button" class="software-view-details-btn" onclick="openProjectModal('${escapeHTML(item.id)}', event)">
+              <i class="fa-solid fa-images"></i> View Details &amp; Gallery
+            </button>
+            <div class="software-ext-links-group">
+              ${item.repoUrl ? `
+                <a href="${escapeHTML(item.repoUrl)}" target="_blank" rel="noopener noreferrer" class="software-ext-icon-btn" title="GitHub Repository" onclick="event.stopPropagation()">
+                  <i class="fa-brands fa-github"></i>
+                </a>
+              ` : ''}
+              ${item.liveUrl ? `
+                <a href="${escapeHTML(item.liveUrl)}" target="_blank" rel="noopener noreferrer" class="software-ext-icon-btn" title="Live Demo / Website" onclick="event.stopPropagation()">
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+              ` : ''}
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  `).join('');
+    `;
+  }).join('');
 }
 
 function initSoftwareFilters() {
@@ -334,8 +371,219 @@ function initSoftwareFilters() {
       filterBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       currentSoftwareFilter = btn.getAttribute('data-filter') || 'all';
-      renderSoftwareProjects(window.portfolioData?.softwareProjects);
+      renderSoftwareProjects(window.portfolioData?.softwareProjects || window.portfolioData?.projects);
     });
+  });
+}
+
+/* --------------------------------------------------------------------------
+   Interactive Project Details Modal & Auto-Sliding Carousel
+   -------------------------------------------------------------------------- */
+function openProjectModal(projectId, e) {
+  if (e && typeof e.stopPropagation === 'function') e.stopPropagation();
+
+  const list = window.portfolioData?.softwareProjects || window.portfolioData?.projects || [];
+  const project = list.find(p => p.id === projectId);
+  if (!project) return;
+
+  currentActiveProject = project;
+  currentProjectSlideIdx = 0;
+
+  const modal = document.getElementById('project-details-modal');
+  const titleEl = document.getElementById('project-modal-title');
+  const badgeEl = document.getElementById('project-modal-badge');
+  const metaEl = document.getElementById('project-modal-meta');
+  const descEl = document.getElementById('project-modal-desc');
+  const featWrap = document.getElementById('project-modal-features-wrap');
+  const featList = document.getElementById('project-modal-features-list');
+  const techPills = document.getElementById('project-modal-tech-pills');
+  const repoBtn = document.getElementById('project-modal-repo-btn');
+  const liveBtn = document.getElementById('project-modal-live-btn');
+  const carouselWrap = document.getElementById('project-carousel-wrap');
+
+  // Title & Badge
+  if (titleEl) titleEl.textContent = project.name || project.title;
+  if (badgeEl) badgeEl.textContent = project.typeBadge || project.type || 'Platform';
+
+  // Meta row
+  if (metaEl) {
+    metaEl.innerHTML = `
+      ${project.role ? `<span><i class="fa-solid fa-user-gear"></i> ${escapeHTML(project.role)}</span>` : ''}
+      ${project.period ? `<span><i class="fa-solid fa-calendar-check"></i> ${escapeHTML(project.period)}</span>` : ''}
+      ${project.stars ? `<span><i class="fa-solid fa-circle-check" style="color: #10b981;"></i> ${escapeHTML(project.stars)}</span>` : ''}
+    `;
+  }
+
+  // Description
+  if (descEl) descEl.textContent = project.description || project.brief || '';
+
+  // Features List
+  if (featList) {
+    const features = project.features || project.highlights || [];
+    if (features.length > 0) {
+      if (featWrap) featWrap.style.display = 'block';
+      featList.innerHTML = features.map(f => `
+        <li><i class="fa-solid fa-circle-check"></i> <span>${escapeHTML(f)}</span></li>
+      `).join('');
+    } else {
+      if (featWrap) featWrap.style.display = 'none';
+    }
+  }
+
+  // Tech stack pills
+  if (techPills) {
+    const tech = project.techStack || [];
+    techPills.innerHTML = tech.map(t => `<span class="tech-pill">${escapeHTML(t)}</span>`).join('');
+  }
+
+  // Action Buttons
+  if (repoBtn) {
+    if (project.repoUrl) {
+      repoBtn.href = project.repoUrl;
+      repoBtn.style.display = 'inline-flex';
+    } else {
+      repoBtn.style.display = 'none';
+    }
+  }
+
+  if (liveBtn) {
+    if (project.liveUrl) {
+      liveBtn.href = project.liveUrl;
+      liveBtn.style.display = 'inline-flex';
+    } else {
+      liveBtn.style.display = 'none';
+    }
+  }
+
+  // Carousel
+  const images = project.images || [];
+  if (images.length > 0) {
+    if (carouselWrap) carouselWrap.style.display = 'block';
+    setupProjectCarousel(images);
+  } else {
+    if (carouselWrap) carouselWrap.style.display = 'none';
+  }
+
+  if (modal) {
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+}
+
+function setupProjectCarousel(images) {
+  const thumbsContainer = document.getElementById('project-carousel-thumbs');
+  const prevBtn = document.getElementById('project-carousel-prev');
+  const nextBtn = document.getElementById('project-carousel-next');
+  const carouselWrap = document.getElementById('project-carousel-wrap');
+
+  // Render clickable thumbnail strip
+  if (thumbsContainer) {
+    thumbsContainer.innerHTML = images.map((img, i) => `
+      <div class="project-thumb-item ${i === 0 ? 'active' : ''}" data-idx="${i}" onclick="setCarouselSlide(${i})">
+        <img src="${formatImagePath(img)}" alt="thumb ${i + 1}" loading="lazy">
+      </div>
+    `).join('');
+  }
+
+  // Navigation Arrow Listeners
+  if (prevBtn) {
+    prevBtn.onclick = (e) => {
+      e.stopPropagation();
+      setCarouselSlide(currentProjectSlideIdx - 1);
+    };
+  }
+  if (nextBtn) {
+    nextBtn.onclick = (e) => {
+      e.stopPropagation();
+      setCarouselSlide(currentProjectSlideIdx + 1);
+    };
+  }
+
+  // Set initial slide
+  setCarouselSlide(0);
+
+  // Auto-advance carousel smoothly every 3 seconds
+  clearInterval(projectCarouselTimer);
+  if (images.length > 1) {
+    startCarouselAutoAdvance(images.length);
+
+    // Pause on hover, resume on mouse leave
+    if (carouselWrap) {
+      carouselWrap.onmouseenter = () => clearInterval(projectCarouselTimer);
+      carouselWrap.onmouseleave = () => startCarouselAutoAdvance(images.length);
+    }
+  }
+}
+
+function startCarouselAutoAdvance(total) {
+  clearInterval(projectCarouselTimer);
+  projectCarouselTimer = setInterval(() => {
+    setCarouselSlide(currentProjectSlideIdx + 1);
+  }, 3000);
+}
+
+function setCarouselSlide(idx) {
+  if (!currentActiveProject || !currentActiveProject.images || currentActiveProject.images.length === 0) return;
+  const images = currentActiveProject.images;
+  currentProjectSlideIdx = (idx + images.length) % images.length;
+  
+  const mainImg = document.getElementById('project-carousel-main-img');
+  const counter = document.getElementById('project-carousel-counter');
+  const zoomBtn = document.getElementById('project-carousel-zoom');
+  const thumbsContainer = document.getElementById('project-carousel-thumbs');
+
+  const curImg = images[currentProjectSlideIdx];
+  const encoded = formatImagePath(curImg);
+
+  if (mainImg) {
+    mainImg.src = encoded;
+    mainImg.alt = `${currentActiveProject.name || 'Project'} image ${currentProjectSlideIdx + 1}`;
+  }
+  if (counter) {
+    counter.textContent = `${currentProjectSlideIdx + 1} / ${images.length}`;
+  }
+  if (zoomBtn) {
+    zoomBtn.href = encoded;
+  }
+
+  if (thumbsContainer) {
+    const allThumbs = thumbsContainer.querySelectorAll('.project-thumb-item');
+    allThumbs.forEach((th, i) => {
+      if (i === currentProjectSlideIdx) {
+        th.classList.add('active');
+        th.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      } else {
+        th.classList.remove('active');
+      }
+    });
+  }
+}
+
+function closeProjectModal() {
+  clearInterval(projectCarouselTimer);
+  const modal = document.getElementById('project-details-modal');
+  if (modal) {
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  currentActiveProject = null;
+}
+
+function initProjectModal() {
+  const modal = document.getElementById('project-details-modal');
+  const closeBtn = document.getElementById('project-modal-close-btn');
+
+  if (closeBtn) closeBtn.onclick = closeProjectModal;
+  if (modal) {
+    modal.onclick = (e) => {
+      if (e.target === modal) closeProjectModal();
+    };
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal && modal.classList.contains('active')) {
+      closeProjectModal();
+    }
   });
 }
 
@@ -913,46 +1161,263 @@ function checkAdminAuthState() {
   if (storedHash && storedToken && sessionStorage.getItem('admin_unlocked') === 'true') {
     authGate.style.display = 'none';
     mainManager.style.display = 'flex';
-    populateAdminForms();
+    switchAdminTab(currentAdminTab || 'projects');
   } else {
     authGate.style.display = 'flex';
     mainManager.style.display = 'none';
   }
 }
 
-async function handleAdminAuthSubmit(e) {
-  e.preventDefault();
-  const pass = document.getElementById('admin-passcode-input').value.trim();
-  const token = document.getElementById('admin-token-input').value.trim();
-  const storedHash = localStorage.getItem('admin_passcode_hash');
+/* --------------------------------------------------------------------------
+   Admin Drawer Tab Navigation & Project Manager
+   -------------------------------------------------------------------------- */
+function switchAdminTab(tab) {
+  currentAdminTab = tab;
+  ['projects', 'certs', 'json'].forEach(t => {
+    const btn = document.getElementById(`admin-nav-btn-${t}`);
+    const pane = document.getElementById(`admin-pane-${t}`);
+    if (btn) {
+      if (t === tab) btn.classList.add('active');
+      else btn.classList.remove('active');
+    }
+    if (pane) {
+      if (t === tab) pane.classList.add('active');
+      else pane.classList.remove('active');
+    }
+  });
 
-  if (!pass) return showToast('Please enter passcode.', 'error');
-  const hashed = await hashPasscode(pass);
+  if (tab === 'projects') {
+    populateAdminProjectsManager();
+  } else if (tab === 'json') {
+    populateAdminForms();
+  }
+}
+window.switchAdminTab = switchAdminTab;
 
-  if (!storedHash) {
-    localStorage.setItem('admin_passcode_hash', hashed);
-    showToast('Admin Passcode configured!', 'success');
-  } else if (hashed !== storedHash) {
-    return showToast('Incorrect passcode.', 'error');
+function populateAdminProjectsManager() {
+  const select = document.getElementById('admin-proj-select');
+  if (!select) return;
+
+  const projects = window.portfolioData?.softwareProjects || window.portfolioData?.projects || [];
+  
+  select.innerHTML = `
+    <option value="__new__">+ Add New Project</option>
+    ${projects.map(p => `
+      <option value="${escapeHTML(p.id)}">${escapeHTML(p.name || p.title)} (${p.images?.length || 0} images)</option>
+    `).join('')}
+  `;
+
+  select.onchange = () => {
+    loadProjectIntoAdminForm(select.value);
+  };
+
+  // If newly opening, load the selected or first project
+  if (projects.length > 0 && (select.value === '__new__' || !currentEditingProject)) {
+    select.value = projects[0].id;
+    loadProjectIntoAdminForm(projects[0].id);
+  } else {
+    loadProjectIntoAdminForm(select.value);
   }
 
-  if (token) {
-    localStorage.setItem('admin_gh_token', token);
-  } else if (!localStorage.getItem('admin_gh_token')) {
-    return showToast('Please provide your GitHub Fine-Grained PAT.', 'error');
+  // Multi-image upload handler
+  const imgInput = document.getElementById('admin-proj-images-input');
+  if (imgInput) {
+    imgInput.onchange = handleProjectMultiImageUpload;
   }
 
-  sessionStorage.setItem('admin_unlocked', 'true');
-  showToast('Admin Manager Unlocked!', 'success');
-  checkAdminAuthState();
+  // Form submit handler
+  const projForm = document.getElementById('admin-project-form');
+  if (projForm) {
+    projForm.onsubmit = handleSaveProjectSubmit;
+  }
 }
 
-function handleAdminLogout() {
-  localStorage.removeItem('admin_gh_token');
-  localStorage.removeItem('admin_passcode_hash');
-  sessionStorage.removeItem('admin_unlocked');
-  showToast('Credentials cleared.', 'success');
-  checkAdminAuthState();
+function loadProjectIntoAdminForm(projId) {
+  const projects = window.portfolioData?.softwareProjects || window.portfolioData?.projects || [];
+  
+  if (projId === '__new__') {
+    currentEditingProject = {
+      id: 'proj-' + Date.now(),
+      name: '',
+      title: '',
+      category: 'mobile',
+      categoryLabel: 'Mobile & AI Apps',
+      typeBadge: '',
+      role: 'Lead Architect & Developer',
+      period: '2026 – Present',
+      stars: 'Active Platform',
+      brief: '',
+      description: '',
+      features: [],
+      techStack: [],
+      repoUrl: '',
+      liveUrl: '',
+      folder: '',
+      images: []
+    };
+  } else {
+    const found = projects.find(p => p.id === projId);
+    currentEditingProject = found ? JSON.parse(JSON.stringify(found)) : null;
+  }
+
+  if (!currentEditingProject) return;
+
+  const titleEl = document.getElementById('admin-proj-title');
+  const catEl = document.getElementById('admin-proj-category');
+  const badgeEl = document.getElementById('admin-proj-badge');
+  const folderEl = document.getElementById('admin-proj-folder');
+  const briefEl = document.getElementById('admin-proj-brief');
+  const descEl = document.getElementById('admin-proj-desc');
+  const featEl = document.getElementById('admin-proj-features');
+  const techEl = document.getElementById('admin-proj-tech');
+  const repoEl = document.getElementById('admin-proj-repo');
+  const liveEl = document.getElementById('admin-proj-live');
+
+  if (titleEl) titleEl.value = currentEditingProject.name || currentEditingProject.title || '';
+  if (catEl) catEl.value = currentEditingProject.category || 'mobile';
+  if (badgeEl) badgeEl.value = currentEditingProject.typeBadge || currentEditingProject.type || '';
+  if (folderEl) folderEl.value = currentEditingProject.folder || '';
+  if (briefEl) briefEl.value = currentEditingProject.brief || currentEditingProject.description || '';
+  if (descEl) descEl.value = currentEditingProject.description || currentEditingProject.brief || '';
+  if (featEl) featEl.value = (currentEditingProject.features || currentEditingProject.highlights || []).join('\n');
+  if (techEl) techEl.value = (currentEditingProject.techStack || []).join(', ');
+  if (repoEl) repoEl.value = currentEditingProject.repoUrl || '';
+  if (liveEl) liveEl.value = currentEditingProject.liveUrl || '';
+
+  renderAdminProjectImagesGrid();
+}
+
+function renderAdminProjectImagesGrid() {
+  const grid = document.getElementById('admin-proj-img-grid');
+  const countEl = document.getElementById('admin-proj-img-count');
+  if (!grid || !currentEditingProject) return;
+
+  const imgs = currentEditingProject.images || [];
+  if (countEl) countEl.textContent = `${imgs.length} image${imgs.length !== 1 ? 's' : ''}`;
+
+  if (imgs.length === 0) {
+    grid.innerHTML = '<div style="grid-column: 1 / -1; font-size: 0.75rem; color: var(--text-muted); padding: 0.5rem; text-align: center;">No images attached yet. Select multiple images below to upload.</div>';
+    return;
+  }
+
+  grid.innerHTML = imgs.map((img, idx) => `
+    <div class="admin-img-preview-card ${idx === 0 ? 'is-cover' : ''}">
+      <img src="${formatImagePath(img)}" alt="preview ${idx}">
+      ${idx === 0 ? `<span class="admin-img-cover-badge">COVER</span>` : ''}
+      <div class="admin-img-actions">
+        ${idx > 0 ? `
+          <button type="button" class="admin-img-action-btn" title="Set as Cover Image (#1)" onclick="setAdminProjectCover(${idx})">
+            <i class="fa-solid fa-star"></i>
+          </button>
+        ` : ''}
+        <button type="button" class="admin-img-action-btn" title="Remove image" onclick="removeAdminProjectImage(${idx})">
+          <i class="fa-solid fa-trash"></i>
+        </button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function setAdminProjectCover(idx) {
+  if (!currentEditingProject || !currentEditingProject.images) return;
+  const imgs = currentEditingProject.images;
+  const target = imgs.splice(idx, 1)[0];
+  imgs.unshift(target);
+  renderAdminProjectImagesGrid();
+  showToast('Image set as primary cover (#1)!', 'success');
+}
+window.setAdminProjectCover = setAdminProjectCover;
+
+function removeAdminProjectImage(idx) {
+  if (!currentEditingProject || !currentEditingProject.images) return;
+  currentEditingProject.images.splice(idx, 1);
+  renderAdminProjectImagesGrid();
+  showToast('Image removed from project.', 'info');
+}
+window.removeAdminProjectImage = removeAdminProjectImage;
+
+function handleProjectMultiImageUpload(e) {
+  const files = e.target.files;
+  if (!files || files.length === 0) return;
+
+  const folder = document.getElementById('admin-proj-folder')?.value.trim() || currentEditingProject.folder || currentEditingProject.name || 'Projects';
+  let processed = 0;
+
+  for (let i = 0; i < files.length; i++) {
+    const file = files[i];
+    const reader = new FileReader();
+    reader.onload = function(evt) {
+      const base64 = evt.target.result.split(',')[1];
+      const relPath = `Github image/${folder}/${file.name}`;
+
+      stagedFileUploads.push({
+        path: relPath,
+        content: base64,
+        name: file.name
+      });
+
+      if (!currentEditingProject.images) currentEditingProject.images = [];
+      if (!currentEditingProject.images.includes(relPath)) {
+        currentEditingProject.images.push(relPath);
+      }
+
+      processed++;
+      if (processed === files.length) {
+        renderAdminProjectImagesGrid();
+        showToast(`${files.length} images staged for ${folder}! Click "Save & Publish" to push to GitHub.`, 'success');
+      }
+    };
+    reader.readAsDataURL(file);
+  }
+}
+
+function handleSaveProjectSubmit(e) {
+  e.preventDefault();
+  if (!currentEditingProject) return;
+
+  const title = document.getElementById('admin-proj-title').value.trim();
+  const cat = document.getElementById('admin-proj-category').value;
+  const badge = document.getElementById('admin-proj-badge').value.trim();
+  const folder = document.getElementById('admin-proj-folder').value.trim();
+  const brief = document.getElementById('admin-proj-brief').value.trim();
+  const desc = document.getElementById('admin-proj-desc').value.trim();
+  const featRaw = document.getElementById('admin-proj-features').value;
+  const techRaw = document.getElementById('admin-proj-tech').value;
+  const repo = document.getElementById('admin-proj-repo').value.trim();
+  const live = document.getElementById('admin-proj-live').value.trim();
+
+  if (!title || !brief) {
+    return showToast('Title and Card Brief are required.', 'error');
+  }
+
+  currentEditingProject.name = title;
+  currentEditingProject.title = title;
+  currentEditingProject.category = cat;
+  currentEditingProject.typeBadge = badge;
+  currentEditingProject.folder = folder;
+  currentEditingProject.brief = brief;
+  currentEditingProject.description = desc || brief;
+  currentEditingProject.features = featRaw.split('\n').map(s => s.trim()).filter(Boolean);
+  currentEditingProject.techStack = techRaw.split(',').map(s => s.trim()).filter(Boolean);
+  currentEditingProject.repoUrl = repo;
+  currentEditingProject.liveUrl = live;
+
+  let projects = window.portfolioData?.softwareProjects || window.portfolioData?.projects || [];
+  const existingIdx = projects.findIndex(p => p.id === currentEditingProject.id);
+
+  if (existingIdx >= 0) {
+    projects[existingIdx] = currentEditingProject;
+  } else {
+    projects.push(currentEditingProject);
+  }
+
+  window.portfolioData.softwareProjects = projects;
+  window.portfolioData.projects = projects;
+
+  renderSoftwareProjects(projects);
+  populateAdminForms();
+  populateAdminProjectsManager();
+  showToast(`Project "${title}" staged! Click "Save & Publish" to commit to GitHub.`, 'success');
 }
 
 function populateAdminForms() {
@@ -1146,10 +1611,15 @@ function escapeHTML(s) {
   return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
 }
 
+window.openProjectModal = openProjectModal;
+window.closeProjectModal = closeProjectModal;
+window.setCarouselSlide = setCarouselSlide;
+
 document.addEventListener('DOMContentLoaded', () => {
   initTheme();
   loadData();
   initSoftwareFilters();
+  initProjectModal();
   initPubSearchAndFilters();
   initGalleryFilters();
   initContactForm();
