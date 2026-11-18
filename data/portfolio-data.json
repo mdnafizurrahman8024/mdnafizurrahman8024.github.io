@@ -3,7 +3,7 @@
     "title": "Md. Nafizur Rahman | Academic & Research Portfolio",
     "description": "Doctor of Veterinary Medicine (DVM) student, One Health researcher, and computational biologist specializing in AMR surveillance, nanovaccines, vector-borne epidemiology, and healthtech platforms.",
     "version": "2.2.0",
-    "lastUpdated": "2026-11-17"
+    "lastUpdated": "2026-11-19"
   },
   "profile": {
     "name": "Md. Nafizur Rahman",
@@ -42,20 +42,28 @@
   },
   "kpis": [
     {
-      "value": "4+",
-      "label": "Research Papers"
+      "value": "7+",
+      "label": "Research Studies & Manuscripts",
+      "sublabel": "1 Accepted • 1 Drafted • 1 Data Analysis • 4 Fieldwork",
+      "target": "#publications-sec"
     },
     {
-      "value": "6+",
-      "label": "Software & Apps"
+      "value": "7+",
+      "label": "Scientific Projects & Platforms",
+      "sublabel": "AI Systems, Web Apps & Workbench",
+      "target": "#software-sec"
     },
     {
-      "value": "10+",
-      "label": "Certifications"
+      "value": "26+",
+      "label": "Certifications & Training",
+      "sublabel": "Diagnostics, WHO, Ethics & Analytics",
+      "target": "#training-sec"
     },
     {
       "value": "2+ Yrs",
-      "label": "Field & Clinical Exp."
+      "label": "Research Experience",
+      "sublabel": "Field Surveillance & Lab Triage",
+      "target": "#research-sec"
     }
   ],
   "recentUpdates": [
@@ -364,7 +372,7 @@
       "categoryLabel": "Mobile & AI Apps",
       "typeBadge": "AI Veterinary Diagnostic Platform",
       "role": "Founder, Lead Researcher & Architect",
-      "period": "2025 – Present",
+      "period": "Sept 2026 – Present",
       "stars": "Active Research Platform",
       "brief": "It's an AI-driven veterinary diagnostic and epidemiological platform designed for marginal poultry farmers in Bangladesh. Rooted in the \"One Health\" framework, it utilizes multi-modal AI to accurately diagnose poultry diseases and actively combat antimicrobial resistance (AMR) by enforcing medication withdrawal periods through automated prescription scanning.",
       "description": "PoultryMedix is an AI-powered veterinary healthcare ecosystem engineered specifically for marginal poultry farmers, paravets, and veterinary clinicians in Bangladesh. Rooted in the One Health framework, the platform integrates real-time symptom diagnosis with deep-learning vision models, antimicrobial resistance (AMR) mitigation surveillance, automated veterinary prescription scanning, disease outbreak mapping across regional farming clusters, and structured tele-consultation channels.",
@@ -415,7 +423,7 @@
       "categoryLabel": "Research Software",
       "typeBadge": "One Health Computational Workbench",
       "role": "Lead Architect & Developer",
-      "period": "2025 – Present",
+      "period": "2026 – Present",
       "stars": "Active Development",
       "brief": "An evidence-grounded computational research workbench engineered for veterinary epidemiologists, One Health scientists, and molecular researchers, featuring end-to-end data provenance tracking, literature synthesis pipelines, and Dockerized reproducibility.",
       "description": "ZunSync is a specialized computational platform developed to harmonize veterinary field surveillance data with molecular genetics and biomedical informatics. It bridges the gap between field epidemiology and laboratory bioinformatics by offering structured pipelines for PRISMA-compliant meta-analyses, sequence annotation workflows, automated statistical modeling in R/Python, and reproducible Docker containerization.",
@@ -459,7 +467,7 @@
       "categoryLabel": "Websites & Platforms",
       "typeBadge": "Clinical Management & E-Commerce Web App",
       "role": "Full-Stack Developer",
-      "period": "2025 – Present",
+      "period": "Oct 2026 – Present",
       "stars": "Clinical System",
       "brief": "A robust Django webapp / website for \"Professor's Vet & Pet Care\". It seamlessly combines a veterinary clinic management system (doctor bookings, surgery gallery, schedules) with a pet e-commerce store (medicines, real-time POS inventory). Features a responsive UI, theme toggle, and powerful admin panel.",
       "description": "A robust Django web application for \"Professor's Vet & Pet Care\" engineered under the supervision of Dr. Abdulla Al Mamun Bhuyan (Associate Professor, Dept. of Veterinary & Animal Sciences, University of Rajshahi). It seamlessly combines a veterinary clinic management system (doctor bookings, surgery gallery, schedules) with a pet e-commerce store (medicines, real-time POS inventory). Features a responsive UI, theme toggle, and powerful admin panel.",
@@ -497,7 +505,7 @@
       "categoryLabel": "Websites & Platforms",
       "typeBadge": "Ed-Tech & Scientific Training Hub",
       "role": "Founder & Full-Stack Architect",
-      "period": "2025 – Present",
+      "period": "Oct 2026 – Present",
       "stars": "Live Educational Hub",
       "brief": "Official repository for Zun Synthesis Academy—a premium ed-tech platform bridging biology and technology. Built with a scalable Python backend and Tailwind CSS frontend, offering dynamic programs in Bioinformatics, Data Analytics, and AI-Powered Research & Vibe Coding.",
       "description": "Official repository for Zun Synthesis Academy—a premium ed-tech platform bridging biology and technology. Built with a scalable Python backend and Tailwind CSS frontend, offering dynamic programs in Bioinformatics, Data Analytics, and AI-Powered Research & Vibe Coding. Founded by Md. Nafizur Rahman to democratize advanced computational skills for researchers in biological and veterinary sciences.",
@@ -534,7 +542,7 @@
       "categoryLabel": "Websites & Platforms",
       "typeBadge": "E-Commerce Storefront & Order System",
       "role": "Frontend Developer & Designer",
-      "period": "2024 – 2025",
+      "period": "Nov 2026",
       "stars": "Storefront Web App",
       "brief": "An elegant, responsive bilingual e-commerce web platform for Najiaa Shop (নাজিআ শপ), showcasing high-quality Islamic lifestyle and artisanal items with cart management and seamless customer order workflows.",
       "description": "An elegant, responsive bilingual e-commerce web platform for Najiaa Shop (নাজিআ শপ), showcasing high-quality Islamic lifestyle and artisanal items. Designed with a clean mobile-first interface, dynamic product filtering, persistent client-side shopping cart state management, and streamlined customer checkout.",
@@ -569,7 +577,7 @@
       "categoryLabel": "Open-Source & Learning",
       "typeBadge": "Open-Source Python Learning",
       "role": "Author & Developer",
-      "period": "2024",
+      "period": "July 2026",
       "stars": "Open-Source Course",
       "brief": "An open-source 21-day coding curriculum shared on GitHub to document daily Python practice, algorithmic problem solving, and practical coding habits to help fellow learners.",
       "description": "An open-source interactive learning repository documenting 21 days of progressive programming challenges in Python. Created and shared openly on GitHub to track daily coding consistency, algorithmic problem solving, and foundational programming habits to support other students and researchers beginning their coding journey in biological sciences.",
@@ -599,7 +607,7 @@
       "categoryLabel": "Open-Source & Learning",
       "typeBadge": "Open-Source OOP Project",
       "role": "Developer",
-      "period": "2024",
+      "period": "July 2026",
       "stars": "OOP Simulation",
       "brief": "An open-source Python Bank Management System shared on GitHub demonstrating core Object-Oriented Programming (OOP) concepts for programming students and learners.",
       "description": "An educational open-source Python project shared on GitHub to demonstrate the four foundational pillars of Object-Oriented Programming (OOP)—abstraction, encapsulation, inheritance, and polymorphism. Built with simulated accounts, balance validations, and file I/O to serve as an accessible reference implementation for other learners.",
@@ -746,19 +754,6 @@
     {
       "id": "pub-1",
       "year": "2026",
-      "title": "Comparative Immunogenicity, Protective Efficacy, and Safety of Nanoparticle-Based Rabies Vaccines in Mice: A Systematic Review and Meta-Analysis",
-      "authors": "Md. Nafizur Rahman (Principal Conceptualizer & Investigator)",
-      "venue": "Open Science Framework (OSF Registered Protocol)",
-      "status": "Registered Protocol",
-      "filter": "osf",
-      "doi": "10.17605/OSF.IO/9AQS3",
-      "doiUrl": "https://doi.org/10.17605/OSF.IO/9AQS3",
-      "scholarUrl": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en",
-      "abstract": "Registered systematic review and meta-analysis synthesizing in vivo preclinical murine data on next-generation nanoparticle rabies vaccines (mRNA-LNPs, VLPs, nano-adjuvants) following PRISMA guidelines using a random-effects model."
-    },
-    {
-      "id": "pub-2",
-      "year": "2026",
       "title": "Socio-Veterinary Determinants of Pet Animal Healthcare Behavior Among Pet Animal Owners in Bangladesh",
       "authors": "Md. Nafizur Rahman (Co-author) et al.",
       "venue": "Journal of Advanced Veterinary and Animal Research (JAVAR)",
@@ -770,12 +765,12 @@
       "abstract": "Nationwide multivariate epidemiological survey covering 361 pet-owning households across 7 administrative divisions in Bangladesh, revealing significant direct associations between owner education and vaccination compliance (p < 0.001)."
     },
     {
-      "id": "pub-3",
+      "id": "pub-2",
       "year": "2026",
-      "title": "Epidemiology of Ectoparasitic Infestation in Free-Roaming Dogs from Northwestern Bangladesh",
+      "title": "Epidemiology and Distribution of Ectoparasites in Free-Roaming Dogs from the Semi-Arid Barind Tract, Northwestern Bangladesh",
       "authors": "Md. Nafizur Rahman (Co-author & Data Analyst) et al.",
-      "venue": "Manuscript Prepared for Publication",
-      "status": "Manuscript Prepared",
+      "venue": "Manuscript Prepared for Publication • Dept. of Veterinary & Animal Sciences",
+      "status": "Manuscript Ready",
       "filter": "ongoing",
       "doi": "",
       "doiUrl": "",
@@ -783,9 +778,74 @@
       "abstract": "Extensive investigation of 310 free-roaming dogs in the semi-arid Barind Tract, classifying 2,908 ectoparasites with first morphological identification of Ctenocephalides orientis and Heterodoxus spiniger in Bangladesh."
     },
     {
+      "id": "pub-3",
+      "year": "2026",
+      "title": "Comparative Immunogenicity, Protective Efficacy, and Safety of Nanoparticle-Based Rabies Vaccines in Mice: A Systematic Review and Meta-Analysis",
+      "authors": "Md. Nafizur Rahman (Principal Conceptualizer & Investigator)",
+      "venue": "Open Science Framework (OSF Registered Protocol: DOI 10.17605/OSF.IO/9AQS3)",
+      "status": "Data Analysis",
+      "filter": "osf",
+      "doi": "10.17605/OSF.IO/9AQS3",
+      "doiUrl": "https://doi.org/10.17605/OSF.IO/9AQS3",
+      "scholarUrl": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en",
+      "abstract": "Registered systematic review and meta-analysis synthesizing in vivo preclinical murine data on next-generation nanoparticle rabies vaccines (mRNA-LNPs, VLPs, nano-adjuvants) following PRISMA guidelines using a random-effects model."
+    },
+    {
       "id": "pub-4",
       "year": "2026",
-      "title": "Epidemiology and Distribution of Ectoparasites in Free-Roaming Dogs from the Semi-Arid Barind Tract, Northwestern Bangladesh",
+      "title": "Species Distribution and Risk Factors of Bedbug (Cimex spp.) Infestation in Student Residences at the University of Rajshahi",
+      "authors": "Md. Nafizur Rahman (Principal Investigator) et al.",
+      "venue": "University of Rajshahi Residential Halls • Epidemiological Investigation",
+      "status": "Data Analysis",
+      "filter": "ongoing",
+      "doi": "",
+      "doiUrl": "",
+      "scholarUrl": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en",
+      "abstract": "Cross-sectional epidemiological survey evaluating infestation rates, environmental sanitation risk factors, room building characteristics, and sleep disturbances among student hostel residents."
+    },
+    {
+      "id": "pub-5",
+      "year": "2026",
+      "title": "Clinical Surveillance and Antimicrobial Stewardship in Companion Animals: Evaluating Veterinary Prescribing Patterns, Owner KAP, and Self-Medication Behaviors in Rajshahi, Bangladesh (A One Health Perspective)",
+      "authors": "Md. Nafizur Rahman (Principal Conceptualizer & Investigator) et al.",
+      "venue": "Dept. of Veterinary and Animal Sciences, University of Rajshahi",
+      "status": "Ongoing Fieldwork",
+      "filter": "ongoing",
+      "doi": "",
+      "doiUrl": "",
+      "scholarUrl": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en",
+      "abstract": "Conducting active clinical surveillance to evaluate veterinary prescribing patterns, owner KAP, and antimicrobial stewardship gaps to combat unauthorized antibiotic self-medication in companion animals."
+    },
+    {
+      "id": "pub-6",
+      "year": "2025–2026",
+      "title": "Morphological and Molecular Detection of Capillaria spp. in Native Chicken and Duck of Northern Bangladesh",
+      "authors": "Md. Nafizur Rahman (Research Assistant) et al.",
+      "venue": "Dept. of Veterinary and Animal Sciences, University of Rajshahi",
+      "status": "Ongoing Fieldwork",
+      "filter": "ongoing",
+      "doi": "",
+      "doiUrl": "",
+      "scholarUrl": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en",
+      "abstract": "Assisting in field sample collection, post-mortem gastrointestinal examinations, morphological oculometry, and molecular characterization of Capillaria spp. nematodes in indigenous poultry."
+    },
+    {
+      "id": "pub-7",
+      "year": "2026",
+      "title": "Environmental Surveillance of Livestock Drinking Water Quality and Bacterial Biofilm Dynamics in Commercial and Smallholder Dairy Farms",
+      "authors": "Md. Nafizur Rahman et al.",
+      "venue": "Faculty of Veterinary and Animal Sciences, University of Rajshahi",
+      "status": "Ongoing Fieldwork",
+      "filter": "ongoing",
+      "doi": "",
+      "doiUrl": "",
+      "scholarUrl": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en",
+      "abstract": "Assessing bacteriological water quality, watering trough biofilm formation, and heavy metal bioaccumulation risks across dairy cattle watering stations in the Rajshahi peri-urban belt."
+    },
+    {
+      "id": "pub-8",
+      "year": "2026",
+      "title": "Epidemiology and Distribution of Ectoparasites in Free-Roaming Dogs from the Semi-Arid Barind Tract, Northwestern Bangladesh (Conference Presentation)",
       "authors": "Md. Nafizur Rahman (Co-author) et al.",
       "venue": "RURS International Conference and Research Fair 2026, University of Rajshahi",
       "status": "Conference Paper",
@@ -796,7 +856,7 @@
       "abstract": "Conference proceedings detailing prevalence (87.7%), host body condition risk factors, and molecular sequencing of Haemaphysalis bispinosa and Dermacentor ticks."
     },
     {
-      "id": "pub-5",
+      "id": "pub-9",
       "year": "2025",
       "title": "Navigating Pet Welfare in Bangladesh: A Multilayered Analysis of Ownership, Ethics and Service Accessibility",
       "authors": "Md. Nafizur Rahman (Co-author) et al.",
@@ -809,7 +869,7 @@
       "abstract": "Mixed-methods cross-sectional survey examining socio-demographic profiles, ethical considerations, and structural challenges in pet healthcare delivery in Bangladesh."
     },
     {
-      "id": "pub-6",
+      "id": "pub-10",
       "year": "2025",
       "title": "Challenges and Opportunities in Veterinary Care, Feed, and Maintenance of Pets in Bangladesh",
       "authors": "Md. Nafizur Rahman (1st Author) et al.",
@@ -1176,34 +1236,53 @@
   ],
   "leadership": [
     {
+      "id": "lead-1",
+      "role": "Research Team Lead & Principal Investigator",
+      "organization": "One Health & Epidemiological Research Projects",
+      "period": "2025 – Present",
+      "details": "Leading One Health and epidemiological research teams across companion animal AMR clinical surveillance, university hall bedbug (Cimex spp.) risk-factor modeling, and OSF-registered nanoparticle rabies vaccine meta-analysis (DOI: 10.17605/OSF.IO/9AQS3)."
+    },
+    {
+      "id": "lead-2",
+      "role": "Scientific Projects & AI App Lead",
+      "organization": "HealthTech & Computational Initiatives",
+      "period": "2026 – Present",
+      "details": "Architecting PoultryMedix (autonomous multimodal AI for avian health & AMR stewardship; AI Navigator / AI Battle participant, Sept 2026), ZunSync research workbench software, and Zun Synthesis Academy (ZSA)."
+    },
+    {
+      "id": "lead-3",
       "role": "Executive Member",
       "organization": "Rajshahi University Animal Welfare Association (RUAWA)",
       "period": "2024 – Present",
-      "details": "Spearheading stray and campus animal rescue, vaccination drives, and humane education campaigns."
+      "details": "Leading campus stray animal rescue, free clinical treatment, trauma care, and vaccination drives across the University of Rajshahi."
     },
     {
-      "role": "Active Team Member",
+      "id": "lead-4",
+      "role": "General Member ➔ Dept. Representative",
+      "organization": "Rajshahi University Higher Education and Research Forum (RUHERF)",
+      "period": "2025 – Present",
+      "details": "Representing the Department of Veterinary and Animal Sciences in academic seminars, cross-disciplinary symposiums, and research initiatives."
+    },
+    {
+      "id": "lead-5",
+      "role": "Active Member",
       "organization": "Save Wildlife and Nature (SWAN), Bangladesh",
       "period": "2025 – Present",
-      "details": "Participating in reptile, snake, and injured bird rescues, wildlife conflict mitigation, and biodiversity protection."
+      "details": "Participating in venomous and non-venomous snake, bird, and wildlife rescue operations, trauma rehabilitation, and human-wildlife conflict mitigation."
     },
     {
-      "role": "Founder & Instructor",
-      "organization": "Zun Synthesis Academy (ZSA)",
-      "period": "2025 – Present",
-      "details": "Empowering veterinary and life science undergraduates with computational biology, Python, and data analytics skills."
-    },
-    {
-      "role": "General Member & Dept. Representative",
-      "organization": "Rajshahi University Higher Education and Research Forum (RUHERF)",
-      "period": "2024 – Present",
-      "details": "Representing the Faculty of Veterinary and Animal Sciences in cross-disciplinary academic initiatives."
-    },
-    {
+      "id": "lead-6",
       "role": "General Member",
       "organization": "Rajshahi University Research Society (RURS)",
+      "period": "2023 – Present",
+      "details": "Engaging in undergraduate research training workshops, scientific symposiums, and student research promotion programs."
+    },
+    {
+      "id": "lead-7",
+      "role": "General Member ➔ Religious Secretary",
+      "organization": "Rajshahi University Student Welfare Association (RUSWA)",
       "period": "2024 – Present",
-      "details": "Active member contributing to campus research promotion, webinars, and international conferences."
+      "details": "Organizing student welfare initiatives, community outreach programs, and student support services (honored with Best Volunteer Award 2024)."
     }
   ],
   "references": [
@@ -1614,7 +1693,7 @@
       "categoryLabel": "Mobile & AI Apps",
       "typeBadge": "AI Veterinary Diagnostic Platform",
       "role": "Founder, Lead Researcher & Architect",
-      "period": "2025 – Present",
+      "period": "Sept 2026 – Present",
       "stars": "Active Research Platform",
       "brief": "It's an AI-driven veterinary diagnostic and epidemiological platform designed for marginal poultry farmers in Bangladesh. Rooted in the \"One Health\" framework, it utilizes multi-modal AI to accurately diagnose poultry diseases and actively combat antimicrobial resistance (AMR) by enforcing medication withdrawal periods through automated prescription scanning.",
       "description": "PoultryMedix is an AI-powered veterinary healthcare ecosystem engineered specifically for marginal poultry farmers, paravets, and veterinary clinicians in Bangladesh. Rooted in the One Health framework, the platform integrates real-time symptom diagnosis with deep-learning vision models, antimicrobial resistance (AMR) mitigation surveillance, automated veterinary prescription scanning, disease outbreak mapping across regional farming clusters, and structured tele-consultation channels.",
@@ -1665,7 +1744,7 @@
       "categoryLabel": "Research Software",
       "typeBadge": "One Health Computational Workbench",
       "role": "Lead Architect & Developer",
-      "period": "2025 – Present",
+      "period": "2026 – Present",
       "stars": "Active Development",
       "brief": "An evidence-grounded computational research workbench engineered for veterinary epidemiologists, One Health scientists, and molecular researchers, featuring end-to-end data provenance tracking, literature synthesis pipelines, and Dockerized reproducibility.",
       "description": "ZunSync is a specialized computational platform developed to harmonize veterinary field surveillance data with molecular genetics and biomedical informatics. It bridges the gap between field epidemiology and laboratory bioinformatics by offering structured pipelines for PRISMA-compliant meta-analyses, sequence annotation workflows, automated statistical modeling in R/Python, and reproducible Docker containerization.",
@@ -1709,7 +1788,7 @@
       "categoryLabel": "Websites & Platforms",
       "typeBadge": "Clinical Management & E-Commerce Web App",
       "role": "Full-Stack Developer",
-      "period": "2025 – Present",
+      "period": "Oct 2026 – Present",
       "stars": "Clinical System",
       "brief": "A robust Django webapp / website for \"Professor's Vet & Pet Care\". It seamlessly combines a veterinary clinic management system (doctor bookings, surgery gallery, schedules) with a pet e-commerce store (medicines, real-time POS inventory). Features a responsive UI, theme toggle, and powerful admin panel.",
       "description": "A robust Django web application for \"Professor's Vet & Pet Care\" engineered under the supervision of Dr. Abdulla Al Mamun Bhuyan (Associate Professor, Dept. of Veterinary & Animal Sciences, University of Rajshahi). It seamlessly combines a veterinary clinic management system (doctor bookings, surgery gallery, schedules) with a pet e-commerce store (medicines, real-time POS inventory). Features a responsive UI, theme toggle, and powerful admin panel.",
@@ -1747,7 +1826,7 @@
       "categoryLabel": "Websites & Platforms",
       "typeBadge": "Ed-Tech & Scientific Training Hub",
       "role": "Founder & Full-Stack Architect",
-      "period": "2025 – Present",
+      "period": "Oct 2026 – Present",
       "stars": "Live Educational Hub",
       "brief": "Official repository for Zun Synthesis Academy—a premium ed-tech platform bridging biology and technology. Built with a scalable Python backend and Tailwind CSS frontend, offering dynamic programs in Bioinformatics, Data Analytics, and AI-Powered Research & Vibe Coding.",
       "description": "Official repository for Zun Synthesis Academy—a premium ed-tech platform bridging biology and technology. Built with a scalable Python backend and Tailwind CSS frontend, offering dynamic programs in Bioinformatics, Data Analytics, and AI-Powered Research & Vibe Coding. Founded by Md. Nafizur Rahman to democratize advanced computational skills for researchers in biological and veterinary sciences.",
@@ -1784,7 +1863,7 @@
       "categoryLabel": "Websites & Platforms",
       "typeBadge": "E-Commerce Storefront & Order System",
       "role": "Frontend Developer & Designer",
-      "period": "2024 – 2025",
+      "period": "Nov 2026",
       "stars": "Storefront Web App",
       "brief": "An elegant, responsive bilingual e-commerce web platform for Najiaa Shop (নাজিআ শপ), showcasing high-quality Islamic lifestyle and artisanal items with cart management and seamless customer order workflows.",
       "description": "An elegant, responsive bilingual e-commerce web platform for Najiaa Shop (নাজিআ শপ), showcasing high-quality Islamic lifestyle and artisanal items. Designed with a clean mobile-first interface, dynamic product filtering, persistent client-side shopping cart state management, and streamlined customer checkout.",
@@ -1819,7 +1898,7 @@
       "categoryLabel": "Open-Source & Learning",
       "typeBadge": "Open-Source Python Learning",
       "role": "Author & Developer",
-      "period": "2024",
+      "period": "July 2026",
       "stars": "Open-Source Course",
       "brief": "An open-source 21-day coding curriculum shared on GitHub to document daily Python practice, algorithmic problem solving, and practical coding habits to help fellow learners.",
       "description": "An open-source interactive learning repository documenting 21 days of progressive programming challenges in Python. Created and shared openly on GitHub to track daily coding consistency, algorithmic problem solving, and foundational programming habits to support other students and researchers beginning their coding journey in biological sciences.",
@@ -1849,7 +1928,7 @@
       "categoryLabel": "Open-Source & Learning",
       "typeBadge": "Open-Source OOP Project",
       "role": "Developer",
-      "period": "2024",
+      "period": "July 2026",
       "stars": "OOP Simulation",
       "brief": "An open-source Python Bank Management System shared on GitHub demonstrating core Object-Oriented Programming (OOP) concepts for programming students and learners.",
       "description": "An educational open-source Python project shared on GitHub to demonstrate the four foundational pillars of Object-Oriented Programming (OOP)—abstraction, encapsulation, inheritance, and polymorphism. Built with simulated accounts, balance validations, and file I/O to serve as an accessible reference implementation for other learners.",

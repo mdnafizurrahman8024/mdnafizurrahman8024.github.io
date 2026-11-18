@@ -271,14 +271,35 @@ function renderTimelineAndKPIs(timeline, kpis) {
   // 4-Column KPI Metrics Bar
   const kpiContainer = document.getElementById('kpi-metrics-container');
   if (kpiContainer && kpis) {
-    kpiContainer.innerHTML = kpis.map(k => `
-      <div class="kpi-metric-box">
-        <div class="kpi-value">${escapeHTML(k.value)}</div>
-        <div class="kpi-label">${escapeHTML(k.label)}</div>
-      </div>
-    `).join('');
+    const certCount = window.portfolioData?.certificates?.length || window.portfolioData?.trainings?.length || 26;
+    kpiContainer.innerHTML = kpis.map(k => {
+      let val = k.value;
+      if (k.label && k.label.toLowerCase().includes('certif')) {
+        val = `${certCount}+`;
+      }
+      return `
+        <a href="${escapeHTML(k.target || '#')}" class="kpi-metric-box" onclick="handleKpiClick(event, '${escapeHTML(k.target || '')}')">
+          <div class="kpi-value">${escapeHTML(val)}</div>
+          <div class="kpi-label">${escapeHTML(k.label)}</div>
+          ${k.sublabel ? `<div class="kpi-sublabel">${escapeHTML(k.sublabel)}</div>` : ''}
+        </a>
+      `;
+    }).join('');
   }
 }
+
+// Global smooth scroll handler for KPI metric boxes
+window.handleKpiClick = function(event, targetSelector) {
+  if (!targetSelector || targetSelector === '#') return;
+  event.preventDefault();
+  const targetEl = document.querySelector(targetSelector);
+  if (targetEl) {
+    targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (window.history && window.history.pushState) {
+      window.history.pushState(null, null, targetSelector);
+    }
+  }
+};
 
 /* --------------------------------------------------------------------------
    6. Scientific Projects & Digital Platforms
@@ -740,6 +761,17 @@ function renderCapabilities(caps) {
 /* --------------------------------------------------------------------------
    5. Publications & Manuscripts (Live Search + Filter Tabs)
    -------------------------------------------------------------------------- */
+function getPubStatusClass(status) {
+  if (!status) return '';
+  const s = status.toLowerCase();
+  if (s.includes('accepted')) return 'pub-status-accepted';
+  if (s.includes('ready') || s.includes('prepared')) return 'pub-status-ready';
+  if (s.includes('analysis')) return 'pub-status-analysis';
+  if (s.includes('fieldwork') || s.includes('ongoing')) return 'pub-status-ongoing';
+  if (s.includes('conference') || s.includes('proceedings')) return 'pub-status-conf';
+  return '';
+}
+
 function renderPublications() {
   const container = document.getElementById('publications-entries-container');
   if (!container || !window.portfolioData?.publications) return;
@@ -758,6 +790,7 @@ function renderPublications() {
       p.title.toLowerCase().includes(q) ||
       (p.authors && p.authors.toLowerCase().includes(q)) ||
       (p.venue && p.venue.toLowerCase().includes(q)) ||
+      (p.status && p.status.toLowerCase().includes(q)) ||
       (p.doi && p.doi.toLowerCase().includes(q)) ||
       (p.abstract && p.abstract.toLowerCase().includes(q))
     );
@@ -777,7 +810,7 @@ function renderPublications() {
     <div class="pub-entry-card">
       <div class="pub-year-col">
         <div class="pub-year-badge">${escapeHTML(p.year)}</div>
-        <span class="pub-status-label">${escapeHTML(p.status)}</span>
+        <span class="pub-status-label ${getPubStatusClass(p.status)}">${escapeHTML(p.status)}</span>
       </div>
       <div class="pub-content-col">
         <div class="pub-title-row">
@@ -1074,8 +1107,8 @@ function renderLeadership(leadership) {
     <div class="leadership-card">
       <div class="lead-role">${escapeHTML(l.role)}</div>
       <div class="lead-org">${escapeHTML(l.organization)}</div>
-      <div class="lead-period">${escapeHTML(l.period)}</div>
-      <p class="lead-desc">${escapeHTML(l.details)}</p>
+      <div class="lead-period"><i class="fa-solid fa-calendar-days" style="margin-right: 5px; font-size: 0.75rem;"></i>${escapeHTML(l.period)}</div>
+      <p class="lead-desc">${escapeHTML(l.details || l.description || '')}</p>
     </div>
   `).join('');
 }
