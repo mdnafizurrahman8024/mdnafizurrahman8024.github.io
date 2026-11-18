@@ -14,12 +14,14 @@ let currentGalleryFilter = 'all';
 let currentSoftwareFilter = 'all';
 let isTimelineExpanded = false;
 let isCertificatesExpanded = false;
+let isSoftwareExpanded = false;
 let stagedFileUploads = [];
 
-// Project Modal & Carousel State
+// Project Modals & Gallery State
 let currentActiveProject = null;
-let currentProjectSlideIdx = 0;
-let projectCarouselTimer = null;
+let currentGalleryProject = null;
+let currentGallerySlideIdx = 0;
+let gallerySlideshowTimer = null;
 let currentAdminTab = 'projects';
 let currentEditingProject = null;
 
@@ -291,6 +293,9 @@ function renderSoftwareProjects(projects) {
     filtered = list.filter(p => p.category === currentSoftwareFilter || p.categoryFilter === currentSoftwareFilter);
   }
 
+  const expandWrap = document.getElementById('software-expand-wrap');
+  const expandBtn = document.getElementById('software-expand-btn');
+
   if (filtered.length === 0) {
     container.innerHTML = `
       <div style="grid-column: 1 / -1; text-align: center; padding: 2.5rem; color: var(--text-muted);">
@@ -298,30 +303,84 @@ function renderSoftwareProjects(projects) {
         No projects found matching the selected filter.
       </div>
     `;
+    if (expandWrap) expandWrap.style.display = 'none';
     return;
   }
 
-  container.innerHTML = filtered.map(item => {
+  // 4 items displayed by default in compact 2x2 grid
+  const displayList = isSoftwareExpanded ? filtered : filtered.slice(0, 4);
+
+  // Manage See All Projects / Show Less toggle button
+  if (expandWrap && expandBtn) {
+    if (filtered.length > 4) {
+      expandWrap.style.display = 'block';
+      expandBtn.innerHTML = isSoftwareExpanded
+        ? '<i class="fa-solid fa-chevron-up"></i> Show Less'
+        : `<i class="fa-solid fa-chevron-down"></i> See All Projects (${filtered.length})`;
+      expandBtn.onclick = () => {
+        isSoftwareExpanded = !isSoftwareExpanded;
+        renderSoftwareProjects(window.portfolioData?.softwareProjects || window.portfolioData?.projects);
+      };
+    } else {
+      expandWrap.style.display = 'none';
+    }
+  }
+
+  container.innerHTML = displayList.map(item => {
     const hasImages = Array.isArray(item.images) && item.images.length > 0;
-    const coverImage = hasImages ? item.images[0] : (item.image || '');
+    // ZunSync explicitly uses coverImage (zs.png) if provided
+    const coverImage = item.coverImage || (hasImages ? item.images[0] : (item.image || ''));
     const photoCount = hasImages ? item.images.length : 0;
     const projectTitle = item.name || item.title || 'Project';
     const typeBadge = item.typeBadge || item.type || 'Platform';
     const briefSummary = item.brief || item.description || '';
 
+    // Maximum 3–4 tech stack tags displayed per card
+    const maxTags = 4;
+    const allTags = item.techStack || [];
+    const visibleTags = allTags.slice(0, maxTags);
+    const remainingCount = allTags.length - maxTags;
+
+    // Single External Link Icon (GitHub OR Live Link, no duplicate icons)
+    let extIconBtn = '';
+    if (item.liveUrl && !item.liveUrl.includes('github.com')) {
+      extIconBtn = `
+        <a href="${escapeHTML(item.liveUrl)}" target="_blank" rel="noopener noreferrer" class="software-ext-icon-btn" title="Live Website / Demo" onclick="event.stopPropagation()">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </a>
+      `;
+    } else if (item.repoUrl) {
+      extIconBtn = `
+        <a href="${escapeHTML(item.repoUrl)}" target="_blank" rel="noopener noreferrer" class="software-ext-icon-btn" title="GitHub Repository" onclick="event.stopPropagation()">
+          <i class="fa-brands fa-github"></i>
+        </a>
+      `;
+    } else if (item.liveUrl) {
+      extIconBtn = `
+        <a href="${escapeHTML(item.liveUrl)}" target="_blank" rel="noopener noreferrer" class="software-ext-icon-btn" title="Live Website" onclick="event.stopPropagation()">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </a>
+      `;
+    }
+
+    // Direct Gallery Trigger for Thumbnail & Photos Badge
+    const thumbAction = photoCount > 0
+      ? `openProjectGalleryModal('${escapeHTML(item.id)}', event)`
+      : `openProjectDetailsModal('${escapeHTML(item.id)}', event)`;
+
     return `
-      <div class="software-card" onclick="openProjectModal('${escapeHTML(item.id)}', event)" tabindex="0" role="button" aria-label="View ${escapeHTML(projectTitle)} details">
-        <!-- 16:9 Static Cover Thumbnail Frame -->
-        <div class="software-card-thumb-wrap">
+      <div class="software-card" onclick="openProjectDetailsModal('${escapeHTML(item.id)}', event)" tabindex="0" role="button" aria-label="View ${escapeHTML(projectTitle)} details">
+        <!-- 16:9 Cover Thumbnail Frame (Click directly opens photo gallery) -->
+        <div class="software-card-thumb-wrap" onclick="${thumbAction}" title="${photoCount > 0 ? 'Click to open photo gallery' : 'Click to view details'}">
           ${coverImage ? `
-            <img src="${formatImagePath(coverImage)}" alt="${escapeHTML(projectTitle)} Preview" class="software-card-thumb-img" loading="lazy">
+            <img src="${formatImagePath(coverImage)}" alt="${escapeHTML(projectTitle)} Cover" class="software-card-thumb-img" loading="lazy">
           ` : `
             <div class="software-card-thumb-placeholder">
               <i class="fa-brands fa-python"></i>
             </div>
           `}
           ${photoCount > 0 ? `
-            <span class="software-photo-count-pill">
+            <span class="software-photo-count-pill" onclick="${thumbAction}" title="Open photo gallery (${photoCount} photos)">
               <i class="fa-solid fa-camera"></i> ${photoCount} Photos
             </span>
           ` : ''}
@@ -334,29 +393,28 @@ function renderSoftwareProjects(projects) {
               ${item.period ? `<span style="font-size: 0.72rem; color: var(--text-muted); font-weight: 500;"><i class="fa-solid fa-clock"></i> ${escapeHTML(item.period)}</span>` : ''}
             </div>
             <h4 class="software-card-title">${escapeHTML(projectTitle)}</h4>
+            <!-- Clamped to 3 lines via CSS -->
             <p class="software-card-desc">${escapeHTML(briefSummary)}</p>
             
+            <!-- Max 3-4 tech tags on card -->
             <div class="software-tech-pills">
-              ${(item.techStack || []).map(t => `<span class="tech-pill">${escapeHTML(t)}</span>`).join('')}
+              ${visibleTags.map(t => `<span class="tech-pill">${escapeHTML(t)}</span>`).join('')}
+              ${remainingCount > 0 ? `<span class="tech-pill tech-pill-more">+${remainingCount} more</span>` : ''}
             </div>
           </div>
 
           <div class="software-card-footer">
-            <button type="button" class="software-view-details-btn" onclick="openProjectModal('${escapeHTML(item.id)}', event)">
-              <i class="fa-solid fa-images"></i> View Details &amp; Gallery
-            </button>
-            <div class="software-ext-links-group">
-              ${item.repoUrl ? `
-                <a href="${escapeHTML(item.repoUrl)}" target="_blank" rel="noopener noreferrer" class="software-ext-icon-btn" title="GitHub Repository" onclick="event.stopPropagation()">
-                  <i class="fa-brands fa-github"></i>
-                </a>
-              ` : ''}
-              ${item.liveUrl ? `
-                <a href="${escapeHTML(item.liveUrl)}" target="_blank" rel="noopener noreferrer" class="software-ext-icon-btn" title="Live Demo / Website" onclick="event.stopPropagation()">
-                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                </a>
+            <div class="software-footer-btns-left">
+              <button type="button" class="software-view-details-btn" onclick="openProjectDetailsModal('${escapeHTML(item.id)}', event)" title="View full details and complete tech stack">
+                <i class="fa-solid fa-circle-info"></i> View Details
+              </button>
+              ${photoCount > 0 ? `
+                <button type="button" class="software-gallery-btn" onclick="openProjectGalleryModal('${escapeHTML(item.id)}', event)" title="Open photo gallery slideshow">
+                  <i class="fa-solid fa-images"></i> Gallery
+                </button>
               ` : ''}
             </div>
+            ${extIconBtn}
           </div>
         </div>
       </div>
@@ -371,15 +429,16 @@ function initSoftwareFilters() {
       filterBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       currentSoftwareFilter = btn.getAttribute('data-filter') || 'all';
+      isSoftwareExpanded = false; // Reset to 4 cards when switching filter
       renderSoftwareProjects(window.portfolioData?.softwareProjects || window.portfolioData?.projects);
     });
   });
 }
 
 /* --------------------------------------------------------------------------
-   Interactive Project Details Modal & Auto-Sliding Carousel
+   Interactive Project Details Modal
    -------------------------------------------------------------------------- */
-function openProjectModal(projectId, e) {
+function openProjectDetailsModal(projectId, e) {
   if (e && typeof e.stopPropagation === 'function') e.stopPropagation();
 
   const list = window.portfolioData?.softwareProjects || window.portfolioData?.projects || [];
@@ -387,7 +446,6 @@ function openProjectModal(projectId, e) {
   if (!project) return;
 
   currentActiveProject = project;
-  currentProjectSlideIdx = 0;
 
   const modal = document.getElementById('project-details-modal');
   const titleEl = document.getElementById('project-modal-title');
@@ -397,9 +455,10 @@ function openProjectModal(projectId, e) {
   const featWrap = document.getElementById('project-modal-features-wrap');
   const featList = document.getElementById('project-modal-features-list');
   const techPills = document.getElementById('project-modal-tech-pills');
-  const repoBtn = document.getElementById('project-modal-repo-btn');
-  const liveBtn = document.getElementById('project-modal-live-btn');
-  const carouselWrap = document.getElementById('project-carousel-wrap');
+  const galleryWrap = document.getElementById('project-modal-gallery-action-wrap');
+  const galleryCount = document.getElementById('project-modal-gallery-count');
+  const galleryBtn = document.getElementById('project-modal-open-gallery-btn');
+  const extLinkWrap = document.getElementById('project-modal-external-link-wrap');
 
   // Title & Badge
   if (titleEl) titleEl.textContent = project.name || project.title;
@@ -414,10 +473,10 @@ function openProjectModal(projectId, e) {
     `;
   }
 
-  // Description
+  // Full Description
   if (descEl) descEl.textContent = project.description || project.brief || '';
 
-  // Features List
+  // Key Features & Highlights
   if (featList) {
     const features = project.features || project.highlights || [];
     if (features.length > 0) {
@@ -430,38 +489,48 @@ function openProjectModal(projectId, e) {
     }
   }
 
-  // Tech stack pills
+  // Complete Tech Stack (all tags)
   if (techPills) {
     const tech = project.techStack || [];
     techPills.innerHTML = tech.map(t => `<span class="tech-pill">${escapeHTML(t)}</span>`).join('');
   }
 
-  // Action Buttons
-  if (repoBtn) {
-    if (project.repoUrl) {
-      repoBtn.href = project.repoUrl;
-      repoBtn.style.display = 'inline-flex';
-    } else {
-      repoBtn.style.display = 'none';
-    }
-  }
-
-  if (liveBtn) {
-    if (project.liveUrl) {
-      liveBtn.href = project.liveUrl;
-      liveBtn.style.display = 'inline-flex';
-    } else {
-      liveBtn.style.display = 'none';
-    }
-  }
-
-  // Carousel
+  // Open Photo Gallery Button inside Details Modal
   const images = project.images || [];
-  if (images.length > 0) {
-    if (carouselWrap) carouselWrap.style.display = 'block';
-    setupProjectCarousel(images);
-  } else {
-    if (carouselWrap) carouselWrap.style.display = 'none';
+  if (images.length > 0 && galleryWrap && galleryBtn) {
+    galleryWrap.style.display = 'block';
+    if (galleryCount) galleryCount.textContent = images.length;
+    galleryBtn.onclick = (evt) => {
+      closeProjectDetailsModal();
+      openProjectGalleryModal(project.id, evt);
+    };
+  } else if (galleryWrap) {
+    galleryWrap.style.display = 'none';
+  }
+
+  // Single External Action Button in footer
+  if (extLinkWrap) {
+    if (project.liveUrl && !project.liveUrl.includes('github.com')) {
+      extLinkWrap.innerHTML = `
+        <a href="${escapeHTML(project.liveUrl)}" target="_blank" rel="noopener noreferrer" class="project-modal-action-btn live">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i> Visit Website / Live Demo
+        </a>
+      `;
+    } else if (project.repoUrl) {
+      extLinkWrap.innerHTML = `
+        <a href="${escapeHTML(project.repoUrl)}" target="_blank" rel="noopener noreferrer" class="project-modal-action-btn github">
+          <i class="fa-brands fa-github"></i> Open GitHub Repository
+        </a>
+      `;
+    } else if (project.liveUrl) {
+      extLinkWrap.innerHTML = `
+        <a href="${escapeHTML(project.liveUrl)}" target="_blank" rel="noopener noreferrer" class="project-modal-action-btn live">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i> Visit Website
+        </a>
+      `;
+    } else {
+      extLinkWrap.innerHTML = '';
+    }
   }
 
   if (modal) {
@@ -470,16 +539,46 @@ function openProjectModal(projectId, e) {
   }
 }
 
-function setupProjectCarousel(images) {
-  const thumbsContainer = document.getElementById('project-carousel-thumbs');
-  const prevBtn = document.getElementById('project-carousel-prev');
-  const nextBtn = document.getElementById('project-carousel-next');
-  const carouselWrap = document.getElementById('project-carousel-wrap');
+function closeProjectDetailsModal() {
+  const modal = document.getElementById('project-details-modal');
+  if (modal) {
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Dedicated Interactive Image Gallery / Lightbox Slideshow Modal
+   -------------------------------------------------------------------------- */
+function openProjectGalleryModal(projectId, e) {
+  if (e && typeof e.stopPropagation === 'function') e.stopPropagation();
+
+  const list = window.portfolioData?.softwareProjects || window.portfolioData?.projects || [];
+  const project = list.find(p => p.id === projectId);
+  if (!project) return;
+
+  const images = project.images || [];
+  if (images.length === 0) {
+    openProjectDetailsModal(projectId, e);
+    return;
+  }
+
+  currentGalleryProject = project;
+  currentGallerySlideIdx = 0;
+
+  const modal = document.getElementById('project-gallery-modal');
+  const titleEl = document.getElementById('project-gallery-title');
+  const thumbsContainer = document.getElementById('project-gallery-thumbs');
+  const prevBtn = document.getElementById('project-gallery-prev');
+  const nextBtn = document.getElementById('project-gallery-next');
+  const galleryWrap = document.getElementById('project-gallery-wrap');
+
+  if (titleEl) titleEl.textContent = `${project.name || project.title} — Screenshots`;
 
   // Render clickable thumbnail strip
   if (thumbsContainer) {
     thumbsContainer.innerHTML = images.map((img, i) => `
-      <div class="project-thumb-item ${i === 0 ? 'active' : ''}" data-idx="${i}" onclick="setCarouselSlide(${i})">
+      <div class="project-gallery-thumb ${i === 0 ? 'active' : ''}" data-idx="${i}" onclick="setGallerySlide(${i})">
         <img src="${formatImagePath(img)}" alt="thumb ${i + 1}" loading="lazy">
       </div>
     `).join('');
@@ -487,69 +586,74 @@ function setupProjectCarousel(images) {
 
   // Navigation Arrow Listeners
   if (prevBtn) {
-    prevBtn.onclick = (e) => {
-      e.stopPropagation();
-      setCarouselSlide(currentProjectSlideIdx - 1);
+    prevBtn.onclick = (evt) => {
+      evt.stopPropagation();
+      setGallerySlide(currentGallerySlideIdx - 1);
     };
   }
   if (nextBtn) {
-    nextBtn.onclick = (e) => {
-      e.stopPropagation();
-      setCarouselSlide(currentProjectSlideIdx + 1);
+    nextBtn.onclick = (evt) => {
+      evt.stopPropagation();
+      setGallerySlide(currentGallerySlideIdx + 1);
     };
   }
 
   // Set initial slide
-  setCarouselSlide(0);
+  setGallerySlide(0);
 
-  // Auto-advance carousel smoothly every 3 seconds
-  clearInterval(projectCarouselTimer);
+  // Auto-advance slideshow smoothly every 3.5 seconds
+  clearInterval(gallerySlideshowTimer);
   if (images.length > 1) {
-    startCarouselAutoAdvance(images.length);
+    startGallerySlideshow(images.length);
 
     // Pause on hover, resume on mouse leave
-    if (carouselWrap) {
-      carouselWrap.onmouseenter = () => clearInterval(projectCarouselTimer);
-      carouselWrap.onmouseleave = () => startCarouselAutoAdvance(images.length);
+    if (galleryWrap) {
+      galleryWrap.onmouseenter = () => clearInterval(gallerySlideshowTimer);
+      galleryWrap.onmouseleave = () => startGallerySlideshow(images.length);
     }
+  }
+
+  if (modal) {
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
   }
 }
 
-function startCarouselAutoAdvance(total) {
-  clearInterval(projectCarouselTimer);
-  projectCarouselTimer = setInterval(() => {
-    setCarouselSlide(currentProjectSlideIdx + 1);
-  }, 3000);
+function startGallerySlideshow(total) {
+  clearInterval(gallerySlideshowTimer);
+  gallerySlideshowTimer = setInterval(() => {
+    setGallerySlide(currentGallerySlideIdx + 1);
+  }, 3500);
 }
 
-function setCarouselSlide(idx) {
-  if (!currentActiveProject || !currentActiveProject.images || currentActiveProject.images.length === 0) return;
-  const images = currentActiveProject.images;
-  currentProjectSlideIdx = (idx + images.length) % images.length;
+function setGallerySlide(idx) {
+  if (!currentGalleryProject || !currentGalleryProject.images || currentGalleryProject.images.length === 0) return;
+  const images = currentGalleryProject.images;
+  currentGallerySlideIdx = (idx + images.length) % images.length;
   
-  const mainImg = document.getElementById('project-carousel-main-img');
-  const counter = document.getElementById('project-carousel-counter');
-  const zoomBtn = document.getElementById('project-carousel-zoom');
-  const thumbsContainer = document.getElementById('project-carousel-thumbs');
+  const mainImg = document.getElementById('project-gallery-main-img');
+  const counter = document.getElementById('project-gallery-counter');
+  const zoomBtn = document.getElementById('project-gallery-zoom');
+  const thumbsContainer = document.getElementById('project-gallery-thumbs');
 
-  const curImg = images[currentProjectSlideIdx];
+  const curImg = images[currentGallerySlideIdx];
   const encoded = formatImagePath(curImg);
 
   if (mainImg) {
     mainImg.src = encoded;
-    mainImg.alt = `${currentActiveProject.name || 'Project'} image ${currentProjectSlideIdx + 1}`;
+    mainImg.alt = `${currentGalleryProject.name || 'Project'} screenshot ${currentGallerySlideIdx + 1}`;
   }
   if (counter) {
-    counter.textContent = `${currentProjectSlideIdx + 1} / ${images.length}`;
+    counter.textContent = `${currentGallerySlideIdx + 1} / ${images.length}`;
   }
   if (zoomBtn) {
     zoomBtn.href = encoded;
   }
 
   if (thumbsContainer) {
-    const allThumbs = thumbsContainer.querySelectorAll('.project-thumb-item');
+    const allThumbs = thumbsContainer.querySelectorAll('.project-gallery-thumb');
     allThumbs.forEach((th, i) => {
-      if (i === currentProjectSlideIdx) {
+      if (i === currentGallerySlideIdx) {
         th.classList.add('active');
         th.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
       } else {
@@ -559,30 +663,47 @@ function setCarouselSlide(idx) {
   }
 }
 
-function closeProjectModal() {
-  clearInterval(projectCarouselTimer);
-  const modal = document.getElementById('project-details-modal');
+function closeProjectGalleryModal() {
+  clearInterval(gallerySlideshowTimer);
+  const modal = document.getElementById('project-gallery-modal');
   if (modal) {
     modal.classList.remove('active');
     document.body.style.overflow = '';
   }
-  currentActiveProject = null;
+  currentGalleryProject = null;
 }
 
-function initProjectModal() {
-  const modal = document.getElementById('project-details-modal');
-  const closeBtn = document.getElementById('project-modal-close-btn');
+function initProjectModals() {
+  // Details Modal close listeners
+  const detailsModal = document.getElementById('project-details-modal');
+  const detailsCloseBtn = document.getElementById('project-modal-close-btn');
 
-  if (closeBtn) closeBtn.onclick = closeProjectModal;
-  if (modal) {
-    modal.onclick = (e) => {
-      if (e.target === modal) closeProjectModal();
+  if (detailsCloseBtn) detailsCloseBtn.onclick = closeProjectDetailsModal;
+  if (detailsModal) {
+    detailsModal.onclick = (e) => {
+      if (e.target === detailsModal) closeProjectDetailsModal();
     };
   }
 
+  // Gallery Modal close listeners
+  const galleryModal = document.getElementById('project-gallery-modal');
+  const galleryCloseBtn = document.getElementById('project-gallery-close-btn');
+
+  if (galleryCloseBtn) galleryCloseBtn.onclick = closeProjectGalleryModal;
+  if (galleryModal) {
+    galleryModal.onclick = (e) => {
+      if (e.target === galleryModal) closeProjectGalleryModal();
+    };
+  }
+
+  // Global Keyboard Navigation (Esc to close, Left/Right for gallery)
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal && modal.classList.contains('active')) {
-      closeProjectModal();
+    if (galleryModal && galleryModal.classList.contains('active')) {
+      if (e.key === 'Escape') closeProjectGalleryModal();
+      else if (e.key === 'ArrowLeft') setGallerySlide(currentGallerySlideIdx - 1);
+      else if (e.key === 'ArrowRight') setGallerySlide(currentGallerySlideIdx + 1);
+    } else if (detailsModal && detailsModal.classList.contains('active')) {
+      if (e.key === 'Escape') closeProjectDetailsModal();
     }
   });
 }
@@ -1611,15 +1732,22 @@ function escapeHTML(s) {
   return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
 }
 
-window.openProjectModal = openProjectModal;
-window.closeProjectModal = closeProjectModal;
-window.setCarouselSlide = setCarouselSlide;
+window.openProjectDetailsModal = openProjectDetailsModal;
+window.closeProjectDetailsModal = closeProjectDetailsModal;
+window.openProjectGalleryModal = openProjectGalleryModal;
+window.closeProjectGalleryModal = closeProjectGalleryModal;
+window.setGallerySlide = setGallerySlide;
+
+// Backward-compatibility aliases
+window.openProjectModal = openProjectDetailsModal;
+window.closeProjectModal = closeProjectDetailsModal;
+window.setCarouselSlide = setGallerySlide;
 
 document.addEventListener('DOMContentLoaded', () => {
   initTheme();
   loadData();
   initSoftwareFilters();
-  initProjectModal();
+  initProjectModals();
   initPubSearchAndFilters();
   initGalleryFilters();
   initContactForm();
