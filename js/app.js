@@ -576,6 +576,8 @@ function openProjectDetailsModal(projectId, e) {
 }
 
 function closeProjectDetailsModal() {
+  clearInterval(gallerySlideshowTimer);
+  if (window.projectCarouselTimer) clearInterval(window.projectCarouselTimer);
   const modal = document.getElementById('project-details-modal');
   if (modal) {
     modal.classList.remove('active');
@@ -608,8 +610,19 @@ function openProjectGalleryModal(projectId, e) {
   const prevBtn = document.getElementById('project-gallery-prev');
   const nextBtn = document.getElementById('project-gallery-next');
   const galleryWrap = document.getElementById('project-gallery-wrap');
+  const track = document.getElementById('project-carousel-track');
 
   if (titleEl) titleEl.textContent = `${project.name || project.title} — Screenshots`;
+
+  // Render slides in sliding track
+  if (track) {
+    track.innerHTML = images.map((img, i) => `
+      <div class="project-carousel-slide">
+        <img src="${formatImagePath(img)}" alt="${escapeHTML(project.name || 'Project')} screenshot ${i + 1}" class="project-gallery-slide-img" loading="lazy">
+      </div>
+    `).join('');
+    track.style.transform = 'translateX(0%)';
+  }
 
   // Render clickable thumbnail strip
   if (thumbsContainer) {
@@ -637,14 +650,18 @@ function openProjectGalleryModal(projectId, e) {
   // Set initial slide
   setGallerySlide(0);
 
-  // Auto-advance slideshow with slow, gentle, smooth transition every 5.5 seconds (5500ms)
+  // Auto-advance slideshow with smooth horizontal slide transition every 4.5 seconds (4500ms)
   clearInterval(gallerySlideshowTimer);
+  if (window.projectCarouselTimer) clearInterval(window.projectCarouselTimer);
   if (images.length > 1) {
     startGallerySlideshow(images.length);
 
     // Pause smoothly on hover, resume on mouse leave
     if (galleryWrap) {
-      galleryWrap.onmouseenter = () => clearInterval(gallerySlideshowTimer);
+      galleryWrap.onmouseenter = () => {
+        clearInterval(gallerySlideshowTimer);
+        if (window.projectCarouselTimer) clearInterval(window.projectCarouselTimer);
+      };
       galleryWrap.onmouseleave = () => startGallerySlideshow(images.length);
     }
   }
@@ -662,9 +679,10 @@ window.handleGalleryThumbClick = handleGalleryThumbClick;
 
 function startGallerySlideshow(total) {
   clearInterval(gallerySlideshowTimer);
-  gallerySlideshowTimer = setInterval(() => {
+  if (window.projectCarouselTimer) clearInterval(window.projectCarouselTimer);
+  window.projectCarouselTimer = gallerySlideshowTimer = setInterval(() => {
     setGallerySlide(currentGallerySlideIdx + 1);
-  }, 5500);
+  }, 4500);
 }
 
 function setGallerySlide(idx, fromUserAction = false) {
@@ -672,7 +690,7 @@ function setGallerySlide(idx, fromUserAction = false) {
   const images = currentGalleryProject.images;
   currentGallerySlideIdx = (idx + images.length) % images.length;
   
-  const mainImg = document.getElementById('project-gallery-main-img');
+  const track = document.getElementById('project-carousel-track');
   const counter = document.getElementById('project-gallery-counter');
   const zoomBtn = document.getElementById('project-gallery-zoom');
   const thumbsContainer = document.getElementById('project-gallery-thumbs');
@@ -680,17 +698,8 @@ function setGallerySlide(idx, fromUserAction = false) {
   const curImg = images[currentGallerySlideIdx];
   const encoded = formatImagePath(curImg);
 
-  if (mainImg) {
-    mainImg.classList.add('is-sliding');
-    const temp = new Image();
-    temp.onload = () => {
-      mainImg.src = encoded;
-      mainImg.alt = `${currentGalleryProject.name || 'Project'} screenshot ${currentGallerySlideIdx + 1}`;
-      requestAnimationFrame(() => {
-        mainImg.classList.remove('is-sliding');
-      });
-    };
-    temp.src = encoded;
+  if (track) {
+    track.style.transform = `translateX(-${currentGallerySlideIdx * 100}%)`;
   }
   if (counter) {
     counter.textContent = `${currentGallerySlideIdx + 1} / ${images.length}`;
@@ -719,6 +728,7 @@ function setGallerySlide(idx, fromUserAction = false) {
 
 function closeProjectGalleryModal() {
   clearInterval(gallerySlideshowTimer);
+  if (window.projectCarouselTimer) clearInterval(window.projectCarouselTimer);
   const modal = document.getElementById('project-gallery-modal');
   if (modal) {
     modal.classList.remove('active');
@@ -1096,7 +1106,8 @@ function openTrainingDetailModal(index) {
   `;
   caption.textContent = `Issued by: ${issuer} (${t.date || ''})`;
 
-  modal.classList.add('active');
+  modal.style.display = 'flex';
+  modal.classList.add('active', 'open', 'show');
   document.body.style.overflow = 'hidden';
 }
 
@@ -1132,7 +1143,8 @@ function openCredentialsLightbox(index) {
     </div>
   `;
 
-  modal.classList.add('active');
+  modal.style.display = 'flex';
+  modal.classList.add('active', 'open', 'show');
   document.body.style.overflow = 'hidden';
 }
 
@@ -1216,7 +1228,8 @@ function openGalleryItem(index) {
     media.innerHTML = `<img src="${escapeHTML(item.mediaUrl)}" alt="${escapeHTML(item.title)}">`;
   }
 
-  modal.classList.add('active');
+  modal.style.display = 'flex';
+  modal.classList.add('active', 'open', 'show');
   document.body.style.overflow = 'hidden';
 }
 
@@ -2285,7 +2298,8 @@ document.addEventListener('DOMContentLoaded', () => {
 function closeCertificateModal() {
   const lbModal = document.getElementById('lightbox-modal');
   if (lbModal) {
-    lbModal.classList.remove('active');
+    lbModal.classList.remove('active', 'open', 'show');
+    lbModal.style.display = 'none';
     document.body.style.overflow = '';
   }
 }
@@ -2307,7 +2321,7 @@ document.addEventListener('click', (e) => {
 
   // 2. Check for click outside modal content on the dark backdrop
   const lbModal = document.getElementById('lightbox-modal');
-  if (lbModal && lbModal.classList.contains('active')) {
+  if (lbModal && (lbModal.classList.contains('active') || lbModal.style.display === 'flex')) {
     if (e.target === lbModal) {
       e.preventDefault();
       closeCertificateModal();

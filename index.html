@@ -23,7 +23,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-  <link rel="stylesheet" href="css/style.css?v=28">
+  <link rel="stylesheet" href="css/style.css?v=29">
 
   <script>
     (function() {
@@ -456,7 +456,7 @@
     <div class="lightbox-container">
       <div class="lightbox-header">
         <h3 class="lightbox-title" id="lightbox-title">Media Detail</h3>
-        <button class="lightbox-close-btn modal-close" id="lightbox-close-btn" data-close-modal="true" title="Close Modal (Esc)" aria-label="Close modal">&times;</button>
+        <button class="lightbox-close-btn modal-close" id="lightbox-close-btn" data-close-modal="true" onclick="closeCertificateModal()" title="Close Modal (Esc)" aria-label="Close modal">&times;</button>
       </div>
       <div class="lightbox-body">
         <div class="lightbox-media-container" id="lightbox-media-container"></div>
@@ -529,8 +529,8 @@
       </div>
 
       <div class="project-gallery-body" id="project-gallery-wrap">
-        <div class="project-gallery-viewport">
-          <img src="" alt="Project Screenshot" id="project-gallery-main-img" class="project-gallery-slide-img">
+        <div class="project-gallery-viewport" id="project-carousel-viewport">
+          <div class="project-carousel-track" id="project-carousel-track"></div>
           <button class="project-gallery-nav-btn prev" id="project-gallery-prev" title="Previous Image (←)"><i class="fa-solid fa-chevron-left"></i></button>
           <button class="project-gallery-nav-btn next" id="project-gallery-next" title="Next Image (→)"><i class="fa-solid fa-chevron-right"></i></button>
         </div>
@@ -885,6 +885,6 @@
   </aside>
 
   <!-- Core App Logic -->
-  <script src="js/app.js?v=28"></script>
+  <script src="js/app.js?v=29"></script>
 </body>
 </html>

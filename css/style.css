@@ -1718,19 +1718,33 @@ button, input, textarea, select {
   overflow: hidden;
 }
 
+.project-carousel-track {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.95s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+.project-carousel-slide {
+  min-width: 100%;
+  width: 100%;
+  height: 100%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.project-carousel-slide img,
 .project-gallery-slide-img {
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
-  transition: opacity 1.2s ease-in-out, transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
   user-select: none;
-  opacity: 1;
-  transform: scale(1);
-}
-
-.project-gallery-slide-img.is-sliding {
-  opacity: 0.35;
-  transform: scale(0.985);
+  display: block;
 }
 
 .project-gallery-nav-btn {
@@ -2132,6 +2146,26 @@ button, input, textarea, select {
   font-size: 11.5px;
   white-space: nowrap;
   flex-shrink: 0;
+}
+
+@media (min-width: 900px) {
+  .pub-filter-pills-row {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: nowrap;
+  }
+
+  .pub-filter-pills-row .pub-filter-btn {
+    flex: 1;
+    text-align: center;
+    justify-content: center;
+    padding: 7px 10px;
+    font-size: 12px;
+    white-space: nowrap;
+  }
 }
 
 .pub-toolbar {
@@ -3104,7 +3138,9 @@ button, input, textarea, select {
   transition: opacity 0.25s ease;
 }
 
-.lightbox-modal.active {
+.lightbox-modal.active,
+.lightbox-modal.open,
+.lightbox-modal.show {
   display: flex;
   opacity: 1;
 }
@@ -3139,7 +3175,7 @@ button, input, textarea, select {
 .modal-close,
 #close-cert-modal {
   position: relative;
-  z-index: 10005;
+  z-index: 10010;
   pointer-events: auto;
   cursor: pointer;
   width: 34px;
