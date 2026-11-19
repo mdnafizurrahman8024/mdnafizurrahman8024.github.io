@@ -2061,6 +2061,56 @@ button, input, textarea, select {
 /* --------------------------------------------------------------------------
    5. PUBLICATIONS & MANUSCRIPTS (LIVE SEARCH + FILTER TABS)
    -------------------------------------------------------------------------- */
+.pub-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.pub-compact-search-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.pub-compact-search-wrapper .pub-search-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  pointer-events: none;
+}
+
+.pub-compact-search-input {
+  width: 260px;
+  max-width: 100%;
+  padding: 8px 14px 8px 34px;
+  font-size: 13px;
+  border-radius: 999px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.pub-compact-search-input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.15);
+}
+
+.pub-filter-pills-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
 .pub-toolbar {
   display: flex;
   flex-wrap: wrap;
@@ -2214,6 +2264,18 @@ button, input, textarea, select {
   border-color: rgba(168, 85, 247, 0.3);
 }
 
+.pub-status-label.pub-status-1st-author {
+  color: #f59e0b;
+  background: rgba(245, 158, 11, 0.12);
+  border-color: rgba(245, 158, 11, 0.3);
+}
+
+.pub-status-label.pub-status-co-author {
+  color: #8b5cf6;
+  background: rgba(139, 92, 246, 0.12);
+  border-color: rgba(139, 92, 246, 0.3);
+}
+
 .pub-content-col {
   display: flex;
   flex-direction: column;
@@ -2256,6 +2318,36 @@ button, input, textarea, select {
 
 .badge-doi:hover {
   background: var(--accent-purple);
+  color: #fff;
+}
+
+.badge-doi.badge-scholar {
+  background: rgba(13, 148, 136, 0.12);
+  color: var(--primary);
+  border-color: var(--primary);
+}
+.badge-doi.badge-scholar:hover {
+  background: var(--primary);
+  color: #fff;
+}
+
+.badge-doi.badge-orcid {
+  background: rgba(166, 206, 57, 0.15);
+  color: #a6ce39;
+  border-color: rgba(166, 206, 57, 0.4);
+}
+.badge-doi.badge-orcid:hover {
+  background: #a6ce39;
+  color: #fff;
+}
+
+.badge-doi.badge-osf {
+  background: rgba(56, 189, 248, 0.12);
+  color: #38bdf8;
+  border-color: rgba(56, 189, 248, 0.3);
+}
+.badge-doi.badge-osf:hover {
+  background: #38bdf8;
   color: #fff;
 }
 
@@ -3190,6 +3282,91 @@ button, input, textarea, select {
   align-items: center;
 }
 
+/* Publications Reorder List in Admin Drawer */
+.admin-reorder-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 260px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.admin-reorder-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  cursor: grab;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.admin-reorder-item:hover {
+  border-color: var(--primary);
+  background: var(--bg-hover, var(--bg-secondary));
+}
+
+.admin-reorder-item.dragging {
+  opacity: 0.4;
+  border-style: dashed;
+}
+
+.admin-reorder-item.drag-over {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(13, 148, 136, 0.2);
+}
+
+.admin-pos-badge {
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: rgba(148, 163, 184, 0.15);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  white-space: nowrap;
+}
+
+.admin-pos-badge.is-featured {
+  background: rgba(13, 148, 136, 0.18);
+  color: var(--primary);
+  border: 1px solid rgba(13, 148, 136, 0.35);
+}
+
+.admin-reorder-title {
+  flex: 1;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.admin-reorder-btns {
+  display: flex;
+  gap: 4px;
+}
+
+.admin-reorder-btn {
+  padding: 3px 6px;
+  border-radius: 4px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  font-size: 0.72rem;
+  cursor: pointer;
+}
+
+.admin-reorder-btn:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
 /* Toast Container */
 .toast-container {
   position: fixed;
@@ -3334,7 +3511,18 @@ button, input, textarea, select {
     min-width: 0;
   }
 
-  .pub-filter-pills {
+  .pub-header-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+
+  .pub-compact-search-input {
+    width: 100%;
+  }
+
+  .pub-filter-pills,
+  .pub-filter-pills-row {
     display: flex;
     flex-wrap: wrap;
     gap: 0.35rem;

@@ -23,8 +23,10 @@ let currentActiveProject = null;
 let currentGalleryProject = null;
 let currentGallerySlideIdx = 0;
 let gallerySlideshowTimer = null;
-let currentAdminTab = 'projects';
+let currentAdminTab = 'pubs';
 let currentEditingProject = null;
+let currentEditingPubIndex = -1;
+let draggedPubIdx = null;
 
 /**
  * Robust URI encoder for folder and image file paths.
@@ -765,12 +767,54 @@ function renderCapabilities(caps) {
 function getPubStatusClass(status) {
   if (!status) return '';
   const s = status.toLowerCase();
-  if (s.includes('accepted')) return 'pub-status-accepted';
+  if (s.includes('accepted') || s.includes('published')) return 'pub-status-accepted';
   if (s.includes('ready') || s.includes('prepared')) return 'pub-status-ready';
   if (s.includes('analysis')) return 'pub-status-analysis';
   if (s.includes('fieldwork') || s.includes('ongoing')) return 'pub-status-ongoing';
+  if (s.includes('1st author')) return 'pub-status-1st-author';
+  if (s.includes('co-author')) return 'pub-status-co-author';
   if (s.includes('conference') || s.includes('proceedings')) return 'pub-status-conf';
   return '';
+}
+
+function matchesPubFilter(p, filter) {
+  if (!filter || filter === 'all') return true;
+  const f = filter.toLowerCase();
+
+  if (f === 'articles') {
+    const s = (p.status || '').toLowerCase();
+    const c = (p.category || '').toLowerCase();
+    const cats = Array.isArray(p.categories) ? p.categories.join(' ').toLowerCase() : '';
+    return s.includes('accepted') || s.includes('published') || c.includes('article') || cats.includes('articles') || p.filter === 'articles';
+  }
+
+  if (f === 'conference') {
+    const s = (p.status || '').toLowerCase();
+    const c = (p.category || '').toLowerCase();
+    const cats = Array.isArray(p.categories) ? p.categories.join(' ').toLowerCase() : '';
+    return s.includes('conference') || s.includes('proceedings') || c.includes('conference') || cats.includes('conference') || p.filter === 'conference';
+  }
+
+  if (f === 'osf') {
+    const doi = (p.doi || p.doiUrl || '').toLowerCase();
+    const c = (p.category || '').toLowerCase();
+    const cats = Array.isArray(p.categories) ? p.categories.join(' ').toLowerCase() : '';
+    return doi.includes('osf.io') || c.includes('osf') || cats.includes('osf') || (p.filter === 'osf');
+  }
+
+  if (f === 'ongoing') {
+    const s = (p.status || '').toLowerCase();
+    const c = (p.category || '').toLowerCase();
+    const cats = Array.isArray(p.categories) ? p.categories.join(' ').toLowerCase() : '';
+    return s.includes('ready') || s.includes('prepared') || s.includes('analysis') ||
+           s.includes('fieldwork') || s.includes('ongoing') || s.includes('submitted') ||
+           s.includes('under review') || c.includes('ongoing') || cats.includes('ongoing') || (p.filter === 'ongoing');
+  }
+
+  if (Array.isArray(p.categories) && p.categories.includes(filter)) return true;
+  if (p.filter === filter) return true;
+  if (Array.isArray(p.filter) && p.filter.includes(filter)) return true;
+  return false;
 }
 
 function renderPublications() {
@@ -781,12 +825,7 @@ function renderPublications() {
 
   // 1. Filter by category / filter pill
   if (currentPubFilter !== 'all') {
-    pubs = pubs.filter(p => {
-      if (Array.isArray(p.categories) && p.categories.includes(currentPubFilter)) return true;
-      if (p.filter === currentPubFilter) return true;
-      if (Array.isArray(p.filter) && p.filter.includes(currentPubFilter)) return true;
-      return false;
-    });
+    pubs = pubs.filter(p => matchesPubFilter(p, currentPubFilter));
   }
 
   // 2. Real-time keyword search
@@ -799,6 +838,8 @@ function renderPublications() {
       (p.status && p.status.toLowerCase().includes(q)) ||
       (p.category && p.category.toLowerCase().includes(q)) ||
       (p.doi && p.doi.toLowerCase().includes(q)) ||
+      (p.doiUrl && p.doiUrl.toLowerCase().includes(q)) ||
+      (p.osfUrl && p.osfUrl.toLowerCase().includes(q)) ||
       (p.abstract && p.abstract.toLowerCase().includes(q))
     );
   }
@@ -840,34 +881,52 @@ function renderPublications() {
     }
   }
 
-  container.innerHTML = displayList.map(p => `
-    <div class="pub-entry-card">
-      <div class="pub-year-col">
-        <div class="pub-year-badge">${escapeHTML(p.year)}</div>
-        <span class="pub-status-label ${getPubStatusClass(p.status)}">${escapeHTML(p.status)}</span>
-      </div>
-      <div class="pub-content-col">
-        <div class="pub-title-row">
-          <h4 class="pub-paper-title">${escapeHTML(p.title)}</h4>
-          <div class="pub-badges-group">
-            ${p.doiUrl ? `
-              <a href="${escapeHTML(p.doiUrl)}" target="_blank" rel="noopener noreferrer" class="badge-doi">
-                <i class="fa-solid ${p.doiUrl.includes('osf.io') || (Array.isArray(p.categories) ? p.categories.includes('osf') : p.filter === 'osf') ? 'fa-dna' : 'fa-fingerprint'}"></i> ${p.doiUrl.includes('osf.io') || (Array.isArray(p.categories) ? p.categories.includes('osf') : p.filter === 'osf') ? 'OSF (DOI)' : 'DOI'}
-              </a>
-            ` : ''}
-            ${p.scholarUrl ? `
-              <a href="${escapeHTML(p.scholarUrl)}" target="_blank" rel="noopener noreferrer" class="badge-doi" style="background: var(--primary-light); color: var(--primary); border-color: var(--primary);">
-                <i class="fa-brands fa-google-scholar"></i> Scholar
-              </a>
-            ` : ''}
-          </div>
+  container.innerHTML = displayList.map(p => {
+    const doiLink = p.doiUrl || (p.doi ? (p.doi.startsWith('http') ? p.doi : `https://doi.org/${p.doi}`) : '');
+    const isOsfDoi = doiLink && (doiLink.includes('osf.io') || (Array.isArray(p.categories) && p.categories.includes('osf')) || p.filter === 'osf');
+    const osfLink = p.osfUrl || '';
+    const scholarLink = p.scholarUrl || '';
+    const orcidLink = p.orcidUrl || p.preprintUrl || '';
+
+    return `
+      <div class="pub-entry-card">
+        <div class="pub-year-col">
+          <div class="pub-year-badge">${escapeHTML(p.year)}</div>
+          <span class="pub-status-label ${getPubStatusClass(p.status)}">${escapeHTML(p.status)}</span>
         </div>
-        <div class="pub-authors-line">${escapeHTML(p.authors)}</div>
-        <div class="pub-venue-line">${escapeHTML(p.venue)}</div>
-        <p class="pub-abstract-text">${escapeHTML(p.abstract)}</p>
+        <div class="pub-content-col">
+          <div class="pub-title-row">
+            <h4 class="pub-paper-title">${escapeHTML(p.title)}</h4>
+            <div class="pub-badges-group">
+              ${doiLink ? `
+                <a href="${escapeHTML(doiLink)}" target="_blank" rel="noopener noreferrer" class="badge-doi ${isOsfDoi ? 'badge-osf' : ''}">
+                  <i class="fa-solid ${isOsfDoi ? 'fa-dna' : 'fa-fingerprint'}"></i> ${isOsfDoi ? 'OSF (DOI)' : 'DOI'}
+                </a>
+              ` : ''}
+              ${(osfLink && !isOsfDoi) ? `
+                <a href="${escapeHTML(osfLink)}" target="_blank" rel="noopener noreferrer" class="badge-doi badge-osf">
+                  <i class="fa-solid fa-dna"></i> OSF
+                </a>
+              ` : ''}
+              ${scholarLink ? `
+                <a href="${escapeHTML(scholarLink)}" target="_blank" rel="noopener noreferrer" class="badge-doi badge-scholar">
+                  <i class="fa-brands fa-google-scholar"></i> Scholar
+                </a>
+              ` : ''}
+              ${orcidLink ? `
+                <a href="${escapeHTML(orcidLink)}" target="_blank" rel="noopener noreferrer" class="badge-doi badge-orcid">
+                  <i class="fa-brands fa-orcid"></i> ${p.orcidUrl ? 'ORCID' : 'Preprint'}
+                </a>
+              ` : ''}
+            </div>
+          </div>
+          <div class="pub-authors-line">${escapeHTML(p.authors)}</div>
+          <div class="pub-venue-line">${escapeHTML(p.venue)}</div>
+          <p class="pub-abstract-text">${escapeHTML(p.abstract)}</p>
+        </div>
       </div>
-    </div>
-  `).join('');
+    `;
+  }).join('');
 }
 
 function initPubSearchAndFilters() {
@@ -1350,7 +1409,7 @@ function checkAdminAuthState() {
   if (storedHash && storedToken && sessionStorage.getItem('admin_unlocked') === 'true') {
     authGate.style.display = 'none';
     mainManager.style.display = 'flex';
-    switchAdminTab(currentAdminTab || 'projects');
+    switchAdminTab(currentAdminTab || 'pubs');
   } else {
     authGate.style.display = 'flex';
     mainManager.style.display = 'none';
@@ -1358,11 +1417,11 @@ function checkAdminAuthState() {
 }
 
 /* --------------------------------------------------------------------------
-   Admin Drawer Tab Navigation & Project Manager
+   Admin Drawer Tab Navigation & Managers
    -------------------------------------------------------------------------- */
 function switchAdminTab(tab) {
   currentAdminTab = tab;
-  ['projects', 'certs', 'json'].forEach(t => {
+  ['pubs', 'projects', 'certs', 'json'].forEach(t => {
     const btn = document.getElementById(`admin-nav-btn-${t}`);
     const pane = document.getElementById(`admin-pane-${t}`);
     if (btn) {
@@ -1375,13 +1434,375 @@ function switchAdminTab(tab) {
     }
   });
 
-  if (tab === 'projects') {
+  if (tab === 'pubs') {
+    populateAdminPubsManager();
+  } else if (tab === 'projects') {
     populateAdminProjectsManager();
   } else if (tab === 'json') {
     populateAdminForms();
   }
 }
 window.switchAdminTab = switchAdminTab;
+
+/* --------------------------------------------------------------------------
+   Publications Manager in Admin Drawer (Reordering + In-Place Editor)
+   -------------------------------------------------------------------------- */
+function populateAdminPubsManager() {
+  const listEl = document.getElementById('admin-pubs-reorder-list');
+  const select = document.getElementById('admin-pub-select');
+  const form = document.getElementById('admin-pub-form');
+  const presetSelect = document.getElementById('admin-pub-badge-preset');
+  const customBadgeInput = document.getElementById('admin-pub-badge-custom');
+
+  if (!window.portfolioData?.publications) return;
+  const pubs = window.portfolioData.publications;
+
+  // 1. Populate Reorder List
+  if (listEl) {
+    if (pubs.length === 0) {
+      listEl.innerHTML = '<div style="font-size: 0.75rem; color: var(--text-muted); text-align: center; padding: 0.5rem;">No publications found.</div>';
+    } else {
+      listEl.innerHTML = pubs.map((p, idx) => {
+        const isFeatured = idx < 3;
+        const posText = isFeatured ? `#${idx + 1} — Top 3 Featured` : `#${idx + 1}`;
+        return `
+          <div class="admin-reorder-item" draggable="true" data-index="${idx}">
+            <span class="admin-pos-badge ${isFeatured ? 'is-featured' : ''}">${posText}</span>
+            <span class="admin-reorder-title" title="${escapeHTML(p.title)}">${escapeHTML(p.title)}</span>
+            <div class="admin-reorder-btns">
+              ${idx > 0 ? `
+                <button type="button" class="admin-reorder-btn" title="Move Up" onclick="movePubItem(${idx}, ${idx - 1})">
+                  <i class="fa-solid fa-arrow-up"></i>
+                </button>
+              ` : ''}
+              ${idx < pubs.length - 1 ? `
+                <button type="button" class="admin-reorder-btn" title="Move Down" onclick="movePubItem(${idx}, ${idx + 1})">
+                  <i class="fa-solid fa-arrow-down"></i>
+                </button>
+              ` : ''}
+              <button type="button" class="admin-reorder-btn" title="Edit in form" onclick="selectPubInAdmin(${idx})">
+                <i class="fa-solid fa-pen-to-square"></i>
+              </button>
+              <button type="button" class="admin-reorder-btn" title="Delete publication" onclick="deletePubInAdmin(${idx})">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      // Attach Drag & Drop Listeners
+      const items = listEl.querySelectorAll('.admin-reorder-item');
+      items.forEach(item => {
+        item.addEventListener('dragstart', (e) => {
+          draggedPubIdx = parseInt(item.getAttribute('data-index'));
+          item.classList.add('dragging');
+          e.dataTransfer.effectAllowed = 'move';
+        });
+
+        item.addEventListener('dragover', (e) => {
+          e.preventDefault();
+          e.dataTransfer.dropEffect = 'move';
+          item.classList.add('drag-over');
+        });
+
+        item.addEventListener('dragleave', () => {
+          item.classList.remove('drag-over');
+        });
+
+        item.addEventListener('drop', (e) => {
+          e.preventDefault();
+          item.classList.remove('drag-over');
+          const targetIdx = parseInt(item.getAttribute('data-index'));
+          if (draggedPubIdx !== null && draggedPubIdx !== targetIdx) {
+            movePubItem(draggedPubIdx, targetIdx);
+          }
+        });
+
+        item.addEventListener('dragend', () => {
+          item.classList.remove('dragging');
+          items.forEach(el => el.classList.remove('drag-over'));
+        });
+      });
+    }
+  }
+
+  // 2. Populate Select Dropdown
+  if (select) {
+    select.innerHTML = `
+      <option value="__new__">+ Add New Publication</option>
+      ${pubs.map((p, idx) => `
+        <option value="${idx}" ${currentEditingPubIndex === idx ? 'selected' : ''}>#${idx + 1}. ${escapeHTML(p.title.slice(0, 35))}${p.title.length > 35 ? '...' : ''}</option>
+      `).join('')}
+    `;
+
+    select.onchange = () => {
+      const val = select.value;
+      if (val === '__new__') {
+        currentEditingPubIndex = -1;
+        loadPubIntoAdminForm('__new__');
+      } else {
+        const idx = parseInt(val);
+        currentEditingPubIndex = idx;
+        loadPubIntoAdminForm(idx);
+      }
+    };
+  }
+
+  // 3. Preset dropdown handler
+  if (presetSelect && customBadgeInput) {
+    presetSelect.onchange = () => {
+      if (presetSelect.value === '__custom__') {
+        customBadgeInput.style.display = 'block';
+        customBadgeInput.focus();
+      } else {
+        customBadgeInput.style.display = 'none';
+      }
+    };
+  }
+
+  // 4. Form Submit Handler
+  if (form) {
+    form.onsubmit = handleSavePubSubmit;
+  }
+
+  // 5. Initial form load
+  if (currentEditingPubIndex >= 0 && currentEditingPubIndex < pubs.length) {
+    if (select) select.value = String(currentEditingPubIndex);
+    loadPubIntoAdminForm(currentEditingPubIndex);
+  } else if (pubs.length > 0 && currentEditingPubIndex !== -1) {
+    currentEditingPubIndex = 0;
+    if (select) select.value = '0';
+    loadPubIntoAdminForm(0);
+  } else if (currentEditingPubIndex === -1) {
+    if (select) select.value = '__new__';
+    loadPubIntoAdminForm('__new__');
+  }
+}
+
+function selectPubInAdmin(idx) {
+  currentEditingPubIndex = idx;
+  const select = document.getElementById('admin-pub-select');
+  if (select) select.value = String(idx);
+  loadPubIntoAdminForm(idx);
+  const form = document.getElementById('admin-pub-form');
+  if (form) form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+window.selectPubInAdmin = selectPubInAdmin;
+
+function movePubItem(fromIdx, toIdx) {
+  const pubs = window.portfolioData?.publications;
+  if (!pubs || fromIdx < 0 || fromIdx >= pubs.length || toIdx < 0 || toIdx >= pubs.length) return;
+
+  const [moved] = pubs.splice(fromIdx, 1);
+  pubs.splice(toIdx, 0, moved);
+
+  if (currentEditingPubIndex === fromIdx) {
+    currentEditingPubIndex = toIdx;
+  } else if (fromIdx < currentEditingPubIndex && toIdx >= currentEditingPubIndex) {
+    currentEditingPubIndex--;
+  } else if (fromIdx > currentEditingPubIndex && toIdx <= currentEditingPubIndex) {
+    currentEditingPubIndex++;
+  }
+
+  renderPublications();
+  populateAdminPubsManager();
+  populateAdminForms();
+  showToast(`Moved publication to position #${toIdx + 1}!`, 'success');
+}
+window.movePubItem = movePubItem;
+
+function deletePubInAdmin(idx) {
+  const pubs = window.portfolioData?.publications;
+  if (!pubs || idx < 0 || idx >= pubs.length) return;
+  if (confirm(`Are you sure you want to delete publication #${idx + 1}: "${pubs[idx].title}"?`)) {
+    const deletedTitle = pubs[idx].title;
+    pubs.splice(idx, 1);
+    if (currentEditingPubIndex === idx) {
+      currentEditingPubIndex = -1;
+    } else if (currentEditingPubIndex > idx) {
+      currentEditingPubIndex--;
+    }
+    renderPublications();
+    populateAdminPubsManager();
+    populateAdminForms();
+    showToast(`Deleted: "${deletedTitle}"`, 'info');
+  }
+}
+window.deletePubInAdmin = deletePubInAdmin;
+
+function loadPubIntoAdminForm(idxOrNew) {
+  const pubs = window.portfolioData?.publications || [];
+  const titleEl = document.getElementById('admin-pub-title');
+  const authorsEl = document.getElementById('admin-pub-authors');
+  const yearEl = document.getElementById('admin-pub-year');
+  const venueEl = document.getElementById('admin-pub-venue');
+  const presetEl = document.getElementById('admin-pub-badge-preset');
+  const customBadgeEl = document.getElementById('admin-pub-badge-custom');
+  const catEl = document.getElementById('admin-pub-category');
+  const absEl = document.getElementById('admin-pub-abstract');
+  const doiEl = document.getElementById('admin-pub-doi');
+  const osfEl = document.getElementById('admin-pub-osf');
+  const scholarEl = document.getElementById('admin-pub-scholar');
+  const orcidEl = document.getElementById('admin-pub-orcid');
+
+  if (idxOrNew === '__new__' || idxOrNew < 0 || idxOrNew >= pubs.length) {
+    currentEditingPubIndex = -1;
+    if (titleEl) titleEl.value = '';
+    if (authorsEl) authorsEl.value = 'Md. Nafizur Rahman (Co-author) et al.';
+    if (yearEl) yearEl.value = '2026';
+    if (venueEl) venueEl.value = '';
+    if (presetEl) presetEl.value = 'ACCEPTED';
+    if (customBadgeEl) {
+      customBadgeEl.value = '';
+      customBadgeEl.style.display = 'none';
+    }
+    if (catEl) catEl.value = 'Research Articles (Published/Accepted)';
+    if (absEl) absEl.value = '';
+    if (doiEl) doiEl.value = '';
+    if (osfEl) osfEl.value = '';
+    if (scholarEl) scholarEl.value = 'https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en';
+    if (orcidEl) orcidEl.value = '';
+    return;
+  }
+
+  const p = pubs[idxOrNew];
+  if (!p) return;
+
+  currentEditingPubIndex = idxOrNew;
+
+  if (titleEl) titleEl.value = p.title || '';
+  if (authorsEl) authorsEl.value = p.authors || '';
+  if (yearEl) yearEl.value = p.year || '';
+  if (venueEl) venueEl.value = p.venue || '';
+
+  const standardPresets = [
+    'ACCEPTED',
+    'PUBLISHED',
+    'SUBMITTED / UNDER REVIEW',
+    'MANUSCRIPT READY',
+    'DATA ANALYSIS',
+    'ONGOING FIELDWORK',
+    'CONFERENCE PAPER (1ST AUTHOR)',
+    'CONFERENCE PAPER (CO-AUTHOR)'
+  ];
+
+  const currentStatusUpper = (p.status || '').toUpperCase().trim();
+  const matchPreset = standardPresets.find(preset => preset === currentStatusUpper);
+
+  if (matchPreset && presetEl) {
+    presetEl.value = matchPreset;
+    if (customBadgeEl) {
+      customBadgeEl.value = '';
+      customBadgeEl.style.display = 'none';
+    }
+  } else if (presetEl) {
+    presetEl.value = '__custom__';
+    if (customBadgeEl) {
+      customBadgeEl.value = p.status || '';
+      customBadgeEl.style.display = 'block';
+    }
+  }
+
+  if (catEl) {
+    if (p.category) {
+      let matched = false;
+      for (let i = 0; i < catEl.options.length; i++) {
+        if (catEl.options[i].value.toLowerCase() === p.category.toLowerCase()) {
+          catEl.selectedIndex = i;
+          matched = true;
+          break;
+        }
+      }
+      if (!matched) catEl.value = p.category;
+    } else {
+      catEl.selectedIndex = 0;
+    }
+  }
+
+  if (absEl) absEl.value = p.abstract || '';
+  if (doiEl) doiEl.value = p.doiUrl || p.doi || '';
+  if (osfEl) osfEl.value = p.osfUrl || '';
+  if (scholarEl) scholarEl.value = p.scholarUrl || '';
+  if (orcidEl) orcidEl.value = p.orcidUrl || p.preprintUrl || '';
+}
+
+function handleSavePubSubmit(e) {
+  e.preventDefault();
+  const pubs = window.portfolioData?.publications;
+  if (!pubs) return;
+
+  const title = document.getElementById('admin-pub-title')?.value.trim();
+  const authors = document.getElementById('admin-pub-authors')?.value.trim();
+  const year = document.getElementById('admin-pub-year')?.value.trim();
+  const venue = document.getElementById('admin-pub-venue')?.value.trim();
+  const preset = document.getElementById('admin-pub-badge-preset')?.value;
+  const custom = document.getElementById('admin-pub-badge-custom')?.value.trim();
+  const category = document.getElementById('admin-pub-category')?.value;
+  const abstract = document.getElementById('admin-pub-abstract')?.value.trim();
+  const doi = document.getElementById('admin-pub-doi')?.value.trim();
+  const osf = document.getElementById('admin-pub-osf')?.value.trim();
+  const scholar = document.getElementById('admin-pub-scholar')?.value.trim();
+  const orcid = document.getElementById('admin-pub-orcid')?.value.trim();
+
+  if (!title || !authors || !year || !venue || !abstract) {
+    return showToast('Please fill all required publication fields (*).', 'error');
+  }
+
+  const status = (preset === '__custom__') ? (custom || 'MANUSCRIPT READY') : preset;
+
+  // Determine categories & filter mapping
+  let categories = ['ongoing'];
+  let filter = 'ongoing';
+
+  if (category.includes('Articles')) {
+    categories = ['articles'];
+    filter = 'articles';
+  } else if (category.includes('Conference')) {
+    categories = ['conference'];
+    filter = 'conference';
+  } else if (category.includes('OSF')) {
+    categories = ['osf', 'ongoing'];
+    filter = 'osf';
+  } else {
+    categories = ['ongoing'];
+    filter = 'ongoing';
+  }
+
+  const existingPub = (currentEditingPubIndex >= 0 && currentEditingPubIndex < pubs.length) ? pubs[currentEditingPubIndex] : null;
+
+  const updatedPub = {
+    id: existingPub?.id || ('pub-' + (pubs.length + 1)),
+    title,
+    authors,
+    year,
+    venue,
+    status,
+    category,
+    categories,
+    filter,
+    abstract,
+    doi: doi ? (doi.replace(/^https?:\/\/doi\.org\//i, '')) : (existingPub?.doi || ''),
+    doiUrl: doi || '',
+    osfUrl: osf || '',
+    scholarUrl: scholar || '',
+    orcidUrl: orcid || ''
+  };
+
+  if (existingPub && currentEditingPubIndex >= 0 && currentEditingPubIndex < pubs.length) {
+    // STRICT IN-PLACE REPLACEMENT: preserve exact array index
+    pubs[currentEditingPubIndex] = updatedPub;
+    showToast(`Publication #${currentEditingPubIndex + 1} updated in-place! Click "Save & Publish" to push to GitHub.`, 'success');
+  } else {
+    pubs.push(updatedPub);
+    currentEditingPubIndex = pubs.length - 1;
+    showToast(`New publication #${pubs.length} added! Click "Save & Publish" to push to GitHub.`, 'success');
+  }
+
+  renderPublications();
+  populateAdminPubsManager();
+  populateAdminForms();
+}
 
 function populateAdminProjectsManager() {
   const select = document.getElementById('admin-proj-select');

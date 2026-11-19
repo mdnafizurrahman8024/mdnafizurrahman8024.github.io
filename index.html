@@ -23,7 +23,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-  <link rel="stylesheet" href="css/style.css?v=24">
+  <link rel="stylesheet" href="css/style.css?v=26">
 
   <script>
     (function() {
@@ -257,7 +257,7 @@
 
       <!-- 8. PUBLICATIONS & MANUSCRIPTS (LIVE SEARCH + FILTER TABS) -->
       <section class="feed-card" id="publications-sec">
-        <div class="card-header-row">
+        <div class="card-header-row pub-header-row">
           <div class="card-title-group">
             <div class="card-icon-badge"><i class="fa-solid fa-newspaper"></i></div>
             <div>
@@ -265,21 +265,20 @@
               <div class="card-subheading">Registered protocols, journal articles, and conference proceedings</div>
             </div>
           </div>
+          <!-- Compact Sleek Search Input -->
+          <div class="pub-compact-search-wrapper">
+            <i class="fa-solid fa-magnifying-glass pub-search-icon"></i>
+            <input type="text" id="pub-search-input" class="pub-compact-search-input" placeholder="Search title, author, or DOI...">
+          </div>
         </div>
 
-        <!-- Live Search Toolbar + Filter Pills -->
-        <div class="pub-toolbar">
-          <div class="pub-search-wrapper">
-            <i class="fa-solid fa-magnifying-glass pub-search-icon"></i>
-            <input type="text" id="pub-search-input" class="pub-search-input" placeholder="Search title, topic, author, or DOI...">
-          </div>
-          <div class="pub-filter-pills">
-            <button class="pub-filter-btn active" data-filter="all">All Manuscripts</button>
-            <button class="pub-filter-btn" data-filter="articles">Research Articles (Published/Accepted)</button>
-            <button class="pub-filter-btn" data-filter="conference">Conference Papers</button>
-            <button class="pub-filter-btn" data-filter="osf">OSF Registration</button>
-            <button class="pub-filter-btn" data-filter="ongoing">Ongoing Research / Projects</button>
-          </div>
+        <!-- 5 Academic Filter Pills (Single clean horizontal row directly below header) -->
+        <div class="pub-filter-pills-row">
+          <button class="pub-filter-btn active" data-filter="all">All Manuscripts</button>
+          <button class="pub-filter-btn" data-filter="articles">Research Articles (Published/Accepted)</button>
+          <button class="pub-filter-btn" data-filter="conference">Conference Papers</button>
+          <button class="pub-filter-btn" data-filter="osf">OSF Registration</button>
+          <button class="pub-filter-btn" data-filter="ongoing">Ongoing Research / Projects</button>
         </div>
 
         <div class="pub-entries-list" id="publications-entries-container"></div>
@@ -589,7 +588,10 @@
 
         <!-- Manager Tabs -->
         <div class="admin-tabs-nav">
-          <button type="button" class="admin-tab-nav-btn active" id="admin-nav-btn-projects" onclick="switchAdminTab('projects')">
+          <button type="button" class="admin-tab-nav-btn active" id="admin-nav-btn-pubs" onclick="switchAdminTab('pubs')">
+            <i class="fa-solid fa-newspaper"></i> Publications
+          </button>
+          <button type="button" class="admin-tab-nav-btn" id="admin-nav-btn-projects" onclick="switchAdminTab('projects')">
             <i class="fa-solid fa-folder-tree"></i> Projects
           </button>
           <button type="button" class="admin-tab-nav-btn" id="admin-nav-btn-certs" onclick="switchAdminTab('certs')">
@@ -600,8 +602,119 @@
           </button>
         </div>
 
+        <!-- TAB 0: PUBLICATIONS & MANUSCRIPTS CMS -->
+        <div class="admin-tab-pane active" id="admin-pane-pubs">
+          <!-- Reordering & Serial Order Management -->
+          <div style="background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: 8px; padding: 1rem; margin-bottom: 1rem;">
+            <h5 style="font-size: 0.88rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text-primary); display: flex; align-items: center; justify-content: space-between;">
+              <span><i class="fa-solid fa-sort" style="color: var(--primary);"></i> Serial Order &amp; Reordering</span>
+              <span style="font-size: 0.72rem; color: var(--text-muted); font-weight: 500;">Drag or use &uarr;&darr; buttons</span>
+            </h5>
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.75rem;">
+              Items #1, #2, and #3 are featured in the default view on page load.
+            </div>
+            <div id="admin-pubs-reorder-list" class="admin-reorder-list"></div>
+          </div>
+
+          <!-- Add / Edit Publication Form -->
+          <div style="background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: 8px; padding: 1rem;">
+            <h5 style="font-size: 0.88rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--text-primary); display: flex; align-items: center; justify-content: space-between;">
+              <span><i class="fa-solid fa-file-pen" style="color: var(--primary);"></i> Metadata &amp; Multi-Link Editor</span>
+              <select id="admin-pub-select" style="font-size: 0.75rem; padding: 0.25rem 0.5rem; border-radius: 6px; background: var(--bg-secondary); border: 1px solid var(--border-color); color: var(--text-primary); max-width: 180px;">
+                <option value="__new__">+ Add New Publication</option>
+              </select>
+            </h5>
+
+            <form id="admin-pub-form" style="display: flex; flex-direction: column; gap: 0.65rem;">
+              <div>
+                <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Paper / Manuscript Title *</label>
+                <input type="text" id="admin-pub-title" placeholder="Full paper or study title" required style="width: 100%; padding: 0.45rem; font-size: 0.8rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);">
+              </div>
+
+              <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 0.5rem;">
+                <div>
+                  <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Authors &amp; Contribution *</label>
+                  <input type="text" id="admin-pub-authors" placeholder="e.g. Md. Nafizur Rahman (1st Author) et al." required style="width: 100%; padding: 0.45rem; font-size: 0.8rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);">
+                </div>
+                <div>
+                  <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Year / Date *</label>
+                  <input type="text" id="admin-pub-year" placeholder="e.g. 2026" required style="width: 100%; padding: 0.45rem; font-size: 0.8rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);">
+                </div>
+              </div>
+
+              <div>
+                <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Journal / Conference / Venue *</label>
+                <input type="text" id="admin-pub-venue" placeholder="e.g. Journal of Advanced Veterinary and Animal Research (JAVAR)" required style="width: 100%; padding: 0.45rem; font-size: 0.8rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);">
+              </div>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+                <div>
+                  <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Left Status Badge *</label>
+                  <select id="admin-pub-badge-preset" style="width: 100%; padding: 0.45rem; font-size: 0.8rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);">
+                    <option value="ACCEPTED">ACCEPTED</option>
+                    <option value="PUBLISHED">PUBLISHED</option>
+                    <option value="SUBMITTED / UNDER REVIEW">SUBMITTED / UNDER REVIEW</option>
+                    <option value="MANUSCRIPT READY">MANUSCRIPT READY</option>
+                    <option value="DATA ANALYSIS">DATA ANALYSIS</option>
+                    <option value="ONGOING FIELDWORK">ONGOING FIELDWORK</option>
+                    <option value="CONFERENCE PAPER (1ST AUTHOR)">CONFERENCE PAPER (1ST AUTHOR)</option>
+                    <option value="CONFERENCE PAPER (CO-AUTHOR)">CONFERENCE PAPER (CO-AUTHOR)</option>
+                    <option value="__custom__">Custom Text...</option>
+                  </select>
+                  <input type="text" id="admin-pub-badge-custom" placeholder="Type custom badge text" style="display: none; width: 100%; margin-top: 0.25rem; padding: 0.4rem; font-size: 0.78rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);">
+                </div>
+                <div>
+                  <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Filter Category *</label>
+                  <select id="admin-pub-category" style="width: 100%; padding: 0.45rem; font-size: 0.8rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);">
+                    <option value="Research Articles (Published/Accepted)">Research Articles (Published/Accepted)</option>
+                    <option value="Conference Papers">Conference Papers</option>
+                    <option value="OSF Registration">OSF Registration</option>
+                    <option value="Ongoing Research / Projects">Ongoing Research / Projects</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Brief / Summary (Abstract) *</label>
+                <textarea id="admin-pub-abstract" rows="3" placeholder="Summary of study methods, cohort size, and epidemiological findings..." required style="width: 100%; padding: 0.45rem; font-size: 0.8rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary); resize: vertical;"></textarea>
+              </div>
+
+              <!-- Optional Academic Link Pills -->
+              <div style="border-top: 1px dashed var(--border-color); padding-top: 0.5rem; margin-top: 0.2rem;">
+                <label style="font-size: 0.75rem; font-weight: 700; display: block; margin-bottom: 0.35rem; color: var(--text-primary);">
+                  <i class="fa-solid fa-link" style="color: var(--primary);"></i> Academic Link Pills (Optional — rendered on card top-right)
+                </label>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+                  <div>
+                    <label style="font-size: 0.7rem; color: var(--text-muted); display: block; margin-bottom: 0.15rem;">DOI URL</label>
+                    <input type="url" id="admin-pub-doi" placeholder="https://doi.org/..." style="width: 100%; padding: 0.4rem; font-size: 0.78rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);">
+                  </div>
+                  <div>
+                    <label style="font-size: 0.7rem; color: var(--text-muted); display: block; margin-bottom: 0.15rem;">OSF URL</label>
+                    <input type="url" id="admin-pub-osf" placeholder="https://doi.org/10.17605/OSF.IO/..." style="width: 100%; padding: 0.4rem; font-size: 0.78rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);">
+                  </div>
+                  <div>
+                    <label style="font-size: 0.7rem; color: var(--text-muted); display: block; margin-bottom: 0.15rem;">Google Scholar URL</label>
+                    <input type="url" id="admin-pub-scholar" placeholder="https://scholar.google.com/..." style="width: 100%; padding: 0.4rem; font-size: 0.78rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);">
+                  </div>
+                  <div>
+                    <label style="font-size: 0.7rem; color: var(--text-muted); display: block; margin-bottom: 0.15rem;">ORCID / Preprint URL</label>
+                    <input type="url" id="admin-pub-orcid" placeholder="https://orcid.org/... or preprint URL" style="width: 100%; padding: 0.4rem; font-size: 0.78rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);">
+                  </div>
+                </div>
+              </div>
+
+              <div style="display: flex; justify-content: flex-end; gap: 0.5rem; margin-top: 0.4rem;">
+                <button type="submit" style="padding: 0.5rem 1rem; border-radius: 6px; background: var(--primary); color: #fff; font-size: 0.8rem; font-weight: 600; border: none; cursor: pointer;">
+                  <i class="fa-solid fa-check"></i> Save Publication In-Place
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
         <!-- TAB 1: PROJECTS CMS -->
-        <div class="admin-tab-pane active" id="admin-pane-projects">
+        <div class="admin-tab-pane" id="admin-pane-projects">
           <div style="background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: 8px; padding: 1rem;">
             <h5 style="font-size: 0.88rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--text-primary); display: flex; align-items: center; justify-content: space-between;">
               <span><i class="fa-solid fa-laptop-code" style="color: #6366f1;"></i> Project Content &amp; Image Manager</span>
@@ -772,6 +885,6 @@
   </aside>
 
   <!-- Core App Logic -->
-  <script src="js/app.js?v=24"></script>
+  <script src="js/app.js?v=26"></script>
 </body>
 </html>
