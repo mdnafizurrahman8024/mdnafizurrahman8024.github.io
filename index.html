@@ -23,7 +23,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-  <link rel="stylesheet" href="css/style.css?v=31">
+  <link rel="stylesheet" href="css/style.css?v=32">
 
   <script>
     (function() {
@@ -56,7 +56,7 @@
           <li><a href="#updates-sec" class="nav-pill">Updates</a></li>
           <li><a href="#research-sec" class="nav-pill">Research &amp; Appointments</a></li>
           <li><a href="#software-sec" class="nav-pill">Projects &amp; Platforms</a></li>
-          <li><a href="#skills-sec" class="nav-pill">Skills</a></li>
+          <li><a href="#skills" class="nav-pill">Skills</a></li>
           <li><a href="#publications-sec" class="nav-pill">Publications</a></li>
           <li><a href="#training-sec" class="nav-pill">Training &amp; Certs</a></li>
           <li class="nav-dropdown">
@@ -233,10 +233,26 @@
       </section>
 
       <!-- 7. TECHNICAL CAPABILITIES (2-COLUMN SPLIT CARDS) -->
-      <section class="feed-card" id="skills-sec" style="padding: 0; background: transparent; border: none; box-shadow: none;">
+      <section class="feed-card" id="skills" style="scroll-margin-top: 86px; padding: 0; background: transparent; border: none; box-shadow: none;">
+        <span id="skills-sec" style="scroll-margin-top: 86px;"></span>
+        <!-- Main Section Header Matching Scientific Projects Above -->
+        <div class="card-header-row" style="margin-bottom: 1.25rem;">
+          <div class="card-title-group">
+            <div class="card-icon-badge" style="background: rgba(20, 184, 166, 0.12); color: var(--primary);"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+            <div>
+              <span class="software-eyebrow" style="color: var(--primary);"><i class="fa-solid fa-microscope"></i> FIELD, WET-LAB &amp; COMPUTATIONAL EXPERTISE</span>
+              <h2 class="card-heading" style="margin-top: 0.2rem;">Technical Skills &amp; Core Competencies</h2>
+              <div class="card-subheading">Integrating hands-on veterinary clinical diagnostics, wet-lab &amp; field surveillance with bioinformatics, statistical modeling, and software development</div>
+            </div>
+          </div>
+        </div>
+
         <div class="capabilities-split-grid">
           <!-- Left Card: Clinical & Wet-Lab (Blue Top Accent) -->
           <div class="capability-card accent-blue">
+            <div class="cap-eyebrow">
+              <i class="fa-solid fa-flask-vial"></i> FIELD &amp; WET-LAB SKILLS
+            </div>
             <div class="cap-header">
               <i class="fa-solid fa-microscope" style="color: var(--accent-blue);"></i>
               <span>Veterinary Clinical, Wet-Lab &amp; Field</span>
@@ -246,6 +262,9 @@
 
           <!-- Right Card: Computational & Bioinformatics (Teal Top Accent) -->
           <div class="capability-card accent-teal">
+            <div class="cap-eyebrow">
+              <i class="fa-solid fa-laptop-code"></i> DATA, CODE &amp; BIOINFORMATICS SKILLS
+            </div>
             <div class="cap-header">
               <i class="fa-solid fa-laptop-code" style="color: var(--primary);"></i>
               <span>Computational &amp; Bioinformatics</span>
@@ -885,6 +904,6 @@
   </aside>
 
   <!-- Core App Logic -->
-  <script src="js/app.js?v=31"></script>
+  <script src="js/app.js?v=32"></script>
 </body>
 </html>

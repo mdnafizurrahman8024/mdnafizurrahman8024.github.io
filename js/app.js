@@ -807,7 +807,11 @@ function renderCapabilities(caps) {
   // Clinical Left Card
   const clinContainer = document.getElementById('cap-clinical-skills');
   if (clinContainer && caps.clinical?.skills) {
-    clinContainer.innerHTML = caps.clinical.skills.map(s => `
+    const clinicalSkills = caps.clinical.skills.filter(s => 
+      !s.name?.toLowerCase().includes('biofilm') && 
+      !s.desc?.toLowerCase().includes('biofilm')
+    );
+    clinContainer.innerHTML = clinicalSkills.map(s => `
       <div class="cap-skill-item">
         <div class="cap-skill-name"><i class="fa-solid fa-circle-check" style="color: var(--accent-blue); margin-right: 0.35rem;"></i> ${escapeHTML(s.name)}</div>
         <p class="cap-skill-desc">${escapeHTML(s.desc)}</p>

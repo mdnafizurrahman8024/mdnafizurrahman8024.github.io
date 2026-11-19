@@ -209,10 +209,6 @@
           "desc": "Clinical prescribing audit, owner KAP evaluation, unauthorized self-medication analysis, One Health epidemiological frameworks"
         },
         {
-          "name": "Biofilm & Environmental Microbiology",
-          "desc": "Trough bacterial biofilm scraping, water degradation assays, heavy metal bioaccumulation pathology in ruminants"
-        },
-        {
           "name": "Field Sampling & SWAN Wildlife Rescue",
           "desc": "Large-cohort synanthropic animal sampling, BG-Sentinel mosquito trapping, reptile & venomous/non-venomous snake handling with SWAN"
         }
