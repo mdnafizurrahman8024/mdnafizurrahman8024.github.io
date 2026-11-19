@@ -23,7 +23,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-  <link rel="stylesheet" href="css/style.css?v=39">
+  <link rel="stylesheet" href="css/style.css?v=40">
 
   <script>
     (function() {
@@ -62,8 +62,8 @@
           <li class="nav-dropdown" id="nav-dropdown-more">
             <a href="javascript:void(0)" class="nav-pill" id="more-dropdown-btn">More <i class="fa-solid fa-chevron-down" style="font-size: 0.7rem; margin-left: 2px;"></i></a>
             <ul class="nav-dropdown-menu" id="nav-dropdown-menu">
-              <li><a href="#gallery" class="nav-dropdown-item"><i class="fa-solid fa-images"></i> Gallery</a></li>
               <li><a href="#leadership" class="nav-dropdown-item"><i class="fa-solid fa-users"></i> Leadership</a></li>
+              <li><a href="#gallery" class="nav-dropdown-item"><i class="fa-solid fa-images"></i> Gallery</a></li>
               <li><a href="#references" class="nav-dropdown-item"><i class="fa-solid fa-user-tie"></i> References</a></li>
               <li><a href="#contact" class="nav-dropdown-item"><i class="fa-solid fa-envelope"></i> Contact Me</a></li>
             </ul>
@@ -93,8 +93,8 @@
       <a href="#skills" class="universal-nav-link header-nav-pill header-drawer-link" data-target="skills"><i class="fa-solid fa-screwdriver-wrench"></i> <span>Skills</span></a>
       <a href="#publications" class="universal-nav-link header-nav-pill header-drawer-link" data-target="publications-sec"><i class="fa-solid fa-newspaper"></i> <span>Publications</span></a>
       <a href="#training" class="universal-nav-link header-nav-pill header-drawer-link" data-target="training-sec"><i class="fa-solid fa-certificate"></i> <span>Training &amp; Certifications</span></a>
-      <a href="#gallery" class="universal-nav-link header-nav-pill header-drawer-link" data-target="gallery-sec"><i class="fa-solid fa-images"></i> <span>Gallery</span></a>
       <a href="#leadership" class="universal-nav-link header-nav-pill header-drawer-link" data-target="leadership-sec"><i class="fa-solid fa-users"></i> <span>Leadership</span></a>
+      <a href="#gallery" class="universal-nav-link header-nav-pill header-drawer-link" data-target="gallery-sec"><i class="fa-solid fa-images"></i> <span>Gallery</span></a>
       <a href="#references" class="universal-nav-link header-nav-pill header-drawer-link" data-target="references-sec"><i class="fa-solid fa-user-tie"></i> <span>References</span></a>
       <a href="#contact" class="universal-nav-link header-nav-pill header-drawer-link" data-target="contact-sec"><i class="fa-solid fa-envelope"></i> <span>Contact</span></a>
     </div>
@@ -357,7 +357,23 @@
         </div>
       </section>
 
-      <!-- 10. FIELDWORK & MEDIA GALLERY (AUTO-MOVING HORIZONTAL CAROUSEL) -->
+      <!-- 10. LEADERSHIP & EXTRA-CURRICULAR ACTIVITIES -->
+      <section class="feed-card" id="leadership-sec">
+        <span id="leadership" class="section-hash-anchor"></span>
+        <div class="card-header-row">
+          <div class="card-title-group">
+            <div class="card-icon-badge" style="background: var(--accent-blue-light); color: var(--accent-blue);"><i class="fa-solid fa-people-roof"></i></div>
+            <div>
+              <h2 class="card-heading">Leadership &amp; Extra-Curricular Activities</h2>
+              <div class="card-subheading">Research Leadership, Initiatives &amp; Student Organizations</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="leadership-list" id="leadership-list-container"></div>
+      </section>
+
+      <!-- 11. FIELDWORK & MEDIA GALLERY (AUTO-MOVING HORIZONTAL CAROUSEL) -->
       <section class="feed-card" id="gallery-sec">
         <span id="gallery" class="section-hash-anchor"></span>
         <div class="card-header-row">
@@ -385,24 +401,7 @@
         </div>
       </section>
 
-
-      <!-- 10. LEADERSHIP & EXTRA-CURRICULAR ACTIVITIES -->
-      <section class="feed-card" id="leadership-sec">
-        <span id="leadership" class="section-hash-anchor"></span>
-        <div class="card-header-row">
-          <div class="card-title-group">
-            <div class="card-icon-badge" style="background: var(--accent-blue-light); color: var(--accent-blue);"><i class="fa-solid fa-people-roof"></i></div>
-            <div>
-              <h2 class="card-heading">Leadership &amp; Extra-Curricular Activities</h2>
-              <div class="card-subheading">Research Leadership, Initiatives &amp; Student Organizations</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="leadership-list" id="leadership-list-container"></div>
-      </section>
-
-      <!-- 11. ACADEMIC REFERENCES -->
+      <!-- 12. ACADEMIC REFERENCES -->
       <section class="feed-card" id="references-sec">
         <span id="references" class="section-hash-anchor"></span>
         <div class="card-header-row">
@@ -418,7 +417,7 @@
         <div class="references-grid" id="references-grid-container"></div>
       </section>
 
-      <!-- 12. CONTACT ME (MATCHING REFERENCE DESIGN) -->
+      <!-- 13. CONTACT ME (MATCHING REFERENCE DESIGN) -->
       <section class="feed-card" id="contact-sec">
         <span id="contact" class="section-hash-anchor"></span>
         <div class="card-header-row" style="margin-bottom: 0.35rem;">
@@ -934,6 +933,6 @@
   </aside>
 
   <!-- Core App Logic -->
-  <script src="js/app.js?v=39"></script>
+  <script src="js/app.js?v=40"></script>
 </body>
 </html>
