@@ -29,6 +29,34 @@ let currentEditingPubIndex = -1;
 let draggedPubIdx = null;
 
 /**
+ * Global bulletproof modal closer for Verified Certificate & Details modals
+ */
+function closeAllModals() {
+  const modals = document.querySelectorAll('.lightbox-modal, #lightbox-modal, .project-modal-backdrop, #project-details-modal, .project-gallery-backdrop, #project-gallery-modal');
+  modals.forEach(m => {
+    if (m) {
+      m.classList.remove('active', 'open', 'show');
+      m.style.display = 'none';
+    }
+  });
+  if (typeof gallerySlideshowTimer !== 'undefined' && gallerySlideshowTimer) {
+    clearInterval(gallerySlideshowTimer);
+  }
+  if (window.projectCarouselTimer) {
+    clearInterval(window.projectCarouselTimer);
+  }
+  if (typeof currentGalleryProject !== 'undefined') currentGalleryProject = null;
+  document.body.style.overflow = '';
+}
+
+function closeCertificateModal() {
+  closeAllModals();
+}
+
+window.closeAllModals = closeAllModals;
+window.closeCertificateModal = closeCertificateModal;
+
+/**
  * Robust URI encoder for folder and image file paths.
  * Encodes spaces (%20), apostrophes (%27), and ampersands (%26) safely.
  */
@@ -1106,6 +1134,18 @@ function openTrainingDetailModal(index) {
   `;
   caption.textContent = `Issued by: ${issuer} (${t.date || ''})`;
 
+  // Attach direct close listener to close button inside modal
+  const closeBtn = document.getElementById('lightbox-close-btn') || modal.querySelector('.lightbox-close-btn');
+  if (closeBtn) {
+    closeBtn.onclick = function(e) {
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      closeAllModals();
+    };
+  }
+
   modal.style.display = 'flex';
   modal.classList.add('active', 'open', 'show');
   document.body.style.overflow = 'hidden';
@@ -1142,6 +1182,18 @@ function openCredentialsLightbox(index) {
       ` : ''}
     </div>
   `;
+
+  // Attach direct close listener to close button inside modal
+  const certCloseBtn = document.getElementById('lightbox-close-btn') || modal.querySelector('.lightbox-close-btn');
+  if (certCloseBtn) {
+    certCloseBtn.onclick = function(e) {
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      closeAllModals();
+    };
+  }
 
   modal.style.display = 'flex';
   modal.classList.add('active', 'open', 'show');
@@ -1226,6 +1278,18 @@ function openGalleryItem(index) {
     media.innerHTML = `<iframe src="${escapeHTML(item.mediaUrl)}" frameborder="0" allowfullscreen></iframe>`;
   } else {
     media.innerHTML = `<img src="${escapeHTML(item.mediaUrl)}" alt="${escapeHTML(item.title)}">`;
+  }
+
+  // Attach direct close listener to close button inside modal
+  const closeBtn = document.getElementById('lightbox-close-btn') || modal.querySelector('.lightbox-close-btn');
+  if (closeBtn) {
+    closeBtn.onclick = function(e) {
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      closeAllModals();
+    };
   }
 
   modal.style.display = 'flex';
@@ -2264,6 +2328,8 @@ function escapeHTML(s) {
   return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
 }
 
+window.closeAllModals = closeAllModals;
+window.closeCertificateModal = closeCertificateModal;
 window.openProjectDetailsModal = openProjectDetailsModal;
 window.closeProjectDetailsModal = closeProjectDetailsModal;
 window.openProjectGalleryModal = openProjectGalleryModal;
@@ -2295,39 +2361,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-function closeCertificateModal() {
-  const lbModal = document.getElementById('lightbox-modal');
-  if (lbModal) {
-    lbModal.classList.remove('active', 'open', 'show');
-    lbModal.style.display = 'none';
-    document.body.style.overflow = '';
-  }
-}
-window.closeCertificateModal = closeCertificateModal;
-
-// Reliable delegated click listener on document for closing Certificate viewer modal
-document.addEventListener('click', (e) => {
-  // 1. Check for clicks on close button (.modal-close, #close-cert-modal, #lightbox-close-btn, [data-close-modal])
-  const closeBtn = e.target.closest('.modal-close, #close-cert-modal, #lightbox-close-btn, [data-close-modal]');
-  if (closeBtn) {
-    const parentLightbox = closeBtn.closest('.lightbox-modal') || document.getElementById('lightbox-modal');
-    if (parentLightbox) {
+  // Direct click listeners to every modal close button via querySelectorAll
+  document.querySelectorAll('#lightbox-close-btn, #lightbox-modal .modal-close, #lightbox-modal .lightbox-close-btn, #lightbox-modal [data-close-modal="true"]').forEach(btn => {
+    btn.addEventListener('click', (e) => {
       e.preventDefault();
       e.stopPropagation();
-      closeCertificateModal();
-      return;
-    }
-  }
-
-  // 2. Check for click outside modal content on the dark backdrop
-  const lbModal = document.getElementById('lightbox-modal');
-  if (lbModal && (lbModal.classList.contains('active') || lbModal.style.display === 'flex')) {
-    if (e.target === lbModal) {
-      e.preventDefault();
-      closeCertificateModal();
-    }
-  }
-});
+      closeAllModals();
+    });
+  });
 
   // Direct element listener as safety fallback
   const lbClose = document.getElementById('lightbox-close-btn');
@@ -2335,14 +2376,45 @@ document.addEventListener('click', (e) => {
     lbClose.onclick = (e) => {
       e.preventDefault();
       e.stopPropagation();
-      closeCertificateModal();
+      closeAllModals();
     };
   }
+
+  // Direct backdrop click listener on #lightbox-modal
+  const lbModal = document.getElementById('lightbox-modal');
+  if (lbModal) {
+    lbModal.addEventListener('click', (e) => {
+      if (e.target === lbModal) {
+        e.preventDefault();
+        closeAllModals();
+      }
+    });
+  }
+
+  // Reliable delegated click listener on document for closing modals
+  document.addEventListener('click', (e) => {
+    // 1. Check for clicks on close button
+    const closeBtn = e.target.closest('#lightbox-close-btn, #lightbox-modal .modal-close, #lightbox-modal .lightbox-close-btn, #lightbox-modal [data-close-modal], #close-cert-modal');
+    if (closeBtn) {
+      e.preventDefault();
+      e.stopPropagation();
+      closeAllModals();
+      return;
+    }
+
+    // 2. Check for click outside modal content on the dark backdrop
+    if (lbModal && (lbModal.classList.contains('active') || lbModal.classList.contains('open') || lbModal.classList.contains('show') || lbModal.style.display === 'flex')) {
+      if (e.target === lbModal) {
+        e.preventDefault();
+        closeAllModals();
+      }
+    }
+  });
 
   // Escape key listener closing all open modals
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
-      closeCertificateModal();
+      closeAllModals();
       closeProjectDetailsModal();
       closeProjectGalleryModal();
       closeAdminDrawer();

@@ -3162,24 +3162,33 @@ button, input, textarea, select {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 1rem;
   padding: 1.25rem 1.5rem;
   border-bottom: 1px solid var(--border-color);
+  position: relative;
+  z-index: 10;
 }
 
 .lightbox-title {
   font-size: 1.2rem;
   font-weight: 700;
+  min-width: 0;
+  word-break: break-word;
 }
 
 .lightbox-close-btn,
 .modal-close,
-#close-cert-modal {
+#close-cert-modal,
+#lightbox-close-btn {
   position: relative;
-  z-index: 10010;
+  z-index: 99999;
   pointer-events: auto;
   cursor: pointer;
-  width: 34px;
-  height: 34px;
+  min-width: 36px;
+  min-height: 36px;
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -3193,7 +3202,8 @@ button, input, textarea, select {
 
 .lightbox-close-btn:hover,
 .modal-close:hover,
-#close-cert-modal:hover {
+#close-cert-modal:hover,
+#lightbox-close-btn:hover {
   color: var(--primary);
   background: var(--bg-hover, rgba(255, 255, 255, 0.08));
 }

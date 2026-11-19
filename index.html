@@ -23,7 +23,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-  <link rel="stylesheet" href="css/style.css?v=29">
+  <link rel="stylesheet" href="css/style.css?v=30">
 
   <script>
     (function() {
@@ -456,7 +456,7 @@
     <div class="lightbox-container">
       <div class="lightbox-header">
         <h3 class="lightbox-title" id="lightbox-title">Media Detail</h3>
-        <button class="lightbox-close-btn modal-close" id="lightbox-close-btn" data-close-modal="true" onclick="closeCertificateModal()" title="Close Modal (Esc)" aria-label="Close modal">&times;</button>
+        <button class="lightbox-close-btn modal-close" id="lightbox-close-btn" data-close-modal="true" onclick="closeAllModals()" style="position: relative; z-index: 99999; pointer-events: auto; cursor: pointer; min-width: 36px; min-height: 36px; display: inline-flex; align-items: center; justify-content: center;" title="Close Modal (Esc)" aria-label="Close modal">&times;</button>
       </div>
       <div class="lightbox-body">
         <div class="lightbox-media-container" id="lightbox-media-container"></div>
@@ -885,6 +885,6 @@
   </aside>
 
   <!-- Core App Logic -->
-  <script src="js/app.js?v=29"></script>
+  <script src="js/app.js?v=30"></script>
 </body>
 </html>
