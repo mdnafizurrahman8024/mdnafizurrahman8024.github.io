@@ -23,7 +23,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-  <link rel="stylesheet" href="css/style.css?v=21">
+  <link rel="stylesheet" href="css/style.css?v=24">
 
   <script>
     (function() {
@@ -275,13 +275,21 @@
           </div>
           <div class="pub-filter-pills">
             <button class="pub-filter-btn active" data-filter="all">All Manuscripts</button>
-            <button class="pub-filter-btn" data-filter="osf">OSF Registered</button>
-            <button class="pub-filter-btn" data-filter="accepted">Published / Accepted</button>
-            <button class="pub-filter-btn" data-filter="ongoing">Ongoing</button>
+            <button class="pub-filter-btn" data-filter="articles">Research Articles (Published/Accepted)</button>
+            <button class="pub-filter-btn" data-filter="conference">Conference Papers</button>
+            <button class="pub-filter-btn" data-filter="osf">OSF Registration</button>
+            <button class="pub-filter-btn" data-filter="ongoing">Ongoing Research / Projects</button>
           </div>
         </div>
 
         <div class="pub-entries-list" id="publications-entries-container"></div>
+
+        <!-- Centered See All Publications & Manuscripts / Show Less Toggle Button -->
+        <div style="text-align: center; margin: 1.25rem 0 0.5rem 0;" id="publications-expand-wrap">
+          <button class="timeline-expand-btn" id="publications-expand-btn">
+            <i class="fa-solid fa-chevron-down"></i> See All Publications &amp; Manuscripts
+          </button>
+        </div>
       </section>
 
       <!-- 9. TRAINING & CERTIFICATIONS (4-COLUMN GRID WITH PRIORITIZED CERTIFICATES + MODALS) -->
@@ -764,6 +772,6 @@
   </aside>
 
   <!-- Core App Logic -->
-  <script src="js/app.js?v=21"></script>
+  <script src="js/app.js?v=24"></script>
 </body>
 </html>

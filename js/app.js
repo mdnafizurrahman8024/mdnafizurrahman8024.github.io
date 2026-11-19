@@ -15,6 +15,7 @@ let currentSoftwareFilter = 'all';
 let isTimelineExpanded = false;
 let isCertificatesExpanded = false;
 let isSoftwareExpanded = false;
+let isPublicationsExpanded = false;
 let stagedFileUploads = [];
 
 // Project Modals & Gallery State
@@ -778,23 +779,32 @@ function renderPublications() {
 
   let pubs = window.portfolioData.publications;
 
-  // 1. Filter by status pill
+  // 1. Filter by category / filter pill
   if (currentPubFilter !== 'all') {
-    pubs = pubs.filter(p => p.filter === currentPubFilter);
+    pubs = pubs.filter(p => {
+      if (Array.isArray(p.categories) && p.categories.includes(currentPubFilter)) return true;
+      if (p.filter === currentPubFilter) return true;
+      if (Array.isArray(p.filter) && p.filter.includes(currentPubFilter)) return true;
+      return false;
+    });
   }
 
   // 2. Real-time keyword search
   if (currentPubSearch.trim()) {
     const q = currentPubSearch.toLowerCase().trim();
     pubs = pubs.filter(p => 
-      p.title.toLowerCase().includes(q) ||
+      (p.title && p.title.toLowerCase().includes(q)) ||
       (p.authors && p.authors.toLowerCase().includes(q)) ||
       (p.venue && p.venue.toLowerCase().includes(q)) ||
       (p.status && p.status.toLowerCase().includes(q)) ||
+      (p.category && p.category.toLowerCase().includes(q)) ||
       (p.doi && p.doi.toLowerCase().includes(q)) ||
       (p.abstract && p.abstract.toLowerCase().includes(q))
     );
   }
+
+  const expandWrap = document.getElementById('publications-expand-wrap');
+  const expandBtn = document.getElementById('publications-expand-btn');
 
   if (pubs.length === 0) {
     container.innerHTML = `
@@ -803,10 +813,34 @@ function renderPublications() {
         No matching publications found. Try adjusting your search query or filters.
       </div>
     `;
+    if (expandWrap) expandWrap.style.display = 'none';
     return;
   }
 
-  container.innerHTML = pubs.map(p => `
+  // Top 3 items visible initially, full list when expanded
+  const displayList = isPublicationsExpanded ? pubs : pubs.slice(0, 3);
+
+  // Manage See All Publications & Manuscripts / Show Less toggle button
+  if (expandWrap && expandBtn) {
+    if (pubs.length > 3) {
+      expandWrap.style.display = 'block';
+      expandBtn.innerHTML = isPublicationsExpanded
+        ? '<i class="fa-solid fa-chevron-up"></i> Show Less'
+        : '<i class="fa-solid fa-chevron-down"></i> See All Publications &amp; Manuscripts';
+      expandBtn.onclick = () => {
+        isPublicationsExpanded = !isPublicationsExpanded;
+        renderPublications();
+        if (!isPublicationsExpanded) {
+          const sec = document.getElementById('publications-sec');
+          if (sec) sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      };
+    } else {
+      expandWrap.style.display = 'none';
+    }
+  }
+
+  container.innerHTML = displayList.map(p => `
     <div class="pub-entry-card">
       <div class="pub-year-col">
         <div class="pub-year-badge">${escapeHTML(p.year)}</div>
@@ -818,7 +852,7 @@ function renderPublications() {
           <div class="pub-badges-group">
             ${p.doiUrl ? `
               <a href="${escapeHTML(p.doiUrl)}" target="_blank" rel="noopener noreferrer" class="badge-doi">
-                <i class="fa-solid ${p.doiUrl.includes('osf.io') || p.filter === 'osf' ? 'fa-dna' : 'fa-fingerprint'}"></i> ${p.doiUrl.includes('osf.io') || p.filter === 'osf' ? 'OSF (DOI)' : 'DOI'}
+                <i class="fa-solid ${p.doiUrl.includes('osf.io') || (Array.isArray(p.categories) ? p.categories.includes('osf') : p.filter === 'osf') ? 'fa-dna' : 'fa-fingerprint'}"></i> ${p.doiUrl.includes('osf.io') || (Array.isArray(p.categories) ? p.categories.includes('osf') : p.filter === 'osf') ? 'OSF (DOI)' : 'DOI'}
               </a>
             ` : ''}
             ${p.scholarUrl ? `
@@ -851,6 +885,7 @@ function initPubSearchAndFilters() {
       filterBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       currentPubFilter = btn.getAttribute('data-filter') || 'all';
+      isPublicationsExpanded = false;
       renderPublications();
     });
   });
