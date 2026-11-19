@@ -52,6 +52,9 @@ window.clearProjectTimer = clearProjectTimer;
  * Global bulletproof modal closer for Verified Certificate & Details modals
  */
 function closeAllModals() {
+  if (typeof window.closeHeaderNavDrawer === 'function') {
+    window.closeHeaderNavDrawer();
+  }
   const modals = document.querySelectorAll('.lightbox-modal, #lightbox-modal, .project-modal-backdrop, #project-details-modal, .project-gallery-backdrop, #project-gallery-modal');
   modals.forEach(m => {
     if (m) {
@@ -154,7 +157,7 @@ function renderAll() {
 function renderTopNavbar(p) {
   if (!p) return;
   const avatar = document.getElementById('nav-avatar');
-  if (avatar) avatar.src = p.avatar || 'ZUN.png';
+  if (avatar) avatar.src = p.navAvatar || 'Image-2.png';
   const name = document.getElementById('nav-name');
   if (name) name.textContent = p.name;
 }
@@ -2343,6 +2346,86 @@ window.openProjectModal = openProjectDetailsModal;
 window.closeProjectModal = closeProjectDetailsModal;
 window.setCarouselSlide = setGallerySlide;
 
+/* --------------------------------------------------------------------------
+   Header Navigation Drawer (3-Bar Toggle Menu Directly Beneath Navbar)
+   -------------------------------------------------------------------------- */
+function initHeaderNavDrawer() {
+  const toggleBtn = document.getElementById('header-nav-toggle') || document.getElementById('mobile-menu-btn');
+  const drawer = document.getElementById('header-nav-drawer');
+  const icon = document.getElementById('header-nav-icon') || (toggleBtn ? toggleBtn.querySelector('i') : null);
+
+  if (!toggleBtn || !drawer) return;
+
+  function openDrawer() {
+    drawer.classList.add('open', 'active');
+    toggleBtn.classList.add('active');
+    toggleBtn.setAttribute('aria-expanded', 'true');
+    if (icon) {
+      icon.className = 'fa-solid fa-xmark';
+    }
+  }
+
+  function closeDrawer() {
+    drawer.classList.remove('open', 'active');
+    toggleBtn.classList.remove('active');
+    toggleBtn.setAttribute('aria-expanded', 'false');
+    if (icon) {
+      icon.className = 'fa-solid fa-bars';
+    }
+  }
+
+  window.closeHeaderNavDrawer = closeDrawer;
+  window.openHeaderNavDrawer = openDrawer;
+
+  toggleBtn.onclick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (drawer.classList.contains('open') || drawer.classList.contains('active')) {
+      closeDrawer();
+    } else {
+      openDrawer();
+    }
+  };
+
+  // Smooth scroll and auto-close on link click
+  drawer.querySelectorAll('.header-drawer-link, a').forEach(link => {
+    link.addEventListener('click', (e) => {
+      const href = link.getAttribute('href');
+      if (href && href.startsWith('#')) {
+        const target = document.querySelector(href);
+        if (target) {
+          e.preventDefault();
+          closeDrawer();
+          const navHeight = 75;
+          const targetPos = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
+          window.scrollTo({
+            top: targetPos > 0 ? targetPos : 0,
+            behavior: 'smooth'
+          });
+          if (history.pushState) {
+            history.pushState(null, null, href);
+          } else {
+            location.hash = href;
+          }
+          return;
+        }
+      }
+      closeDrawer();
+    });
+  });
+
+  // Auto-close on click outside
+  document.addEventListener('click', (e) => {
+    if (drawer.classList.contains('open') || drawer.classList.contains('active')) {
+      if (!drawer.contains(e.target) && !toggleBtn.contains(e.target)) {
+        closeDrawer();
+      }
+    }
+  });
+}
+
+window.initHeaderNavDrawer = initHeaderNavDrawer;
+
 document.addEventListener('DOMContentLoaded', () => {
   initTheme();
   loadData();
@@ -2352,16 +2435,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initGalleryFilters();
   initContactForm();
   initAdminPortal();
-
-  // Mobile menu
-  const mBtn = document.getElementById('mobile-menu-btn');
-  const mMenu = document.getElementById('nav-menu');
-  if (mBtn && mMenu) {
-    mBtn.onclick = () => mMenu.classList.toggle('active');
-    document.querySelectorAll('.nav-pill').forEach(l => {
-      l.addEventListener('click', () => mMenu.classList.remove('active'));
-    });
-  }
+  initHeaderNavDrawer();
 
   // Direct click listeners to every modal close button via querySelectorAll
   document.querySelectorAll('#lightbox-close-btn, #lightbox-modal .modal-close, #lightbox-modal .lightbox-close-btn, #lightbox-modal [data-close-modal="true"]').forEach(btn => {
@@ -2416,6 +2490,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // Escape key listener closing all open modals
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
+      if (typeof window.closeHeaderNavDrawer === 'function') {
+        window.closeHeaderNavDrawer();
+      }
       closeAllModals();
       closeProjectDetailsModal();
       closeProjectGalleryModal();
