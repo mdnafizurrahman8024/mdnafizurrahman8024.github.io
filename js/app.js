@@ -23,10 +23,30 @@ let currentActiveProject = null;
 let currentGalleryProject = null;
 let currentGallerySlideIdx = 0;
 let gallerySlideshowTimer = null;
+window.projectModalTimer = null;
 let currentAdminTab = 'pubs';
 let currentEditingProject = null;
 let currentEditingPubIndex = -1;
 let draggedPubIdx = null;
+
+/**
+ * Clean timer reset function to prevent stacked slideshow intervals
+ */
+function clearProjectTimer() {
+  if (window.projectModalTimer) {
+    clearInterval(window.projectModalTimer);
+    window.projectModalTimer = null;
+  }
+  if (typeof gallerySlideshowTimer !== 'undefined' && gallerySlideshowTimer) {
+    clearInterval(gallerySlideshowTimer);
+    gallerySlideshowTimer = null;
+  }
+  if (window.projectCarouselTimer) {
+    clearInterval(window.projectCarouselTimer);
+    window.projectCarouselTimer = null;
+  }
+}
+window.clearProjectTimer = clearProjectTimer;
 
 /**
  * Global bulletproof modal closer for Verified Certificate & Details modals
@@ -39,12 +59,7 @@ function closeAllModals() {
       m.style.display = 'none';
     }
   });
-  if (typeof gallerySlideshowTimer !== 'undefined' && gallerySlideshowTimer) {
-    clearInterval(gallerySlideshowTimer);
-  }
-  if (window.projectCarouselTimer) {
-    clearInterval(window.projectCarouselTimer);
-  }
+  clearProjectTimer();
   if (typeof currentGalleryProject !== 'undefined') currentGalleryProject = null;
   document.body.style.overflow = '';
 }
@@ -604,8 +619,7 @@ function openProjectDetailsModal(projectId, e) {
 }
 
 function closeProjectDetailsModal() {
-  clearInterval(gallerySlideshowTimer);
-  if (window.projectCarouselTimer) clearInterval(window.projectCarouselTimer);
+  clearProjectTimer();
   const modal = document.getElementById('project-details-modal');
   if (modal) {
     modal.classList.remove('active');
@@ -638,19 +652,8 @@ function openProjectGalleryModal(projectId, e) {
   const prevBtn = document.getElementById('project-gallery-prev');
   const nextBtn = document.getElementById('project-gallery-next');
   const galleryWrap = document.getElementById('project-gallery-wrap');
-  const track = document.getElementById('project-carousel-track');
 
   if (titleEl) titleEl.textContent = `${project.name || project.title} — Screenshots`;
-
-  // Render slides in sliding track
-  if (track) {
-    track.innerHTML = images.map((img, i) => `
-      <div class="project-carousel-slide">
-        <img src="${formatImagePath(img)}" alt="${escapeHTML(project.name || 'Project')} screenshot ${i + 1}" class="project-gallery-slide-img" loading="lazy">
-      </div>
-    `).join('');
-    track.style.transform = 'translateX(0%)';
-  }
 
   // Render clickable thumbnail strip
   if (thumbsContainer) {
@@ -678,18 +681,14 @@ function openProjectGalleryModal(projectId, e) {
   // Set initial slide
   setGallerySlide(0);
 
-  // Auto-advance slideshow with smooth horizontal slide transition every 4.5 seconds (4500ms)
-  clearInterval(gallerySlideshowTimer);
-  if (window.projectCarouselTimer) clearInterval(window.projectCarouselTimer);
+  // Auto-advance slideshow with safe timer management at clean 3000ms (3 seconds)
+  clearProjectTimer();
   if (images.length > 1) {
     startGallerySlideshow(images.length);
 
-    // Pause smoothly on hover, resume on mouse leave
+    // Pause cleanly on hover, resume on mouse leave
     if (galleryWrap) {
-      galleryWrap.onmouseenter = () => {
-        clearInterval(gallerySlideshowTimer);
-        if (window.projectCarouselTimer) clearInterval(window.projectCarouselTimer);
-      };
+      galleryWrap.onmouseenter = () => clearProjectTimer();
       galleryWrap.onmouseleave = () => startGallerySlideshow(images.length);
     }
   }
@@ -706,11 +705,10 @@ function handleGalleryThumbClick(i) {
 window.handleGalleryThumbClick = handleGalleryThumbClick;
 
 function startGallerySlideshow(total) {
-  clearInterval(gallerySlideshowTimer);
-  if (window.projectCarouselTimer) clearInterval(window.projectCarouselTimer);
-  window.projectCarouselTimer = gallerySlideshowTimer = setInterval(() => {
+  clearProjectTimer();
+  window.projectModalTimer = gallerySlideshowTimer = setInterval(() => {
     setGallerySlide(currentGallerySlideIdx + 1);
-  }, 4500);
+  }, 3000);
 }
 
 function setGallerySlide(idx, fromUserAction = false) {
@@ -718,7 +716,7 @@ function setGallerySlide(idx, fromUserAction = false) {
   const images = currentGalleryProject.images;
   currentGallerySlideIdx = (idx + images.length) % images.length;
   
-  const track = document.getElementById('project-carousel-track');
+  const mainImg = document.getElementById('project-gallery-main-img');
   const counter = document.getElementById('project-gallery-counter');
   const zoomBtn = document.getElementById('project-gallery-zoom');
   const thumbsContainer = document.getElementById('project-gallery-thumbs');
@@ -726,8 +724,9 @@ function setGallerySlide(idx, fromUserAction = false) {
   const curImg = images[currentGallerySlideIdx];
   const encoded = formatImagePath(curImg);
 
-  if (track) {
-    track.style.transform = `translateX(-${currentGallerySlideIdx * 100}%)`;
+  if (mainImg) {
+    mainImg.src = encoded;
+    mainImg.alt = `${currentGalleryProject.name || 'Project'} screenshot ${currentGallerySlideIdx + 1}`;
   }
   if (counter) {
     counter.textContent = `${currentGallerySlideIdx + 1} / ${images.length}`;
@@ -748,15 +747,14 @@ function setGallerySlide(idx, fromUserAction = false) {
     });
   }
 
-  // Smoothly reset slideshow timer when triggered by user interaction (arrow / thumb click)
+  // Reset 3000ms slideshow timer cleanly when triggered by user interaction (arrow / thumb click)
   if (fromUserAction && images.length > 1) {
     startGallerySlideshow(images.length);
   }
 }
 
 function closeProjectGalleryModal() {
-  clearInterval(gallerySlideshowTimer);
-  if (window.projectCarouselTimer) clearInterval(window.projectCarouselTimer);
+  clearProjectTimer();
   const modal = document.getElementById('project-gallery-modal');
   if (modal) {
     modal.classList.remove('active');
@@ -792,8 +790,8 @@ function initProjectModals() {
   document.addEventListener('keydown', (e) => {
     if (galleryModal && galleryModal.classList.contains('active')) {
       if (e.key === 'Escape') closeProjectGalleryModal();
-      else if (e.key === 'ArrowLeft') setGallerySlide(currentGallerySlideIdx - 1);
-      else if (e.key === 'ArrowRight') setGallerySlide(currentGallerySlideIdx + 1);
+      else if (e.key === 'ArrowLeft') setGallerySlide(currentGallerySlideIdx - 1, true);
+      else if (e.key === 'ArrowRight') setGallerySlide(currentGallerySlideIdx + 1, true);
     } else if (detailsModal && detailsModal.classList.contains('active')) {
       if (e.key === 'Escape') closeProjectDetailsModal();
     }
