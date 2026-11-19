@@ -52,6 +52,9 @@ window.clearProjectTimer = clearProjectTimer;
  * Global bulletproof modal closer for Verified Certificate & Details modals
  */
 function closeAllModals() {
+  if (typeof window.closeHeaderNavPanel === 'function') {
+    window.closeHeaderNavPanel();
+  }
   if (typeof window.closeHeaderNavDrawer === 'function') {
     window.closeHeaderNavDrawer();
   }
@@ -2347,17 +2350,18 @@ window.closeProjectModal = closeProjectDetailsModal;
 window.setCarouselSlide = setGallerySlide;
 
 /* --------------------------------------------------------------------------
-   Header Navigation Drawer (3-Bar Toggle Menu Directly Beneath Navbar)
+   Header Navigation Panel (3-Bar Toggle Menu Directly Beneath Sticky Header)
    -------------------------------------------------------------------------- */
-function initHeaderNavDrawer() {
+function initHeaderNavPanel() {
   const toggleBtn = document.getElementById('header-nav-toggle') || document.getElementById('mobile-menu-btn');
-  const drawer = document.getElementById('header-nav-drawer');
+  const panel = document.getElementById('header-nav-panel') || document.getElementById('header-nav-drawer');
   const icon = document.getElementById('header-nav-icon') || (toggleBtn ? toggleBtn.querySelector('i') : null);
 
-  if (!toggleBtn || !drawer) return;
+  if (!toggleBtn || !panel) return;
 
-  function openDrawer() {
-    drawer.classList.add('open', 'active');
+  function openPanel() {
+    panel.style.display = 'block';
+    panel.classList.add('open', 'active');
     toggleBtn.classList.add('active');
     toggleBtn.setAttribute('aria-expanded', 'true');
     if (icon) {
@@ -2365,8 +2369,9 @@ function initHeaderNavDrawer() {
     }
   }
 
-  function closeDrawer() {
-    drawer.classList.remove('open', 'active');
+  function closePanel() {
+    panel.classList.remove('open', 'active');
+    panel.style.display = 'none';
     toggleBtn.classList.remove('active');
     toggleBtn.setAttribute('aria-expanded', 'false');
     if (icon) {
@@ -2374,29 +2379,56 @@ function initHeaderNavDrawer() {
     }
   }
 
-  window.closeHeaderNavDrawer = closeDrawer;
-  window.openHeaderNavDrawer = openDrawer;
+  function togglePanel() {
+    const isVisible = panel.classList.contains('open') || panel.classList.contains('active') || panel.style.display === 'block';
+    if (isVisible) {
+      closePanel();
+    } else {
+      openPanel();
+    }
+  }
 
+  window.closeHeaderNavPanel = closePanel;
+  window.openHeaderNavPanel = openPanel;
+  window.toggleHeaderNavPanel = togglePanel;
+  // Aliases for compatibility
+  window.closeHeaderNavDrawer = closePanel;
+  window.openHeaderNavDrawer = openPanel;
+
+  // 1. Direct click on toggle button with stopPropagation so document click listener won't immediately close it
   toggleBtn.onclick = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    if (drawer.classList.contains('open') || drawer.classList.contains('active')) {
-      closeDrawer();
-    } else {
-      openDrawer();
-    }
+    togglePanel();
   };
 
-  // Smooth scroll and auto-close on link click
-  drawer.querySelectorAll('.header-drawer-link, a').forEach(link => {
+  // Also prevent bubbling through addEventListener
+  toggleBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+  });
+
+  // 2. Prevent clicks inside the panel from bubbling up to document and closing it
+  panel.addEventListener('click', (e) => {
+    e.stopPropagation();
+  });
+
+  // 3. Smooth scroll and auto-close when clicking any link inside the panel
+  panel.querySelectorAll('.header-nav-pill, .header-drawer-link, a').forEach(link => {
     link.addEventListener('click', (e) => {
       const href = link.getAttribute('href');
       if (href && href.startsWith('#')) {
-        const target = document.querySelector(href);
+        const targetId = href.substring(1);
+        const target = document.getElementById(targetId) ||
+                       document.getElementById(targetId + '-sec') ||
+                       (targetId === 'projects' ? document.getElementById('software-sec') : null) ||
+                       (targetId === 'software' ? document.getElementById('software-sec') : null) ||
+                       (targetId === 'training' ? document.getElementById('training-sec') : null);
+
         if (target) {
           e.preventDefault();
-          closeDrawer();
-          const navHeight = 75;
+          closePanel();
+          const navHeight = 76;
           const targetPos = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
           window.scrollTo({
             top: targetPos > 0 ? targetPos : 0,
@@ -2410,21 +2442,30 @@ function initHeaderNavDrawer() {
           return;
         }
       }
-      closeDrawer();
+      closePanel();
     });
   });
 
-  // Auto-close on click outside
+  // 4. Close when clicking anywhere outside the panel or toggle button
   document.addEventListener('click', (e) => {
-    if (drawer.classList.contains('open') || drawer.classList.contains('active')) {
-      if (!drawer.contains(e.target) && !toggleBtn.contains(e.target)) {
-        closeDrawer();
+    const isVisible = panel.classList.contains('open') || panel.classList.contains('active') || panel.style.display === 'block';
+    if (isVisible) {
+      if (!panel.contains(e.target) && !toggleBtn.contains(e.target)) {
+        closePanel();
       }
+    }
+  });
+
+  // 5. Close when pressing the Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closePanel();
     }
   });
 }
 
-window.initHeaderNavDrawer = initHeaderNavDrawer;
+window.initHeaderNavPanel = initHeaderNavPanel;
+window.initHeaderNavDrawer = initHeaderNavPanel;
 
 document.addEventListener('DOMContentLoaded', () => {
   initTheme();
@@ -2435,7 +2476,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initGalleryFilters();
   initContactForm();
   initAdminPortal();
-  initHeaderNavDrawer();
+  initHeaderNavPanel();
 
   // Direct click listeners to every modal close button via querySelectorAll
   document.querySelectorAll('#lightbox-close-btn, #lightbox-modal .modal-close, #lightbox-modal .lightbox-close-btn, #lightbox-modal [data-close-modal="true"]').forEach(btn => {
@@ -2490,6 +2531,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // Escape key listener closing all open modals
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
+      if (typeof window.closeHeaderNavPanel === 'function') {
+        window.closeHeaderNavPanel();
+      }
       if (typeof window.closeHeaderNavDrawer === 'function') {
         window.closeHeaderNavDrawer();
       }

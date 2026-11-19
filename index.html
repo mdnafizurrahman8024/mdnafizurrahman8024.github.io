@@ -23,7 +23,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-  <link rel="stylesheet" href="css/style.css?v=34">
+  <link rel="stylesheet" href="css/style.css?v=35">
 
   <script>
     (function() {
@@ -80,25 +80,25 @@
         </button>
       </div>
     </div>
-
-    <!-- Full-Width Header Navigation Drawer/Dropdown Directly Beneath Navbar -->
-    <div class="header-nav-drawer" id="header-nav-drawer" aria-label="Site Navigation">
-      <div class="header-nav-drawer-inner">
-        <a href="#about-sec" class="header-drawer-link"><i class="fa-solid fa-user"></i> <span>About</span></a>
-        <a href="#education-sec" class="header-drawer-link"><i class="fa-solid fa-graduation-cap"></i> <span>Education</span></a>
-        <a href="#updates-sec" class="header-drawer-link"><i class="fa-solid fa-bolt"></i> <span>Updates</span></a>
-        <a href="#research-sec" class="header-drawer-link"><i class="fa-solid fa-flask-vial"></i> <span>Research &amp; Appointments</span></a>
-        <a href="#software-sec" class="header-drawer-link"><i class="fa-solid fa-laptop-code"></i> <span>Projects &amp; Platforms</span></a>
-        <a href="#skills" class="header-drawer-link"><i class="fa-solid fa-screwdriver-wrench"></i> <span>Skills</span></a>
-        <a href="#publications-sec" class="header-drawer-link"><i class="fa-solid fa-newspaper"></i> <span>Publications</span></a>
-        <a href="#training-sec" class="header-drawer-link"><i class="fa-solid fa-certificate"></i> <span>Training &amp; Certificates</span></a>
-        <a href="#leadership-sec" class="header-drawer-link"><i class="fa-solid fa-users"></i> <span>Leadership</span></a>
-        <a href="#gallery-sec" class="header-drawer-link"><i class="fa-solid fa-images"></i> <span>Gallery</span></a>
-        <a href="#references-sec" class="header-drawer-link"><i class="fa-solid fa-user-tie"></i> <span>References</span></a>
-        <a href="#contact-sec" class="header-drawer-link"><i class="fa-solid fa-envelope"></i> <span>Contact</span></a>
-      </div>
-    </div>
   </header>
+
+  <!-- Full-Width Header Navigation Panel Directly Beneath Sticky Navbar -->
+  <div class="header-nav-panel header-nav-drawer" id="header-nav-panel" aria-label="Site Navigation">
+    <div class="header-nav-panel-inner header-nav-drawer-inner">
+      <a href="#about" class="header-nav-pill header-drawer-link" data-target="about-sec"><i class="fa-solid fa-user"></i> <span>About</span></a>
+      <a href="#education" class="header-nav-pill header-drawer-link" data-target="education-sec"><i class="fa-solid fa-graduation-cap"></i> <span>Education</span></a>
+      <a href="#updates" class="header-nav-pill header-drawer-link" data-target="updates-sec"><i class="fa-solid fa-bolt"></i> <span>Updates</span></a>
+      <a href="#research" class="header-nav-pill header-drawer-link" data-target="research-sec"><i class="fa-solid fa-flask-vial"></i> <span>Research &amp; Appointments</span></a>
+      <a href="#projects" class="header-nav-pill header-drawer-link" data-target="software-sec"><i class="fa-solid fa-laptop-code"></i> <span>Projects &amp; Platforms</span></a>
+      <a href="#skills" class="header-nav-pill header-drawer-link" data-target="skills"><i class="fa-solid fa-screwdriver-wrench"></i> <span>Skills</span></a>
+      <a href="#publications" class="header-nav-pill header-drawer-link" data-target="publications-sec"><i class="fa-solid fa-newspaper"></i> <span>Publications</span></a>
+      <a href="#training" class="header-nav-pill header-drawer-link" data-target="training-sec"><i class="fa-solid fa-certificate"></i> <span>Training &amp; Certs</span></a>
+      <a href="#leadership" class="header-nav-pill header-drawer-link" data-target="leadership-sec"><i class="fa-solid fa-users"></i> <span>Leadership</span></a>
+      <a href="#gallery" class="header-nav-pill header-drawer-link" data-target="gallery-sec"><i class="fa-solid fa-images"></i> <span>Gallery</span></a>
+      <a href="#references" class="header-nav-pill header-drawer-link" data-target="references-sec"><i class="fa-solid fa-user-tie"></i> <span>References</span></a>
+      <a href="#contact" class="header-nav-pill header-drawer-link" data-target="contact-sec"><i class="fa-solid fa-envelope"></i> <span>Contact</span></a>
+    </div>
+  </div>
 
   <!-- ======================================================================
        TWO-COLUMN SPLIT ACADEMIC LAYOUT
@@ -144,6 +144,7 @@
 
       <!-- 2. "HI, THIS IS NAFIZ" (DIRECTLY BELOW BANNER) -->
       <section class="feed-card" id="about-sec">
+        <span id="about" class="section-hash-anchor"></span>
         <div class="card-header-row">
           <div class="card-title-group">
             <img src="Image-2.png" alt="Md. Nafizur Rahman" class="intro-avatar-img">
@@ -162,6 +163,7 @@
 
       <!-- 2. ACADEMIC CREDENTIALS / EDUCATION -->
       <section class="feed-card" id="education-sec">
+        <span id="education" class="section-hash-anchor"></span>
         <div class="card-header-row">
           <div class="card-title-group">
             <div class="card-icon-badge" style="background: var(--accent-blue-light); color: var(--accent-blue);"><i class="fa-solid fa-graduation-cap"></i></div>
@@ -177,6 +179,7 @@
 
       <!-- 4. RECENT UPDATES (AUTO-SCROLLING VERTICAL TICKER) -->
       <section class="feed-card" id="updates-sec">
+        <span id="updates" class="section-hash-anchor"></span>
         <div class="card-header-row">
           <div class="card-title-group">
             <div class="card-icon-badge" style="background: var(--accent-amber-light); color: var(--accent-amber);"><i class="fa-solid fa-bolt"></i></div>
@@ -194,6 +197,7 @@
 
       <!-- 5. RESEARCH EXPERIENCE & APPOINTMENTS + 4-COLUMN KPI METRICS BAR -->
       <section class="feed-card" id="research-sec">
+        <span id="research" class="section-hash-anchor"></span>
         <div class="card-header-row">
           <div class="card-title-group">
             <div class="card-icon-badge" style="background: var(--accent-blue-light); color: var(--accent-blue);"><i class="fa-solid fa-flask-vial"></i></div>
@@ -219,6 +223,8 @@
 
       <!-- 6. SCIENTIFIC PROJECTS & DIGITAL PLATFORMS -->
       <section class="feed-card" id="software-sec">
+        <span id="projects" class="section-hash-anchor"></span>
+        <span id="software" class="section-hash-anchor"></span>
         <div class="card-header-row" style="margin-bottom: 0.5rem;">
           <div class="card-title-group">
             <div class="card-icon-badge" style="background: var(--accent-purple-light); color: var(--accent-purple);"><i class="fa-solid fa-laptop-code"></i></div>
@@ -294,6 +300,7 @@
 
       <!-- 8. PUBLICATIONS & MANUSCRIPTS (LIVE SEARCH + FILTER TABS) -->
       <section class="feed-card" id="publications-sec">
+        <span id="publications" class="section-hash-anchor"></span>
         <div class="card-header-row pub-header-row">
           <div class="card-title-group">
             <div class="card-icon-badge"><i class="fa-solid fa-newspaper"></i></div>
@@ -330,6 +337,7 @@
 
       <!-- 9. TRAINING & CERTIFICATIONS (4-COLUMN GRID WITH PRIORITIZED CERTIFICATES + MODALS) -->
       <section class="feed-card" id="training-sec">
+        <span id="training" class="section-hash-anchor"></span>
         <div class="card-header-row">
           <div class="card-title-group">
             <div class="card-icon-badge" style="background: var(--accent-amber-light); color: var(--accent-amber);"><i class="fa-solid fa-certificate"></i></div>
@@ -351,6 +359,7 @@
 
       <!-- 10. FIELDWORK & MEDIA GALLERY (AUTO-MOVING HORIZONTAL CAROUSEL) -->
       <section class="feed-card" id="gallery-sec">
+        <span id="gallery" class="section-hash-anchor"></span>
         <div class="card-header-row">
           <div class="card-title-group">
             <div class="card-icon-badge"><i class="fa-solid fa-images"></i></div>
@@ -379,6 +388,7 @@
 
       <!-- 10. LEADERSHIP & EXTRA-CURRICULAR ACTIVITIES -->
       <section class="feed-card" id="leadership-sec">
+        <span id="leadership" class="section-hash-anchor"></span>
         <div class="card-header-row">
           <div class="card-title-group">
             <div class="card-icon-badge" style="background: var(--accent-blue-light); color: var(--accent-blue);"><i class="fa-solid fa-people-roof"></i></div>
@@ -394,6 +404,7 @@
 
       <!-- 11. ACADEMIC REFERENCES -->
       <section class="feed-card" id="references-sec">
+        <span id="references" class="section-hash-anchor"></span>
         <div class="card-header-row">
           <div class="card-title-group">
             <div class="card-icon-badge"><i class="fa-solid fa-address-book"></i></div>
@@ -409,6 +420,7 @@
 
       <!-- 12. CONTACT ME (MATCHING REFERENCE DESIGN) -->
       <section class="feed-card" id="contact-sec">
+        <span id="contact" class="section-hash-anchor"></span>
         <div class="card-header-row" style="margin-bottom: 0.35rem;">
           <div>
             <span class="contact-eyebrow">Get in touch</span>
@@ -922,6 +934,6 @@
   </aside>
 
   <!-- Core App Logic -->
-  <script src="js/app.js?v=34"></script>
+  <script src="js/app.js?v=35"></script>
 </body>
 </html>
