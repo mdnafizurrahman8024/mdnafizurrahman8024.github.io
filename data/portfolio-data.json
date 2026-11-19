@@ -395,6 +395,7 @@
       "liveUrl": "https://github.com/mdnafizurrahman8024/PoultryMedix-Project-Overview",
       "folder": "PoultryMedix",
       "images": [
+        "Github image/PoultryMedix/logo.png",
         "Github image/PoultryMedix/Home-1png.png",
         "Github image/PoultryMedix/AI-1.png",
         "Github image/PoultryMedix/Consultation-1.png",
@@ -413,7 +414,8 @@
         "Github image/PoultryMedix/Pres.analysis.png",
         "Github image/PoultryMedix/R.Hub.png",
         "Github image/PoultryMedix/Servey.png"
-      ]
+      ],
+      "coverImage": "Github image/PoultryMedix/logo.png"
     },
     {
       "id": "proj-zunsync",
@@ -1740,6 +1742,7 @@
       "liveUrl": "https://github.com/mdnafizurrahman8024/PoultryMedix-Project-Overview",
       "folder": "PoultryMedix",
       "images": [
+        "Github image/PoultryMedix/logo.png",
         "Github image/PoultryMedix/Home-1png.png",
         "Github image/PoultryMedix/AI-1.png",
         "Github image/PoultryMedix/Consultation-1.png",
@@ -1758,7 +1761,8 @@
         "Github image/PoultryMedix/Pres.analysis.png",
         "Github image/PoultryMedix/R.Hub.png",
         "Github image/PoultryMedix/Servey.png"
-      ]
+      ],
+      "coverImage": "Github image/PoultryMedix/logo.png"
     },
     {
       "id": "proj-zunsync",

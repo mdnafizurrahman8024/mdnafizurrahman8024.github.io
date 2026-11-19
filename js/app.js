@@ -352,12 +352,20 @@ function renderSoftwareProjects(projects) {
 
   container.innerHTML = displayList.map(item => {
     const hasImages = Array.isArray(item.images) && item.images.length > 0;
-    // ZunSync explicitly uses coverImage (zs.png) if provided
+    // PoultryMedix and ZunSync cleanly use logo.png / ZS.png cover presentation
     const coverImage = item.coverImage || (hasImages ? item.images[0] : (item.image || ''));
     const photoCount = hasImages ? item.images.length : 0;
     const projectTitle = item.name || item.title || 'Project';
     const typeBadge = item.typeBadge || item.type || 'Platform';
     const briefSummary = item.brief || item.description || '';
+
+    // Check if cover image is a logo (PoultryMedix logo.png, ZunSync ZS.png, etc.)
+    const isLogoCover = coverImage && (
+      coverImage.toLowerCase().includes('logo') || 
+      coverImage.toLowerCase().includes('zs.png') || 
+      item.id === 'proj-poultrymedix' || 
+      item.id === 'proj-zunsync'
+    );
 
     // Maximum 3–4 tech stack tags displayed per card
     const maxTags = 4;
@@ -397,7 +405,7 @@ function renderSoftwareProjects(projects) {
         <!-- 16:9 Cover Thumbnail Frame (Click directly opens photo gallery) -->
         <div class="software-card-thumb-wrap" onclick="${thumbAction}" title="${photoCount > 0 ? 'Click to open photo gallery' : 'Click to view details'}">
           ${coverImage ? `
-            <img src="${formatImagePath(coverImage)}" alt="${escapeHTML(projectTitle)} Cover" class="software-card-thumb-img" loading="lazy">
+            <img src="${formatImagePath(coverImage)}" alt="${escapeHTML(projectTitle)} Cover" class="software-card-thumb-img ${isLogoCover ? 'is-logo-cover' : ''}" loading="lazy" ${isLogoCover ? 'style="object-fit: contain; padding: 18px; background: #ffffff;"' : ''}>
           ` : `
             <div class="software-card-thumb-placeholder">
               <i class="fa-brands fa-python"></i>
@@ -602,7 +610,7 @@ function openProjectGalleryModal(projectId, e) {
   // Render clickable thumbnail strip
   if (thumbsContainer) {
     thumbsContainer.innerHTML = images.map((img, i) => `
-      <div class="project-gallery-thumb ${i === 0 ? 'active' : ''}" data-idx="${i}" onclick="setGallerySlide(${i})">
+      <div class="project-gallery-thumb ${i === 0 ? 'active' : ''}" data-idx="${i}" onclick="handleGalleryThumbClick(${i})">
         <img src="${formatImagePath(img)}" alt="thumb ${i + 1}" loading="lazy">
       </div>
     `).join('');
@@ -612,25 +620,25 @@ function openProjectGalleryModal(projectId, e) {
   if (prevBtn) {
     prevBtn.onclick = (evt) => {
       evt.stopPropagation();
-      setGallerySlide(currentGallerySlideIdx - 1);
+      setGallerySlide(currentGallerySlideIdx - 1, true);
     };
   }
   if (nextBtn) {
     nextBtn.onclick = (evt) => {
       evt.stopPropagation();
-      setGallerySlide(currentGallerySlideIdx + 1);
+      setGallerySlide(currentGallerySlideIdx + 1, true);
     };
   }
 
   // Set initial slide
   setGallerySlide(0);
 
-  // Auto-advance slideshow smoothly every 3.5 seconds
+  // Auto-advance slideshow with slow, gentle, smooth transition every 5.5 seconds (5500ms)
   clearInterval(gallerySlideshowTimer);
   if (images.length > 1) {
     startGallerySlideshow(images.length);
 
-    // Pause on hover, resume on mouse leave
+    // Pause smoothly on hover, resume on mouse leave
     if (galleryWrap) {
       galleryWrap.onmouseenter = () => clearInterval(gallerySlideshowTimer);
       galleryWrap.onmouseleave = () => startGallerySlideshow(images.length);
@@ -643,14 +651,19 @@ function openProjectGalleryModal(projectId, e) {
   }
 }
 
+function handleGalleryThumbClick(i) {
+  setGallerySlide(i, true);
+}
+window.handleGalleryThumbClick = handleGalleryThumbClick;
+
 function startGallerySlideshow(total) {
   clearInterval(gallerySlideshowTimer);
   gallerySlideshowTimer = setInterval(() => {
     setGallerySlide(currentGallerySlideIdx + 1);
-  }, 3500);
+  }, 5500);
 }
 
-function setGallerySlide(idx) {
+function setGallerySlide(idx, fromUserAction = false) {
   if (!currentGalleryProject || !currentGalleryProject.images || currentGalleryProject.images.length === 0) return;
   const images = currentGalleryProject.images;
   currentGallerySlideIdx = (idx + images.length) % images.length;
@@ -664,8 +677,16 @@ function setGallerySlide(idx) {
   const encoded = formatImagePath(curImg);
 
   if (mainImg) {
-    mainImg.src = encoded;
-    mainImg.alt = `${currentGalleryProject.name || 'Project'} screenshot ${currentGallerySlideIdx + 1}`;
+    mainImg.classList.add('is-sliding');
+    const temp = new Image();
+    temp.onload = () => {
+      mainImg.src = encoded;
+      mainImg.alt = `${currentGalleryProject.name || 'Project'} screenshot ${currentGallerySlideIdx + 1}`;
+      requestAnimationFrame(() => {
+        mainImg.classList.remove('is-sliding');
+      });
+    };
+    temp.src = encoded;
   }
   if (counter) {
     counter.textContent = `${currentGallerySlideIdx + 1} / ${images.length}`;
@@ -684,6 +705,11 @@ function setGallerySlide(idx) {
         th.classList.remove('active');
       }
     });
+  }
+
+  // Smoothly reset slideshow timer when triggered by user interaction (arrow / thumb click)
+  if (fromUserAction && images.length > 1) {
+    startGallerySlideshow(images.length);
   }
 }
 
@@ -2252,27 +2278,55 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Lightbox close
-  const lbClose = document.getElementById('lightbox-close-btn');
+function closeCertificateModal() {
   const lbModal = document.getElementById('lightbox-modal');
-  if (lbClose) {
-    lbClose.onclick = () => {
-      lbModal.classList.remove('active');
-      document.body.style.overflow = '';
-    };
-  }
   if (lbModal) {
-    lbModal.onclick = (e) => {
-      if (e.target === lbModal) {
-        lbModal.classList.remove('active');
-        document.body.style.overflow = '';
-      }
+    lbModal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+}
+window.closeCertificateModal = closeCertificateModal;
+
+// Reliable delegated click listener on document for closing Certificate viewer modal
+document.addEventListener('click', (e) => {
+  // 1. Check for clicks on close button (.modal-close, #close-cert-modal, #lightbox-close-btn, [data-close-modal])
+  const closeBtn = e.target.closest('.modal-close, #close-cert-modal, #lightbox-close-btn, [data-close-modal]');
+  if (closeBtn) {
+    const parentLightbox = closeBtn.closest('.lightbox-modal') || document.getElementById('lightbox-modal');
+    if (parentLightbox) {
+      e.preventDefault();
+      e.stopPropagation();
+      closeCertificateModal();
+      return;
+    }
+  }
+
+  // 2. Check for click outside modal content on the dark backdrop
+  const lbModal = document.getElementById('lightbox-modal');
+  if (lbModal && lbModal.classList.contains('active')) {
+    if (e.target === lbModal) {
+      e.preventDefault();
+      closeCertificateModal();
+    }
+  }
+});
+
+  // Direct element listener as safety fallback
+  const lbClose = document.getElementById('lightbox-close-btn');
+  if (lbClose) {
+    lbClose.onclick = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      closeCertificateModal();
     };
   }
 
+  // Escape key listener closing all open modals
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
-      if (lbModal) lbModal.classList.remove('active');
+      closeCertificateModal();
+      closeProjectDetailsModal();
+      closeProjectGalleryModal();
       closeAdminDrawer();
       document.body.style.overflow = '';
     }
