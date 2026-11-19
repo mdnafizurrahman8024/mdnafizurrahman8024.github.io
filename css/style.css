@@ -1117,7 +1117,7 @@ button, input, textarea, select {
 
 .software-card-thumb-img.is-logo-cover {
   object-fit: contain !important;
-  padding: 18px !important;
+  padding: 14px !important;
   background: #ffffff !important;
 }
 

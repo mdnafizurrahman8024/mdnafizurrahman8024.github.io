@@ -34,7 +34,11 @@ let draggedPubIdx = null;
  */
 function formatImagePath(path) {
   if (!path) return '';
-  return path.split('/').map(seg => encodeURIComponent(seg).replace(/'/g, '%27')).join('/');
+  const clean = path.split('/').map(seg => encodeURIComponent(seg).replace(/'/g, '%27')).join('/');
+  if (clean.toLowerCase().includes('poultrymedix/logo.png')) {
+    return clean + '?v=2';
+  }
+  return clean;
 }
 
 /* ==========================================================================
@@ -405,7 +409,7 @@ function renderSoftwareProjects(projects) {
         <!-- 16:9 Cover Thumbnail Frame (Click directly opens photo gallery) -->
         <div class="software-card-thumb-wrap" onclick="${thumbAction}" title="${photoCount > 0 ? 'Click to open photo gallery' : 'Click to view details'}">
           ${coverImage ? `
-            <img src="${formatImagePath(coverImage)}" alt="${escapeHTML(projectTitle)} Cover" class="software-card-thumb-img ${isLogoCover ? 'is-logo-cover' : ''}" loading="lazy" ${isLogoCover ? 'style="object-fit: contain; padding: 18px; background: #ffffff;"' : ''}>
+            <img src="${formatImagePath(coverImage)}" alt="${escapeHTML(projectTitle)} Cover" class="software-card-thumb-img ${isLogoCover ? 'is-logo-cover' : ''}" loading="lazy" ${isLogoCover ? 'style="object-fit: contain; padding: 14px; background: #ffffff;"' : ''}>
           ` : `
             <div class="software-card-thumb-placeholder">
               <i class="fa-brands fa-python"></i>
