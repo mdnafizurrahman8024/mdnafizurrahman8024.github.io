@@ -2406,9 +2406,9 @@ function openUniversalNav() {
   // Dynamically position right below the sticky header when opened
   if (header) {
     const bottom = header.getBoundingClientRect().bottom;
-    drawer.style.top = (bottom > 0 ? bottom : 68) + 'px';
+    drawer.style.top = (bottom > 0 ? (bottom + 6) : 74) + 'px';
   } else {
-    drawer.style.top = '68px';
+    drawer.style.top = '74px';
   }
 
   drawer.style.display = 'block';
@@ -2556,13 +2556,15 @@ function initUniversalNav() {
     }
   });
 
-  // Dynamic reposition on resize
-  window.addEventListener('resize', () => {
+  // Dynamic reposition on resize and scroll
+  function updateDrawerPosition() {
     if (drawer && (drawer.classList.contains('open') || drawer.style.display === 'block') && header) {
       const bottom = header.getBoundingClientRect().bottom;
-      drawer.style.top = (bottom > 0 ? bottom : 68) + 'px';
+      drawer.style.top = (bottom > 0 ? (bottom + 6) : 74) + 'px';
     }
-  });
+  }
+  window.addEventListener('resize', updateDrawerPosition);
+  window.addEventListener('scroll', updateDrawerPosition, { passive: true });
 }
 
 window.initUniversalNav = initUniversalNav;
