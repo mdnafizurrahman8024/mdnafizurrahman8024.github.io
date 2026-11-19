@@ -52,6 +52,9 @@ window.clearProjectTimer = clearProjectTimer;
  * Global bulletproof modal closer for Verified Certificate & Details modals
  */
 function closeAllModals() {
+  if (typeof window.closeUniversalNav === 'function') {
+    window.closeUniversalNav();
+  }
   if (typeof window.closeHeaderNavPanel === 'function') {
     window.closeHeaderNavPanel();
   }
@@ -2350,122 +2353,221 @@ window.closeProjectModal = closeProjectDetailsModal;
 window.setCarouselSlide = setGallerySlide;
 
 /* --------------------------------------------------------------------------
-   Header Navigation Panel (3-Bar Toggle Menu Directly Beneath Sticky Header)
+   Section Smooth Scroll Helper (84px Sticky Offset)
    -------------------------------------------------------------------------- */
-function initHeaderNavPanel() {
+function scrollToSection(href) {
+  if (!href || !href.startsWith('#')) return false;
+  const rawId = href.substring(1);
+  if (!rawId) return false;
+  if (rawId === 'home') {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (history.pushState) history.pushState(null, null, '#home');
+    return true;
+  }
+  const target = document.getElementById(rawId) ||
+                 document.getElementById(rawId + '-sec') ||
+                 (rawId === 'projects' ? document.getElementById('software-sec') : null) ||
+                 (rawId === 'software' ? document.getElementById('software-sec') : null) ||
+                 (rawId === 'training' ? document.getElementById('training-sec') : null) ||
+                 (rawId.endsWith('-sec') ? document.getElementById(rawId.replace('-sec', '')) : null);
+  if (target) {
+    const nav = document.getElementById('navbar');
+    const navHeight = nav ? nav.getBoundingClientRect().height : 68;
+    const offset = navHeight + 16; // 84px
+    const targetRect = target.getBoundingClientRect();
+    const targetTop = targetRect.top + window.pageYOffset - offset;
+    window.scrollTo({
+      top: targetTop > 0 ? targetTop : 0,
+      behavior: 'smooth'
+    });
+    if (history.pushState) {
+      history.pushState(null, null, href);
+    } else {
+      location.hash = href;
+    }
+    return true;
+  }
+  return false;
+}
+window.scrollToSection = scrollToSection;
+
+/* --------------------------------------------------------------------------
+   Universal Navigation Drawer (#universal-nav-drawer)
+   Direct Child of <body> — Works across Phone, Tablet, Laptop, and Desktop Web
+   -------------------------------------------------------------------------- */
+function openUniversalNav() {
+  const drawer = document.getElementById('universal-nav-drawer') || document.getElementById('header-nav-panel');
   const toggleBtn = document.getElementById('header-nav-toggle') || document.getElementById('mobile-menu-btn');
-  const panel = document.getElementById('header-nav-panel') || document.getElementById('header-nav-drawer');
   const icon = document.getElementById('header-nav-icon') || (toggleBtn ? toggleBtn.querySelector('i') : null);
+  const header = document.getElementById('navbar') || document.querySelector('header');
 
-  if (!toggleBtn || !panel) return;
+  if (!drawer) return;
 
-  function openPanel() {
-    panel.style.display = 'block';
-    panel.classList.add('open', 'active');
+  // Dynamically position right below the sticky header when opened
+  if (header) {
+    const bottom = header.getBoundingClientRect().bottom;
+    drawer.style.top = (bottom > 0 ? bottom : 68) + 'px';
+  } else {
+    drawer.style.top = '68px';
+  }
+
+  drawer.style.display = 'block';
+  drawer.classList.add('open', 'active');
+  drawer.setAttribute('aria-hidden', 'false');
+  if (toggleBtn) {
     toggleBtn.classList.add('active');
     toggleBtn.setAttribute('aria-expanded', 'true');
-    if (icon) {
-      icon.className = 'fa-solid fa-xmark';
-    }
   }
+  if (icon) {
+    icon.className = 'fa-solid fa-xmark';
+  }
+}
 
-  function closePanel() {
-    panel.classList.remove('open', 'active');
-    panel.style.display = 'none';
+function closeUniversalNav() {
+  const drawer = document.getElementById('universal-nav-drawer') || document.getElementById('header-nav-panel');
+  const toggleBtn = document.getElementById('header-nav-toggle') || document.getElementById('mobile-menu-btn');
+  const icon = document.getElementById('header-nav-icon') || (toggleBtn ? toggleBtn.querySelector('i') : null);
+
+  if (!drawer) return;
+
+  drawer.classList.remove('open', 'active');
+  drawer.style.display = 'none';
+  drawer.setAttribute('aria-hidden', 'true');
+  if (toggleBtn) {
     toggleBtn.classList.remove('active');
     toggleBtn.setAttribute('aria-expanded', 'false');
-    if (icon) {
-      icon.className = 'fa-solid fa-bars';
-    }
+  }
+  if (icon) {
+    icon.className = 'fa-solid fa-bars';
+  }
+}
+
+function toggleUniversalNav(e) {
+  if (e) {
+    if (typeof e.preventDefault === 'function') e.preventDefault();
+    if (typeof e.stopPropagation === 'function') e.stopPropagation();
+  }
+  const drawer = document.getElementById('universal-nav-drawer') || document.getElementById('header-nav-panel');
+  if (!drawer) return;
+  const isOpen = drawer.classList.contains('open') || drawer.style.display === 'block';
+  if (isOpen) {
+    closeUniversalNav();
+  } else {
+    openUniversalNav();
+  }
+}
+
+window.toggleUniversalNav = toggleUniversalNav;
+window.openUniversalNav = openUniversalNav;
+window.closeUniversalNav = closeUniversalNav;
+// Backward-compatibility aliases
+window.toggleHeaderNavPanel = toggleUniversalNav;
+window.openHeaderNavPanel = openUniversalNav;
+window.closeHeaderNavPanel = closeUniversalNav;
+window.openHeaderNavDrawer = openUniversalNav;
+window.closeHeaderNavDrawer = closeUniversalNav;
+
+function initUniversalNav() {
+  const drawer = document.getElementById('universal-nav-drawer') || document.getElementById('header-nav-panel');
+  const toggleBtn = document.getElementById('header-nav-toggle') || document.getElementById('mobile-menu-btn');
+  const header = document.getElementById('navbar') || document.querySelector('header');
+  const moreBtn = document.getElementById('more-dropdown-btn') || document.querySelector('.nav-dropdown > a');
+  const moreDropdown = document.getElementById('nav-dropdown-more') || document.querySelector('.nav-dropdown');
+
+  // Bind 3-bar button
+  if (toggleBtn) {
+    toggleBtn.onclick = (e) => toggleUniversalNav(e);
   }
 
-  function togglePanel() {
-    const isVisible = panel.classList.contains('open') || panel.classList.contains('active') || panel.style.display === 'block';
-    if (isVisible) {
-      closePanel();
-    } else {
-      openPanel();
-    }
+  // Bind drawer click isolation & link clicks
+  if (drawer) {
+    drawer.addEventListener('click', (e) => {
+      e.stopPropagation();
+    });
+
+    drawer.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', (e) => {
+        const href = link.getAttribute('href');
+        if (href && href.startsWith('#')) {
+          e.preventDefault();
+          closeUniversalNav();
+          scrollToSection(href);
+        } else {
+          closeUniversalNav();
+        }
+      });
+    });
   }
 
-  window.closeHeaderNavPanel = closePanel;
-  window.openHeaderNavPanel = openPanel;
-  window.toggleHeaderNavPanel = togglePanel;
-  // Aliases for compatibility
-  window.closeHeaderNavDrawer = closePanel;
-  window.openHeaderNavDrawer = openPanel;
+  // Desktop More dropdown toggle
+  if (moreBtn && moreDropdown) {
+    moreBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      moreDropdown.classList.toggle('active');
+    });
+  }
 
-  // 1. Direct click on toggle button with stopPropagation so document click listener won't immediately close it
-  toggleBtn.onclick = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    togglePanel();
-  };
-
-  // Also prevent bubbling through addEventListener
-  toggleBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-  });
-
-  // 2. Prevent clicks inside the panel from bubbling up to document and closing it
-  panel.addEventListener('click', (e) => {
-    e.stopPropagation();
-  });
-
-  // 3. Smooth scroll and auto-close when clicking any link inside the panel
-  panel.querySelectorAll('.header-nav-pill, .header-drawer-link, a').forEach(link => {
+  // Desktop top bar & dropdown navigation links
+  document.querySelectorAll('#nav-menu a.nav-pill:not(#more-dropdown-btn), .nav-dropdown-item').forEach(link => {
     link.addEventListener('click', (e) => {
       const href = link.getAttribute('href');
       if (href && href.startsWith('#')) {
-        const targetId = href.substring(1);
-        const target = document.getElementById(targetId) ||
-                       document.getElementById(targetId + '-sec') ||
-                       (targetId === 'projects' ? document.getElementById('software-sec') : null) ||
-                       (targetId === 'software' ? document.getElementById('software-sec') : null) ||
-                       (targetId === 'training' ? document.getElementById('training-sec') : null);
-
-        if (target) {
-          e.preventDefault();
-          closePanel();
-          const navHeight = 76;
-          const targetPos = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
-          window.scrollTo({
-            top: targetPos > 0 ? targetPos : 0,
-            behavior: 'smooth'
-          });
-          if (history.pushState) {
-            history.pushState(null, null, href);
-          } else {
-            location.hash = href;
-          }
-          return;
-        }
+        e.preventDefault();
+        if (moreDropdown) moreDropdown.classList.remove('active');
+        scrollToSection(href);
       }
-      closePanel();
     });
   });
 
-  // 4. Close when clicking anywhere outside the panel or toggle button
+  // Nav brand avatar / title link
+  document.querySelectorAll('.nav-brand').forEach(brand => {
+    brand.addEventListener('click', (e) => {
+      const href = brand.getAttribute('href');
+      if (href === '#home' || href === '#') {
+        e.preventDefault();
+        closeUniversalNav();
+        if (moreDropdown) moreDropdown.classList.remove('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        if (history.pushState) history.pushState(null, null, '#home');
+      }
+    });
+  });
+
+  // Outside click listener
   document.addEventListener('click', (e) => {
-    const isVisible = panel.classList.contains('open') || panel.classList.contains('active') || panel.style.display === 'block';
-    if (isVisible) {
-      if (!panel.contains(e.target) && !toggleBtn.contains(e.target)) {
-        closePanel();
+    if (drawer && (drawer.classList.contains('open') || drawer.style.display === 'block')) {
+      if (!drawer.contains(e.target) && (!toggleBtn || !toggleBtn.contains(e.target))) {
+        closeUniversalNav();
+      }
+    }
+    if (moreDropdown && moreDropdown.classList.contains('active')) {
+      if (!moreDropdown.contains(e.target)) {
+        moreDropdown.classList.remove('active');
       }
     }
   });
 
-  // 5. Close when pressing the Escape key
+  // Escape key listener
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
-      closePanel();
+      closeUniversalNav();
+      if (moreDropdown) moreDropdown.classList.remove('active');
+    }
+  });
+
+  // Dynamic reposition on resize
+  window.addEventListener('resize', () => {
+    if (drawer && (drawer.classList.contains('open') || drawer.style.display === 'block') && header) {
+      const bottom = header.getBoundingClientRect().bottom;
+      drawer.style.top = (bottom > 0 ? bottom : 68) + 'px';
     }
   });
 }
 
-window.initHeaderNavPanel = initHeaderNavPanel;
-window.initHeaderNavDrawer = initHeaderNavPanel;
+window.initUniversalNav = initUniversalNav;
+window.initHeaderNavPanel = initUniversalNav;
+window.initHeaderNavDrawer = initUniversalNav;
 
 document.addEventListener('DOMContentLoaded', () => {
   initTheme();
@@ -2476,7 +2578,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initGalleryFilters();
   initContactForm();
   initAdminPortal();
-  initHeaderNavPanel();
+  initUniversalNav();
 
   // Direct click listeners to every modal close button via querySelectorAll
   document.querySelectorAll('#lightbox-close-btn, #lightbox-modal .modal-close, #lightbox-modal .lightbox-close-btn, #lightbox-modal [data-close-modal="true"]').forEach(btn => {
@@ -2531,6 +2633,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // Escape key listener closing all open modals
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
+      if (typeof window.closeUniversalNav === 'function') {
+        window.closeUniversalNav();
+      }
       if (typeof window.closeHeaderNavPanel === 'function') {
         window.closeHeaderNavPanel();
       }

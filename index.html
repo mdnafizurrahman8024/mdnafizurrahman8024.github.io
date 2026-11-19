@@ -23,7 +23,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-  <link rel="stylesheet" href="css/style.css?v=35">
+  <link rel="stylesheet" href="css/style.css?v=37">
 
   <script>
     (function() {
@@ -51,21 +51,21 @@
 
       <nav>
         <ul class="nav-menu" id="nav-menu">
-          <li><a href="#about-sec" class="nav-pill">About</a></li>
-          <li><a href="#education-sec" class="nav-pill">Education</a></li>
-          <li><a href="#updates-sec" class="nav-pill">Updates</a></li>
-          <li><a href="#research-sec" class="nav-pill">Research &amp; Appointments</a></li>
-          <li><a href="#software-sec" class="nav-pill">Projects &amp; Platforms</a></li>
+          <li><a href="#about" class="nav-pill">About</a></li>
+          <li><a href="#education" class="nav-pill">Education</a></li>
+          <li><a href="#updates" class="nav-pill">Updates</a></li>
+          <li><a href="#research" class="nav-pill">Research &amp; Appointments</a></li>
+          <li><a href="#projects" class="nav-pill">Projects &amp; Platforms</a></li>
           <li><a href="#skills" class="nav-pill">Skills</a></li>
-          <li><a href="#publications-sec" class="nav-pill">Publications</a></li>
-          <li><a href="#training-sec" class="nav-pill">Training &amp; Certs</a></li>
-          <li class="nav-dropdown">
-            <a href="javascript:void(0)" class="nav-pill">More <i class="fa-solid fa-chevron-down" style="font-size: 0.7rem; margin-left: 2px;"></i></a>
-            <ul class="nav-dropdown-menu">
-              <li><a href="#gallery-sec" class="nav-dropdown-item"><i class="fa-solid fa-images"></i> Gallery</a></li>
-              <li><a href="#leadership-sec" class="nav-dropdown-item"><i class="fa-solid fa-users"></i> Leadership</a></li>
-              <li><a href="#references-sec" class="nav-dropdown-item"><i class="fa-solid fa-user-tie"></i> References</a></li>
-              <li><a href="#contact-sec" class="nav-dropdown-item"><i class="fa-solid fa-envelope"></i> Contact Me</a></li>
+          <li><a href="#publications" class="nav-pill">Publications</a></li>
+          <li><a href="#training" class="nav-pill">Training &amp; Certs</a></li>
+          <li class="nav-dropdown" id="nav-dropdown-more">
+            <a href="javascript:void(0)" class="nav-pill" id="more-dropdown-btn">More <i class="fa-solid fa-chevron-down" style="font-size: 0.7rem; margin-left: 2px;"></i></a>
+            <ul class="nav-dropdown-menu" id="nav-dropdown-menu">
+              <li><a href="#gallery" class="nav-dropdown-item"><i class="fa-solid fa-images"></i> Gallery</a></li>
+              <li><a href="#leadership" class="nav-dropdown-item"><i class="fa-solid fa-users"></i> Leadership</a></li>
+              <li><a href="#references" class="nav-dropdown-item"><i class="fa-solid fa-user-tie"></i> References</a></li>
+              <li><a href="#contact" class="nav-dropdown-item"><i class="fa-solid fa-envelope"></i> Contact Me</a></li>
             </ul>
           </li>
         </ul>
@@ -75,28 +75,28 @@
         <button class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle Dark/Light Mode" title="Toggle Dark/Light Mode">
           <i class="fa-solid fa-sun"></i>
         </button>
-        <button class="header-nav-toggle-btn mobile-menu-btn" id="header-nav-toggle" aria-label="Toggle Navigation Menu" title="Navigation Menu (☰)">
+        <button class="header-nav-toggle-btn mobile-menu-btn" id="header-nav-toggle" onclick="window.toggleUniversalNav(event)" aria-label="Toggle Navigation Menu" title="Navigation Menu (☰)">
           <i class="fa-solid fa-bars" id="header-nav-icon"></i>
         </button>
       </div>
     </div>
   </header>
 
-  <!-- Full-Width Header Navigation Panel Directly Beneath Sticky Navbar -->
-  <div class="header-nav-panel header-nav-drawer" id="header-nav-panel" aria-label="Site Navigation">
-    <div class="header-nav-panel-inner header-nav-drawer-inner">
-      <a href="#about" class="header-nav-pill header-drawer-link" data-target="about-sec"><i class="fa-solid fa-user"></i> <span>About</span></a>
-      <a href="#education" class="header-nav-pill header-drawer-link" data-target="education-sec"><i class="fa-solid fa-graduation-cap"></i> <span>Education</span></a>
-      <a href="#updates" class="header-nav-pill header-drawer-link" data-target="updates-sec"><i class="fa-solid fa-bolt"></i> <span>Updates</span></a>
-      <a href="#research" class="header-nav-pill header-drawer-link" data-target="research-sec"><i class="fa-solid fa-flask-vial"></i> <span>Research &amp; Appointments</span></a>
-      <a href="#projects" class="header-nav-pill header-drawer-link" data-target="software-sec"><i class="fa-solid fa-laptop-code"></i> <span>Projects &amp; Platforms</span></a>
-      <a href="#skills" class="header-nav-pill header-drawer-link" data-target="skills"><i class="fa-solid fa-screwdriver-wrench"></i> <span>Skills</span></a>
-      <a href="#publications" class="header-nav-pill header-drawer-link" data-target="publications-sec"><i class="fa-solid fa-newspaper"></i> <span>Publications</span></a>
-      <a href="#training" class="header-nav-pill header-drawer-link" data-target="training-sec"><i class="fa-solid fa-certificate"></i> <span>Training &amp; Certs</span></a>
-      <a href="#leadership" class="header-nav-pill header-drawer-link" data-target="leadership-sec"><i class="fa-solid fa-users"></i> <span>Leadership</span></a>
-      <a href="#gallery" class="header-nav-pill header-drawer-link" data-target="gallery-sec"><i class="fa-solid fa-images"></i> <span>Gallery</span></a>
-      <a href="#references" class="header-nav-pill header-drawer-link" data-target="references-sec"><i class="fa-solid fa-user-tie"></i> <span>References</span></a>
-      <a href="#contact" class="header-nav-pill header-drawer-link" data-target="contact-sec"><i class="fa-solid fa-envelope"></i> <span>Contact</span></a>
+  <!-- Universal Bulletproof Navigation Drawer (Direct Child of <body>) -->
+  <div id="universal-nav-drawer" class="universal-nav-drawer header-nav-panel header-nav-drawer" aria-hidden="true" style="display: none;">
+    <div class="universal-nav-inner header-nav-panel-inner header-nav-drawer-inner">
+      <a href="#about" class="universal-nav-link header-nav-pill header-drawer-link" data-target="about-sec"><i class="fa-solid fa-user"></i> <span>About</span></a>
+      <a href="#education" class="universal-nav-link header-nav-pill header-drawer-link" data-target="education-sec"><i class="fa-solid fa-graduation-cap"></i> <span>Education</span></a>
+      <a href="#updates" class="universal-nav-link header-nav-pill header-drawer-link" data-target="updates-sec"><i class="fa-solid fa-bolt"></i> <span>Updates</span></a>
+      <a href="#research" class="universal-nav-link header-nav-pill header-drawer-link" data-target="research-sec"><i class="fa-solid fa-flask-vial"></i> <span>Research &amp; Appointments</span></a>
+      <a href="#projects" class="universal-nav-link header-nav-pill header-drawer-link" data-target="software-sec"><i class="fa-solid fa-laptop-code"></i> <span>Projects &amp; Platforms</span></a>
+      <a href="#skills" class="universal-nav-link header-nav-pill header-drawer-link" data-target="skills"><i class="fa-solid fa-screwdriver-wrench"></i> <span>Skills</span></a>
+      <a href="#publications" class="universal-nav-link header-nav-pill header-drawer-link" data-target="publications-sec"><i class="fa-solid fa-newspaper"></i> <span>Publications</span></a>
+      <a href="#training" class="universal-nav-link header-nav-pill header-drawer-link" data-target="training-sec"><i class="fa-solid fa-certificate"></i> <span>Training &amp; Certs</span></a>
+      <a href="#leadership" class="universal-nav-link header-nav-pill header-drawer-link" data-target="leadership-sec"><i class="fa-solid fa-users"></i> <span>Leadership</span></a>
+      <a href="#gallery" class="universal-nav-link header-nav-pill header-drawer-link" data-target="gallery-sec"><i class="fa-solid fa-images"></i> <span>Gallery</span></a>
+      <a href="#references" class="universal-nav-link header-nav-pill header-drawer-link" data-target="references-sec"><i class="fa-solid fa-user-tie"></i> <span>References</span></a>
+      <a href="#contact" class="universal-nav-link header-nav-pill header-drawer-link" data-target="contact-sec"><i class="fa-solid fa-envelope"></i> <span>Contact</span></a>
     </div>
   </div>
 
@@ -934,6 +934,6 @@
   </aside>
 
   <!-- Core App Logic -->
-  <script src="js/app.js?v=35"></script>
+  <script src="js/app.js?v=37"></script>
 </body>
 </html>
