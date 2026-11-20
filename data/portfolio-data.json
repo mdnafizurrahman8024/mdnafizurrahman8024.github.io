@@ -933,7 +933,9 @@
       "issuer": "National Veterinary Dean Council (NVDC) & FAO / USAID",
       "credentialId": "BVO-2023-RU",
       "credentialUrl": "https://www.fao.org/bangladesh/",
-      "image": "Certificate/Vet. Olympiad.jpeg"
+      "image": "Certificate/Vet. Olympiad.jpeg",
+      "distinctionBadge": "Award",
+      "shortHighlight": "National veterinary olympiad qualifier in clinical triage & epidemiology"
     },
     {
       "id": "cert-4",
@@ -953,7 +955,9 @@
       "issuer": "Faculty of Veterinary and Animal Sciences, University of Rajshahi",
       "credentialId": "SCVAS-2025-ORAL",
       "credentialUrl": "https://www.ru.ac.bd/",
-      "image": "Certificate/Vet. Conf..jpeg"
+      "image": "Certificate/Vet. Conf..jpeg",
+      "distinctionBadge": "Honor",
+      "shortHighlight": "Delivered competitive oral scientific research presentation"
     },
     {
       "id": "cert-6",
@@ -973,7 +977,9 @@
       "issuer": "Rajshahi University Research Society (RURS), University of Rajshahi",
       "credentialId": "RICRF26-AC017",
       "credentialUrl": "https://www.ru.ac.bd/",
-      "image": "Certificate/Dog ectoparasite.jpeg"
+      "image": "Certificate/Dog ectoparasite.jpeg",
+      "distinctionBadge": "Honor",
+      "shortHighlight": "Conference presenter: ectoparasite epidemiology & statistical models"
     },
     {
       "id": "cert-8",
@@ -983,7 +989,9 @@
       "issuer": "Commonwealth Students' Association (CSA) & Zero Olympiad",
       "credentialId": "ZO-26-FEL-938AA7",
       "credentialUrl": "https://www.commonwealthstudents.org/",
-      "image": "Certificate/Young SDG fellow.jpg"
+      "image": "Certificate/Young SDG fellow.jpg",
+      "distinctionBadge": "Award",
+      "shortHighlight": "Selected Commonwealth youth fellow for SDG impact"
     },
     {
       "id": "cert-9",
@@ -1073,7 +1081,9 @@
       "issuer": "Zero Olympiad (Faatiha Aayat)",
       "credentialId": "ZO-26-R2P-938AA7",
       "credentialUrl": "",
-      "image": "Certificate/Zero olypiad round-2.jpg"
+      "image": "Certificate/Zero olypiad round-2.jpg",
+      "distinctionBadge": "Award",
+      "shortHighlight": "Competitive advancement in national Zero Olympiad Round 2"
     },
     {
       "id": "cert-18",
@@ -1083,7 +1093,9 @@
       "issuer": "Zero Olympiad (Faatiha Aayat)",
       "credentialId": "ZO-26-R1-938AA7",
       "credentialUrl": "",
-      "image": "Certificate/Zero olypiad round-1.jpg"
+      "image": "Certificate/Zero olypiad round-1.jpg",
+      "distinctionBadge": "Honor",
+      "shortHighlight": "Achievement of appreciation in national Zero Olympiad Round 1"
     },
     {
       "id": "cert-19",
@@ -1113,7 +1125,9 @@
       "issuer": "Rajshahi University Student Welfare Association (RUSWA)",
       "credentialId": "",
       "credentialUrl": "",
-      "image": "Certificate/RUSWA volunteer.jpeg"
+      "image": "Certificate/RUSWA volunteer.jpeg",
+      "distinctionBadge": "Volunteer",
+      "shortHighlight": "Awarded Best Volunteer for outstanding student welfare leadership"
     },
     {
       "id": "cert-22",
@@ -1133,7 +1147,9 @@
       "issuer": "Impactra",
       "credentialId": "",
       "credentialUrl": "",
-      "image": "Certificate/mpactra National Quiz Competition.png"
+      "image": "Certificate/mpactra National Quiz Competition.png",
+      "distinctionBadge": "Honor",
+      "shortHighlight": "National competitive quiz certificate in science & public health"
     },
     {
       "id": "cert-24",
@@ -1352,7 +1368,9 @@
       "issuer": "National Veterinary Dean Council (NVDC) & FAO / USAID",
       "credentialId": "BVO-2023-RU",
       "credentialUrl": "https://www.fao.org/bangladesh/",
-      "image": "Certificate/Vet. Olympiad.jpeg"
+      "image": "Certificate/Vet. Olympiad.jpeg",
+      "distinctionBadge": "Award",
+      "shortHighlight": "National veterinary olympiad qualifier in clinical triage & epidemiology"
     },
     {
       "id": "cert-4",
@@ -1372,7 +1390,9 @@
       "issuer": "Faculty of Veterinary and Animal Sciences, University of Rajshahi",
       "credentialId": "SCVAS-2025-ORAL",
       "credentialUrl": "https://www.ru.ac.bd/",
-      "image": "Certificate/Vet. Conf..jpeg"
+      "image": "Certificate/Vet. Conf..jpeg",
+      "distinctionBadge": "Honor",
+      "shortHighlight": "Delivered competitive oral scientific research presentation"
     },
     {
       "id": "cert-6",
@@ -1392,7 +1412,9 @@
       "issuer": "Rajshahi University Research Society (RURS), University of Rajshahi",
       "credentialId": "RICRF26-AC017",
       "credentialUrl": "https://www.ru.ac.bd/",
-      "image": "Certificate/Dog ectoparasite.jpeg"
+      "image": "Certificate/Dog ectoparasite.jpeg",
+      "distinctionBadge": "Honor",
+      "shortHighlight": "Conference presenter: ectoparasite epidemiology & statistical models"
     },
     {
       "id": "cert-8",
@@ -1402,7 +1424,9 @@
       "issuer": "Commonwealth Students' Association (CSA) & Zero Olympiad",
       "credentialId": "ZO-26-FEL-938AA7",
       "credentialUrl": "https://www.commonwealthstudents.org/",
-      "image": "Certificate/Young SDG fellow.jpg"
+      "image": "Certificate/Young SDG fellow.jpg",
+      "distinctionBadge": "Award",
+      "shortHighlight": "Selected Commonwealth youth fellow for SDG impact"
     },
     {
       "id": "cert-9",
@@ -1492,7 +1516,9 @@
       "issuer": "Zero Olympiad (Faatiha Aayat)",
       "credentialId": "ZO-26-R2P-938AA7",
       "credentialUrl": "",
-      "image": "Certificate/Zero olypiad round-2.jpg"
+      "image": "Certificate/Zero olypiad round-2.jpg",
+      "distinctionBadge": "Award",
+      "shortHighlight": "Competitive advancement in national Zero Olympiad Round 2"
     },
     {
       "id": "cert-18",
@@ -1502,7 +1528,9 @@
       "issuer": "Zero Olympiad (Faatiha Aayat)",
       "credentialId": "ZO-26-R1-938AA7",
       "credentialUrl": "",
-      "image": "Certificate/Zero olypiad round-1.jpg"
+      "image": "Certificate/Zero olypiad round-1.jpg",
+      "distinctionBadge": "Honor",
+      "shortHighlight": "Achievement of appreciation in national Zero Olympiad Round 1"
     },
     {
       "id": "cert-19",
@@ -1532,7 +1560,9 @@
       "issuer": "Rajshahi University Student Welfare Association (RUSWA)",
       "credentialId": "",
       "credentialUrl": "",
-      "image": "Certificate/RUSWA volunteer.jpeg"
+      "image": "Certificate/RUSWA volunteer.jpeg",
+      "distinctionBadge": "Volunteer",
+      "shortHighlight": "Awarded Best Volunteer for outstanding student welfare leadership"
     },
     {
       "id": "cert-22",
@@ -1552,7 +1582,9 @@
       "issuer": "Impactra",
       "credentialId": "",
       "credentialUrl": "",
-      "image": "Certificate/mpactra National Quiz Competition.png"
+      "image": "Certificate/mpactra National Quiz Competition.png",
+      "distinctionBadge": "Honor",
+      "shortHighlight": "National competitive quiz certificate in science & public health"
     },
     {
       "id": "cert-24",

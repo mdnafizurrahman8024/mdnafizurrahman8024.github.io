@@ -23,7 +23,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-  <link rel="stylesheet" href="css/style.css?v=42">
+  <link rel="stylesheet" href="css/style.css?v=43">
 
   <script>
     (function() {
@@ -373,6 +373,38 @@
         </div>
 
         <div class="leadership-list" id="leadership-list-container"></div>
+
+        <!-- Compact Key Honors & Recognitions Strip -->
+        <div class="honors-highlight-strip" style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; padding-top: 16px; border-top: 1px solid rgba(13, 148, 136, 0.16);">
+          <div class="honor-highlight-pill">
+            <span class="honor-icon">🏆</span>
+            <div class="honor-pill-text">
+              <strong class="honor-title">Young SDG Fellow</strong>
+              <span class="honor-sub">Commonwealth Students' Association</span>
+            </div>
+          </div>
+          <div class="honor-highlight-pill">
+            <span class="honor-icon">🥇</span>
+            <div class="honor-pill-text">
+              <strong class="honor-title">National Veterinary Olympiad</strong>
+              <span class="honor-sub">2nd BVO Qualifier (NVDC)</span>
+            </div>
+          </div>
+          <div class="honor-highlight-pill">
+            <span class="honor-icon">🌟</span>
+            <div class="honor-pill-text">
+              <strong class="honor-title">Zero Olympiad Recognition</strong>
+              <span class="honor-sub">SDG Youth Leadership</span>
+            </div>
+          </div>
+          <div class="honor-highlight-pill">
+            <span class="honor-icon">🎤</span>
+            <div class="honor-pill-text">
+              <strong class="honor-title">Conference &amp; AI Pitch Presenter</strong>
+              <span class="honor-sub">RURS, CVASU &amp; AI Battle (AU26)</span>
+            </div>
+          </div>
+        </div>
       </section>
 
       <!-- 11. FIELDWORK & MEDIA GALLERY (AUTO-MOVING HORIZONTAL CAROUSEL) -->
@@ -965,6 +997,21 @@
                   <input type="url" id="admin-cert-url" style="width: 100%; padding: 0.45rem; font-size: 0.8rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);" placeholder="https://...">
                 </div>
               </div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+                <div>
+                  <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Distinction Badge</label>
+                  <select id="admin-cert-badge" style="width: 100%; padding: 0.45rem; font-size: 0.8rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);">
+                    <option value="None">None (Standard Certificate)</option>
+                    <option value="Award">🏆 Award</option>
+                    <option value="Honor">🎖️ Honor</option>
+                    <option value="Volunteer">🤝 Volunteer</option>
+                  </select>
+                </div>
+                <div>
+                  <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Short Highlight (1 line)</label>
+                  <input type="text" id="admin-cert-highlight" style="width: 100%; padding: 0.45rem; font-size: 0.8rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);" placeholder="e.g. Selected youth fellow for SDG impact">
+                </div>
+              </div>
               <div>
                 <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Upload Certificate Image *</label>
                 <input type="file" id="admin-cert-file" accept="image/*,.pdf" style="font-size: 0.75rem;" required>
@@ -1000,6 +1047,6 @@
   </aside>
 
   <!-- Core App Logic -->
-  <script src="js/app.js?v=42"></script>
+  <script src="js/app.js?v=43"></script>
 </body>
 </html>

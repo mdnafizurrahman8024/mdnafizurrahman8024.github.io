@@ -1035,6 +1035,19 @@ function initPubSearchAndFilters() {
 /* --------------------------------------------------------------------------
    6. Training & Certification (4-Column Grid with 8 Initial Prioritized Cards)
    -------------------------------------------------------------------------- */
+function renderDistinctionBadge(type) {
+  if (!type || type.toLowerCase() === 'none') return '';
+  const t = type.toLowerCase();
+  if (t === 'award') {
+    return '<span class="distinction-badge distinction-award"><i class="fa-solid fa-trophy"></i> Award</span>';
+  } else if (t === 'honor') {
+    return '<span class="distinction-badge distinction-honor"><i class="fa-solid fa-medal"></i> Honor</span>';
+  } else if (t === 'volunteer') {
+    return '<span class="distinction-badge distinction-volunteer"><i class="fa-solid fa-handshake-angle"></i> Volunteer</span>';
+  }
+  return `<span class="distinction-badge">${escapeHTML(type)}</span>`;
+}
+
 function renderTrainings(certs) {
   const container = document.getElementById('trainings-grid-container');
   if (!container) return;
@@ -1046,18 +1059,27 @@ function renderTrainings(certs) {
     const fullIndex = allCerts.indexOf(t) !== -1 ? allCerts.indexOf(t) : index;
     const issuer = t.issuer || t.organization || 'Issuing Authority';
     const desc = t.description || t.summary || '';
+    const distinctionBadgeHtml = renderDistinctionBadge(t.distinctionBadge);
 
     return `
       <div class="training-card">
         <div>
           <div class="training-header">
-            <span class="training-badge"><i class="fa-solid fa-award"></i> Certificate</span>
+            <div class="training-badges-group" style="display: inline-flex; align-items: center; gap: 5px; flex-wrap: wrap;">
+              <span class="training-badge"><i class="fa-solid fa-award"></i> Certificate</span>
+              ${distinctionBadgeHtml}
+            </div>
             <span class="training-date">${escapeHTML(t.date || '')}</span>
           </div>
           <h4 class="training-title" title="${escapeHTML(t.title)}">${escapeHTML(t.title)}</h4>
           <div class="training-org" title="${escapeHTML(issuer)}">
             <i class="fa-solid fa-building-columns"></i> ${escapeHTML(issuer)}
           </div>
+          ${t.shortHighlight ? `
+            <div class="training-short-highlight" style="font-size: 11.5px; font-weight: 600; color: #0d9488; margin-top: 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="${escapeHTML(t.shortHighlight)}">
+              ${escapeHTML(t.shortHighlight)}
+            </div>
+          ` : ''}
           <p class="training-summary">${escapeHTML(desc)}</p>
           ${t.credentialId ? `
             <div class="training-credential-badge" title="Credential ID: ${escapeHTML(t.credentialId)}">
@@ -1115,14 +1137,21 @@ function openTrainingDetailModal(index) {
 
   const issuer = t.issuer || t.organization || 'Issuing Authority';
   const desc = t.description || t.fullDetails || t.summary || '';
+  const distinctionBadgeHtml = renderDistinctionBadge(t.distinctionBadge);
 
   title.textContent = t.title;
   media.innerHTML = `
     <div style="padding: 2.25rem; text-align: left; width: 100%; color: #fff;">
-      <div style="font-size: 0.85rem; color: #14b8a6; font-weight: 700; margin-bottom: 0.5rem;">
-        <i class="fa-solid fa-building-columns"></i> ${escapeHTML(issuer)} &bull; ${escapeHTML(t.date || '')}
+      <div style="font-size: 0.85rem; color: #14b8a6; font-weight: 700; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+        <span><i class="fa-solid fa-building-columns"></i> ${escapeHTML(issuer)} &bull; ${escapeHTML(t.date || '')}</span>
+        ${distinctionBadgeHtml}
       </div>
-      <h3 style="font-size: 1.35rem; margin-bottom: 1rem; color: #fff;">${escapeHTML(t.title)}</h3>
+      <h3 style="font-size: 1.35rem; margin-bottom: 0.5rem; color: #fff;">${escapeHTML(t.title)}</h3>
+      ${t.shortHighlight ? `
+        <div style="font-size: 0.82rem; font-weight: 600; color: #2dd4bf; margin-bottom: 0.85rem;">
+          ${escapeHTML(t.shortHighlight)}
+        </div>
+      ` : ''}
       <p style="font-size: 0.98rem; line-height: 1.75; color: #cbd5e1; margin-bottom: 1.25rem;">${escapeHTML(desc)}</p>
       
       ${t.credentialId ? `
@@ -2162,6 +2191,10 @@ function handleAddCertificateSubmit(e) {
   const desc = document.getElementById('admin-cert-desc').value.trim();
   const credId = document.getElementById('admin-cert-id').value.trim();
   const credUrl = document.getElementById('admin-cert-url').value.trim();
+  const badgeSelect = document.getElementById('admin-cert-badge');
+  const distinctionBadge = badgeSelect ? badgeSelect.value : 'None';
+  const highlightInput = document.getElementById('admin-cert-highlight');
+  const shortHighlight = highlightInput ? highlightInput.value.trim() : '';
   const fileInput = document.getElementById('admin-cert-file');
 
   if (!title || !issuer || !date || !desc) {
@@ -2188,7 +2221,9 @@ function handleAddCertificateSubmit(e) {
       issuer,
       credentialId: credId,
       credentialUrl: credUrl,
-      image: path
+      image: path,
+      distinctionBadge: distinctionBadge !== 'None' ? distinctionBadge : undefined,
+      shortHighlight: shortHighlight || undefined
     };
 
     if (!window.portfolioData.certificates) window.portfolioData.certificates = [];

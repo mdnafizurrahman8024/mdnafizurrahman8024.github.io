@@ -2887,6 +2887,75 @@ button, input, textarea, select {
   border-radius: var(--radius-full);
 }
 
+.training-badges-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.distinction-badge {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-full);
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  line-height: 1.2;
+}
+
+.distinction-badge.distinction-award {
+  color: #92400e;
+  background: #fef3c7;
+  border: 1px solid rgba(217, 119, 6, 0.35);
+}
+
+.distinction-badge.distinction-honor {
+  color: #831843;
+  background: #fce7f3;
+  border: 1px solid rgba(219, 39, 119, 0.35);
+}
+
+.distinction-badge.distinction-volunteer {
+  color: #065f46;
+  background: #d1fae5;
+  border: 1px solid rgba(5, 150, 105, 0.35);
+}
+
+[data-theme="dark"] .distinction-badge.distinction-award {
+  color: #fde68a;
+  background: rgba(245, 158, 11, 0.16);
+  border-color: rgba(245, 158, 11, 0.4);
+}
+
+[data-theme="dark"] .distinction-badge.distinction-honor {
+  color: #fbcfe8;
+  background: rgba(236, 72, 153, 0.16);
+  border-color: rgba(236, 72, 153, 0.4);
+}
+
+[data-theme="dark"] .distinction-badge.distinction-volunteer {
+  color: #6ee7b7;
+  background: rgba(16, 185, 129, 0.16);
+  border-color: rgba(16, 185, 129, 0.4);
+}
+
+.training-short-highlight {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #0d9488;
+  margin-top: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+[data-theme="dark"] .training-short-highlight {
+  color: #2dd4bf;
+}
+
 .training-date {
   font-size: 0.72rem;
   font-family: var(--font-mono);
@@ -3258,6 +3327,70 @@ button, input, textarea, select {
   color: var(--text-secondary);
   line-height: 1.5;
   margin: 0;
+}
+
+/* Compact Key Honors & Recognitions Strip */
+.honors-highlight-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(13, 148, 136, 0.16);
+}
+
+.honor-highlight-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: var(--radius-full);
+  background: var(--bg-surface-elevated);
+  border: 1px solid rgba(13, 148, 136, 0.2);
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.honor-highlight-pill:hover {
+  border-color: #0d9488;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(13, 148, 136, 0.14);
+}
+
+.honor-icon {
+  font-size: 1rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.honor-pill-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+}
+
+.honor-title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+.honor-sub {
+  font-size: 0.68rem;
+  font-style: italic;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+[data-theme="dark"] .honor-highlight-pill {
+  background: rgba(13, 148, 136, 0.08);
+  border-color: rgba(20, 184, 166, 0.25);
+}
+
+[data-theme="dark"] .honor-highlight-pill:hover {
+  background: rgba(13, 148, 136, 0.15);
+  border-color: #14b8a6;
 }
 
 .references-grid {
