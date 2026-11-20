@@ -2353,6 +2353,61 @@ window.closeProjectModal = closeProjectDetailsModal;
 window.setCarouselSlide = setGallerySlide;
 
 /* --------------------------------------------------------------------------
+   Where to Find Me — Interactive Google Map Switcher & Coordinates Copy
+   -------------------------------------------------------------------------- */
+function switchMapMode(mode) {
+  const iframe = document.getElementById('google-map-iframe');
+  const btnSat = document.getElementById('map-btn-satellite');
+  const btnStd = document.getElementById('map-btn-standard');
+  if (!iframe) return;
+  if (mode === 'standard') {
+    iframe.src = 'https://maps.google.com/maps?q=24.374042779653543,88.64418181747487&t=m&z=17&ie=UTF8&iwloc=A&output=embed';
+    if (btnStd) btnStd.classList.add('active');
+    if (btnSat) btnSat.classList.remove('active');
+  } else {
+    iframe.src = 'https://maps.google.com/maps?q=24.374042779653543,88.64418181747487&t=h&z=17&ie=UTF8&iwloc=A&output=embed';
+    if (btnSat) btnSat.classList.add('active');
+    if (btnStd) btnStd.classList.remove('active');
+  }
+}
+window.switchMapMode = switchMapMode;
+
+function copyMapCoordinates(btn) {
+  const coords = '24.374042779653543, 88.64418181747487';
+  const textEl = document.getElementById('coord-text') || (btn ? btn.querySelector('span') : null);
+  const showCopied = () => {
+    if (textEl) textEl.innerHTML = '<i class="fa-solid fa-check" style="color: #10b981; margin-right: 2px;"></i> Copied!';
+    if (btn) btn.classList.add('copied');
+    setTimeout(() => {
+      if (textEl) textEl.innerHTML = '24.374043&deg; N, 88.644182&deg; E';
+      if (btn) btn.classList.remove('copied');
+    }, 2000);
+  };
+
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(coords).then(showCopied).catch(() => {
+      fallbackCopy(coords);
+      showCopied();
+    });
+  } else {
+    fallbackCopy(coords);
+    showCopied();
+  }
+
+  function fallbackCopy(text) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); } catch (err) {}
+    document.body.removeChild(ta);
+  }
+}
+window.copyMapCoordinates = copyMapCoordinates;
+
+/* --------------------------------------------------------------------------
    Section Smooth Scroll Helper (84px Sticky Offset)
    -------------------------------------------------------------------------- */
 function scrollToSection(href) {
@@ -2366,6 +2421,7 @@ function scrollToSection(href) {
   }
   const target = document.getElementById(rawId) ||
                  document.getElementById(rawId + '-sec') ||
+                 (rawId === 'location' ? document.getElementById('location') : null) ||
                  (rawId === 'projects' ? document.getElementById('software-sec') : null) ||
                  (rawId === 'software' ? document.getElementById('software-sec') : null) ||
                  (rawId === 'training' ? document.getElementById('training-sec') : null) ||

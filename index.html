@@ -23,7 +23,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-  <link rel="stylesheet" href="css/style.css?v=40">
+  <link rel="stylesheet" href="css/style.css?v=42">
 
   <script>
     (function() {
@@ -65,6 +65,7 @@
               <li><a href="#leadership" class="nav-dropdown-item"><i class="fa-solid fa-users"></i> Leadership</a></li>
               <li><a href="#gallery" class="nav-dropdown-item"><i class="fa-solid fa-images"></i> Gallery</a></li>
               <li><a href="#references" class="nav-dropdown-item"><i class="fa-solid fa-user-tie"></i> References</a></li>
+              <li><a href="#location" class="nav-dropdown-item"><i class="fa-solid fa-location-dot"></i> Where to Find Me</a></li>
               <li><a href="#contact" class="nav-dropdown-item"><i class="fa-solid fa-envelope"></i> Contact Me</a></li>
             </ul>
           </li>
@@ -96,6 +97,7 @@
       <a href="#leadership" class="universal-nav-link header-nav-pill header-drawer-link" data-target="leadership-sec"><i class="fa-solid fa-users"></i> <span>Leadership</span></a>
       <a href="#gallery" class="universal-nav-link header-nav-pill header-drawer-link" data-target="gallery-sec"><i class="fa-solid fa-images"></i> <span>Gallery</span></a>
       <a href="#references" class="universal-nav-link header-nav-pill header-drawer-link" data-target="references-sec"><i class="fa-solid fa-user-tie"></i> <span>References</span></a>
+      <a href="#location" class="universal-nav-link header-nav-pill header-drawer-link" data-target="location"><i class="fa-solid fa-location-dot"></i> <span>Where to Find Me</span></a>
       <a href="#contact" class="universal-nav-link header-nav-pill header-drawer-link" data-target="contact-sec"><i class="fa-solid fa-envelope"></i> <span>Contact</span></a>
     </div>
   </div>
@@ -417,7 +419,64 @@
         <div class="references-grid" id="references-grid-container"></div>
       </section>
 
-      <!-- 13. CONTACT ME (MATCHING REFERENCE DESIGN) -->
+      <!-- 13. WHERE TO FIND ME (INTERACTIVE GOOGLE MAPS & LOCATION) -->
+      <section id="location" class="feed-card section-card" style="scroll-margin-top: 84px;">
+        <span id="location-anchor" class="section-hash-anchor"></span>
+        <div class="card-header-row" style="display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.25rem;">
+          <div class="card-title-group" style="display: flex; align-items: center; gap: 0.85rem;">
+            <div class="card-icon-badge" style="background: rgba(13, 148, 136, 0.15); color: #0d9488; font-size: 1.2rem; border-radius: var(--radius-md);">📍</div>
+            <div>
+              <span class="card-eyebrow" style="font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #0d9488; display: block; margin-bottom: 0.15rem;">CAMPUS RESIDENCE &amp; REAL-TIME LOCATION</span>
+              <h2 class="card-heading" style="margin: 0;">Where to Find Me</h2>
+              <div class="card-subheading" style="margin-top: 0.2rem;">Huseyn Shaheed Suhrawardy Hall, University of Rajshahi, Rajshahi-6205, Bangladesh</div>
+            </div>
+          </div>
+
+          <!-- Right-Side Map Mode Switcher in Section Header -->
+          <div class="map-view-toggle" id="map-view-toggle">
+            <button type="button" class="map-toggle-pill active" id="map-btn-satellite" onclick="window.switchMapMode('satellite')">
+              <i class="fa-solid fa-satellite"></i> Satellite View
+            </button>
+            <button type="button" class="map-toggle-pill" id="map-btn-standard" onclick="window.switchMapMode('standard')">
+              <i class="fa-solid fa-map"></i> Standard Map
+            </button>
+          </div>
+        </div>
+
+        <!-- Functional Google Map Embed -->
+        <div class="map-embed-container" style="border-radius: 16px; overflow: hidden; border: 1.5px solid rgba(13, 148, 136, 0.28); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); position: relative; background: var(--bg-surface-elevated);">
+          <iframe id="google-map-iframe" src="https://maps.google.com/maps?q=24.374042779653543,88.64418181747487&amp;t=h&amp;z=17&amp;ie=UTF8&amp;iwloc=A&amp;output=embed" width="100%" height="380" style="width: 100%; height: 380px; border: 0; display: block;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Google Map — Campus Residence &amp; Real-Time Location"></iframe>
+        </div>
+
+        <!-- Bottom Real-Location Indicator Bar inside the section -->
+        <div class="map-indicator-bar" style="margin-top: 1rem; padding: 1rem 1.15rem; border-radius: 14px; background: var(--bg-surface-elevated); border: 1px solid var(--border-color); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.85rem;">
+          <div style="display: flex; flex-direction: column; gap: 0.25rem; min-width: 260px; flex: 1;">
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+              <span class="live-pulse-dot"></span>
+              <strong style="font-size: 0.9rem; color: var(--text-primary); letter-spacing: -0.01em;">Md. Nafizur Rahman &mdash; Real Location Pin</strong>
+            </div>
+            <div style="font-size: 0.82rem; color: var(--text-muted); display: flex; align-items: center; gap: 0.4rem;">
+              <i class="fa-solid fa-building-columns" style="color: #0d9488; font-size: 0.75rem;"></i>
+              <span>Huseyn Shaheed Suhrawardy Hall, University of Rajshahi, Rajshahi-6205, Bangladesh</span>
+            </div>
+          </div>
+
+          <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 0.55rem;">
+            <button type="button" class="coord-copy-pill" id="coord-copy-btn" onclick="window.copyMapCoordinates(this)" title="Click to copy exact GPS coordinates">
+              <i class="fa-regular fa-copy"></i>
+              <span id="coord-text">24.374043&deg; N, 88.644182&deg; E</span>
+            </button>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=24.374042779653543,88.64418181747487" target="_blank" rel="noopener noreferrer" class="map-action-btn" title="Open location in Google Maps">
+              <i class="fa-solid fa-arrow-up-right-from-square"></i> Open in Google Maps
+            </a>
+            <a href="https://www.google.com/maps/dir/?api=1&amp;destination=24.374042779653543,88.64418181747487" target="_blank" rel="noopener noreferrer" class="map-action-btn map-action-primary" title="Get Directions to this location">
+              <i class="fa-solid fa-diamond-turn-right"></i> Get Directions
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- 14. CONTACT ME (MATCHING REFERENCE DESIGN) -->
       <section class="feed-card" id="contact-sec">
         <span id="contact" class="section-hash-anchor"></span>
         <div class="card-header-row" style="margin-bottom: 0.35rem;">
@@ -469,6 +528,14 @@
           <div class="contact-links-grid" id="contact-links-grid-container"></div>
         </div>
       </section>
+
+      <!-- CLOSING APPRECIATION CARD -->
+      <div class="closing-appreciation-card" style="text-align: center; padding: 32px 24px; margin-top: 22px; border-radius: 18px; border: 1.5px solid rgba(13, 148, 136, 0.24); background: linear-gradient(135deg, rgba(13, 148, 136, 0.07), rgba(14, 165, 233, 0.06));">
+        <h3 class="closing-heading" style="font-size: 22px; font-weight: 700; margin-bottom: 8px; color: var(--text-primary); font-family: var(--font-heading);">Thank You for Visiting!</h3>
+        <p class="closing-lead" style="font-size: 15.5px; font-weight: 600; color: #0d9488; margin-bottom: 10px;">I appreciate your time exploring my portfolio.</p>
+        <p class="closing-note" style="max-width: 680px; margin: 0 auto 12px; font-size: 14px; line-height: 1.65; opacity: 0.88; color: var(--text-primary);">Whether you are reaching out regarding veterinary clinical research, One Health &amp; antimicrobial stewardship collaborations, bioinformatics &amp; data analytics, or scientific software development, feel free to connect anytime. Wishing you continued success and impactful discoveries ahead.</p>
+        <p class="closing-signoff" style="font-size: 13px; font-weight: 600; opacity: 0.78; margin: 0; color: var(--text-secondary);">&mdash; Md. Nafizur Rahman &bull; Dept. of Veterinary and Animal Sciences, University of Rajshahi</p>
+      </div>
 
     </div>
   </main>
@@ -933,6 +1000,6 @@
   </aside>
 
   <!-- Core App Logic -->
-  <script src="js/app.js?v=40"></script>
+  <script src="js/app.js?v=42"></script>
 </body>
 </html>
