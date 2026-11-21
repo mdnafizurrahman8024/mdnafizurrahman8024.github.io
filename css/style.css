@@ -2115,6 +2115,73 @@ button, input, textarea, select {
   overflow: hidden;
 }
 
+.project-gallery-caption {
+  font-size: 0.85rem;
+  color: #f1f5f9;
+  background: rgba(15, 23, 42, 0.88);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 0.5rem 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  text-align: center;
+  line-height: 1.45;
+  user-select: text;
+}
+
+.btn-evidence-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.76rem;
+  font-weight: 600;
+  padding: 0.32rem 0.68rem;
+  border-radius: var(--radius-full);
+  background: rgba(13, 148, 136, 0.1);
+  color: #0d9488;
+  border: 1px solid rgba(13, 148, 136, 0.3);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn-evidence-trigger:hover {
+  background: #0d9488;
+  color: #ffffff;
+  border-color: #0d9488;
+  box-shadow: 0 2px 8px rgba(13, 148, 136, 0.25);
+  transform: translateY(-1px);
+}
+
+[data-theme="dark"] .btn-evidence-trigger {
+  background: rgba(20, 184, 166, 0.15);
+  color: #2dd4bf;
+  border-color: rgba(20, 184, 166, 0.35);
+}
+
+[data-theme="dark"] .btn-evidence-trigger:hover {
+  background: #14b8a6;
+  color: #042f2e;
+  border-color: #14b8a6;
+}
+
+.btn-evidence-cert {
+  font-size: 0.72rem;
+  padding: 0.26rem 0.55rem;
+}
+
+.admin-img-caption-input {
+  width: 100%;
+  padding: 0.25rem 0.35rem;
+  font-size: 0.7rem;
+  border-radius: 4px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  margin-top: 4px;
+  box-sizing: border-box;
+}
+
 .project-gallery-slide-img {
   max-width: 100%;
   max-height: 100%;
@@ -2924,6 +2991,12 @@ button, input, textarea, select {
   border: 1px solid rgba(5, 150, 105, 0.35);
 }
 
+.distinction-badge.distinction-training {
+  color: #1d4ed8;
+  background: #dbeafe;
+  border: 1px solid rgba(59, 130, 246, 0.35);
+}
+
 [data-theme="dark"] .distinction-badge.distinction-award {
   color: #fde68a;
   background: rgba(245, 158, 11, 0.16);
@@ -2940,6 +3013,12 @@ button, input, textarea, select {
   color: #6ee7b7;
   background: rgba(16, 185, 129, 0.16);
   border-color: rgba(16, 185, 129, 0.4);
+}
+
+[data-theme="dark"] .distinction-badge.distinction-training {
+  color: #93c5fd;
+  background: rgba(59, 130, 246, 0.16);
+  border-color: rgba(59, 130, 246, 0.4);
 }
 
 .training-short-highlight {

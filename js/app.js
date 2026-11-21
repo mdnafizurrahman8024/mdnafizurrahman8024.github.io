@@ -27,6 +27,8 @@ window.projectModalTimer = null;
 let currentAdminTab = 'pubs';
 let currentEditingProject = null;
 let currentEditingPubIndex = -1;
+let currentEditingResearchIndex = 0;
+let currentEditingCertIndex = 0;
 let draggedPubIdx = null;
 
 /**
@@ -86,7 +88,9 @@ window.closeCertificateModal = closeCertificateModal;
  */
 function formatImagePath(path) {
   if (!path) return '';
-  const clean = path.split('/').map(seg => encodeURIComponent(seg).replace(/'/g, '%27')).join('/');
+  const rawPath = typeof path === 'object' && path !== null ? (path.src || path.url || '') : path;
+  if (!rawPath) return '';
+  const clean = rawPath.split('/').map(seg => encodeURIComponent(seg).replace(/'/g, '%27')).join('/');
   if (clean.toLowerCase().includes('poultrymedix/logo.png')) {
     return clean + '?v=2';
   }
@@ -302,7 +306,14 @@ function renderTimelineAndKPIs(timeline, kpis) {
     <div class="timeline-entry">
       <div class="entry-header">
         <h4 class="entry-title">${escapeHTML(item.title)}</h4>
-        <span class="entry-badge">${escapeHTML(item.badge || item.role)}</span>
+        <div style="display: flex; gap: 0.35rem; align-items: center; flex-wrap: wrap;">
+          ${item.images && item.images.length > 0 ? `
+            <button class="btn-evidence-trigger" onclick="openEvidenceModal('${escapeHTML(item.id)}', 'research', event)" title="View Evidence &amp; Findings">
+              <i class="fa-solid fa-camera"></i> Evidence &amp; Findings (${item.images.length})
+            </button>
+          ` : ''}
+          <span class="entry-badge">${escapeHTML(item.badge || item.role)}</span>
+        </div>
       </div>
       <div class="entry-meta">
         <span><i class="fa-solid fa-building-columns"></i> ${escapeHTML(item.institution || item.lab || '')}</span>
@@ -729,19 +740,30 @@ function setGallerySlide(idx, fromUserAction = false) {
   const counter = document.getElementById('project-gallery-counter');
   const zoomBtn = document.getElementById('project-gallery-zoom');
   const thumbsContainer = document.getElementById('project-gallery-thumbs');
+  const captionEl = document.getElementById('project-gallery-caption');
 
   const curImg = images[currentGallerySlideIdx];
   const encoded = formatImagePath(curImg);
+  const captionText = (typeof curImg === 'object' && curImg !== null) ? (curImg.caption || '') : '';
 
   if (mainImg) {
     mainImg.src = encoded;
-    mainImg.alt = `${currentGalleryProject.name || 'Project'} screenshot ${currentGallerySlideIdx + 1}`;
+    mainImg.alt = captionText || `${currentGalleryProject.name || currentGalleryProject.title || 'Project'} image ${currentGallerySlideIdx + 1}`;
   }
   if (counter) {
     counter.textContent = `${currentGallerySlideIdx + 1} / ${images.length}`;
   }
   if (zoomBtn) {
     zoomBtn.href = encoded;
+  }
+  if (captionEl) {
+    if (captionText) {
+      captionEl.textContent = captionText;
+      captionEl.style.display = 'block';
+    } else {
+      captionEl.textContent = '';
+      captionEl.style.display = 'none';
+    }
   }
 
   if (thumbsContainer) {
@@ -765,12 +787,97 @@ function setGallerySlide(idx, fromUserAction = false) {
 function closeProjectGalleryModal() {
   clearProjectTimer();
   const modal = document.getElementById('project-gallery-modal');
+  const captionEl = document.getElementById('project-gallery-caption');
+  if (captionEl) {
+    captionEl.textContent = '';
+    captionEl.style.display = 'none';
+  }
   if (modal) {
     modal.classList.remove('active');
     document.body.style.overflow = '';
   }
   currentGalleryProject = null;
 }
+
+function openEvidenceModal(itemId, category, e) {
+  if (e && typeof e.stopPropagation === 'function') e.stopPropagation();
+
+  let item = null;
+  let categoryLabel = 'Evidence & Findings';
+
+  if (category === 'research') {
+    const list = window.portfolioData?.scientificResearch || window.portfolioData?.research || window.portfolioData?.researchAndProjectsTimeline || [];
+    item = list.find(r => r.id === itemId);
+    categoryLabel = 'Evidence & Findings';
+  } else if (category === 'publication') {
+    const list = window.portfolioData?.publications || [];
+    item = list.find(p => p.id === itemId);
+    categoryLabel = 'Evidence & Findings';
+  } else if (category === 'certificate') {
+    const list = window.portfolioData?.certificates || window.portfolioData?.trainings || [];
+    item = list.find((c, idx) => c.id === itemId || String(idx) === String(itemId));
+    categoryLabel = 'Practical Outputs';
+  }
+
+  if (!item || !item.images || item.images.length === 0) return;
+
+  currentGalleryProject = {
+    ...item,
+    name: `${item.title || 'Item'} — ${categoryLabel}`
+  };
+  currentGallerySlideIdx = 0;
+
+  const modal = document.getElementById('project-gallery-modal');
+  const titleEl = document.getElementById('project-gallery-title');
+  const thumbsContainer = document.getElementById('project-gallery-thumbs');
+  const prevBtn = document.getElementById('project-gallery-prev');
+  const nextBtn = document.getElementById('project-gallery-next');
+  const galleryWrap = document.getElementById('project-gallery-wrap');
+
+  if (titleEl) {
+    titleEl.textContent = `${item.title || ''} — ${categoryLabel}`;
+  }
+
+  const images = item.images;
+
+  if (thumbsContainer) {
+    thumbsContainer.innerHTML = images.map((img, i) => `
+      <div class="project-gallery-thumb ${i === 0 ? 'active' : ''}" data-idx="${i}" onclick="handleGalleryThumbClick(${i})">
+        <img src="${formatImagePath(img)}" alt="thumb ${i + 1}" loading="lazy">
+      </div>
+    `).join('');
+  }
+
+  if (prevBtn) {
+    prevBtn.onclick = (evt) => {
+      evt.stopPropagation();
+      setGallerySlide(currentGallerySlideIdx - 1, true);
+    };
+  }
+  if (nextBtn) {
+    nextBtn.onclick = (evt) => {
+      evt.stopPropagation();
+      setGallerySlide(currentGallerySlideIdx + 1, true);
+    };
+  }
+
+  setGallerySlide(0);
+
+  clearProjectTimer();
+  if (images.length > 1) {
+    startGallerySlideshow(images.length);
+    if (galleryWrap) {
+      galleryWrap.onmouseenter = () => clearProjectTimer();
+      galleryWrap.onmouseleave = () => startGallerySlideshow(images.length);
+    }
+  }
+
+  if (modal) {
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+}
+window.openEvidenceModal = openEvidenceModal;
 
 function initProjectModals() {
   // Details Modal close listeners
@@ -977,6 +1084,11 @@ function renderPublications() {
           <div class="pub-title-row">
             <h4 class="pub-paper-title">${escapeHTML(p.title)}</h4>
             <div class="pub-badges-group">
+              ${p.images && p.images.length > 0 ? `
+                <button type="button" class="btn-evidence-trigger" onclick="openEvidenceModal('${escapeHTML(p.id)}', 'publication', event)" title="View Evidence &amp; Findings">
+                  <i class="fa-solid fa-camera"></i> Evidence &amp; Findings (${p.images.length})
+                </button>
+              ` : ''}
               ${doiLink ? `
                 <a href="${escapeHTML(doiLink)}" target="_blank" rel="noopener noreferrer" class="badge-doi ${isOsfDoi ? 'badge-osf' : ''}">
                   <i class="fa-solid ${isOsfDoi ? 'fa-dna' : 'fa-fingerprint'}"></i> ${isOsfDoi ? 'OSF (DOI)' : 'DOI'}
@@ -1044,6 +1156,8 @@ function renderDistinctionBadge(type) {
     return '<span class="distinction-badge distinction-honor"><i class="fa-solid fa-medal"></i> Honor</span>';
   } else if (t === 'volunteer') {
     return '<span class="distinction-badge distinction-volunteer"><i class="fa-solid fa-handshake-angle"></i> Volunteer</span>';
+  } else if (t === 'international training' || t === 'training') {
+    return '<span class="distinction-badge distinction-training"><i class="fa-solid fa-globe"></i> International Training</span>';
   }
   return `<span class="distinction-badge">${escapeHTML(type)}</span>`;
 }
@@ -1092,7 +1206,12 @@ function renderTrainings(certs) {
           <button class="btn-training-more" onclick="openTrainingDetailModal(${fullIndex})">
             ...more
           </button>
-          <div style="display: flex; gap: 0.35rem; align-items: center;">
+          <div style="display: flex; gap: 0.35rem; align-items: center; flex-wrap: wrap;">
+            ${t.images && t.images.length > 0 ? `
+              <button type="button" class="btn-evidence-trigger btn-evidence-cert" onclick="openEvidenceModal('${escapeHTML(t.id || fullIndex)}', 'certificate', event)" title="View Practical Outputs">
+                <i class="fa-solid fa-camera"></i> Practical Outputs (${t.images.length})
+              </button>
+            ` : ''}
             ${t.credentialUrl ? `
               <a href="${escapeHTML(t.credentialUrl)}" target="_blank" rel="noopener noreferrer" class="btn-credentials" style="padding: 0.3rem 0.5rem; background: var(--accent-blue-light); color: var(--accent-blue); border-color: var(--accent-blue);" title="Verify Online">
                 <i class="fa-solid fa-arrow-up-right-from-square"></i>
@@ -1161,6 +1280,11 @@ function openTrainingDetailModal(index) {
       ` : ''}
 
       <div style="margin-top: 1rem; display: flex; gap: 0.75rem; flex-wrap: wrap;">
+        ${t.images && t.images.length > 0 ? `
+          <button type="button" class="btn-evidence-trigger" onclick="openEvidenceModal('${escapeHTML(t.id || index)}', 'certificate', event)" title="View Practical Outputs" style="padding: 0.5rem 1rem;">
+            <i class="fa-solid fa-camera"></i> Practical Outputs (${t.images.length})
+          </button>
+        ` : ''}
         ${t.credentialUrl ? `
           <a href="${escapeHTML(t.credentialUrl)}" target="_blank" rel="noopener noreferrer" class="btn-credentials" style="background: #0284c7; color: #fff; border: none; padding: 0.5rem 1rem;">
             <i class="fa-solid fa-arrow-up-right-from-square"></i> Verify Online
@@ -1568,7 +1692,7 @@ function checkAdminAuthState() {
    -------------------------------------------------------------------------- */
 function switchAdminTab(tab) {
   currentAdminTab = tab;
-  ['pubs', 'projects', 'certs', 'json'].forEach(t => {
+  ['pubs', 'research', 'projects', 'certs', 'json'].forEach(t => {
     const btn = document.getElementById(`admin-nav-btn-${t}`);
     const pane = document.getElementById(`admin-pane-${t}`);
     if (btn) {
@@ -1583,8 +1707,12 @@ function switchAdminTab(tab) {
 
   if (tab === 'pubs') {
     populateAdminPubsManager();
+  } else if (tab === 'research') {
+    populateAdminResearchManager();
   } else if (tab === 'projects') {
     populateAdminProjectsManager();
+  } else if (tab === 'certs') {
+    populateAdminCertsManager();
   } else if (tab === 'json') {
     populateAdminForms();
   }
@@ -1810,6 +1938,7 @@ function loadPubIntoAdminForm(idxOrNew) {
     if (osfEl) osfEl.value = '';
     if (scholarEl) scholarEl.value = 'https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en';
     if (orcidEl) orcidEl.value = '';
+    renderAdminItemImagesGrid('pubs', []);
     return;
   }
 
@@ -1872,6 +2001,8 @@ function loadPubIntoAdminForm(idxOrNew) {
   if (osfEl) osfEl.value = p.osfUrl || '';
   if (scholarEl) scholarEl.value = p.scholarUrl || '';
   if (orcidEl) orcidEl.value = p.orcidUrl || p.preprintUrl || '';
+
+  renderAdminItemImagesGrid('pubs', p.images || []);
 }
 
 function handleSavePubSubmit(e) {
@@ -1933,7 +2064,8 @@ function handleSavePubSubmit(e) {
     doiUrl: doi || '',
     osfUrl: osf || '',
     scholarUrl: scholar || '',
-    orcidUrl: orcid || ''
+    orcidUrl: orcid || '',
+    images: existingPub?.images || []
   };
 
   if (existingPub && currentEditingPubIndex >= 0 && currentEditingPubIndex < pubs.length) {
@@ -2223,7 +2355,8 @@ function handleAddCertificateSubmit(e) {
       credentialUrl: credUrl,
       image: path,
       distinctionBadge: distinctionBadge !== 'None' ? distinctionBadge : undefined,
-      shortHighlight: shortHighlight || undefined
+      shortHighlight: shortHighlight || undefined,
+      images: []
     };
 
     if (!window.portfolioData.certificates) window.portfolioData.certificates = [];
@@ -2259,7 +2392,8 @@ function handleFileUploadStaging(e) {
       issuer: "Verified Credential",
       credentialId: "",
       credentialUrl: "",
-      image: path
+      image: path,
+      images: []
     };
 
     if (!window.portfolioData.certificates) window.portfolioData.certificates = [];
@@ -2272,6 +2406,259 @@ function handleFileUploadStaging(e) {
   };
   reader.readAsDataURL(file);
 }
+
+/* --------------------------------------------------------------------------
+   Research & Appointments Manager in Admin Drawer
+   -------------------------------------------------------------------------- */
+function populateAdminResearchManager() {
+  const select = document.getElementById('admin-research-select');
+  const form = document.getElementById('admin-research-form');
+  const list = window.portfolioData?.scientificResearch || window.portfolioData?.research || [];
+
+  if (select) {
+    select.innerHTML = list.map((r, idx) => `
+      <option value="${idx}" ${currentEditingResearchIndex === idx ? 'selected' : ''}>#${idx + 1}. ${escapeHTML((r.title || '').slice(0, 40))}${(r.title || '').length > 40 ? '...' : ''}</option>
+    `).join('');
+
+    select.onchange = () => {
+      currentEditingResearchIndex = parseInt(select.value) || 0;
+      loadResearchIntoAdminForm(currentEditingResearchIndex);
+    };
+  }
+
+  if (form) {
+    form.onsubmit = handleSaveResearchSubmit;
+  }
+
+  loadResearchIntoAdminForm(currentEditingResearchIndex);
+}
+
+function loadResearchIntoAdminForm(idx) {
+  const list = window.portfolioData?.scientificResearch || window.portfolioData?.research || [];
+  const r = list[idx];
+  if (!r) return;
+
+  const titleEl = document.getElementById('admin-research-title');
+  const roleEl = document.getElementById('admin-research-role');
+  const periodEl = document.getElementById('admin-research-period');
+  const instEl = document.getElementById('admin-research-inst');
+  const descEl = document.getElementById('admin-research-desc');
+
+  if (titleEl) titleEl.value = r.title || '';
+  if (roleEl) roleEl.value = r.badge || r.role || '';
+  if (periodEl) periodEl.value = r.period || '';
+  if (instEl) instEl.value = r.institution || r.lab || '';
+  if (descEl) descEl.value = r.summary || r.description || '';
+
+  renderAdminItemImagesGrid('research', r.images || []);
+}
+
+function handleSaveResearchSubmit(e) {
+  e.preventDefault();
+  const list = window.portfolioData?.scientificResearch || window.portfolioData?.research;
+  if (!list) return;
+
+  const r = list[currentEditingResearchIndex];
+  if (!r) return;
+
+  const title = document.getElementById('admin-research-title')?.value.trim();
+  const role = document.getElementById('admin-research-role')?.value.trim();
+  const period = document.getElementById('admin-research-period')?.value.trim();
+  const inst = document.getElementById('admin-research-inst')?.value.trim();
+  const desc = document.getElementById('admin-research-desc')?.value.trim();
+
+  if (!title || !role) {
+    return showToast('Title and Role/Badge are required.', 'error');
+  }
+
+  r.title = title;
+  r.badge = role;
+  r.role = role;
+  r.period = period;
+  r.institution = inst;
+  r.lab = inst;
+  r.summary = desc;
+  r.description = desc;
+
+  window.portfolioData.scientificResearch = list;
+  window.portfolioData.research = list;
+
+  renderTimelineAndKPIs(list, window.portfolioData.kpis);
+  populateAdminForms();
+  showToast(`Research "${title}" updated! Click "Save & Publish" to push to GitHub.`, 'success');
+}
+
+/* --------------------------------------------------------------------------
+   Certificates Manager (Practical Outputs) in Admin Drawer
+   -------------------------------------------------------------------------- */
+function populateAdminCertsManager() {
+  const select = document.getElementById('admin-cert-select');
+  const list = window.portfolioData?.certificates || window.portfolioData?.trainings || [];
+
+  if (select) {
+    select.innerHTML = list.map((c, idx) => `
+      <option value="${idx}" ${currentEditingCertIndex === idx ? 'selected' : ''}>#${idx + 1}. ${escapeHTML((c.title || '').slice(0, 40))}${(c.title || '').length > 40 ? '...' : ''}</option>
+    `).join('');
+
+    select.onchange = () => {
+      currentEditingCertIndex = parseInt(select.value) || 0;
+      loadCertIntoAdminManager(currentEditingCertIndex);
+    };
+  }
+
+  loadCertIntoAdminManager(currentEditingCertIndex);
+}
+
+function loadCertIntoAdminManager(idx) {
+  const list = window.portfolioData?.certificates || window.portfolioData?.trainings || [];
+  const c = list[idx];
+  if (!c) return;
+
+  renderAdminItemImagesGrid('certs', c.images || []);
+}
+
+/* --------------------------------------------------------------------------
+   Unified Images & Captions Manager (Research, Publications, Certificates)
+   -------------------------------------------------------------------------- */
+function getAdminCurrentItem(category) {
+  if (category === 'pubs') {
+    const pubs = window.portfolioData?.publications;
+    if (!pubs) return null;
+    return (currentEditingPubIndex >= 0 && currentEditingPubIndex < pubs.length) ? pubs[currentEditingPubIndex] : null;
+  } else if (category === 'research') {
+    const list = window.portfolioData?.scientificResearch || window.portfolioData?.research;
+    if (!list) return null;
+    return (currentEditingResearchIndex >= 0 && currentEditingResearchIndex < list.length) ? list[currentEditingResearchIndex] : null;
+  } else if (category === 'certs') {
+    const list = window.portfolioData?.certificates || window.portfolioData?.trainings;
+    if (!list) return null;
+    return (currentEditingCertIndex >= 0 && currentEditingCertIndex < list.length) ? list[currentEditingCertIndex] : null;
+  }
+  return null;
+}
+
+function renderAdminItemImagesGrid(category, images) {
+  const grid = document.getElementById(`admin-${category}-img-grid`);
+  const countEl = document.getElementById(`admin-${category}-img-count`);
+  if (!grid) return;
+
+  const list = images || [];
+  if (countEl) countEl.textContent = `${list.length} image${list.length !== 1 ? 's' : ''}`;
+
+  if (list.length === 0) {
+    grid.innerHTML = '<div style="grid-column: 1 / -1; font-size: 0.75rem; color: var(--text-muted); padding: 0.5rem; text-align: center;">No images attached yet. Select images below to upload.</div>';
+    return;
+  }
+
+  grid.innerHTML = list.map((img, idx) => {
+    const src = typeof img === 'object' && img !== null ? (img.src || img.url || '') : img;
+    const caption = typeof img === 'object' && img !== null ? (img.caption || '') : '';
+    return `
+      <div class="admin-img-preview-card" style="display: flex; flex-direction: column; gap: 4px;">
+        <div style="position: relative; width: 100%; aspect-ratio: 16/10; border-radius: 4px; overflow: hidden; background: #000;">
+          <img src="${formatImagePath(src)}" alt="preview ${idx}" style="width: 100%; height: 100%; object-fit: cover;">
+          <div class="admin-img-actions">
+            <button type="button" class="admin-img-action-btn" title="Remove image" onclick="removeAdminItemImage('${category}', ${idx})">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </div>
+        </div>
+        <input type="text" class="admin-img-caption-input" placeholder="Caption / Findings..." value="${escapeHTML(caption)}" oninput="updateAdminItemImageCaption('${category}', ${idx}, this.value)">
+      </div>
+    `;
+  }).join('');
+}
+window.renderAdminItemImagesGrid = renderAdminItemImagesGrid;
+
+function updateAdminItemImageCaption(category, idx, val) {
+  const item = getAdminCurrentItem(category);
+  if (!item || !item.images || !item.images[idx]) return;
+  if (typeof item.images[idx] === 'string') {
+    item.images[idx] = { src: item.images[idx], caption: val };
+  } else {
+    item.images[idx].caption = val;
+  }
+  populateAdminForms();
+}
+window.updateAdminItemImageCaption = updateAdminItemImageCaption;
+
+function removeAdminItemImage(category, idx) {
+  const item = getAdminCurrentItem(category);
+  if (!item || !item.images) return;
+  item.images.splice(idx, 1);
+  if (category === 'research') {
+    window.portfolioData.scientificResearch = window.portfolioData.scientificResearch || window.portfolioData.research;
+    window.portfolioData.research = window.portfolioData.scientificResearch;
+    renderTimelineAndKPIs(window.portfolioData.scientificResearch, window.portfolioData.kpis);
+  } else if (category === 'pubs') {
+    renderPublications();
+  } else if (category === 'certs') {
+    window.portfolioData.certificates = window.portfolioData.certificates || window.portfolioData.trainings;
+    window.portfolioData.trainings = window.portfolioData.certificates;
+    renderTrainings(window.portfolioData.certificates);
+  }
+  renderAdminItemImagesGrid(category, item.images);
+  populateAdminForms();
+  showToast('Image removed.', 'info');
+}
+window.removeAdminItemImage = removeAdminItemImage;
+
+function handleAdminMultiImageUpload(event, category) {
+  const files = event.target.files;
+  if (!files || files.length === 0) return;
+
+  const item = getAdminCurrentItem(category);
+  if (!item) {
+    return showToast('Please select an item first before uploading images.', 'error');
+  }
+
+  let folder = 'Research';
+  if (category === 'pubs') folder = 'Publications';
+  else if (category === 'certs') folder = 'Certificate';
+
+  let processed = 0;
+  for (let i = 0; i < files.length; i++) {
+    const file = files[i];
+    const reader = new FileReader();
+    reader.onload = function(evt) {
+      const base64 = evt.target.result.split(',')[1];
+      const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+      const relPath = category === 'certs' ? `Certificate/${safeName}` : `Github image/${folder}/${safeName}`;
+
+      stagedFileUploads.push({
+        path: relPath,
+        content: base64,
+        name: file.name
+      });
+
+      if (!item.images) item.images = [];
+      item.images.push({
+        src: relPath,
+        caption: file.name.replace(/\.[^/.]+$/, "").replace(/_/g, " ")
+      });
+
+      processed++;
+      if (processed === files.length) {
+        if (category === 'research') {
+          window.portfolioData.scientificResearch = window.portfolioData.scientificResearch || window.portfolioData.research;
+          window.portfolioData.research = window.portfolioData.scientificResearch;
+          renderTimelineAndKPIs(window.portfolioData.scientificResearch, window.portfolioData.kpis);
+        } else if (category === 'pubs') {
+          renderPublications();
+        } else if (category === 'certs') {
+          window.portfolioData.certificates = window.portfolioData.certificates || window.portfolioData.trainings;
+          window.portfolioData.trainings = window.portfolioData.certificates;
+          renderTrainings(window.portfolioData.certificates);
+        }
+        renderAdminItemImagesGrid(category, item.images);
+        populateAdminForms();
+        showToast(`${files.length} image(s) staged! Click "Save & Publish" to push to GitHub.`, 'success');
+      }
+    };
+    reader.readAsDataURL(file);
+  }
+}
+window.handleAdminMultiImageUpload = handleAdminMultiImageUpload;
 
 async function handlePublishToGitHub() {
   const token = localStorage.getItem('admin_gh_token');

@@ -54,7 +54,7 @@
       "target": "#software-sec"
     },
     {
-      "value": "26+",
+      "value": "27+",
       "label": "Certifications & Training",
       "sublabel": "Diagnostics, WHO, Ethics & Analytics",
       "target": "#training-sec"
@@ -254,7 +254,8 @@
         "Data Curation",
         "Veterinary Research"
       ],
-      "link": "https://www.ru.ac.bd/"
+      "link": "https://www.ru.ac.bd/",
+      "images": []
     },
     {
       "id": "res-2",
@@ -271,7 +272,8 @@
         "Public Health",
         "Epidemiology"
       ],
-      "link": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en"
+      "link": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en",
+      "images": []
     },
     {
       "id": "res-3",
@@ -288,7 +290,8 @@
         "Prescribing Patterns",
         "KAP Study"
       ],
-      "link": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en"
+      "link": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en",
+      "images": []
     },
     {
       "id": "res-4",
@@ -305,7 +308,8 @@
         "Meta-Analysis",
         "PRISMA"
       ],
-      "link": "https://doi.org/10.17605/OSF.IO/9AQS3"
+      "link": "https://doi.org/10.17605/OSF.IO/9AQS3",
+      "images": []
     },
     {
       "id": "res-5",
@@ -322,7 +326,8 @@
         "Molecular Detection",
         "Histopathology"
       ],
-      "link": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en"
+      "link": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en",
+      "images": []
     },
     {
       "id": "res-6",
@@ -339,7 +344,8 @@
         "Ectoparasites",
         "R Analysis"
       ],
-      "link": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en"
+      "link": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en",
+      "images": []
     },
     {
       "id": "res-7",
@@ -356,7 +362,8 @@
         "Statistical Modeling",
         "Survey Data"
       ],
-      "link": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en"
+      "link": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en",
+      "images": []
     }
   ],
   "softwareProjects": [
@@ -764,7 +771,8 @@
       "doi": "",
       "doiUrl": "",
       "scholarUrl": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en",
-      "abstract": "Nationwide multivariate epidemiological survey covering 361 pet-owning households across 7 administrative divisions in Bangladesh, revealing significant direct associations between owner education and vaccination compliance (p < 0.001)."
+      "abstract": "Nationwide multivariate epidemiological survey covering 361 pet-owning households across 7 administrative divisions in Bangladesh, revealing significant direct associations between owner education and vaccination compliance (p < 0.001).",
+      "images": []
     },
     {
       "id": "pub-2",
@@ -781,7 +789,8 @@
       "doi": "",
       "doiUrl": "",
       "scholarUrl": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en",
-      "abstract": "Extensive investigation of 310 free-roaming dogs in the semi-arid Barind Tract, classifying 2,908 ectoparasites with first morphological identification of Ctenocephalides orientis and Heterodoxus spiniger in Bangladesh."
+      "abstract": "Extensive investigation of 310 free-roaming dogs in the semi-arid Barind Tract, classifying 2,908 ectoparasites with first morphological identification of Ctenocephalides orientis and Heterodoxus spiniger in Bangladesh.",
+      "images": []
     },
     {
       "id": "pub-3",
@@ -798,7 +807,8 @@
       "doi": "",
       "doiUrl": "",
       "scholarUrl": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en",
-      "abstract": "Cross-sectional epidemiological survey evaluating infestation rates, environmental sanitation risk factors, room building characteristics, and sleep disturbances among student hostel residents."
+      "abstract": "Cross-sectional epidemiological survey evaluating infestation rates, environmental sanitation risk factors, room building characteristics, and sleep disturbances among student hostel residents.",
+      "images": []
     },
     {
       "id": "pub-4",
@@ -816,7 +826,8 @@
       "doi": "10.17605/OSF.IO/9AQS3",
       "doiUrl": "https://doi.org/10.17605/OSF.IO/9AQS3",
       "scholarUrl": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en",
-      "abstract": "Registered systematic review and meta-analysis synthesizing in vivo preclinical murine data on next-generation nanoparticle rabies vaccines (mRNA-LNPs, VLPs, nano-adjuvants) following PRISMA guidelines using a random-effects model."
+      "abstract": "Registered systematic review and meta-analysis synthesizing in vivo preclinical murine data on next-generation nanoparticle rabies vaccines (mRNA-LNPs, VLPs, nano-adjuvants) following PRISMA guidelines using a random-effects model.",
+      "images": []
     },
     {
       "id": "pub-5",
@@ -833,7 +844,8 @@
       "doi": "",
       "doiUrl": "",
       "scholarUrl": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en",
-      "abstract": "First-author cross-sectional investigation examining pet feeding practices, veterinary accessibility barriers, and common health complications faced by urban pet owners."
+      "abstract": "First-author cross-sectional investigation examining pet feeding practices, veterinary accessibility barriers, and common health complications faced by urban pet owners.",
+      "images": []
     },
     {
       "id": "pub-6",
@@ -850,7 +862,8 @@
       "doi": "",
       "doiUrl": "",
       "scholarUrl": "https://rursbd.org/",
-      "abstract": "Conference proceedings detailing prevalence (87.7%), host body condition risk factors, and molecular sequencing of Haemaphysalis bispinosa and Dermacentor ticks."
+      "abstract": "Conference proceedings detailing prevalence (87.7%), host body condition risk factors, and molecular sequencing of Haemaphysalis bispinosa and Dermacentor ticks.",
+      "images": []
     },
     {
       "id": "pub-7",
@@ -867,7 +880,8 @@
       "doi": "",
       "doiUrl": "",
       "scholarUrl": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en",
-      "abstract": "Mixed-methods cross-sectional survey examining socio-demographic profiles, ethical considerations, and structural challenges in pet healthcare delivery in Bangladesh."
+      "abstract": "Mixed-methods cross-sectional survey examining socio-demographic profiles, ethical considerations, and structural challenges in pet healthcare delivery in Bangladesh.",
+      "images": []
     },
     {
       "id": "pub-8",
@@ -884,7 +898,8 @@
       "doi": "",
       "doiUrl": "",
       "scholarUrl": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en",
-      "abstract": "Conducting active clinical surveillance to evaluate veterinary prescribing patterns, owner KAP, and antimicrobial stewardship gaps to combat unauthorized antibiotic self-medication in companion animals."
+      "abstract": "Conducting active clinical surveillance to evaluate veterinary prescribing patterns, owner KAP, and antimicrobial stewardship gaps to combat unauthorized antibiotic self-medication in companion animals.",
+      "images": []
     },
     {
       "id": "pub-9",
@@ -901,10 +916,24 @@
       "doi": "",
       "doiUrl": "",
       "scholarUrl": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en",
-      "abstract": "Assisting in field sample collection, post-mortem gastrointestinal examinations, morphological oculometry, and molecular characterization of Capillaria spp. nematodes in indigenous poultry."
+      "abstract": "Assisting in field sample collection, post-mortem gastrointestinal examinations, morphological oculometry, and molecular characterization of Capillaria spp. nematodes in indigenous poultry.",
+      "images": []
     }
   ],
   "trainings": [
+    {
+      "id": "cert-27",
+      "title": "4-Week International Computational Vaccine Design & Reverse Vaccinology Course",
+      "issuer": "VitaNova International Alliance for Sciences (VNIAS) & Biotech Catalyst",
+      "date": "15/11/2026",
+      "distinctionBadge": "International Training",
+      "shortHighlight": "Hands-on SARS-CoV-2 multi-epitope vaccine design & 3D docking practical workflow",
+      "description": "Completed an 8-session international applied immunoinformatics and reverse vaccinology training (in collaboration with Science Center for Programming Education, Egypt & The Azerbaijan Life Sciences Platform), executing a complete hands-on practical workflow on SARS-CoV-2 covering antigen screening (VaxiJen, PSORTb), B-cell/T-cell epitope prediction (IEDB), 3D structure modeling (ColabFold/AlphaFold2), TLR2/TLR4 receptor docking (HDOCK, PyMOL), and immune response simulation (C-ImmSim).",
+      "credentialId": "VNIAS-CVD-2026",
+      "credentialUrl": "",
+      "image": "",
+      "images": []
+    },
     {
       "id": "cert-1",
       "title": "Relative Gene Expression Analysis Using RT-PCR: Principles, Methodology & Research Applications",
@@ -913,7 +942,8 @@
       "issuer": "Research Gateway & JUST Genome Center",
       "credentialId": "RG/FSRTPCR-20261187",
       "credentialUrl": "",
-      "image": "Certificate/RT-PCR.png"
+      "image": "Certificate/RT-PCR.png",
+      "images": []
     },
     {
       "id": "cert-2",
@@ -923,7 +953,8 @@
       "issuer": "WHO Academy, World Health Organization",
       "credentialId": "",
       "credentialUrl": "https://academy.who.int/",
-      "image": "Certificate/OHA full.jpg"
+      "image": "Certificate/OHA full.jpg",
+      "images": []
     },
     {
       "id": "cert-3",
@@ -935,7 +966,8 @@
       "credentialUrl": "https://www.fao.org/bangladesh/",
       "image": "Certificate/Vet. Olympiad.jpeg",
       "distinctionBadge": "Award",
-      "shortHighlight": "National veterinary olympiad qualifier in clinical triage & epidemiology"
+      "shortHighlight": "National veterinary olympiad qualifier in clinical triage & epidemiology",
+      "images": []
     },
     {
       "id": "cert-4",
@@ -945,7 +977,8 @@
       "issuer": "Gobeshona Learning Academy",
       "credentialId": "GLA-DA-2026-921",
       "credentialUrl": "",
-      "image": "Certificate/Data_analytics.png"
+      "image": "Certificate/Data_analytics.png",
+      "images": []
     },
     {
       "id": "cert-5",
@@ -957,7 +990,8 @@
       "credentialUrl": "https://www.ru.ac.bd/",
       "image": "Certificate/Vet. Conf..jpeg",
       "distinctionBadge": "Honor",
-      "shortHighlight": "Delivered competitive oral scientific research presentation"
+      "shortHighlight": "Delivered competitive oral scientific research presentation",
+      "images": []
     },
     {
       "id": "cert-6",
@@ -967,7 +1001,8 @@
       "issuer": "VECTORACT (Funded by EU under GA #101083215)",
       "credentialId": "",
       "credentialUrl": "",
-      "image": "Certificate/Vectoract.jpeg"
+      "image": "Certificate/Vectoract.jpeg",
+      "images": []
     },
     {
       "id": "cert-7",
@@ -979,7 +1014,8 @@
       "credentialUrl": "https://www.ru.ac.bd/",
       "image": "Certificate/Dog ectoparasite.jpeg",
       "distinctionBadge": "Honor",
-      "shortHighlight": "Conference presenter: ectoparasite epidemiology & statistical models"
+      "shortHighlight": "Conference presenter: ectoparasite epidemiology & statistical models",
+      "images": []
     },
     {
       "id": "cert-8",
@@ -991,7 +1027,8 @@
       "credentialUrl": "https://www.commonwealthstudents.org/",
       "image": "Certificate/Young SDG fellow.jpg",
       "distinctionBadge": "Award",
-      "shortHighlight": "Selected Commonwealth youth fellow for SDG impact"
+      "shortHighlight": "Selected Commonwealth youth fellow for SDG impact",
+      "images": []
     },
     {
       "id": "cert-9",
@@ -1001,7 +1038,8 @@
       "issuer": "Gobeshona Learning Academy",
       "credentialId": "",
       "credentialUrl": "",
-      "image": "Certificate/Python_Certificate_21_days.png"
+      "image": "Certificate/Python_Certificate_21_days.png",
+      "images": []
     },
     {
       "id": "cert-10",
@@ -1011,7 +1049,8 @@
       "issuer": "WHO Ethics Review Committee Secretariat, World Health Organization",
       "credentialId": "",
       "credentialUrl": "https://www.who.int/ethics",
-      "image": "Certificate/R.Ethics.png"
+      "image": "Certificate/R.Ethics.png",
+      "images": []
     },
     {
       "id": "cert-11",
@@ -1021,7 +1060,8 @@
       "issuer": "WHO Academy, World Health Organization",
       "credentialId": "",
       "credentialUrl": "https://academy.who.int/",
-      "image": "Certificate/Medical Infrastructure.png"
+      "image": "Certificate/Medical Infrastructure.png",
+      "images": []
     },
     {
       "id": "cert-12",
@@ -1031,7 +1071,8 @@
       "issuer": "Department of Antimicrobial Resistance (AMR), WHO",
       "credentialId": "",
       "credentialUrl": "https://www.who.int/teams/surveillance-prevention-control-AMR",
-      "image": "Certificate/AMR.png"
+      "image": "Certificate/AMR.png",
+      "images": []
     },
     {
       "id": "cert-13",
@@ -1041,7 +1082,8 @@
       "issuer": "Infection Prevention and Control Unit & Hub (IPC Unit), WHO",
       "credentialId": "",
       "credentialUrl": "https://www.who.int/teams/integrated-health-services/infection-prevention-control",
-      "image": "Certificate/Healthcare.jpg"
+      "image": "Certificate/Healthcare.jpg",
+      "images": []
     },
     {
       "id": "cert-14",
@@ -1051,7 +1093,8 @@
       "issuer": "Applied Malaria Modeling Network (AMMnet), Northwestern University & RU",
       "credentialId": "",
       "credentialUrl": "https://ammnet.org/",
-      "image": "Certificate/Malaria Modeling.jpeg"
+      "image": "Certificate/Malaria Modeling.jpeg",
+      "images": []
     },
     {
       "id": "cert-15",
@@ -1061,7 +1104,8 @@
       "issuer": "Scholars Academy",
       "credentialId": "",
       "credentialUrl": "",
-      "image": "Certificate/Research Academy SPSS.jpeg"
+      "image": "Certificate/Research Academy SPSS.jpeg",
+      "images": []
     },
     {
       "id": "cert-16",
@@ -1071,7 +1115,8 @@
       "issuer": "UNITAR, UN Environment Programme (UNEP) & InforMEA",
       "credentialId": "",
       "credentialUrl": "https://www.informea.org/",
-      "image": "Certificate/UNITAR.jpg"
+      "image": "Certificate/UNITAR.jpg",
+      "images": []
     },
     {
       "id": "cert-17",
@@ -1083,7 +1128,8 @@
       "credentialUrl": "",
       "image": "Certificate/Zero olypiad round-2.jpg",
       "distinctionBadge": "Award",
-      "shortHighlight": "Competitive advancement in national Zero Olympiad Round 2"
+      "shortHighlight": "Competitive advancement in national Zero Olympiad Round 2",
+      "images": []
     },
     {
       "id": "cert-18",
@@ -1095,7 +1141,8 @@
       "credentialUrl": "",
       "image": "Certificate/Zero olypiad round-1.jpg",
       "distinctionBadge": "Honor",
-      "shortHighlight": "Achievement of appreciation in national Zero Olympiad Round 1"
+      "shortHighlight": "Achievement of appreciation in national Zero Olympiad Round 1",
+      "images": []
     },
     {
       "id": "cert-19",
@@ -1105,7 +1152,8 @@
       "issuer": "Rajshahi University Higher Education and Research Forum (RUHERF)",
       "credentialId": "",
       "credentialUrl": "https://www.ru.ac.bd/",
-      "image": "Certificate/RUHERF Research Summit.jpeg"
+      "image": "Certificate/RUHERF Research Summit.jpeg",
+      "images": []
     },
     {
       "id": "cert-20",
@@ -1115,7 +1163,8 @@
       "issuer": "Rajshahi University Education Club (RUEC)",
       "credentialId": "",
       "credentialUrl": "https://www.ru.ac.bd/",
-      "image": "Certificate/RUEC Int. Audience.jpeg"
+      "image": "Certificate/RUEC Int. Audience.jpeg",
+      "images": []
     },
     {
       "id": "cert-21",
@@ -1127,7 +1176,8 @@
       "credentialUrl": "",
       "image": "Certificate/RUSWA volunteer.jpeg",
       "distinctionBadge": "Volunteer",
-      "shortHighlight": "Awarded Best Volunteer for outstanding student welfare leadership"
+      "shortHighlight": "Awarded Best Volunteer for outstanding student welfare leadership",
+      "images": []
     },
     {
       "id": "cert-22",
@@ -1137,7 +1187,8 @@
       "issuer": "The Asia Foundation & SAJIDA Foundation (Google.org)",
       "credentialId": "",
       "credentialUrl": "https://asiafoundation.org/",
-      "image": "Certificate/Cyber Security.jpg"
+      "image": "Certificate/Cyber Security.jpg",
+      "images": []
     },
     {
       "id": "cert-23",
@@ -1149,7 +1200,8 @@
       "credentialUrl": "",
       "image": "Certificate/mpactra National Quiz Competition.png",
       "distinctionBadge": "Honor",
-      "shortHighlight": "National competitive quiz certificate in science & public health"
+      "shortHighlight": "National competitive quiz certificate in science & public health",
+      "images": []
     },
     {
       "id": "cert-24",
@@ -1159,7 +1211,8 @@
       "issuer": "Kekuléon Research & Training Center (KRTC)",
       "credentialId": "",
       "credentialUrl": "",
-      "image": "Certificate/Kekuleon.png"
+      "image": "Certificate/Kekuleon.png",
+      "images": []
     },
     {
       "id": "cert-25",
@@ -1169,7 +1222,8 @@
       "issuer": "Rajshahi University Readers' Forum",
       "credentialId": "",
       "credentialUrl": "",
-      "image": "Certificate/Career summit 2026-09-14 at 9.24.46 PM.jpeg"
+      "image": "Certificate/Career summit 2026-09-14 at 9.24.46 PM.jpeg",
+      "images": []
     },
     {
       "id": "cert-26",
@@ -1179,7 +1233,8 @@
       "issuer": "UY LAB",
       "credentialId": "02309048024",
       "credentialUrl": "https://uylab.org/",
-      "image": "Certificate/Digital Marketing.jpeg"
+      "image": "Certificate/Digital Marketing.jpeg",
+      "images": []
     }
   ],
   "gallery": [
@@ -1341,6 +1396,19 @@
   ],
   "certificates": [
     {
+      "id": "cert-27",
+      "title": "4-Week International Computational Vaccine Design & Reverse Vaccinology Course",
+      "issuer": "VitaNova International Alliance for Sciences (VNIAS) & Biotech Catalyst",
+      "date": "15/11/2026",
+      "distinctionBadge": "International Training",
+      "shortHighlight": "Hands-on SARS-CoV-2 multi-epitope vaccine design & 3D docking practical workflow",
+      "description": "Completed an 8-session international applied immunoinformatics and reverse vaccinology training (in collaboration with Science Center for Programming Education, Egypt & The Azerbaijan Life Sciences Platform), executing a complete hands-on practical workflow on SARS-CoV-2 covering antigen screening (VaxiJen, PSORTb), B-cell/T-cell epitope prediction (IEDB), 3D structure modeling (ColabFold/AlphaFold2), TLR2/TLR4 receptor docking (HDOCK, PyMOL), and immune response simulation (C-ImmSim).",
+      "credentialId": "VNIAS-CVD-2026",
+      "credentialUrl": "",
+      "image": "",
+      "images": []
+    },
+    {
       "id": "cert-1",
       "title": "Relative Gene Expression Analysis Using RT-PCR: Principles, Methodology & Research Applications",
       "description": "Exclusive molecular diagnostics seminar on principles and workflows of RT-PCR/qRT-PCR techniques, primer validation, master mix preparation, and genomic data interpretation conducted by the JUST Genome Center.",
@@ -1348,7 +1416,8 @@
       "issuer": "Research Gateway & JUST Genome Center",
       "credentialId": "RG/FSRTPCR-20261187",
       "credentialUrl": "",
-      "image": "Certificate/RT-PCR.png"
+      "image": "Certificate/RT-PCR.png",
+      "images": []
     },
     {
       "id": "cert-2",
@@ -1358,7 +1427,8 @@
       "issuer": "WHO Academy, World Health Organization",
       "credentialId": "",
       "credentialUrl": "https://academy.who.int/",
-      "image": "Certificate/OHA full.jpg"
+      "image": "Certificate/OHA full.jpg",
+      "images": []
     },
     {
       "id": "cert-3",
@@ -1370,7 +1440,8 @@
       "credentialUrl": "https://www.fao.org/bangladesh/",
       "image": "Certificate/Vet. Olympiad.jpeg",
       "distinctionBadge": "Award",
-      "shortHighlight": "National veterinary olympiad qualifier in clinical triage & epidemiology"
+      "shortHighlight": "National veterinary olympiad qualifier in clinical triage & epidemiology",
+      "images": []
     },
     {
       "id": "cert-4",
@@ -1380,7 +1451,8 @@
       "issuer": "Gobeshona Learning Academy",
       "credentialId": "GLA-DA-2026-921",
       "credentialUrl": "",
-      "image": "Certificate/Data_analytics.png"
+      "image": "Certificate/Data_analytics.png",
+      "images": []
     },
     {
       "id": "cert-5",
@@ -1392,7 +1464,8 @@
       "credentialUrl": "https://www.ru.ac.bd/",
       "image": "Certificate/Vet. Conf..jpeg",
       "distinctionBadge": "Honor",
-      "shortHighlight": "Delivered competitive oral scientific research presentation"
+      "shortHighlight": "Delivered competitive oral scientific research presentation",
+      "images": []
     },
     {
       "id": "cert-6",
@@ -1402,7 +1475,8 @@
       "issuer": "VECTORACT (Funded by EU under GA #101083215)",
       "credentialId": "",
       "credentialUrl": "",
-      "image": "Certificate/Vectoract.jpeg"
+      "image": "Certificate/Vectoract.jpeg",
+      "images": []
     },
     {
       "id": "cert-7",
@@ -1414,7 +1488,8 @@
       "credentialUrl": "https://www.ru.ac.bd/",
       "image": "Certificate/Dog ectoparasite.jpeg",
       "distinctionBadge": "Honor",
-      "shortHighlight": "Conference presenter: ectoparasite epidemiology & statistical models"
+      "shortHighlight": "Conference presenter: ectoparasite epidemiology & statistical models",
+      "images": []
     },
     {
       "id": "cert-8",
@@ -1426,7 +1501,8 @@
       "credentialUrl": "https://www.commonwealthstudents.org/",
       "image": "Certificate/Young SDG fellow.jpg",
       "distinctionBadge": "Award",
-      "shortHighlight": "Selected Commonwealth youth fellow for SDG impact"
+      "shortHighlight": "Selected Commonwealth youth fellow for SDG impact",
+      "images": []
     },
     {
       "id": "cert-9",
@@ -1436,7 +1512,8 @@
       "issuer": "Gobeshona Learning Academy",
       "credentialId": "",
       "credentialUrl": "",
-      "image": "Certificate/Python_Certificate_21_days.png"
+      "image": "Certificate/Python_Certificate_21_days.png",
+      "images": []
     },
     {
       "id": "cert-10",
@@ -1446,7 +1523,8 @@
       "issuer": "WHO Ethics Review Committee Secretariat, World Health Organization",
       "credentialId": "",
       "credentialUrl": "https://www.who.int/ethics",
-      "image": "Certificate/R.Ethics.png"
+      "image": "Certificate/R.Ethics.png",
+      "images": []
     },
     {
       "id": "cert-11",
@@ -1456,7 +1534,8 @@
       "issuer": "WHO Academy, World Health Organization",
       "credentialId": "",
       "credentialUrl": "https://academy.who.int/",
-      "image": "Certificate/Medical Infrastructure.png"
+      "image": "Certificate/Medical Infrastructure.png",
+      "images": []
     },
     {
       "id": "cert-12",
@@ -1466,7 +1545,8 @@
       "issuer": "Department of Antimicrobial Resistance (AMR), WHO",
       "credentialId": "",
       "credentialUrl": "https://www.who.int/teams/surveillance-prevention-control-AMR",
-      "image": "Certificate/AMR.png"
+      "image": "Certificate/AMR.png",
+      "images": []
     },
     {
       "id": "cert-13",
@@ -1476,7 +1556,8 @@
       "issuer": "Infection Prevention and Control Unit & Hub (IPC Unit), WHO",
       "credentialId": "",
       "credentialUrl": "https://www.who.int/teams/integrated-health-services/infection-prevention-control",
-      "image": "Certificate/Healthcare.jpg"
+      "image": "Certificate/Healthcare.jpg",
+      "images": []
     },
     {
       "id": "cert-14",
@@ -1486,7 +1567,8 @@
       "issuer": "Applied Malaria Modeling Network (AMMnet), Northwestern University & RU",
       "credentialId": "",
       "credentialUrl": "https://ammnet.org/",
-      "image": "Certificate/Malaria Modeling.jpeg"
+      "image": "Certificate/Malaria Modeling.jpeg",
+      "images": []
     },
     {
       "id": "cert-15",
@@ -1496,7 +1578,8 @@
       "issuer": "Scholars Academy",
       "credentialId": "",
       "credentialUrl": "",
-      "image": "Certificate/Research Academy SPSS.jpeg"
+      "image": "Certificate/Research Academy SPSS.jpeg",
+      "images": []
     },
     {
       "id": "cert-16",
@@ -1506,7 +1589,8 @@
       "issuer": "UNITAR, UN Environment Programme (UNEP) & InforMEA",
       "credentialId": "",
       "credentialUrl": "https://www.informea.org/",
-      "image": "Certificate/UNITAR.jpg"
+      "image": "Certificate/UNITAR.jpg",
+      "images": []
     },
     {
       "id": "cert-17",
@@ -1518,7 +1602,8 @@
       "credentialUrl": "",
       "image": "Certificate/Zero olypiad round-2.jpg",
       "distinctionBadge": "Award",
-      "shortHighlight": "Competitive advancement in national Zero Olympiad Round 2"
+      "shortHighlight": "Competitive advancement in national Zero Olympiad Round 2",
+      "images": []
     },
     {
       "id": "cert-18",
@@ -1530,7 +1615,8 @@
       "credentialUrl": "",
       "image": "Certificate/Zero olypiad round-1.jpg",
       "distinctionBadge": "Honor",
-      "shortHighlight": "Achievement of appreciation in national Zero Olympiad Round 1"
+      "shortHighlight": "Achievement of appreciation in national Zero Olympiad Round 1",
+      "images": []
     },
     {
       "id": "cert-19",
@@ -1540,7 +1626,8 @@
       "issuer": "Rajshahi University Higher Education and Research Forum (RUHERF)",
       "credentialId": "",
       "credentialUrl": "https://www.ru.ac.bd/",
-      "image": "Certificate/RUHERF Research Summit.jpeg"
+      "image": "Certificate/RUHERF Research Summit.jpeg",
+      "images": []
     },
     {
       "id": "cert-20",
@@ -1550,7 +1637,8 @@
       "issuer": "Rajshahi University Education Club (RUEC)",
       "credentialId": "",
       "credentialUrl": "https://www.ru.ac.bd/",
-      "image": "Certificate/RUEC Int. Audience.jpeg"
+      "image": "Certificate/RUEC Int. Audience.jpeg",
+      "images": []
     },
     {
       "id": "cert-21",
@@ -1562,7 +1650,8 @@
       "credentialUrl": "",
       "image": "Certificate/RUSWA volunteer.jpeg",
       "distinctionBadge": "Volunteer",
-      "shortHighlight": "Awarded Best Volunteer for outstanding student welfare leadership"
+      "shortHighlight": "Awarded Best Volunteer for outstanding student welfare leadership",
+      "images": []
     },
     {
       "id": "cert-22",
@@ -1572,7 +1661,8 @@
       "issuer": "The Asia Foundation & SAJIDA Foundation (Google.org)",
       "credentialId": "",
       "credentialUrl": "https://asiafoundation.org/",
-      "image": "Certificate/Cyber Security.jpg"
+      "image": "Certificate/Cyber Security.jpg",
+      "images": []
     },
     {
       "id": "cert-23",
@@ -1584,7 +1674,8 @@
       "credentialUrl": "",
       "image": "Certificate/mpactra National Quiz Competition.png",
       "distinctionBadge": "Honor",
-      "shortHighlight": "National competitive quiz certificate in science & public health"
+      "shortHighlight": "National competitive quiz certificate in science & public health",
+      "images": []
     },
     {
       "id": "cert-24",
@@ -1594,7 +1685,8 @@
       "issuer": "Kekuléon Research & Training Center (KRTC)",
       "credentialId": "",
       "credentialUrl": "",
-      "image": "Certificate/Kekuleon.png"
+      "image": "Certificate/Kekuleon.png",
+      "images": []
     },
     {
       "id": "cert-25",
@@ -1604,7 +1696,8 @@
       "issuer": "Rajshahi University Readers' Forum",
       "credentialId": "",
       "credentialUrl": "",
-      "image": "Certificate/Career summit 2026-09-14 at 9.24.46 PM.jpeg"
+      "image": "Certificate/Career summit 2026-09-14 at 9.24.46 PM.jpeg",
+      "images": []
     },
     {
       "id": "cert-26",
@@ -1614,7 +1707,8 @@
       "issuer": "UY LAB",
       "credentialId": "02309048024",
       "credentialUrl": "https://uylab.org/",
-      "image": "Certificate/Digital Marketing.jpeg"
+      "image": "Certificate/Digital Marketing.jpeg",
+      "images": []
     }
   ],
   "research": [
@@ -1633,7 +1727,8 @@
         "Data Curation",
         "Veterinary Research"
       ],
-      "link": "https://www.ru.ac.bd/"
+      "link": "https://www.ru.ac.bd/",
+      "images": []
     },
     {
       "id": "res-2",
@@ -1650,7 +1745,8 @@
         "Public Health",
         "Epidemiology"
       ],
-      "link": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en"
+      "link": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en",
+      "images": []
     },
     {
       "id": "res-3",
@@ -1667,7 +1763,8 @@
         "Prescribing Patterns",
         "KAP Study"
       ],
-      "link": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en"
+      "link": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en",
+      "images": []
     },
     {
       "id": "res-4",
@@ -1684,7 +1781,8 @@
         "Meta-Analysis",
         "PRISMA"
       ],
-      "link": "https://doi.org/10.17605/OSF.IO/9AQS3"
+      "link": "https://doi.org/10.17605/OSF.IO/9AQS3",
+      "images": []
     },
     {
       "id": "res-5",
@@ -1701,7 +1799,8 @@
         "Molecular Detection",
         "Histopathology"
       ],
-      "link": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en"
+      "link": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en",
+      "images": []
     },
     {
       "id": "res-6",
@@ -1718,7 +1817,8 @@
         "Ectoparasites",
         "R Analysis"
       ],
-      "link": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en"
+      "link": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en",
+      "images": []
     },
     {
       "id": "res-7",
@@ -1735,7 +1835,8 @@
         "Statistical Modeling",
         "Survey Data"
       ],
-      "link": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en"
+      "link": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en",
+      "images": []
     }
   ],
   "projects": [

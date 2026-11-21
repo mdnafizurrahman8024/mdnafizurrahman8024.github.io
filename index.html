@@ -23,7 +23,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-  <link rel="stylesheet" href="css/style.css?v=43">
+  <link rel="stylesheet" href="css/style.css?v=44">
 
   <script>
     (function() {
@@ -681,6 +681,7 @@
           <button class="project-gallery-nav-btn prev" id="project-gallery-prev" title="Previous Image (←)"><i class="fa-solid fa-chevron-left"></i></button>
           <button class="project-gallery-nav-btn next" id="project-gallery-next" title="Next Image (→)"><i class="fa-solid fa-chevron-right"></i></button>
         </div>
+        <div class="project-gallery-caption" id="project-gallery-caption" style="display: none;"></div>
         <div class="project-gallery-thumbs-strip" id="project-gallery-thumbs"></div>
       </div>
     </div>
@@ -737,6 +738,9 @@
         <div class="admin-tabs-nav">
           <button type="button" class="admin-tab-nav-btn active" id="admin-nav-btn-pubs" onclick="switchAdminTab('pubs')">
             <i class="fa-solid fa-newspaper"></i> Publications
+          </button>
+          <button type="button" class="admin-tab-nav-btn" id="admin-nav-btn-research" onclick="switchAdminTab('research')">
+            <i class="fa-solid fa-microscope"></i> Research
           </button>
           <button type="button" class="admin-tab-nav-btn" id="admin-nav-btn-projects" onclick="switchAdminTab('projects')">
             <i class="fa-solid fa-folder-tree"></i> Projects
@@ -851,9 +855,97 @@
                 </div>
               </div>
 
+              <!-- Publication Images & Captions (Evidence & Findings) -->
+              <div style="border-top: 1px solid var(--border-color); padding-top: 0.75rem; margin-top: 0.5rem;">
+                <label style="font-size: 0.75rem; font-weight: 700; display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+                  <span><i class="fa-solid fa-camera" style="color: var(--primary);"></i> Evidence &amp; Findings Images</span>
+                  <span id="admin-pub-img-count" style="color: var(--primary);">0 images</span>
+                </label>
+                <div class="admin-img-preview-grid" id="admin-pub-img-grid">
+                  <div style="grid-column: 1 / -1; font-size: 0.75rem; color: var(--text-muted); padding: 0.5rem; text-align: center;">No evidence images attached yet.</div>
+                </div>
+                <div style="margin-top: 0.65rem;">
+                  <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.25rem; color: var(--primary);">
+                    <i class="fa-solid fa-cloud-arrow-up"></i> Upload Evidence Images
+                  </label>
+                  <input type="file" id="admin-pub-images-input" multiple accept="image/*" style="font-size: 0.75rem; width: 100%;" onchange="handleAdminMultiImageUpload(event, 'pubs')">
+                  <span style="font-size: 0.7rem; color: var(--text-muted); display: block; margin-top: 2px;">
+                    Select multiple images to attach with optional findings captions.
+                  </span>
+                </div>
+              </div>
+
               <div style="display: flex; justify-content: flex-end; gap: 0.5rem; margin-top: 0.4rem;">
                 <button type="submit" style="padding: 0.5rem 1rem; border-radius: 6px; background: var(--primary); color: #fff; font-size: 0.8rem; font-weight: 600; border: none; cursor: pointer;">
                   <i class="fa-solid fa-check"></i> Save Publication In-Place
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- TAB: RESEARCH & APPOINTMENTS CMS -->
+        <div class="admin-tab-pane" id="admin-pane-research">
+          <div style="background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: 8px; padding: 1rem;">
+            <h5 style="font-size: 0.88rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--text-primary); display: flex; align-items: center; justify-content: space-between;">
+              <span><i class="fa-solid fa-microscope" style="color: var(--primary);"></i> Research Appointments &amp; Evidence Manager</span>
+            </h5>
+
+            <div style="margin-bottom: 0.85rem;">
+              <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.25rem;">Select Research Entry to Edit or Add Evidence</label>
+              <select id="admin-research-select" style="width: 100%; padding: 0.45rem; font-size: 0.8rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);">
+              </select>
+            </div>
+
+            <form id="admin-research-form" style="display: flex; flex-direction: column; gap: 0.65rem;">
+              <div>
+                <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Appointment / Research Title *</label>
+                <input type="text" id="admin-research-title" style="width: 100%; padding: 0.45rem; font-size: 0.8rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);" required>
+              </div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+                <div>
+                  <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Role / Badge *</label>
+                  <input type="text" id="admin-research-role" style="width: 100%; padding: 0.45rem; font-size: 0.8rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);" required>
+                </div>
+                <div>
+                  <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Period</label>
+                  <input type="text" id="admin-research-period" style="width: 100%; padding: 0.45rem; font-size: 0.8rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);">
+                </div>
+              </div>
+              <div>
+                <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Institution / Lab</label>
+                <input type="text" id="admin-research-inst" style="width: 100%; padding: 0.45rem; font-size: 0.8rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);">
+              </div>
+              <div>
+                <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Summary / Description</label>
+                <textarea id="admin-research-desc" rows="3" style="width: 100%; padding: 0.45rem; font-size: 0.8rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);"></textarea>
+              </div>
+
+              <!-- Research Images & Captions (Evidence & Findings) -->
+              <div style="border-top: 1px solid var(--border-color); padding-top: 0.75rem; margin-top: 0.25rem;">
+                <label style="font-size: 0.75rem; font-weight: 700; display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+                  <span><i class="fa-solid fa-camera" style="color: var(--primary);"></i> Evidence &amp; Findings Images</span>
+                  <span id="admin-research-img-count" style="color: var(--primary);">0 images</span>
+                </label>
+                
+                <div class="admin-img-preview-grid" id="admin-research-img-grid">
+                  <div style="grid-column: 1 / -1; font-size: 0.75rem; color: var(--text-muted); padding: 0.5rem; text-align: center;">No evidence images attached yet.</div>
+                </div>
+
+                <div style="margin-top: 0.65rem;">
+                  <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.25rem; color: var(--primary);">
+                    <i class="fa-solid fa-cloud-arrow-up"></i> Upload Evidence Images
+                  </label>
+                  <input type="file" id="admin-research-images-input" multiple accept="image/*" style="font-size: 0.75rem; width: 100%;" onchange="handleAdminMultiImageUpload(event, 'research')">
+                  <span style="font-size: 0.7rem; color: var(--text-muted); display: block; margin-top: 2px;">
+                    Upload figures, charts, or lab documentation with captions.
+                  </span>
+                </div>
+              </div>
+
+              <div style="display: flex; justify-content: flex-end; gap: 0.5rem; margin-top: 0.4rem;">
+                <button type="submit" style="padding: 0.5rem 1rem; border-radius: 6px; background: var(--primary); color: #fff; font-size: 0.8rem; font-weight: 600; border: none; cursor: pointer;">
+                  <i class="fa-solid fa-check"></i> Save Research Updates
                 </button>
               </div>
             </form>
@@ -1005,6 +1097,7 @@
                     <option value="Award">🏆 Award</option>
                     <option value="Honor">🎖️ Honor</option>
                     <option value="Volunteer">🤝 Volunteer</option>
+                    <option value="International Training">🌐 International Training</option>
                   </select>
                 </div>
                 <div>
@@ -1020,6 +1113,34 @@
                 <i class="fa-solid fa-plus"></i> Stage Certificate to Top
               </button>
             </form>
+          </div>
+
+          <!-- Manage Certificate Practical Outputs / Images & Captions -->
+          <div style="background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: 8px; padding: 1rem; margin-top: 1rem;">
+            <h5 style="font-size: 0.88rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--text-primary); display: flex; align-items: center; justify-content: space-between;">
+              <span><i class="fa-solid fa-camera" style="color: var(--primary);"></i> Practical Outputs &amp; Evidence</span>
+              <span id="admin-cert-img-count" style="color: var(--primary); font-size: 0.75rem;">0 images</span>
+            </h5>
+            
+            <div style="margin-bottom: 0.75rem;">
+              <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.25rem;">Select Certificate to Attach Outputs</label>
+              <select id="admin-cert-select" style="width: 100%; padding: 0.45rem; font-size: 0.8rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);">
+              </select>
+            </div>
+
+            <div class="admin-img-preview-grid" id="admin-cert-img-grid">
+              <div style="grid-column: 1 / -1; font-size: 0.75rem; color: var(--text-muted); padding: 0.5rem; text-align: center;">No practical output images attached yet.</div>
+            </div>
+
+            <div style="margin-top: 0.65rem;">
+              <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.25rem; color: var(--primary);">
+                <i class="fa-solid fa-cloud-arrow-up"></i> Upload Practical Outputs / Evidence Images
+              </label>
+              <input type="file" id="admin-cert-images-input" multiple accept="image/*" style="font-size: 0.75rem; width: 100%;" onchange="handleAdminMultiImageUpload(event, 'certs')">
+              <span style="font-size: 0.7rem; color: var(--text-muted); display: block; margin-top: 2px;">
+                Upload docking models, gel electrophoresis results, or workshop outputs with captions.
+              </span>
+            </div>
           </div>
         </div>
 
@@ -1047,6 +1168,6 @@
   </aside>
 
   <!-- Core App Logic -->
-  <script src="js/app.js?v=43"></script>
+  <script src="js/app.js?v=44"></script>
 </body>
 </html>
