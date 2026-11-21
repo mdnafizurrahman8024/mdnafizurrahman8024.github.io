@@ -922,10 +922,10 @@
   ],
   "trainings": [
     {
-      "id": "cert-27",
+      "id": "cert-1",
       "title": "4-Week International Computational Vaccine Design & Reverse Vaccinology Course",
       "issuer": "VitaNova International Alliance for Sciences (VNIAS) & Biotech Catalyst",
-      "date": "15/11/2026",
+      "date": "17-10-2026 – 20-11-2026",
       "distinctionBadge": "International Training",
       "shortHighlight": "Hands-on SARS-CoV-2 multi-epitope vaccine design & 3D docking practical workflow",
       "description": "Completed an 8-session international applied immunoinformatics and reverse vaccinology training (in collaboration with Science Center for Programming Education, Egypt & The Azerbaijan Life Sciences Platform), executing a complete hands-on practical workflow on SARS-CoV-2 covering antigen screening (VaxiJen, PSORTb), B-cell/T-cell epitope prediction (IEDB), 3D structure modeling (ColabFold/AlphaFold2), TLR2/TLR4 receptor docking (HDOCK, PyMOL), and immune response simulation (C-ImmSim).",
@@ -935,7 +935,7 @@
       "images": []
     },
     {
-      "id": "cert-1",
+      "id": "cert-2",
       "title": "Relative Gene Expression Analysis Using RT-PCR: Principles, Methodology & Research Applications",
       "description": "Exclusive molecular diagnostics seminar on principles and workflows of RT-PCR/qRT-PCR techniques, primer validation, master mix preparation, and genomic data interpretation conducted by the JUST Genome Center.",
       "date": "10/09/2026",
@@ -946,7 +946,7 @@
       "images": []
     },
     {
-      "id": "cert-2",
+      "id": "cert-3",
       "title": "One Health: Multisectoral Collaboration at the Interface",
       "description": "Comprehensive international global health certification on operationalizing multisectoral collaboration principles across the human-animal-environmental interface under the International Health Regulations (IHR).",
       "date": "04/06/2026",
@@ -957,7 +957,7 @@
       "images": []
     },
     {
-      "id": "cert-3",
+      "id": "cert-4",
       "title": "2nd Bangladesh Veterinary Olympiad 2023",
       "description": "National competitive qualification in clinical diagnostics, infectious disease triage, and veterinary epidemiology, organized by NVDC with technical support from FAO and USAID.",
       "date": "07/10/2023",
@@ -970,7 +970,7 @@
       "images": []
     },
     {
-      "id": "cert-4",
+      "id": "cert-5",
       "title": "30-Day Data Analytics Bootcamp (Python, SQL, Power BI, Excel)",
       "description": "Intensive 30-day professional data science program covering exploratory data analysis (EDA), automated data cleaning pipelines, statistical modeling in Python, relational SQL querying, and executive dashboards in Power BI and Excel.",
       "date": "21/09/2026",
@@ -981,7 +981,7 @@
       "images": []
     },
     {
-      "id": "cert-5",
+      "id": "cert-6",
       "title": "1st Scientific Conference of Veterinary & Animal Sciences (Oral Presentation)",
       "description": "Delivered an oral scientific research presentation on veterinary clinical care, feed management, and companion animal welfare challenges before academic deans, veterinary clinicians, and national researchers.",
       "date": "29/11/2025",
@@ -994,7 +994,7 @@
       "images": []
     },
     {
-      "id": "cert-6",
+      "id": "cert-7",
       "title": "Monitoring, Assessing and Mitigating the Risks of Vector-Borne Diseases (MOOC)",
       "description": "Completed international MOOC on monitoring, assessing, and mitigating the risks of vector-borne diseases, organized by VECTORACT.",
       "date": "2026",
@@ -1005,7 +1005,7 @@
       "images": []
     },
     {
-      "id": "cert-7",
+      "id": "cert-8",
       "title": "RURS 2nd International Conference & Research Fair 2026 (RICRF26)",
       "description": "Presented co-authored epidemiological research paper 'Epidemiology and Distribution of Ectoparasites in Free-Roaming Dogs from the Semi-Arid Barind Tract, Northwestern Bangladesh' with formal statistical models.",
       "date": "02/10/2026",
@@ -1018,7 +1018,7 @@
       "images": []
     },
     {
-      "id": "cert-8",
+      "id": "cert-9",
       "title": "Young SDG Fellow — Commonwealth Students' Association",
       "description": "Awarded Certificate of Fellowship demonstrating exceptional youth commitment to the United Nations Sustainable Development Goals (SDGs), One Health advocacy, and global youth engagement across rounds 1 and 2.",
       "date": "17/05/2026",
@@ -1031,7 +1031,7 @@
       "images": []
     },
     {
-      "id": "cert-9",
+      "id": "cert-10",
       "title": "21-Day Python Programming Masterclass",
       "description": "Webinar and hands-on coding masterclass covering Python algorithms, data structures, object-oriented programming, and scientific computing workflows.",
       "date": "28/07/2026",
@@ -1042,7 +1042,7 @@
       "images": []
     },
     {
-      "id": "cert-10",
+      "id": "cert-11",
       "title": "Course on Research Ethics",
       "description": "Certified in international ethical standards for biomedical and clinical research involving animal models and human populations, biobanking governance, and informed consent principles.",
       "date": "05/07/2026",
@@ -1053,7 +1053,7 @@
       "images": []
     },
     {
-      "id": "cert-11",
+      "id": "cert-12",
       "title": "Managing Infrastructures for Medical Research: Part 1",
       "description": "WHO Academy certified training covering physical, institutional, and regulatory frameworks required to manage advanced biomedical research facilities and laboratories.",
       "date": "02/06/2026",
@@ -1064,7 +1064,7 @@
       "images": []
     },
     {
-      "id": "cert-12",
+      "id": "cert-13",
       "title": "Antimicrobial Stewardship Programmes in LMIC Facilities",
       "description": "Mastered the WHO practical toolkit for establishing, monitoring, and evaluating antimicrobial stewardship initiatives and combating AMR in health facilities.",
       "date": "12/07/2026",
@@ -1075,7 +1075,7 @@
       "images": []
     },
     {
-      "id": "cert-13",
+      "id": "cert-14",
       "title": "Healthcare Associated Infection (HAI) Surveillance",
       "description": "Comprehensive training on epidemiological methodologies for tracking nosocomial infections, IPC protocol compliance, and hospital outbreak mitigation.",
       "date": "27/05/2026",
@@ -1086,7 +1086,7 @@
       "images": []
     },
     {
-      "id": "cert-14",
+      "id": "cert-15",
       "title": "AMMnet Insights: Malaria Modelling Workshop",
       "description": "Applied mathematical and computational modeling workshop focusing on compartmental transmission dynamics, vector interventions, and climate covariates in malaria epidemiology.",
       "date": "27-28/03/2026",
@@ -1097,7 +1097,7 @@
       "images": []
     },
     {
-      "id": "cert-15",
+      "id": "cert-16",
       "title": "Research Data Analysis Using IBM SPSS with Real Data",
       "description": "Hands-on statistical workshop covering variable coding, parametric and non-parametric testing, ANOVA, multivariate regression, and reporting for peer-reviewed publication.",
       "date": "2025",
@@ -1108,7 +1108,7 @@
       "images": []
     },
     {
-      "id": "cert-16",
+      "id": "cert-17",
       "title": "Climate Change International Legal Regime",
       "description": "Multilateral environmental agreement analysis focusing on the UNFCCC, Paris Agreement, Kyoto Protocol, and global climate litigation frameworks.",
       "date": "09/05/2026",
@@ -1119,7 +1119,7 @@
       "images": []
     },
     {
-      "id": "cert-17",
+      "id": "cert-18",
       "title": "Zero Olympiad — Round 2 Achievement of Appreciation",
       "description": "Certificate of Achievement acknowledging successful advancement and competitive completion in Round 2 of the Zero Olympiad on Sustainable Development.",
       "date": "18/05/2026",
@@ -1132,7 +1132,7 @@
       "images": []
     },
     {
-      "id": "cert-18",
+      "id": "cert-19",
       "title": "Zero Olympiad — Round 1 Achievement of Appreciation",
       "description": "Certificate of Achievement acknowledging successful participation in Round 1 of the national Zero Olympiad examining global sustainability goals.",
       "date": "17/05/2026",
@@ -1145,7 +1145,7 @@
       "images": []
     },
     {
-      "id": "cert-19",
+      "id": "cert-20",
       "title": "RUHERF Summit 2025: Shaping Future Through Research & Global Education",
       "description": "Participated in international academic discourse on multidisciplinary scientific publishing, research methodology, and international fellowship pathways.",
       "date": "17/08/2025",
@@ -1156,7 +1156,7 @@
       "images": []
     },
     {
-      "id": "cert-20",
+      "id": "cert-21",
       "title": "RUEC 1st International Research Conference 2025",
       "description": "International conference participation under the theme 'Advancing Knowledge and Innovation Across Disciplines for Social Transformation'.",
       "date": "06-07/09/2025",
@@ -1167,7 +1167,7 @@
       "images": []
     },
     {
-      "id": "cert-21",
+      "id": "cert-22",
       "title": "Certificate of Best Volunteer Award",
       "description": "Awarded for outstanding volunteer leadership, community engagement, and dedicated organizational service from September to October 2024.",
       "date": "27/10/2024",
@@ -1180,7 +1180,7 @@
       "images": []
     },
     {
-      "id": "cert-22",
+      "id": "cert-23",
       "title": "Cyber Hygiene — Training Completion Certificate",
       "description": "Digital security certification covering threat vector analysis, operational privacy, phishing mitigation, and cryptographic best practices supported by Google.org.",
       "date": "23/05/2026",
@@ -1191,7 +1191,7 @@
       "images": []
     },
     {
-      "id": "cert-23",
+      "id": "cert-24",
       "title": "Impactra National Quiz Competition 2026 (Season 01)",
       "description": "National competition certificate awarded for excellence in scientific curiosity, general knowledge, and intellectual engagement.",
       "date": "18/06/2026",
@@ -1204,7 +1204,7 @@
       "images": []
     },
     {
-      "id": "cert-24",
+      "id": "cert-25",
       "title": "Seminar on Bridging the Theory-Practice Gap in Science Education",
       "description": "Pedagogical seminar examining experiential laboratory instruction, translational research translation, and secondary education enrichment in Bangladesh.",
       "date": "2026",
@@ -1215,7 +1215,7 @@
       "images": []
     },
     {
-      "id": "cert-25",
+      "id": "cert-26",
       "title": "International Career Summit 2026 Event",
       "description": "Participated in career acceleration sessions focusing on higher education navigation, research proposal writing, and competitive global admissions.",
       "date": "04/09/2026",
@@ -1226,7 +1226,7 @@
       "images": []
     },
     {
-      "id": "cert-26",
+      "id": "cert-27",
       "title": "Professional Online Digital Marketing",
       "description": "Professional digital communication certification covering search optimization, audience targeting, outreach analytics, and multi-channel content strategies.",
       "date": "13/07/2023",
@@ -1396,10 +1396,10 @@
   ],
   "certificates": [
     {
-      "id": "cert-27",
+      "id": "cert-1",
       "title": "4-Week International Computational Vaccine Design & Reverse Vaccinology Course",
       "issuer": "VitaNova International Alliance for Sciences (VNIAS) & Biotech Catalyst",
-      "date": "15/11/2026",
+      "date": "17-10-2026 – 20-11-2026",
       "distinctionBadge": "International Training",
       "shortHighlight": "Hands-on SARS-CoV-2 multi-epitope vaccine design & 3D docking practical workflow",
       "description": "Completed an 8-session international applied immunoinformatics and reverse vaccinology training (in collaboration with Science Center for Programming Education, Egypt & The Azerbaijan Life Sciences Platform), executing a complete hands-on practical workflow on SARS-CoV-2 covering antigen screening (VaxiJen, PSORTb), B-cell/T-cell epitope prediction (IEDB), 3D structure modeling (ColabFold/AlphaFold2), TLR2/TLR4 receptor docking (HDOCK, PyMOL), and immune response simulation (C-ImmSim).",
@@ -1409,7 +1409,7 @@
       "images": []
     },
     {
-      "id": "cert-1",
+      "id": "cert-2",
       "title": "Relative Gene Expression Analysis Using RT-PCR: Principles, Methodology & Research Applications",
       "description": "Exclusive molecular diagnostics seminar on principles and workflows of RT-PCR/qRT-PCR techniques, primer validation, master mix preparation, and genomic data interpretation conducted by the JUST Genome Center.",
       "date": "10/09/2026",
@@ -1420,7 +1420,7 @@
       "images": []
     },
     {
-      "id": "cert-2",
+      "id": "cert-3",
       "title": "One Health: Multisectoral Collaboration at the Interface",
       "description": "Comprehensive international global health certification on operationalizing multisectoral collaboration principles across the human-animal-environmental interface under the International Health Regulations (IHR).",
       "date": "04/06/2026",
@@ -1431,7 +1431,7 @@
       "images": []
     },
     {
-      "id": "cert-3",
+      "id": "cert-4",
       "title": "2nd Bangladesh Veterinary Olympiad 2023",
       "description": "National competitive qualification in clinical diagnostics, infectious disease triage, and veterinary epidemiology, organized by NVDC with technical support from FAO and USAID.",
       "date": "07/10/2023",
@@ -1444,7 +1444,7 @@
       "images": []
     },
     {
-      "id": "cert-4",
+      "id": "cert-5",
       "title": "30-Day Data Analytics Bootcamp (Python, SQL, Power BI, Excel)",
       "description": "Intensive 30-day professional data science program covering exploratory data analysis (EDA), automated data cleaning pipelines, statistical modeling in Python, relational SQL querying, and executive dashboards in Power BI and Excel.",
       "date": "21/09/2026",
@@ -1455,7 +1455,7 @@
       "images": []
     },
     {
-      "id": "cert-5",
+      "id": "cert-6",
       "title": "1st Scientific Conference of Veterinary & Animal Sciences (Oral Presentation)",
       "description": "Delivered an oral scientific research presentation on veterinary clinical care, feed management, and companion animal welfare challenges before academic deans, veterinary clinicians, and national researchers.",
       "date": "29/11/2025",
@@ -1468,7 +1468,7 @@
       "images": []
     },
     {
-      "id": "cert-6",
+      "id": "cert-7",
       "title": "Monitoring, Assessing and Mitigating the Risks of Vector-Borne Diseases (MOOC)",
       "description": "Completed international MOOC on monitoring, assessing, and mitigating the risks of vector-borne diseases, organized by VECTORACT.",
       "date": "2026",
@@ -1479,7 +1479,7 @@
       "images": []
     },
     {
-      "id": "cert-7",
+      "id": "cert-8",
       "title": "RURS 2nd International Conference & Research Fair 2026 (RICRF26)",
       "description": "Presented co-authored epidemiological research paper 'Epidemiology and Distribution of Ectoparasites in Free-Roaming Dogs from the Semi-Arid Barind Tract, Northwestern Bangladesh' with formal statistical models.",
       "date": "02/10/2026",
@@ -1492,7 +1492,7 @@
       "images": []
     },
     {
-      "id": "cert-8",
+      "id": "cert-9",
       "title": "Young SDG Fellow — Commonwealth Students' Association",
       "description": "Awarded Certificate of Fellowship demonstrating exceptional youth commitment to the United Nations Sustainable Development Goals (SDGs), One Health advocacy, and global youth engagement across rounds 1 and 2.",
       "date": "17/05/2026",
@@ -1505,7 +1505,7 @@
       "images": []
     },
     {
-      "id": "cert-9",
+      "id": "cert-10",
       "title": "21-Day Python Programming Masterclass",
       "description": "Webinar and hands-on coding masterclass covering Python algorithms, data structures, object-oriented programming, and scientific computing workflows.",
       "date": "28/07/2026",
@@ -1516,7 +1516,7 @@
       "images": []
     },
     {
-      "id": "cert-10",
+      "id": "cert-11",
       "title": "Course on Research Ethics",
       "description": "Certified in international ethical standards for biomedical and clinical research involving animal models and human populations, biobanking governance, and informed consent principles.",
       "date": "05/07/2026",
@@ -1527,7 +1527,7 @@
       "images": []
     },
     {
-      "id": "cert-11",
+      "id": "cert-12",
       "title": "Managing Infrastructures for Medical Research: Part 1",
       "description": "WHO Academy certified training covering physical, institutional, and regulatory frameworks required to manage advanced biomedical research facilities and laboratories.",
       "date": "02/06/2026",
@@ -1538,7 +1538,7 @@
       "images": []
     },
     {
-      "id": "cert-12",
+      "id": "cert-13",
       "title": "Antimicrobial Stewardship Programmes in LMIC Facilities",
       "description": "Mastered the WHO practical toolkit for establishing, monitoring, and evaluating antimicrobial stewardship initiatives and combating AMR in health facilities.",
       "date": "12/07/2026",
@@ -1549,7 +1549,7 @@
       "images": []
     },
     {
-      "id": "cert-13",
+      "id": "cert-14",
       "title": "Healthcare Associated Infection (HAI) Surveillance",
       "description": "Comprehensive training on epidemiological methodologies for tracking nosocomial infections, IPC protocol compliance, and hospital outbreak mitigation.",
       "date": "27/05/2026",
@@ -1560,7 +1560,7 @@
       "images": []
     },
     {
-      "id": "cert-14",
+      "id": "cert-15",
       "title": "AMMnet Insights: Malaria Modelling Workshop",
       "description": "Applied mathematical and computational modeling workshop focusing on compartmental transmission dynamics, vector interventions, and climate covariates in malaria epidemiology.",
       "date": "27-28/03/2026",
@@ -1571,7 +1571,7 @@
       "images": []
     },
     {
-      "id": "cert-15",
+      "id": "cert-16",
       "title": "Research Data Analysis Using IBM SPSS with Real Data",
       "description": "Hands-on statistical workshop covering variable coding, parametric and non-parametric testing, ANOVA, multivariate regression, and reporting for peer-reviewed publication.",
       "date": "2025",
@@ -1582,7 +1582,7 @@
       "images": []
     },
     {
-      "id": "cert-16",
+      "id": "cert-17",
       "title": "Climate Change International Legal Regime",
       "description": "Multilateral environmental agreement analysis focusing on the UNFCCC, Paris Agreement, Kyoto Protocol, and global climate litigation frameworks.",
       "date": "09/05/2026",
@@ -1593,7 +1593,7 @@
       "images": []
     },
     {
-      "id": "cert-17",
+      "id": "cert-18",
       "title": "Zero Olympiad — Round 2 Achievement of Appreciation",
       "description": "Certificate of Achievement acknowledging successful advancement and competitive completion in Round 2 of the Zero Olympiad on Sustainable Development.",
       "date": "18/05/2026",
@@ -1606,7 +1606,7 @@
       "images": []
     },
     {
-      "id": "cert-18",
+      "id": "cert-19",
       "title": "Zero Olympiad — Round 1 Achievement of Appreciation",
       "description": "Certificate of Achievement acknowledging successful participation in Round 1 of the national Zero Olympiad examining global sustainability goals.",
       "date": "17/05/2026",
@@ -1619,7 +1619,7 @@
       "images": []
     },
     {
-      "id": "cert-19",
+      "id": "cert-20",
       "title": "RUHERF Summit 2025: Shaping Future Through Research & Global Education",
       "description": "Participated in international academic discourse on multidisciplinary scientific publishing, research methodology, and international fellowship pathways.",
       "date": "17/08/2025",
@@ -1630,7 +1630,7 @@
       "images": []
     },
     {
-      "id": "cert-20",
+      "id": "cert-21",
       "title": "RUEC 1st International Research Conference 2025",
       "description": "International conference participation under the theme 'Advancing Knowledge and Innovation Across Disciplines for Social Transformation'.",
       "date": "06-07/09/2025",
@@ -1641,7 +1641,7 @@
       "images": []
     },
     {
-      "id": "cert-21",
+      "id": "cert-22",
       "title": "Certificate of Best Volunteer Award",
       "description": "Awarded for outstanding volunteer leadership, community engagement, and dedicated organizational service from September to October 2024.",
       "date": "27/10/2024",
@@ -1654,7 +1654,7 @@
       "images": []
     },
     {
-      "id": "cert-22",
+      "id": "cert-23",
       "title": "Cyber Hygiene — Training Completion Certificate",
       "description": "Digital security certification covering threat vector analysis, operational privacy, phishing mitigation, and cryptographic best practices supported by Google.org.",
       "date": "23/05/2026",
@@ -1665,7 +1665,7 @@
       "images": []
     },
     {
-      "id": "cert-23",
+      "id": "cert-24",
       "title": "Impactra National Quiz Competition 2026 (Season 01)",
       "description": "National competition certificate awarded for excellence in scientific curiosity, general knowledge, and intellectual engagement.",
       "date": "18/06/2026",
@@ -1678,7 +1678,7 @@
       "images": []
     },
     {
-      "id": "cert-24",
+      "id": "cert-25",
       "title": "Seminar on Bridging the Theory-Practice Gap in Science Education",
       "description": "Pedagogical seminar examining experiential laboratory instruction, translational research translation, and secondary education enrichment in Bangladesh.",
       "date": "2026",
@@ -1689,7 +1689,7 @@
       "images": []
     },
     {
-      "id": "cert-25",
+      "id": "cert-26",
       "title": "International Career Summit 2026 Event",
       "description": "Participated in career acceleration sessions focusing on higher education navigation, research proposal writing, and competitive global admissions.",
       "date": "04/09/2026",
@@ -1700,7 +1700,7 @@
       "images": []
     },
     {
-      "id": "cert-26",
+      "id": "cert-27",
       "title": "Professional Online Digital Marketing",
       "description": "Professional digital communication certification covering search optimization, audience targeting, outreach analytics, and multi-channel content strategies.",
       "date": "13/07/2023",
