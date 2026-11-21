@@ -161,6 +161,26 @@
 
         <div class="bio-lead-text" id="bio-lead-text"></div>
         <div class="bio-paragraphs-wrapper" id="bio-paragraphs-wrapper"></div>
+
+        <!-- Compact Hobbies Highlight Strip -->
+        <div class="hobbies-highlight-strip">
+          <div class="hobby-highlight-pill">
+            <span class="hobby-icon">📸</span>
+            <span class="hobby-title">Nature &amp; Wildlife Photography</span>
+          </div>
+          <div class="hobby-highlight-pill">
+            <span class="hobby-icon">🍳</span>
+            <span class="hobby-title">Culinary Art &amp; Cooking</span>
+          </div>
+          <div class="hobby-highlight-pill">
+            <span class="hobby-icon">🦜</span>
+            <span class="hobby-title">Wildlife &amp; Animal Rescue (SWAN)</span>
+          </div>
+          <div class="hobby-highlight-pill">
+            <span class="hobby-icon">✍️</span>
+            <span class="hobby-title">Bengali Fiction &amp; Poetry</span>
+          </div>
+        </div>
       </section>
 
       <!-- 2. ACADEMIC CREDENTIALS / EDUCATION -->
@@ -423,10 +443,11 @@
         <div class="gallery-section-wrapper">
           <div class="gallery-filter-toolbar">
             <button class="gallery-filter-pill active" data-filter="all">All Photos</button>
-            <button class="gallery-filter-pill" data-filter="fieldwork">Fieldwork &amp; Snake Rescue</button>
+            <button class="gallery-filter-pill" data-filter="wildlife">Wildlife &amp; Animal Rescue</button>
             <button class="gallery-filter-pill" data-filter="lab">Lab &amp; Clinical</button>
             <button class="gallery-filter-pill" data-filter="software">Data &amp; Architecture</button>
-            <button class="gallery-filter-pill" data-filter="conferences">Conferences &amp; Awards</button>
+            <button class="gallery-filter-pill" data-filter="conferences">Conferences &amp; Networking</button>
+            <button class="gallery-filter-pill" data-filter="hobbies">Hobbies</button>
           </div>
 
           <div class="gallery-marquee-viewport">
@@ -747,6 +768,9 @@
           </button>
           <button type="button" class="admin-tab-nav-btn" id="admin-nav-btn-certs" onclick="switchAdminTab('certs')">
             <i class="fa-solid fa-certificate"></i> Certificates
+          </button>
+          <button type="button" class="admin-tab-nav-btn" id="admin-nav-btn-gallery" onclick="switchAdminTab('gallery')">
+            <i class="fa-solid fa-images"></i> Gallery
           </button>
           <button type="button" class="admin-tab-nav-btn" id="admin-nav-btn-json" onclick="switchAdminTab('json')">
             <i class="fa-solid fa-code"></i> Raw JSON
@@ -1141,6 +1165,70 @@
                 Upload docking models, gel electrophoresis results, or workshop outputs with captions.
               </span>
             </div>
+          </div>
+        </div>
+
+        <!-- TAB: GALLERY & EVENT CMS -->
+        <div class="admin-tab-pane" id="admin-pane-gallery">
+          <div style="background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: 8px; padding: 1rem;">
+            <h5 style="font-size: 0.88rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--text-primary); display: flex; align-items: center; justify-content: space-between;">
+              <span><i class="fa-solid fa-images" style="color: var(--primary);"></i> Media Gallery &amp; Event Manager</span>
+            </h5>
+
+            <div style="margin-bottom: 0.85rem;">
+              <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.25rem;">Select Photo / Media to Edit or Create New</label>
+              <select id="admin-gallery-select" style="width: 100%; padding: 0.45rem; font-size: 0.8rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);">
+                <option value="__new__">+ Add New Gallery Photo</option>
+              </select>
+            </div>
+
+            <form id="admin-gallery-form" style="display: flex; flex-direction: column; gap: 0.65rem;">
+              <div>
+                <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Photo / Event Title *</label>
+                <input type="text" id="admin-gallery-title" style="width: 100%; padding: 0.45rem; font-size: 0.8rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);" placeholder="e.g., RURS Conference Oral Presentation with Speaker" required>
+              </div>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+                <div>
+                  <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Category *</label>
+                  <select id="admin-gallery-category" style="width: 100%; padding: 0.45rem; font-size: 0.8rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);">
+                    <option value="Wildlife & Animal Rescue">Wildlife &amp; Animal Rescue</option>
+                    <option value="Lab & Clinical">Lab &amp; Clinical</option>
+                    <option value="Data & Architecture">Data &amp; Architecture</option>
+                    <option value="Conferences & Networking">Conferences &amp; Networking</option>
+                    <option value="Hobbies">Hobbies</option>
+                  </select>
+                </div>
+                <div>
+                  <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Date / Event Badge</label>
+                  <input type="text" id="admin-gallery-date" style="width: 100%; padding: 0.45rem; font-size: 0.8rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);" placeholder="e.g. Oct 2026 / RICRF26 Conference">
+                </div>
+              </div>
+
+              <div>
+                <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Caption &amp; Details *</label>
+                <textarea id="admin-gallery-caption" rows="3" style="width: 100%; padding: 0.45rem; font-size: 0.8rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);" placeholder="Detailed description of the seminar, speakers, field findings, or activities..." required></textarea>
+              </div>
+
+              <div>
+                <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Media File URL or Path *</label>
+                <input type="text" id="admin-gallery-url" style="width: 100%; padding: 0.45rem; font-size: 0.8rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);" placeholder="Banner.png, ZUN.png, or Github image/..." required>
+              </div>
+
+              <div>
+                <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Or Upload New Image</label>
+                <input type="file" id="admin-gallery-file" accept="image/*" style="font-size: 0.75rem; width: 100%;">
+              </div>
+
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.4rem;">
+                <button type="button" id="admin-gallery-del-btn" style="padding: 0.5rem 0.85rem; border-radius: 6px; background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3); font-size: 0.8rem; font-weight: 600; cursor: pointer; display: none;">
+                  <i class="fa-solid fa-trash"></i> Delete
+                </button>
+                <button type="submit" style="padding: 0.5rem 1rem; border-radius: 6px; background: var(--primary); color: #fff; font-size: 0.8rem; font-weight: 600; border: none; cursor: pointer; margin-left: auto;">
+                  <i class="fa-solid fa-check"></i> Save Gallery Card In-Place
+                </button>
+              </div>
+            </form>
           </div>
         </div>
 

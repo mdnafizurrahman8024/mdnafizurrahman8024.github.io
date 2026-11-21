@@ -2364,6 +2364,7 @@ button, input, textarea, select {
    ========================================================================== */
 .admin-tabs-nav {
   display: flex;
+  flex-wrap: wrap;
   border-bottom: 1px solid var(--border-color);
   gap: 0.5rem;
   margin-bottom: 1rem;
@@ -3468,6 +3469,57 @@ button, input, textarea, select {
 }
 
 [data-theme="dark"] .honor-highlight-pill:hover {
+  background: rgba(13, 148, 136, 0.15);
+  border-color: #14b8a6;
+}
+
+/* Compact Hobbies Highlight Strip inside #about */
+.hobbies-highlight-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(13, 148, 136, 0.16);
+}
+
+.hobby-highlight-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  background: var(--bg-surface-elevated);
+  border: 1px solid rgba(13, 148, 136, 0.2);
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.hobby-highlight-pill:hover {
+  border-color: #0d9488;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(13, 148, 136, 0.14);
+}
+
+.hobby-icon {
+  font-size: 1rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.hobby-title {
+  white-space: nowrap;
+}
+
+[data-theme="dark"] .hobby-highlight-pill {
+  background: rgba(13, 148, 136, 0.08);
+  border-color: rgba(20, 184, 166, 0.25);
+}
+
+[data-theme="dark"] .hobby-highlight-pill:hover {
   background: rgba(13, 148, 136, 0.15);
   border-color: #14b8a6;
 }

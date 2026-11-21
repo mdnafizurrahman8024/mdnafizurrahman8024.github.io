@@ -29,6 +29,7 @@ let currentEditingProject = null;
 let currentEditingPubIndex = -1;
 let currentEditingResearchIndex = 0;
 let currentEditingCertIndex = 0;
+let currentEditingGalleryIndex = -1;
 let draggedPubIdx = null;
 
 /**
@@ -1391,24 +1392,51 @@ function renderGalleryMarquee() {
   if (!container || !window.portfolioData?.gallery) return;
 
   let items = window.portfolioData.gallery;
-  if (currentGalleryFilter !== 'all') {
+  if (currentGalleryFilter === 'all') {
+    // 1. All Photos (displays all scientific, fieldwork, wildlife rescue, lab, clinical, data, and conference/networking photos,
+    // while keeping Hobbies photos separated so the default gallery view remains strictly professional/academic)
+    items = items.filter(g => (g.categoryFilter || '').toLowerCase() !== 'hobbies');
+  } else if (currentGalleryFilter === 'wildlife') {
+    items = items.filter(g => g.categoryFilter === 'wildlife' || g.categoryFilter === 'fieldwork');
+  } else if (currentGalleryFilter === 'lab') {
+    items = items.filter(g => g.categoryFilter === 'lab');
+  } else if (currentGalleryFilter === 'software') {
+    items = items.filter(g => g.categoryFilter === 'software' || g.categoryFilter === 'data');
+  } else if (currentGalleryFilter === 'conferences') {
+    items = items.filter(g => g.categoryFilter === 'conferences' || g.categoryFilter === 'awards');
+  } else if (currentGalleryFilter === 'hobbies') {
+    items = items.filter(g => (g.categoryFilter || '').toLowerCase() === 'hobbies');
+  } else {
     items = items.filter(g => g.categoryFilter === currentGalleryFilter);
   }
 
-  const duplicated = [...items, ...items];
+  if (items.length === 0) {
+    container.innerHTML = `
+      <div style="padding: 2rem; color: var(--text-muted); text-align: center; width: 100%;">
+        No photos found in this category.
+      </div>
+    `;
+    return;
+  }
 
-  container.innerHTML = duplicated.map((item, idx) => `
-    <div class="gallery-photo-card" onclick="openGalleryItem(${idx % items.length})">
-      <div class="gallery-photo-img-wrapper">
-        <img src="${escapeHTML(item.thumbnail || item.mediaUrl)}" alt="${escapeHTML(item.title)}" class="gallery-photo-img">
-        <span class="gallery-photo-badge">${escapeHTML(item.badge || item.category)}</span>
+  const duplicated = items.length > 2 ? [...items, ...items] : [...items];
+
+  container.innerHTML = duplicated.map(item => {
+    const originalIdx = window.portfolioData.gallery.indexOf(item);
+    const badgeText = item.eventDate || item.date || item.badge || item.category;
+    return `
+      <div class="gallery-photo-card" onclick="openGalleryItem(${originalIdx})">
+        <div class="gallery-photo-img-wrapper">
+          <img src="${formatImagePath(item.thumbnail || item.mediaUrl)}" alt="${escapeHTML(item.title)}" class="gallery-photo-img" loading="lazy">
+          <span class="gallery-photo-badge">${escapeHTML(badgeText)}</span>
+        </div>
+        <div class="gallery-photo-info">
+          <h4 class="gallery-photo-title">${escapeHTML(item.title)}</h4>
+          <p class="gallery-photo-caption">${escapeHTML(item.caption)}</p>
+        </div>
       </div>
-      <div class="gallery-photo-info">
-        <h4 class="gallery-photo-title">${escapeHTML(item.title)}</h4>
-        <p class="gallery-photo-caption">${escapeHTML(item.caption)}</p>
-      </div>
-    </div>
-  `).join('');
+    `;
+  }).join('');
 }
 
 function initGalleryFilters() {
@@ -1436,12 +1464,12 @@ function openGalleryItem(index) {
   caption.textContent = item.caption;
 
   if (item.type === 'document') {
-    const drivePreview = item.mediaUrl.replace('/view?usp=drive_link', '/preview').replace('/view', '/preview');
+    const drivePreview = (item.mediaUrl || '').replace('/view?usp=drive_link', '/preview').replace('/view', '/preview');
     media.innerHTML = `<iframe src="${escapeHTML(drivePreview)}" allow="autoplay"></iframe>`;
   } else if (item.type === 'video') {
     media.innerHTML = `<iframe src="${escapeHTML(item.mediaUrl)}" frameborder="0" allowfullscreen></iframe>`;
   } else {
-    media.innerHTML = `<img src="${escapeHTML(item.mediaUrl)}" alt="${escapeHTML(item.title)}">`;
+    media.innerHTML = `<img src="${formatImagePath(item.mediaUrl)}" alt="${escapeHTML(item.title)}">`;
   }
 
   // Attach direct close listener to close button inside modal
@@ -1692,7 +1720,7 @@ function checkAdminAuthState() {
    -------------------------------------------------------------------------- */
 function switchAdminTab(tab) {
   currentAdminTab = tab;
-  ['pubs', 'research', 'projects', 'certs', 'json'].forEach(t => {
+  ['pubs', 'research', 'projects', 'certs', 'gallery', 'json'].forEach(t => {
     const btn = document.getElementById(`admin-nav-btn-${t}`);
     const pane = document.getElementById(`admin-pane-${t}`);
     if (btn) {
@@ -1713,6 +1741,8 @@ function switchAdminTab(tab) {
     populateAdminProjectsManager();
   } else if (tab === 'certs') {
     populateAdminCertsManager();
+  } else if (tab === 'gallery') {
+    populateAdminGalleryManager();
   } else if (tab === 'json') {
     populateAdminForms();
   }
@@ -2659,6 +2689,190 @@ function handleAdminMultiImageUpload(event, category) {
   }
 }
 window.handleAdminMultiImageUpload = handleAdminMultiImageUpload;
+
+/* --------------------------------------------------------------------------
+   Media Gallery & Event Manager in Admin Drawer
+   -------------------------------------------------------------------------- */
+function populateAdminGalleryManager() {
+  const select = document.getElementById('admin-gallery-select');
+  const form = document.getElementById('admin-gallery-form');
+  const delBtn = document.getElementById('admin-gallery-del-btn');
+  const list = window.portfolioData?.gallery || [];
+
+  if (select) {
+    select.innerHTML = `
+      <option value="__new__">+ Add New Gallery Photo</option>
+      ${list.map((g, idx) => `
+        <option value="${idx}" ${currentEditingGalleryIndex === idx ? 'selected' : ''}>#${idx + 1}. [${escapeHTML(g.category || 'General')}] ${escapeHTML((g.title || '').slice(0, 35))}${(g.title || '').length > 35 ? '...' : ''}</option>
+      `).join('')}
+    `;
+
+    select.onchange = () => {
+      const val = select.value;
+      if (val === '__new__') {
+        currentEditingGalleryIndex = -1;
+        loadGalleryIntoAdminForm('__new__');
+      } else {
+        const idx = parseInt(val);
+        currentEditingGalleryIndex = idx;
+        loadGalleryIntoAdminForm(idx);
+      }
+    };
+  }
+
+  if (form) {
+    form.onsubmit = handleSaveGallerySubmit;
+  }
+
+  if (delBtn) {
+    delBtn.onclick = deleteGalleryInAdmin;
+  }
+
+  if (currentEditingGalleryIndex >= 0 && currentEditingGalleryIndex < list.length) {
+    if (select) select.value = String(currentEditingGalleryIndex);
+    loadGalleryIntoAdminForm(currentEditingGalleryIndex);
+  } else if (list.length > 0 && currentEditingGalleryIndex !== -1) {
+    currentEditingGalleryIndex = 0;
+    if (select) select.value = '0';
+    loadGalleryIntoAdminForm(0);
+  } else {
+    if (select) select.value = '__new__';
+    loadGalleryIntoAdminForm('__new__');
+  }
+}
+
+function loadGalleryIntoAdminForm(idxOrNew) {
+  const list = window.portfolioData?.gallery || [];
+  const titleEl = document.getElementById('admin-gallery-title');
+  const catEl = document.getElementById('admin-gallery-category');
+  const dateEl = document.getElementById('admin-gallery-date');
+  const capEl = document.getElementById('admin-gallery-caption');
+  const urlEl = document.getElementById('admin-gallery-url');
+  const delBtn = document.getElementById('admin-gallery-del-btn');
+
+  if (idxOrNew === '__new__' || idxOrNew < 0 || idxOrNew >= list.length) {
+    currentEditingGalleryIndex = -1;
+    if (titleEl) titleEl.value = '';
+    if (catEl) catEl.value = 'Wildlife & Animal Rescue';
+    if (dateEl) dateEl.value = '2026';
+    if (capEl) capEl.value = '';
+    if (urlEl) urlEl.value = '';
+    if (delBtn) delBtn.style.display = 'none';
+    return;
+  }
+
+  const g = list[idxOrNew];
+  if (!g) return;
+
+  currentEditingGalleryIndex = idxOrNew;
+  if (titleEl) titleEl.value = g.title || '';
+  if (catEl) {
+    const cat = g.category || '';
+    if (cat.includes('Wildlife') || cat.includes('Fieldwork')) catEl.value = 'Wildlife & Animal Rescue';
+    else if (cat.includes('Clinical') || cat.includes('Lab')) catEl.value = 'Lab & Clinical';
+    else if (cat.includes('Data') || cat.includes('Architecture') || cat.includes('Software')) catEl.value = 'Data & Architecture';
+    else if (cat.includes('Conference') || cat.includes('Award') || cat.includes('Networking')) catEl.value = 'Conferences & Networking';
+    else if (cat.includes('Hobbies') || cat.includes('Hobby')) catEl.value = 'Hobbies';
+    else catEl.value = cat;
+  }
+  if (dateEl) dateEl.value = g.eventDate || g.date || g.badge || '';
+  if (capEl) capEl.value = g.caption || '';
+  if (urlEl) urlEl.value = g.mediaUrl || g.thumbnail || '';
+  if (delBtn) delBtn.style.display = 'inline-flex';
+}
+
+function handleSaveGallerySubmit(e) {
+  e.preventDefault();
+  const list = window.portfolioData?.gallery;
+  if (!list) return;
+
+  const title = document.getElementById('admin-gallery-title')?.value.trim();
+  const category = document.getElementById('admin-gallery-category')?.value;
+  const date = document.getElementById('admin-gallery-date')?.value.trim();
+  const caption = document.getElementById('admin-gallery-caption')?.value.trim();
+  let url = document.getElementById('admin-gallery-url')?.value.trim();
+  const fileInput = document.getElementById('admin-gallery-file');
+
+  if (!title || !caption) {
+    return showToast('Title and Caption are required.', 'error');
+  }
+
+  let categoryFilter = 'wildlife';
+  if (category === 'Wildlife & Animal Rescue') categoryFilter = 'wildlife';
+  else if (category === 'Lab & Clinical') categoryFilter = 'lab';
+  else if (category === 'Data & Architecture') categoryFilter = 'software';
+  else if (category === 'Conferences & Networking') categoryFilter = 'conferences';
+  else if (category === 'Hobbies') categoryFilter = 'hobbies';
+
+  const proceedSave = (finalUrl) => {
+    const existing = (currentEditingGalleryIndex >= 0 && currentEditingGalleryIndex < list.length) ? list[currentEditingGalleryIndex] : null;
+
+    const updatedItem = {
+      id: existing?.id || ('gal-' + Date.now()),
+      title,
+      category,
+      categoryFilter,
+      type: existing?.type || 'image',
+      mediaUrl: finalUrl || existing?.mediaUrl || 'Banner.png',
+      thumbnail: finalUrl || existing?.thumbnail || 'Banner.png',
+      caption,
+      badge: date || category,
+      eventDate: date || undefined
+    };
+
+    if (existing && currentEditingGalleryIndex >= 0 && currentEditingGalleryIndex < list.length) {
+      list[currentEditingGalleryIndex] = updatedItem;
+      showToast(`Gallery photo #${currentEditingGalleryIndex + 1} updated! Click "Save & Publish" to push to GitHub.`, 'success');
+    } else {
+      list.push(updatedItem);
+      currentEditingGalleryIndex = list.length - 1;
+      showToast(`New gallery photo #${list.length} added! Click "Save & Publish" to push to GitHub.`, 'success');
+    }
+
+    renderGalleryMarquee();
+    populateAdminForms();
+    populateAdminGalleryManager();
+  };
+
+  const file = fileInput?.files && fileInput.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function(evt) {
+      const base64 = evt.target.result.split(',')[1];
+      const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+      const relPath = `Github image/Gallery/${safeName}`;
+
+      stagedFileUploads.push({
+        path: relPath,
+        content: base64,
+        name: file.name
+      });
+
+      proceedSave(relPath);
+    };
+    reader.readAsDataURL(file);
+  } else {
+    if (!url && currentEditingGalleryIndex === -1) {
+      return showToast('Please enter an image path or choose a file to upload.', 'error');
+    }
+    proceedSave(url);
+  }
+}
+
+function deleteGalleryInAdmin() {
+  const list = window.portfolioData?.gallery;
+  if (!list || currentEditingGalleryIndex < 0 || currentEditingGalleryIndex >= list.length) return;
+
+  const item = list[currentEditingGalleryIndex];
+  if (confirm(`Are you sure you want to delete gallery photo: "${item.title}"?`)) {
+    list.splice(currentEditingGalleryIndex, 1);
+    currentEditingGalleryIndex = -1;
+    renderGalleryMarquee();
+    populateAdminForms();
+    populateAdminGalleryManager();
+    showToast('Gallery item removed.', 'info');
+  }
+}
 
 async function handlePublishToGitHub() {
   const token = localStorage.getItem('admin_gh_token');

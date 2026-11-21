@@ -1241,24 +1241,26 @@
     {
       "id": "gal-1",
       "title": "Barind Tract Ectoparasite Field Surveillance",
-      "category": "Fieldwork & Snake Rescue",
-      "categoryFilter": "fieldwork",
+      "category": "Wildlife & Animal Rescue",
+      "categoryFilter": "wildlife",
       "type": "image",
       "mediaUrl": "Banner.png",
       "thumbnail": "Banner.png",
       "caption": "Year-long field surveillance across 310 free-roaming dogs in the semi-arid Barind Tract, northwestern Bangladesh. Physical collection of 2,908 ectoparasites.",
-      "badge": "Field Investigation"
+      "badge": "Field Investigation",
+      "eventDate": "2025 – 2026"
     },
     {
       "id": "gal-2",
       "title": "SWAN Wildlife Rescue & Snake Handling",
-      "category": "Fieldwork & Snake Rescue",
-      "categoryFilter": "fieldwork",
+      "category": "Wildlife & Animal Rescue",
+      "categoryFilter": "wildlife",
       "type": "image",
       "mediaUrl": "ZUN.png",
       "thumbnail": "ZUN.png",
       "caption": "Save Wildlife and Nature (SWAN) rescue operations: handling, rescuing, and rehabilitating distressed reptiles, venomous/non-venomous snakes, and injured wildlife.",
-      "badge": "Wildlife Rescue"
+      "badge": "Wildlife Rescue",
+      "eventDate": "2025 – Present"
     },
     {
       "id": "gal-3",
@@ -1269,62 +1271,92 @@
       "mediaUrl": "Banner.png",
       "thumbnail": "Banner.png",
       "caption": "Taxonomic verification and morphometric analysis of flea, louse, and tick vectors using digital microscopy and calibrated ocular micrometers.",
-      "badge": "Laboratory Microscopy"
+      "badge": "Laboratory Microscopy",
+      "eventDate": "2025 – 2026"
     },
     {
       "id": "gal-4",
       "title": "PoultryMedix Multimodal AI Architecture",
-      "category": "Data Analysis & Software",
+      "category": "Data & Architecture",
       "categoryFilter": "software",
       "type": "image",
       "mediaUrl": "assets/images/poultrymedix-logo.png",
       "thumbnail": "assets/images/poultrymedix-logo.png",
       "caption": "AI triage workflow: synthesized visual fecal classification, acoustic respiratory distress analysis, prescription OCR, RAG withdrawal engine, and GPS heatmaps.",
-      "badge": "AI & HealthTech"
+      "badge": "AI & HealthTech",
+      "eventDate": "Sept 2026"
     },
     {
       "id": "gal-5",
       "title": "WHO Research Ethics Official Certificate",
-      "category": "Conferences & Awards",
+      "category": "Conferences & Networking",
       "categoryFilter": "conferences",
       "type": "image",
       "mediaUrl": "Certificate/R.Ethics.png",
       "thumbnail": "Certificate/R.Ethics.png",
       "caption": "Official Course on Research Ethics, issued by the WHO Ethics Review Committee Secretariat of the Global Health Ethics and Governance Unit (July 05, 2026).",
-      "badge": "WHO Certificate"
+      "badge": "WHO Certificate",
+      "eventDate": "05/07/2026"
     },
     {
       "id": "gal-6",
       "title": "Python 21-Day Masterclass Certificate",
-      "category": "Conferences & Awards",
-      "categoryFilter": "conferences",
+      "category": "Data & Architecture",
+      "categoryFilter": "software",
       "type": "image",
       "mediaUrl": "Certificate/Md_Nafizur_Rahman_Python_free_Certificate_21_days_masterclass.png",
       "thumbnail": "Certificate/Md_Nafizur_Rahman_Python_free_Certificate_21_days_masterclass.png",
       "caption": "21-Day Python Programming Masterclass Certificate of Completion issued to Md. Nafizur Rahman.",
-      "badge": "Python Masterclass"
+      "badge": "Python Masterclass",
+      "eventDate": "2026"
     },
     {
       "id": "gal-7",
       "title": "Young SDG Fellow & Zero Olympiad Recognition",
-      "category": "Conferences & Awards",
+      "category": "Conferences & Networking",
       "categoryFilter": "conferences",
       "type": "image",
       "mediaUrl": "Certificate/Screenshot 2026-06-03 102537.jpg",
       "thumbnail": "Certificate/Screenshot 2026-06-03 102537.jpg",
       "caption": "Recognized as Young SDG Fellow by Commonwealth Students' Association (CSA) for demonstrated commitment to the UN Sustainable Development Goals (May 17, 2026).",
-      "badge": "Honor & Fellowship"
+      "badge": "Honor & Fellowship",
+      "eventDate": "17/05/2026"
     },
     {
       "id": "gal-8",
       "title": "Official Curriculum Vitae (PDF)",
-      "category": "Documents & Reports",
-      "categoryFilter": "documents",
+      "category": "Conferences & Networking",
+      "categoryFilter": "conferences",
       "type": "document",
       "mediaUrl": "https://drive.google.com/file/d/1qGu8YABYXTTt2kRaoz-ByAeOz3GHP7-7/view?usp=drive_link",
       "thumbnail": "Banner.png",
       "caption": "Complete official academic curriculum vitae of Md. Nafizur Rahman detailing DVM training, publications, research, and computational proficiencies.",
-      "badge": "Academic CV"
+      "badge": "Academic CV",
+      "eventDate": "2026"
+    },
+    {
+      "id": "gal-9",
+      "title": "Avian & Wildlife Photography",
+      "category": "Hobbies",
+      "categoryFilter": "hobbies",
+      "type": "image",
+      "mediaUrl": "Banner.png",
+      "thumbnail": "Banner.png",
+      "caption": "Avian diversity and nature photography capturing native wildlife across campus and wetlands in northern Bangladesh.",
+      "badge": "Nature Photography",
+      "eventDate": "2026"
+    },
+    {
+      "id": "gal-10",
+      "title": "Culinary Art & Gourmet Nutrition",
+      "category": "Hobbies",
+      "categoryFilter": "hobbies",
+      "type": "image",
+      "mediaUrl": "ZUN.png",
+      "thumbnail": "ZUN.png",
+      "caption": "Practicing balanced nutritional culinary art, artisanal spice blending, and traditional Bengali cuisine.",
+      "badge": "Culinary Art",
+      "eventDate": "2026"
     }
   ],
   "leadership": [
