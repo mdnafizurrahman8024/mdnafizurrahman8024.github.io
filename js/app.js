@@ -1640,21 +1640,14 @@ function renderGalleryMarquee() {
     return;
   }
 
-  const duplicated = items.length > 2 ? [...items, ...items] : [...items];
+  // Ensure filtered category views never render duplicate DOM clones
+  const displayList = items;
 
-  container.innerHTML = duplicated.map(item => {
+  container.innerHTML = displayList.map(item => {
     const originalIdx = window.portfolioData.gallery.indexOf(item);
-    const badgeText = item.eventDate || item.date || item.badge || item.category;
     return `
-      <div class="gallery-photo-card" onclick="openGalleryItem(${originalIdx})">
-        <div class="gallery-photo-img-wrapper">
-          <img src="${formatImagePath(item.thumbnail || item.mediaUrl)}" alt="${escapeHTML(item.title)}" class="gallery-photo-img" loading="lazy">
-          <span class="gallery-photo-badge">${escapeHTML(badgeText)}</span>
-        </div>
-        <div class="gallery-photo-info">
-          <h4 class="gallery-photo-title">${escapeHTML(item.title)}</h4>
-          <p class="gallery-photo-caption">${escapeHTML(item.caption)}</p>
-        </div>
+      <div class="gallery-photo-card" onclick="openGalleryItem(${originalIdx})" title="${escapeHTML(item.category || 'Gallery Photo')}">
+        <img src="${formatImagePath(item.thumbnail || item.mediaUrl)}" alt="${escapeHTML(item.category || 'Gallery Photo')}" loading="lazy" decoding="async">
       </div>
     `;
   }).join('');
@@ -1681,8 +1674,25 @@ function openGalleryItem(index) {
   const media = document.getElementById('lightbox-media-container');
   const caption = document.getElementById('lightbox-caption');
 
-  title.textContent = item.title;
-  caption.textContent = item.caption;
+  if (title) {
+    if (item.title && item.title.trim().length > 0) {
+      title.textContent = item.title;
+      title.style.display = 'block';
+    } else {
+      title.textContent = item.category || 'Gallery Photo';
+      title.style.display = 'block';
+    }
+  }
+
+  if (caption) {
+    if (item.caption && item.caption.trim().length > 0) {
+      caption.textContent = item.caption;
+      caption.style.display = 'block';
+    } else {
+      caption.textContent = '';
+      caption.style.display = 'none';
+    }
+  }
 
   if (item.type === 'document') {
     const drivePreview = (item.mediaUrl || '').replace('/view?usp=drive_link', '/preview').replace('/view', '/preview');
@@ -1690,7 +1700,7 @@ function openGalleryItem(index) {
   } else if (item.type === 'video') {
     media.innerHTML = `<iframe src="${escapeHTML(item.mediaUrl)}" frameborder="0" allowfullscreen></iframe>`;
   } else {
-    media.innerHTML = `<img src="${formatImagePath(item.mediaUrl)}" alt="${escapeHTML(item.title)}">`;
+    media.innerHTML = `<img src="${formatImagePath(item.mediaUrl)}" alt="${escapeHTML(item.title || item.category || 'Photo')}">`;
   }
 
   // Attach direct close listener to close button inside modal
@@ -3512,23 +3522,27 @@ function setActiveNav(targetHash) {
   const rawId = hash.replace(/^#/, '');
 
   // 1. Clear all active states across top navbar, dropdown, and universal drawer
-  document.querySelectorAll('#nav-menu a.nav-pill, .nav-dropdown-item, #universal-nav-drawer a').forEach(el => {
-    el.classList.remove('active');
-  });
+  const allNavLinks = document.querySelectorAll(
+    'header nav a, .nav-menu a, .nav-links a, #universal-nav-drawer a, .nav-dropdown-menu a, .more-dropdown a, .nav-pill, .universal-nav-link, .nav-dropdown-item, #more-dropdown-btn'
+  );
+  allNavLinks.forEach(el => el.classList.remove('active'));
 
-  const moreBtn = document.getElementById('more-dropdown-btn');
-  if (moreBtn) moreBtn.classList.remove('active');
-
-  // 2. Select matching links
+  // 2. Select matching links across top navbar & universal drawer
   const targetSelectors = [
+    `header nav a[href="${hash}"]`,
+    `header nav a[href="#${rawId}"]`,
+    `.nav-links a[href="${hash}"]`,
+    `.nav-links a[href="#${rawId}"]`,
     `#nav-menu a[href="${hash}"]`,
     `#nav-menu a[href="#${rawId}"]`,
     `#universal-nav-drawer a[href="${hash}"]`,
     `#universal-nav-drawer a[href="#${rawId}"]`,
     `#universal-nav-drawer a[data-target="${rawId}-sec"]`,
     `#universal-nav-drawer a[data-target="${rawId}"]`,
-    `.nav-dropdown-item[href="${hash}"]`,
-    `.nav-dropdown-item[href="#${rawId}"]`
+    `.nav-dropdown-menu a[href="${hash}"]`,
+    `.nav-dropdown-menu a[href="#${rawId}"]`,
+    `.more-dropdown a[href="${hash}"]`,
+    `.more-dropdown a[href="#${rawId}"]`
   ];
   if (rawId === 'projects' || rawId === 'software') {
     targetSelectors.push('#universal-nav-drawer a[data-target="software-sec"]', '#nav-menu a[href="#projects"]');
@@ -3539,6 +3553,9 @@ function setActiveNav(targetHash) {
   if (rawId === 'training') {
     targetSelectors.push('#universal-nav-drawer a[data-target="training-sec"]', '#nav-menu a[href="#training"]');
   }
+  if (rawId === 'research') {
+    targetSelectors.push('#universal-nav-drawer a[data-target="research-sec"]', '#nav-menu a[href="#research"]');
+  }
 
   const matchingLinks = document.querySelectorAll(targetSelectors.join(', '));
   matchingLinks.forEach(link => {
@@ -3547,6 +3564,7 @@ function setActiveNav(targetHash) {
 
   // 3. If an item inside the "More" dropdown is active, also highlight the "More ▾" button
   const moreSubsections = ['#leadership', '#gallery', '#references', '#location', '#contact'];
+  const moreBtn = document.getElementById('more-dropdown-btn');
   if (moreSubsections.includes(hash) && moreBtn) {
     moreBtn.classList.add('active');
   }
@@ -3554,10 +3572,20 @@ function setActiveNav(targetHash) {
 window.setActiveNav = setActiveNav;
 
 function initScrollSpy() {
-  const sectionIds = [
-    'about', 'education', 'updates', 'research',
-    'projects', 'skills', 'publications', 'training',
-    'leadership', 'gallery', 'references', 'location', 'contact'
+  const sectionList = [
+    { id: 'about-sec', hash: '#about' },
+    { id: 'education-sec', hash: '#education' },
+    { id: 'updates-sec', hash: '#updates' },
+    { id: 'research-sec', hash: '#research' },
+    { id: 'software-sec', hash: '#projects' },
+    { id: 'skills', hash: '#skills' },
+    { id: 'publications-sec', hash: '#publications' },
+    { id: 'training-sec', hash: '#training' },
+    { id: 'leadership-sec', hash: '#leadership' },
+    { id: 'gallery-sec', hash: '#gallery' },
+    { id: 'references-sec', hash: '#references' },
+    { id: 'location', hash: '#location' },
+    { id: 'contact-sec', hash: '#contact' }
   ];
 
   let isTicking = false;
@@ -3565,33 +3593,32 @@ function initScrollSpy() {
   function onScroll() {
     if (!isTicking) {
       window.requestAnimationFrame(() => {
-        const header = document.getElementById('navbar') || document.querySelector('header');
-        const headerOffset = (header ? header.getBoundingClientRect().height : 74) + 30;
-        const scrollPosition = window.pageYOffset + headerOffset;
-
-        // Check if user is near the very bottom of the document
+        // 1. Check if user is near bottom of document (activate Contact)
         if (window.innerHeight + window.pageYOffset >= (document.documentElement.scrollHeight - 60)) {
           setActiveNav('#contact');
           isTicking = false;
           return;
         }
 
-        // Iterate through sections from bottom to top
-        for (let i = sectionIds.length - 1; i >= 0; i--) {
-          const id = sectionIds[i];
-          const el = document.getElementById(id) ||
-                     document.getElementById(id + '-sec') ||
-                     (id === 'projects' ? document.getElementById('software-sec') : null) ||
-                     (id === 'skills' ? document.getElementById('capabilities-sec') : null) ||
-                     (id === 'location' ? document.getElementById('location') : null);
+        const nav = document.getElementById('navbar') || document.querySelector('header');
+        const headerHeight = nav ? nav.getBoundingClientRect().height : 72;
+        const triggerPoint = headerHeight + 110;
+
+        let activeHash = '#about';
+
+        for (let i = 0; i < sectionList.length; i++) {
+          const item = sectionList[i];
+          const el = document.getElementById(item.id) ||
+                     (item.id.endsWith('-sec') ? document.getElementById(item.id.replace('-sec', '')) : null);
           if (el) {
-            const top = el.getBoundingClientRect().top + window.pageYOffset;
-            if (scrollPosition >= top) {
-              setActiveNav('#' + id);
-              break;
+            const rect = el.getBoundingClientRect();
+            if (rect.top <= triggerPoint) {
+              activeHash = item.hash;
             }
           }
         }
+
+        setActiveNav(activeHash);
         isTicking = false;
       });
       isTicking = true;
@@ -3599,9 +3626,7 @@ function initScrollSpy() {
   }
 
   window.addEventListener('scroll', onScroll, { passive: true });
-  // Initial active state
-  const initHash = window.location.hash || '#about';
-  setActiveNav(initHash);
+  onScroll();
 }
 window.initScrollSpy = initScrollSpy;
 
