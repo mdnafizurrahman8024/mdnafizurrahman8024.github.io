@@ -91,7 +91,13 @@ function formatImagePath(path) {
   if (!path) return '';
   const rawPath = typeof path === 'object' && path !== null ? (path.src || path.url || '') : path;
   if (!rawPath) return '';
-  const clean = rawPath.split('/').map(seg => encodeURIComponent(seg).replace(/'/g, '%27')).join('/');
+  const clean = rawPath.split('/').map(seg => {
+    try {
+      return encodeURIComponent(decodeURIComponent(seg)).replace(/'/g, '%27');
+    } catch (e) {
+      return encodeURIComponent(seg).replace(/'/g, '%27');
+    }
+  }).join('/');
   if (clean.toLowerCase().includes('poultrymedix/logo.png')) {
     return clean + '?v=2';
   }
@@ -1573,21 +1579,56 @@ function renderGalleryMarquee() {
 
   let items = window.portfolioData.gallery;
   if (currentGalleryFilter === 'all') {
-    // 1. All Photos (displays all scientific, fieldwork, wildlife rescue, lab, clinical, data, and conference/networking photos,
-    // while keeping Hobbies photos separated so the default gallery view remains strictly professional/academic)
-    items = items.filter(g => (g.categoryFilter || '').toLowerCase() !== 'hobbies');
+    // 1. All Photos (displays all academic, field exposure, fieldwork, wildlife rescue, lab, clinical, data, and conference/networking photos; keeps Hobbies separated under its own tab)
+    items = items.filter(g => {
+      const cat = (g.category || '').toLowerCase();
+      const f = (g.categoryFilter || '').toLowerCase();
+      return cat !== 'hobbies' && f !== 'hobbies';
+    });
+  } else if (currentGalleryFilter === 'academic') {
+    items = items.filter(g => {
+      const cat = (g.category || '').toLowerCase();
+      const f = (g.categoryFilter || '').toLowerCase();
+      return cat.includes('academic') || f.includes('academic');
+    });
+  } else if (currentGalleryFilter === 'fieldwork') {
+    items = items.filter(g => {
+      const cat = (g.category || '').toLowerCase();
+      const f = (g.categoryFilter || '').toLowerCase();
+      return cat === 'fieldwork' || cat === 'field work' || f === 'fieldwork';
+    });
   } else if (currentGalleryFilter === 'wildlife') {
-    items = items.filter(g => g.categoryFilter === 'wildlife' || g.categoryFilter === 'fieldwork');
+    items = items.filter(g => {
+      const cat = (g.category || '').toLowerCase();
+      const f = (g.categoryFilter || '').toLowerCase();
+      return cat.includes('wildlife') || f === 'wildlife';
+    });
   } else if (currentGalleryFilter === 'lab') {
-    items = items.filter(g => g.categoryFilter === 'lab');
-  } else if (currentGalleryFilter === 'software') {
-    items = items.filter(g => g.categoryFilter === 'software' || g.categoryFilter === 'data');
+    items = items.filter(g => {
+      const cat = (g.category || '').toLowerCase();
+      const f = (g.categoryFilter || '').toLowerCase();
+      return cat.includes('lab') || f === 'lab';
+    });
+  } else if (currentGalleryFilter === 'data') {
+    items = items.filter(g => {
+      const cat = (g.category || '').toLowerCase();
+      const f = (g.categoryFilter || '').toLowerCase();
+      return cat.includes('data') || cat.includes('architecture') || f === 'data' || f === 'software';
+    });
   } else if (currentGalleryFilter === 'conferences') {
-    items = items.filter(g => g.categoryFilter === 'conferences' || g.categoryFilter === 'awards');
+    items = items.filter(g => {
+      const cat = (g.category || '').toLowerCase();
+      const f = (g.categoryFilter || '').toLowerCase();
+      return cat.includes('conference') || cat.includes('networking') || f === 'conferences' || f === 'awards';
+    });
   } else if (currentGalleryFilter === 'hobbies') {
-    items = items.filter(g => (g.categoryFilter || '').toLowerCase() === 'hobbies');
+    items = items.filter(g => {
+      const cat = (g.category || '').toLowerCase();
+      const f = (g.categoryFilter || '').toLowerCase();
+      return cat === 'hobbies' || f === 'hobbies';
+    });
   } else {
-    items = items.filter(g => g.categoryFilter === currentGalleryFilter);
+    items = items.filter(g => g.categoryFilter === currentGalleryFilter || g.category === currentGalleryFilter);
   }
 
   if (items.length === 0) {
@@ -2964,7 +3005,9 @@ function loadGalleryIntoAdminForm(idxOrNew) {
   if (titleEl) titleEl.value = g.title || '';
   if (catEl) {
     const cat = g.category || '';
-    if (cat.includes('Wildlife') || cat.includes('Fieldwork')) catEl.value = 'Wildlife & Animal Rescue';
+    if (cat.includes('Academic')) catEl.value = 'Academic Field & Clinical Exposure';
+    else if (cat === 'Fieldwork' || cat === 'Field work') catEl.value = 'Fieldwork';
+    else if (cat.includes('Wildlife')) catEl.value = 'Wildlife & Animal Rescue';
     else if (cat.includes('Clinical') || cat.includes('Lab')) catEl.value = 'Lab & Clinical';
     else if (cat.includes('Data') || cat.includes('Architecture') || cat.includes('Software')) catEl.value = 'Data & Architecture';
     else if (cat.includes('Conference') || cat.includes('Award') || cat.includes('Networking')) catEl.value = 'Conferences & Networking';
@@ -2994,9 +3037,11 @@ function handleSaveGallerySubmit(e) {
   }
 
   let categoryFilter = 'wildlife';
-  if (category === 'Wildlife & Animal Rescue') categoryFilter = 'wildlife';
+  if (category === 'Academic Field & Clinical Exposure') categoryFilter = 'academic';
+  else if (category === 'Fieldwork') categoryFilter = 'fieldwork';
+  else if (category === 'Wildlife & Animal Rescue') categoryFilter = 'wildlife';
   else if (category === 'Lab & Clinical') categoryFilter = 'lab';
-  else if (category === 'Data & Architecture') categoryFilter = 'software';
+  else if (category === 'Data & Architecture') categoryFilter = 'data';
   else if (category === 'Conferences & Networking') categoryFilter = 'conferences';
   else if (category === 'Hobbies') categoryFilter = 'hobbies';
 
@@ -3378,6 +3423,7 @@ function initUniversalNav() {
         const href = link.getAttribute('href');
         if (href && href.startsWith('#')) {
           e.preventDefault();
+          setActiveNav(href);
           closeUniversalNav();
           scrollToSection(href);
         } else {
@@ -3402,6 +3448,7 @@ function initUniversalNav() {
       const href = link.getAttribute('href');
       if (href && href.startsWith('#')) {
         e.preventDefault();
+        setActiveNav(href);
         if (moreDropdown) moreDropdown.classList.remove('active');
         scrollToSection(href);
       }
@@ -3414,6 +3461,7 @@ function initUniversalNav() {
       const href = brand.getAttribute('href');
       if (href === '#home' || href === '#') {
         e.preventDefault();
+        setActiveNav('#about');
         closeUniversalNav();
         if (moreDropdown) moreDropdown.classList.remove('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -3455,6 +3503,108 @@ function initUniversalNav() {
   window.addEventListener('scroll', updateDrawerPosition, { passive: true });
 }
 
+/* --------------------------------------------------------------------------
+   Active Tab Coloring & Scroll-Spy System
+   -------------------------------------------------------------------------- */
+function setActiveNav(targetHash) {
+  if (!targetHash) return;
+  const hash = targetHash.startsWith('#') ? targetHash : ('#' + targetHash);
+  const rawId = hash.replace(/^#/, '');
+
+  // 1. Clear all active states across top navbar, dropdown, and universal drawer
+  document.querySelectorAll('#nav-menu a.nav-pill, .nav-dropdown-item, #universal-nav-drawer a').forEach(el => {
+    el.classList.remove('active');
+  });
+
+  const moreBtn = document.getElementById('more-dropdown-btn');
+  if (moreBtn) moreBtn.classList.remove('active');
+
+  // 2. Select matching links
+  const targetSelectors = [
+    `#nav-menu a[href="${hash}"]`,
+    `#nav-menu a[href="#${rawId}"]`,
+    `#universal-nav-drawer a[href="${hash}"]`,
+    `#universal-nav-drawer a[href="#${rawId}"]`,
+    `#universal-nav-drawer a[data-target="${rawId}-sec"]`,
+    `#universal-nav-drawer a[data-target="${rawId}"]`,
+    `.nav-dropdown-item[href="${hash}"]`,
+    `.nav-dropdown-item[href="#${rawId}"]`
+  ];
+  if (rawId === 'projects' || rawId === 'software') {
+    targetSelectors.push('#universal-nav-drawer a[data-target="software-sec"]', '#nav-menu a[href="#projects"]');
+  }
+  if (rawId === 'skills' || rawId === 'capabilities') {
+    targetSelectors.push('#universal-nav-drawer a[data-target="skills"]', '#nav-menu a[href="#skills"]');
+  }
+  if (rawId === 'training') {
+    targetSelectors.push('#universal-nav-drawer a[data-target="training-sec"]', '#nav-menu a[href="#training"]');
+  }
+
+  const matchingLinks = document.querySelectorAll(targetSelectors.join(', '));
+  matchingLinks.forEach(link => {
+    link.classList.add('active');
+  });
+
+  // 3. If an item inside the "More" dropdown is active, also highlight the "More ▾" button
+  const moreSubsections = ['#leadership', '#gallery', '#references', '#location', '#contact'];
+  if (moreSubsections.includes(hash) && moreBtn) {
+    moreBtn.classList.add('active');
+  }
+}
+window.setActiveNav = setActiveNav;
+
+function initScrollSpy() {
+  const sectionIds = [
+    'about', 'education', 'updates', 'research',
+    'projects', 'skills', 'publications', 'training',
+    'leadership', 'gallery', 'references', 'location', 'contact'
+  ];
+
+  let isTicking = false;
+
+  function onScroll() {
+    if (!isTicking) {
+      window.requestAnimationFrame(() => {
+        const header = document.getElementById('navbar') || document.querySelector('header');
+        const headerOffset = (header ? header.getBoundingClientRect().height : 74) + 30;
+        const scrollPosition = window.pageYOffset + headerOffset;
+
+        // Check if user is near the very bottom of the document
+        if (window.innerHeight + window.pageYOffset >= (document.documentElement.scrollHeight - 60)) {
+          setActiveNav('#contact');
+          isTicking = false;
+          return;
+        }
+
+        // Iterate through sections from bottom to top
+        for (let i = sectionIds.length - 1; i >= 0; i--) {
+          const id = sectionIds[i];
+          const el = document.getElementById(id) ||
+                     document.getElementById(id + '-sec') ||
+                     (id === 'projects' ? document.getElementById('software-sec') : null) ||
+                     (id === 'skills' ? document.getElementById('capabilities-sec') : null) ||
+                     (id === 'location' ? document.getElementById('location') : null);
+          if (el) {
+            const top = el.getBoundingClientRect().top + window.pageYOffset;
+            if (scrollPosition >= top) {
+              setActiveNav('#' + id);
+              break;
+            }
+          }
+        }
+        isTicking = false;
+      });
+      isTicking = true;
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  // Initial active state
+  const initHash = window.location.hash || '#about';
+  setActiveNav(initHash);
+}
+window.initScrollSpy = initScrollSpy;
+
 window.initUniversalNav = initUniversalNav;
 window.initHeaderNavPanel = initUniversalNav;
 window.initHeaderNavDrawer = initUniversalNav;
@@ -3469,6 +3619,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initContactForm();
   initAdminPortal();
   initUniversalNav();
+  initScrollSpy();
 
   // Direct click listeners to every modal close button via querySelectorAll
   document.querySelectorAll('#lightbox-close-btn, #lightbox-modal .modal-close, #lightbox-modal .lightbox-close-btn, #lightbox-modal [data-close-modal="true"]').forEach(btn => {

@@ -280,9 +280,49 @@ button, input, textarea, select {
   white-space: nowrap;
 }
 
-.nav-pill:hover, .nav-pill.active {
+.nav-pill:hover {
   color: var(--primary);
   background: var(--primary-light);
+}
+
+/* Active Nav Tab Highlighting (Top Horizontal Navbar, Dropdown, Universal Drawer) */
+.nav-pill.active,
+.nav-link.active,
+#universal-nav-drawer a.active,
+.universal-nav-link.active,
+.nav-dropdown-item.active,
+.more-dropdown-link.active,
+#more-dropdown-btn.active {
+  background: rgba(13, 148, 136, 0.14) !important;
+  color: #0f766e !important;
+  font-weight: 700 !important;
+  border-radius: 999px !important;
+  box-shadow: inset 0 0 0 1px rgba(13, 148, 136, 0.28) !important;
+  transition: all 0.25s ease !important;
+}
+
+#universal-nav-drawer a.active i,
+.universal-nav-link.active i,
+.nav-dropdown-item.active i {
+  color: #0f766e !important;
+}
+
+[data-theme="dark"] .nav-pill.active,
+[data-theme="dark"] .nav-link.active,
+[data-theme="dark"] #universal-nav-drawer a.active,
+[data-theme="dark"] .universal-nav-link.active,
+[data-theme="dark"] .nav-dropdown-item.active,
+[data-theme="dark"] .more-dropdown-link.active,
+[data-theme="dark"] #more-dropdown-btn.active {
+  background: rgba(45, 212, 191, 0.16) !important;
+  color: #2dd4bf !important;
+  box-shadow: inset 0 0 0 1px rgba(45, 212, 191, 0.32) !important;
+}
+
+[data-theme="dark"] #universal-nav-drawer a.active i,
+[data-theme="dark"] .universal-nav-link.active i,
+[data-theme="dark"] .nav-dropdown-item.active i {
+  color: #2dd4bf !important;
 }
 
 @media (max-width: 1240px) and (min-width: 769px) {
@@ -3450,36 +3490,60 @@ button, input, textarea, select {
   margin: 0;
 }
 
-/* Compact Key Honors & Recognitions Strip */
-.honors-highlight-strip {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+/* Animated Shifting Gradient Keyframes for Honors & Hobbies */
+@keyframes animatedBadgeGradient {
+  0% { background-position: 0% 50%; border-color: rgba(13, 148, 136, 0.32); }
+  50% { background-position: 100% 50%; border-color: rgba(59, 130, 246, 0.36); }
+  100% { background-position: 0% 50%; border-color: rgba(13, 148, 136, 0.32); }
+}
+
+/* Symmetrical 2x2 Grid for Honors & Hobbies */
+.honors-highlight-strip,
+.hobbies-highlight-strip {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  width: 100%;
   margin-top: 18px;
   padding-top: 16px;
   border-top: 1px solid rgba(13, 148, 136, 0.16);
+  box-sizing: border-box;
 }
 
-.honor-highlight-pill {
-  display: inline-flex;
+@media (max-width: 639px) {
+  .honors-highlight-strip,
+  .hobbies-highlight-strip {
+    grid-template-columns: 1fr;
+  }
+}
+
+.honor-highlight-pill,
+.hobby-highlight-pill {
+  display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 6px 12px;
-  border-radius: var(--radius-full);
-  background: var(--bg-surface-elevated);
-  border: 1px solid rgba(13, 148, 136, 0.2);
-  transition: all 0.2s ease;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(13, 148, 136, 0.25);
+  background: linear-gradient(120deg, rgba(13, 148, 136, 0.08), rgba(14, 165, 233, 0.09), rgba(99, 102, 241, 0.08), rgba(16, 185, 129, 0.08));
+  background-size: 240% 240%;
+  animation: animatedBadgeGradient 7s ease infinite;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  box-sizing: border-box;
+  width: 100%;
+  text-decoration: none;
 }
 
-.honor-highlight-pill:hover {
+.honor-highlight-pill:hover,
+.hobby-highlight-pill:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(13, 148, 136, 0.18);
   border-color: #0d9488;
-  transform: translateY(-1px);
-  box-shadow: 0 3px 8px rgba(13, 148, 136, 0.14);
 }
 
-.honor-icon {
-  font-size: 1rem;
+.honor-icon,
+.hobby-icon {
+  font-size: 1.15rem;
   line-height: 1;
   flex-shrink: 0;
 }
@@ -3488,81 +3552,41 @@ button, input, textarea, select {
   display: flex;
   flex-direction: column;
   line-height: 1.25;
+  min-width: 0;
 }
 
-.honor-title {
-  font-size: 0.8rem;
+.honor-title,
+.hobby-title {
+  font-size: 0.82rem;
   font-weight: 700;
   color: var(--text-primary);
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .honor-sub {
-  font-size: 0.68rem;
+  font-size: 0.7rem;
   font-style: italic;
   color: var(--text-muted);
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-[data-theme="dark"] .honor-highlight-pill {
-  background: rgba(13, 148, 136, 0.08);
-  border-color: rgba(20, 184, 166, 0.25);
-}
-
-[data-theme="dark"] .honor-highlight-pill:hover {
-  background: rgba(13, 148, 136, 0.15);
-  border-color: #14b8a6;
-}
-
-/* Compact Hobbies Highlight Strip inside #about */
-.hobbies-highlight-strip {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 18px;
-  padding-top: 16px;
-  border-top: 1px solid rgba(13, 148, 136, 0.16);
-}
-
-.hobby-highlight-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 14px;
-  border-radius: var(--radius-full);
-  background: var(--bg-surface-elevated);
-  border: 1px solid rgba(13, 148, 136, 0.2);
-  transition: all 0.2s ease;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
-  font-size: 0.78rem;
-  font-weight: 600;
-  color: var(--text-primary);
-}
-
-.hobby-highlight-pill:hover {
-  border-color: #0d9488;
-  transform: translateY(-1px);
-  box-shadow: 0 3px 8px rgba(13, 148, 136, 0.14);
-}
-
-.hobby-icon {
-  font-size: 1rem;
-  line-height: 1;
-  flex-shrink: 0;
-}
-
-.hobby-title {
-  white-space: nowrap;
-}
-
+[data-theme="dark"] .honor-highlight-pill,
 [data-theme="dark"] .hobby-highlight-pill {
-  background: rgba(13, 148, 136, 0.08);
-  border-color: rgba(20, 184, 166, 0.25);
+  background: linear-gradient(120deg, rgba(13, 148, 136, 0.16), rgba(14, 165, 233, 0.16), rgba(99, 102, 241, 0.15), rgba(16, 185, 129, 0.15));
+  background-size: 240% 240%;
+  animation: animatedBadgeGradient 7s ease infinite;
+  border-color: rgba(45, 212, 191, 0.25);
 }
 
+[data-theme="dark"] .honor-highlight-pill:hover,
 [data-theme="dark"] .hobby-highlight-pill:hover {
-  background: rgba(13, 148, 136, 0.15);
-  border-color: #14b8a6;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(45, 212, 191, 0.22);
+  border-color: #2dd4bf;
 }
 
 .references-grid {
