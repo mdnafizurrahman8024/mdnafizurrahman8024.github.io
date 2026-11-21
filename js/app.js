@@ -3433,7 +3433,14 @@ function initUniversalNav() {
         const href = link.getAttribute('href');
         if (href && href.startsWith('#')) {
           e.preventDefault();
-          setActiveNav(href);
+          const targetId = href.replace(/^#/, '');
+          isManualNavClick = true;
+          clearTimeout(manualNavTimer);
+          manualNavTimer = setTimeout(() => {
+            isManualNavClick = false;
+            updateActiveNavTab();
+          }, 900);
+          updateActiveNavTab(targetId);
           closeUniversalNav();
           scrollToSection(href);
         } else {
@@ -3458,7 +3465,14 @@ function initUniversalNav() {
       const href = link.getAttribute('href');
       if (href && href.startsWith('#')) {
         e.preventDefault();
-        setActiveNav(href);
+        const targetId = href.replace(/^#/, '');
+        isManualNavClick = true;
+        clearTimeout(manualNavTimer);
+        manualNavTimer = setTimeout(() => {
+          isManualNavClick = false;
+          updateActiveNavTab();
+        }, 900);
+        updateActiveNavTab(targetId);
         if (moreDropdown) moreDropdown.classList.remove('active');
         scrollToSection(href);
       }
@@ -3471,7 +3485,13 @@ function initUniversalNav() {
       const href = brand.getAttribute('href');
       if (href === '#home' || href === '#') {
         e.preventDefault();
-        setActiveNav('#about');
+        isManualNavClick = true;
+        clearTimeout(manualNavTimer);
+        manualNavTimer = setTimeout(() => {
+          isManualNavClick = false;
+          updateActiveNavTab();
+        }, 900);
+        updateActiveNavTab('about');
         closeUniversalNav();
         if (moreDropdown) moreDropdown.classList.remove('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -3516,10 +3536,57 @@ function initUniversalNav() {
 /* --------------------------------------------------------------------------
    Active Tab Coloring & Scroll-Spy System
    -------------------------------------------------------------------------- */
-function setActiveNav(targetHash) {
-  if (!targetHash) return;
-  const hash = targetHash.startsWith('#') ? targetHash : ('#' + targetHash);
-  const rawId = hash.replace(/^#/, '');
+let isManualNavClick = false;
+let manualNavTimer = null;
+
+function updateActiveNavTab(forcedId) {
+  const navSectionIds = [
+    'about',
+    'education',
+    'updates',
+    'research',
+    'projects',
+    'skills',
+    'publications',
+    'training',
+    'leadership',
+    'gallery',
+    'references',
+    'location',
+    'contact'
+  ];
+
+  let activeId = 'about';
+
+  if (forcedId) {
+    let clean = forcedId.startsWith('#') ? forcedId.substring(1) : forcedId;
+    if (clean === 'home' || !clean) clean = 'about';
+    if (clean === 'software') clean = 'projects';
+    if (clean.endsWith('-sec')) clean = clean.replace('-sec', '');
+    activeId = clean;
+  } else {
+    // 1. Bottom of page check (activate Contact)
+    const scrollBottom = window.innerHeight + window.pageYOffset;
+    const docHeight = document.documentElement.scrollHeight;
+    if (scrollBottom >= docHeight - 60) {
+      activeId = 'contact';
+    } else {
+      const header = document.getElementById('navbar') || document.querySelector('header');
+      const headerHeight = header ? (header.offsetHeight || header.getBoundingClientRect().height) : 72;
+      const triggerLine = headerHeight + 150;
+
+      for (let i = 0; i < navSectionIds.length; i++) {
+        const id = navSectionIds[i];
+        const el = document.getElementById(id) || document.getElementById(id + '-sec');
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= triggerLine) {
+            activeId = id;
+          }
+        }
+      }
+    }
+  }
 
   // 1. Clear all active states across top navbar, dropdown, and universal drawer
   const allNavLinks = document.querySelectorAll(
@@ -3529,32 +3596,17 @@ function setActiveNav(targetHash) {
 
   // 2. Select matching links across top navbar & universal drawer
   const targetSelectors = [
-    `header nav a[href="${hash}"]`,
-    `header nav a[href="#${rawId}"]`,
-    `.nav-links a[href="${hash}"]`,
-    `.nav-links a[href="#${rawId}"]`,
-    `#nav-menu a[href="${hash}"]`,
-    `#nav-menu a[href="#${rawId}"]`,
-    `#universal-nav-drawer a[href="${hash}"]`,
-    `#universal-nav-drawer a[href="#${rawId}"]`,
-    `#universal-nav-drawer a[data-target="${rawId}-sec"]`,
-    `#universal-nav-drawer a[data-target="${rawId}"]`,
-    `.nav-dropdown-menu a[href="${hash}"]`,
-    `.nav-dropdown-menu a[href="#${rawId}"]`,
-    `.more-dropdown a[href="${hash}"]`,
-    `.more-dropdown a[href="#${rawId}"]`
+    `header nav a[href="#${activeId}"]`,
+    `.nav-links a[href="#${activeId}"]`,
+    `#nav-menu a[href="#${activeId}"]`,
+    `#universal-nav-drawer a[href="#${activeId}"]`,
+    `#universal-nav-drawer a[data-target="${activeId}"]`,
+    `#universal-nav-drawer a[data-target="${activeId}-sec"]`,
+    `.nav-dropdown-menu a[href="#${activeId}"]`,
+    `.more-dropdown a[href="#${activeId}"]`
   ];
-  if (rawId === 'projects' || rawId === 'software') {
+  if (activeId === 'projects') {
     targetSelectors.push('#universal-nav-drawer a[data-target="software-sec"]', '#nav-menu a[href="#projects"]');
-  }
-  if (rawId === 'skills' || rawId === 'capabilities') {
-    targetSelectors.push('#universal-nav-drawer a[data-target="skills"]', '#nav-menu a[href="#skills"]');
-  }
-  if (rawId === 'training') {
-    targetSelectors.push('#universal-nav-drawer a[data-target="training-sec"]', '#nav-menu a[href="#training"]');
-  }
-  if (rawId === 'research') {
-    targetSelectors.push('#universal-nav-drawer a[data-target="research-sec"]', '#nav-menu a[href="#research"]');
   }
 
   const matchingLinks = document.querySelectorAll(targetSelectors.join(', '));
@@ -3563,62 +3615,21 @@ function setActiveNav(targetHash) {
   });
 
   // 3. If an item inside the "More" dropdown is active, also highlight the "More ▾" button
-  const moreSubsections = ['#leadership', '#gallery', '#references', '#location', '#contact'];
+  const moreSubsections = ['leadership', 'gallery', 'references', 'location', 'contact'];
   const moreBtn = document.getElementById('more-dropdown-btn');
-  if (moreSubsections.includes(hash) && moreBtn) {
+  if (moreSubsections.includes(activeId) && moreBtn) {
     moreBtn.classList.add('active');
   }
 }
-window.setActiveNav = setActiveNav;
 
 function initScrollSpy() {
-  const sectionList = [
-    { id: 'about-sec', hash: '#about' },
-    { id: 'education-sec', hash: '#education' },
-    { id: 'updates-sec', hash: '#updates' },
-    { id: 'research-sec', hash: '#research' },
-    { id: 'software-sec', hash: '#projects' },
-    { id: 'skills', hash: '#skills' },
-    { id: 'publications-sec', hash: '#publications' },
-    { id: 'training-sec', hash: '#training' },
-    { id: 'leadership-sec', hash: '#leadership' },
-    { id: 'gallery-sec', hash: '#gallery' },
-    { id: 'references-sec', hash: '#references' },
-    { id: 'location', hash: '#location' },
-    { id: 'contact-sec', hash: '#contact' }
-  ];
-
   let isTicking = false;
 
   function onScroll() {
+    if (isManualNavClick) return;
     if (!isTicking) {
       window.requestAnimationFrame(() => {
-        // 1. Check if user is near bottom of document (activate Contact)
-        if (window.innerHeight + window.pageYOffset >= (document.documentElement.scrollHeight - 60)) {
-          setActiveNav('#contact');
-          isTicking = false;
-          return;
-        }
-
-        const nav = document.getElementById('navbar') || document.querySelector('header');
-        const headerHeight = nav ? nav.getBoundingClientRect().height : 72;
-        const triggerPoint = headerHeight + 110;
-
-        let activeHash = '#about';
-
-        for (let i = 0; i < sectionList.length; i++) {
-          const item = sectionList[i];
-          const el = document.getElementById(item.id) ||
-                     (item.id.endsWith('-sec') ? document.getElementById(item.id.replace('-sec', '')) : null);
-          if (el) {
-            const rect = el.getBoundingClientRect();
-            if (rect.top <= triggerPoint) {
-              activeHash = item.hash;
-            }
-          }
-        }
-
-        setActiveNav(activeHash);
+        updateActiveNavTab();
         isTicking = false;
       });
       isTicking = true;
@@ -3626,10 +3637,28 @@ function initScrollSpy() {
   }
 
   window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
-}
-window.initScrollSpy = initScrollSpy;
+  window.addEventListener('resize', () => {
+    if (!isManualNavClick) {
+      window.requestAnimationFrame(() => updateActiveNavTab());
+    }
+  }, { passive: true });
+  window.addEventListener('hashchange', () => {
+    if (location.hash) {
+      updateActiveNavTab(location.hash);
+    }
+  });
 
+  // Initial active tab determination on load
+  if (location.hash && location.hash.length > 1) {
+    updateActiveNavTab(location.hash);
+  } else {
+    updateActiveNavTab();
+  }
+}
+
+window.setActiveNav = updateActiveNavTab;
+window.updateActiveNavTab = updateActiveNavTab;
+window.initScrollSpy = initScrollSpy;
 window.initUniversalNav = initUniversalNav;
 window.initHeaderNavPanel = initUniversalNav;
 window.initHeaderNavDrawer = initUniversalNav;
