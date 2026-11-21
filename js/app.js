@@ -308,11 +308,9 @@ function renderTimelineAndKPIs(timeline, kpis) {
       <div class="entry-header">
         <h4 class="entry-title">${escapeHTML(item.title)}</h4>
         <div style="display: flex; gap: 0.35rem; align-items: center; flex-wrap: wrap;">
-          ${item.images && item.images.length > 0 ? `
-            <button class="btn-evidence-trigger" onclick="openEvidenceModal('${escapeHTML(item.id)}', 'research', event)" title="View Evidence &amp; Findings">
-              <i class="fa-solid fa-camera"></i> Evidence &amp; Findings (${item.images.length})
-            </button>
-          ` : ''}
+          <button type="button" class="btn-evidence-trigger" onclick="openEvidenceModal('${escapeHTML(item.id)}', 'research', event)" title="View Evidence &amp; Findings">
+            <i class="fa-solid fa-camera"></i> Evidence &amp; Findings${item.images && item.images.length > 0 ? ` (${item.images.length})` : ''}
+          </button>
           <span class="entry-badge">${escapeHTML(item.badge || item.role)}</span>
         </div>
       </div>
@@ -672,9 +670,24 @@ function openProjectGalleryModal(projectId, e) {
   const thumbsContainer = document.getElementById('project-gallery-thumbs');
   const prevBtn = document.getElementById('project-gallery-prev');
   const nextBtn = document.getElementById('project-gallery-next');
+  const counter = document.getElementById('project-gallery-counter');
+  const zoomBtn = document.getElementById('project-gallery-zoom');
+  const mainImg = document.getElementById('project-gallery-main-img');
+  const emptyEl = document.getElementById('project-gallery-empty');
   const galleryWrap = document.getElementById('project-gallery-wrap');
 
   if (titleEl) titleEl.textContent = `${project.name || project.title} — Screenshots`;
+
+  if (emptyEl) {
+    emptyEl.style.display = 'none';
+    emptyEl.innerHTML = '';
+  }
+  if (mainImg) mainImg.style.display = '';
+  if (counter) counter.style.display = '';
+  if (zoomBtn) zoomBtn.style.display = '';
+  if (thumbsContainer) thumbsContainer.style.display = 'flex';
+  if (prevBtn) prevBtn.style.display = images.length > 1 ? '' : 'none';
+  if (nextBtn) nextBtn.style.display = images.length > 1 ? '' : 'none';
 
   // Render clickable thumbnail strip
   if (thumbsContainer) {
@@ -789,10 +802,29 @@ function closeProjectGalleryModal() {
   clearProjectTimer();
   const modal = document.getElementById('project-gallery-modal');
   const captionEl = document.getElementById('project-gallery-caption');
+  const emptyEl = document.getElementById('project-gallery-empty');
+  const mainImg = document.getElementById('project-gallery-main-img');
+  const counter = document.getElementById('project-gallery-counter');
+  const zoomBtn = document.getElementById('project-gallery-zoom');
+  const thumbsContainer = document.getElementById('project-gallery-thumbs');
+  const prevBtn = document.getElementById('project-gallery-prev');
+  const nextBtn = document.getElementById('project-gallery-next');
+
   if (captionEl) {
     captionEl.textContent = '';
     captionEl.style.display = 'none';
   }
+  if (emptyEl) {
+    emptyEl.style.display = 'none';
+    emptyEl.innerHTML = '';
+  }
+  if (mainImg) mainImg.style.display = '';
+  if (counter) counter.style.display = '';
+  if (zoomBtn) zoomBtn.style.display = '';
+  if (thumbsContainer) thumbsContainer.style.display = '';
+  if (prevBtn) prevBtn.style.display = '';
+  if (nextBtn) nextBtn.style.display = '';
+
   if (modal) {
     modal.classList.remove('active');
     document.body.style.overflow = '';
@@ -802,6 +834,10 @@ function closeProjectGalleryModal() {
 
 function openEvidenceModal(itemId, category, e) {
   if (e && typeof e.stopPropagation === 'function') e.stopPropagation();
+
+  if (category === 'certificate') {
+    return openPracticalModal(itemId, e);
+  }
 
   let item = null;
   let categoryLabel = 'Evidence & Findings';
@@ -814,32 +850,71 @@ function openEvidenceModal(itemId, category, e) {
     const list = window.portfolioData?.publications || [];
     item = list.find(p => p.id === itemId);
     categoryLabel = 'Evidence & Findings';
-  } else if (category === 'certificate') {
-    const list = window.portfolioData?.certificates || window.portfolioData?.trainings || [];
-    item = list.find((c, idx) => c.id === itemId || String(idx) === String(itemId));
-    categoryLabel = 'Practical Outputs';
   }
 
-  if (!item || !item.images || item.images.length === 0) return;
-
-  currentGalleryProject = {
-    ...item,
-    name: `${item.title || 'Item'} — ${categoryLabel}`
-  };
-  currentGallerySlideIdx = 0;
+  if (!item) return;
 
   const modal = document.getElementById('project-gallery-modal');
   const titleEl = document.getElementById('project-gallery-title');
   const thumbsContainer = document.getElementById('project-gallery-thumbs');
   const prevBtn = document.getElementById('project-gallery-prev');
   const nextBtn = document.getElementById('project-gallery-next');
+  const counter = document.getElementById('project-gallery-counter');
+  const zoomBtn = document.getElementById('project-gallery-zoom');
+  const mainImg = document.getElementById('project-gallery-main-img');
+  const emptyEl = document.getElementById('project-gallery-empty');
+  const captionEl = document.getElementById('project-gallery-caption');
   const galleryWrap = document.getElementById('project-gallery-wrap');
 
   if (titleEl) {
     titleEl.textContent = `${item.title || ''} — ${categoryLabel}`;
   }
 
-  const images = item.images;
+  const images = item.images || [];
+
+  if (images.length === 0) {
+    // Clean Empty Preview State
+    if (counter) counter.style.display = 'none';
+    if (zoomBtn) zoomBtn.style.display = 'none';
+    if (prevBtn) prevBtn.style.display = 'none';
+    if (nextBtn) nextBtn.style.display = 'none';
+    if (mainImg) mainImg.style.display = 'none';
+    if (thumbsContainer) thumbsContainer.style.display = 'none';
+    if (captionEl) captionEl.style.display = 'none';
+    if (emptyEl) {
+      emptyEl.style.display = 'flex';
+      emptyEl.innerHTML = `
+        <div class="project-gallery-empty-icon" style="background: rgba(13, 148, 136, 0.15); color: #2dd4bf;">
+          <i class="fa-solid fa-microscope"></i>
+        </div>
+        <h4 class="project-gallery-empty-title">Fieldwork, Lab Bench &amp; Microscopic Findings</h4>
+        <p class="project-gallery-empty-desc">
+          No images uploaded yet. Use the Admin CMS Drawer to attach photos &amp; captions for this study.
+        </p>
+      `;
+    }
+    clearProjectTimer();
+    if (modal) {
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    return;
+  }
+
+  // Restore elements if previously hidden by empty state
+  if (emptyEl) emptyEl.style.display = 'none';
+  if (mainImg) mainImg.style.display = '';
+  if (counter) counter.style.display = '';
+  if (zoomBtn) zoomBtn.style.display = '';
+  if (thumbsContainer) thumbsContainer.style.display = 'flex';
+  if (prevBtn) prevBtn.style.display = images.length > 1 ? '' : 'none';
+  if (nextBtn) nextBtn.style.display = images.length > 1 ? '' : 'none';
+
+  currentGalleryProject = {
+    ...item,
+    name: `${item.title || 'Item'} — ${categoryLabel}`
+  };
+  currentGallerySlideIdx = 0;
 
   if (thumbsContainer) {
     thumbsContainer.innerHTML = images.map((img, i) => `
@@ -879,6 +954,115 @@ function openEvidenceModal(itemId, category, e) {
   }
 }
 window.openEvidenceModal = openEvidenceModal;
+
+function openPracticalModal(itemId, e) {
+  if (e && typeof e.stopPropagation === 'function') e.stopPropagation();
+
+  const list = window.portfolioData?.certificates || window.portfolioData?.trainings || [];
+  const item = list.find((c, idx) => c.id === itemId || String(idx) === String(itemId) || String(c.id) === String(itemId));
+  if (!item) return;
+
+  const modal = document.getElementById('project-gallery-modal');
+  const titleEl = document.getElementById('project-gallery-title');
+  const thumbsContainer = document.getElementById('project-gallery-thumbs');
+  const prevBtn = document.getElementById('project-gallery-prev');
+  const nextBtn = document.getElementById('project-gallery-next');
+  const counter = document.getElementById('project-gallery-counter');
+  const zoomBtn = document.getElementById('project-gallery-zoom');
+  const mainImg = document.getElementById('project-gallery-main-img');
+  const emptyEl = document.getElementById('project-gallery-empty');
+  const captionEl = document.getElementById('project-gallery-caption');
+  const galleryWrap = document.getElementById('project-gallery-wrap');
+
+  if (titleEl) {
+    titleEl.textContent = `${item.title || 'Training'} — Practical Work & Outputs`;
+  }
+
+  const practicalImages = item.practicalImages || [];
+
+  if (practicalImages.length === 0) {
+    // Clean Empty Preview State
+    if (counter) counter.style.display = 'none';
+    if (zoomBtn) zoomBtn.style.display = 'none';
+    if (prevBtn) prevBtn.style.display = 'none';
+    if (nextBtn) nextBtn.style.display = 'none';
+    if (mainImg) mainImg.style.display = 'none';
+    if (thumbsContainer) thumbsContainer.style.display = 'none';
+    if (captionEl) captionEl.style.display = 'none';
+    if (emptyEl) {
+      emptyEl.style.display = 'flex';
+      emptyEl.innerHTML = `
+        <div class="project-gallery-empty-icon" style="background: rgba(245, 158, 11, 0.15); color: #f59e0b;">
+          <i class="fa-solid fa-laptop-code"></i>
+        </div>
+        <h4 class="project-gallery-empty-title">Practical Work &amp; Demo Showcase</h4>
+        <p class="project-gallery-empty-desc">
+          Upload outputs via Admin CMS
+        </p>
+      `;
+    }
+    clearProjectTimer();
+    if (modal) {
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    return;
+  }
+
+  // Restore elements if previously hidden by empty state
+  if (emptyEl) emptyEl.style.display = 'none';
+  if (mainImg) mainImg.style.display = '';
+  if (counter) counter.style.display = '';
+  if (zoomBtn) zoomBtn.style.display = '';
+  if (thumbsContainer) thumbsContainer.style.display = 'flex';
+  if (prevBtn) prevBtn.style.display = practicalImages.length > 1 ? '' : 'none';
+  if (nextBtn) nextBtn.style.display = practicalImages.length > 1 ? '' : 'none';
+
+  currentGalleryProject = {
+    ...item,
+    name: `${item.title || 'Training'} — Practical Work & Outputs`,
+    images: practicalImages
+  };
+  currentGallerySlideIdx = 0;
+
+  if (thumbsContainer) {
+    thumbsContainer.innerHTML = practicalImages.map((img, i) => `
+      <div class="project-gallery-thumb ${i === 0 ? 'active' : ''}" data-idx="${i}" onclick="handleGalleryThumbClick(${i})">
+        <img src="${formatImagePath(img)}" alt="thumb ${i + 1}" loading="lazy">
+      </div>
+    `).join('');
+  }
+
+  if (prevBtn) {
+    prevBtn.onclick = (evt) => {
+      evt.stopPropagation();
+      setGallerySlide(currentGallerySlideIdx - 1, true);
+    };
+  }
+  if (nextBtn) {
+    nextBtn.onclick = (evt) => {
+      evt.stopPropagation();
+      setGallerySlide(currentGallerySlideIdx + 1, true);
+    };
+  }
+
+  setGallerySlide(0);
+
+  clearProjectTimer();
+  if (practicalImages.length > 1) {
+    startGallerySlideshow(practicalImages.length);
+    if (galleryWrap) {
+      galleryWrap.onmouseenter = () => clearProjectTimer();
+      galleryWrap.onmouseleave = () => startGallerySlideshow(practicalImages.length);
+    }
+  }
+
+  if (modal) {
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+}
+window.openPracticalModal = openPracticalModal;
 
 function initProjectModals() {
   // Details Modal close listeners
@@ -1168,7 +1352,7 @@ function renderTrainings(certs) {
   if (!container) return;
 
   const allCerts = certs || window.portfolioData?.certificates || window.portfolioData?.trainings || [];
-  const displayList = isCertificatesExpanded ? allCerts : allCerts.slice(0, 8);
+  const displayList = isCertificatesExpanded ? allCerts : allCerts.slice(0, 6);
 
   container.innerHTML = displayList.map((t, index) => {
     const fullIndex = allCerts.indexOf(t) !== -1 ? allCerts.indexOf(t) : index;
@@ -1203,16 +1387,14 @@ function renderTrainings(certs) {
           ` : ''}
         </div>
 
-        <div class="training-footer-actions">
+        <div class="training-footer-actions" style="display: flex; align-items: center; justify-content: space-between; gap: 6px; flex-wrap: wrap;">
           <button class="btn-training-more" onclick="openTrainingDetailModal(${fullIndex})">
             ...more
           </button>
-          <div style="display: flex; gap: 0.35rem; align-items: center; flex-wrap: wrap;">
-            ${t.images && t.images.length > 0 ? `
-              <button type="button" class="btn-evidence-trigger btn-evidence-cert" onclick="openEvidenceModal('${escapeHTML(t.id || fullIndex)}', 'certificate', event)" title="View Practical Outputs">
-                <i class="fa-solid fa-camera"></i> Practical Outputs (${t.images.length})
-              </button>
-            ` : ''}
+          <div style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap;">
+            <button type="button" class="btn-evidence-trigger btn-evidence-cert" onclick="openPracticalModal('${escapeHTML(t.id || fullIndex)}', event)" title="View Practical Outputs">
+              <i class="fa-solid fa-camera"></i> Practical${(t.practicalImages && t.practicalImages.length > 0) ? ` (${t.practicalImages.length})` : ''}
+            </button>
             ${t.credentialUrl ? `
               <a href="${escapeHTML(t.credentialUrl)}" target="_blank" rel="noopener noreferrer" class="btn-credentials" style="padding: 0.3rem 0.5rem; background: var(--accent-blue-light); color: var(--accent-blue); border-color: var(--accent-blue);" title="Verify Online">
                 <i class="fa-solid fa-arrow-up-right-from-square"></i>
@@ -1227,16 +1409,16 @@ function renderTrainings(certs) {
     `;
   }).join('');
 
-  // Clean Centered Expand Button (No hardcoded numbers!)
+  // Clean Centered Expand Button (3x2 Initial Grid -> 6 Cards)
   const expandBtn = document.getElementById('certificates-expand-btn');
   if (expandBtn) {
-    if (allCerts.length <= 8) {
+    if (allCerts.length <= 6) {
       expandBtn.style.display = 'none';
     } else {
       expandBtn.style.display = 'inline-flex';
       expandBtn.innerHTML = isCertificatesExpanded
         ? '<i class="fa-solid fa-chevron-up"></i> Show Less'
-        : '<i class="fa-solid fa-chevron-down"></i> See All Certificates';
+        : `<i class="fa-solid fa-chevron-down"></i> See All Certifications (${allCerts.length})`;
       expandBtn.onclick = () => {
         isCertificatesExpanded = !isCertificatesExpanded;
         renderTrainings(allCerts);
@@ -1281,11 +1463,9 @@ function openTrainingDetailModal(index) {
       ` : ''}
 
       <div style="margin-top: 1rem; display: flex; gap: 0.75rem; flex-wrap: wrap;">
-        ${t.images && t.images.length > 0 ? `
-          <button type="button" class="btn-evidence-trigger" onclick="openEvidenceModal('${escapeHTML(t.id || index)}', 'certificate', event)" title="View Practical Outputs" style="padding: 0.5rem 1rem;">
-            <i class="fa-solid fa-camera"></i> Practical Outputs (${t.images.length})
-          </button>
-        ` : ''}
+        <button type="button" class="btn-evidence-trigger" onclick="openPracticalModal('${escapeHTML(t.id || index)}', event)" title="View Practical Outputs" style="padding: 0.5rem 1rem;">
+          <i class="fa-solid fa-camera"></i> Practical${(t.practicalImages && t.practicalImages.length > 0) ? ` (${t.practicalImages.length})` : ''}
+        </button>
         ${t.credentialUrl ? `
           <a href="${escapeHTML(t.credentialUrl)}" target="_blank" rel="noopener noreferrer" class="btn-credentials" style="background: #0284c7; color: #fff; border: none; padding: 0.5rem 1rem;">
             <i class="fa-solid fa-arrow-up-right-from-square"></i> Verify Online
@@ -2386,7 +2566,8 @@ function handleAddCertificateSubmit(e) {
       image: path,
       distinctionBadge: distinctionBadge !== 'None' ? distinctionBadge : undefined,
       shortHighlight: shortHighlight || undefined,
-      images: []
+      images: [],
+      practicalImages: []
     };
 
     if (!window.portfolioData.certificates) window.portfolioData.certificates = [];
@@ -2423,7 +2604,8 @@ function handleFileUploadStaging(e) {
       credentialId: "",
       credentialUrl: "",
       image: path,
-      images: []
+      images: [],
+      practicalImages: []
     };
 
     if (!window.portfolioData.certificates) window.portfolioData.certificates = [];
@@ -2544,7 +2726,7 @@ function loadCertIntoAdminManager(idx) {
   const c = list[idx];
   if (!c) return;
 
-  renderAdminItemImagesGrid('certs', c.images || []);
+  renderAdminItemImagesGrid('certs', c.practicalImages || []);
 }
 
 /* --------------------------------------------------------------------------
@@ -2568,8 +2750,8 @@ function getAdminCurrentItem(category) {
 }
 
 function renderAdminItemImagesGrid(category, images) {
-  const grid = document.getElementById(`admin-${category}-img-grid`);
-  const countEl = document.getElementById(`admin-${category}-img-count`);
+  const grid = document.getElementById(`admin-${category}-img-grid`) || (category === 'certs' ? document.getElementById('admin-cert-img-grid') : null);
+  const countEl = document.getElementById(`admin-${category}-img-count`) || (category === 'certs' ? document.getElementById('admin-cert-img-count') : null);
   if (!grid) return;
 
   const list = images || [];
@@ -2602,11 +2784,13 @@ window.renderAdminItemImagesGrid = renderAdminItemImagesGrid;
 
 function updateAdminItemImageCaption(category, idx, val) {
   const item = getAdminCurrentItem(category);
-  if (!item || !item.images || !item.images[idx]) return;
-  if (typeof item.images[idx] === 'string') {
-    item.images[idx] = { src: item.images[idx], caption: val };
+  if (!item) return;
+  const list = category === 'certs' ? item.practicalImages : item.images;
+  if (!list || !list[idx]) return;
+  if (typeof list[idx] === 'string') {
+    list[idx] = { src: list[idx], caption: val };
   } else {
-    item.images[idx].caption = val;
+    list[idx].caption = val;
   }
   populateAdminForms();
 }
@@ -2614,8 +2798,10 @@ window.updateAdminItemImageCaption = updateAdminItemImageCaption;
 
 function removeAdminItemImage(category, idx) {
   const item = getAdminCurrentItem(category);
-  if (!item || !item.images) return;
-  item.images.splice(idx, 1);
+  if (!item) return;
+  const list = category === 'certs' ? item.practicalImages : item.images;
+  if (!list || !list[idx]) return;
+  list.splice(idx, 1);
   if (category === 'research') {
     window.portfolioData.scientificResearch = window.portfolioData.scientificResearch || window.portfolioData.research;
     window.portfolioData.research = window.portfolioData.scientificResearch;
@@ -2627,7 +2813,7 @@ function removeAdminItemImage(category, idx) {
     window.portfolioData.trainings = window.portfolioData.certificates;
     renderTrainings(window.portfolioData.certificates);
   }
-  renderAdminItemImagesGrid(category, item.images);
+  renderAdminItemImagesGrid(category, list);
   populateAdminForms();
   showToast('Image removed.', 'info');
 }
@@ -2644,7 +2830,7 @@ function handleAdminMultiImageUpload(event, category) {
 
   let folder = 'Research';
   if (category === 'pubs') folder = 'Publications';
-  else if (category === 'certs') folder = 'Certificate';
+  else if (category === 'certs') folder = 'Training-Outputs';
 
   let processed = 0;
   for (let i = 0; i < files.length; i++) {
@@ -2653,7 +2839,7 @@ function handleAdminMultiImageUpload(event, category) {
     reader.onload = function(evt) {
       const base64 = evt.target.result.split(',')[1];
       const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
-      const relPath = category === 'certs' ? `Certificate/${safeName}` : `Github image/${folder}/${safeName}`;
+      const relPath = `Github image/${folder}/${safeName}`;
 
       stagedFileUploads.push({
         path: relPath,
@@ -2661,11 +2847,20 @@ function handleAdminMultiImageUpload(event, category) {
         name: file.name
       });
 
-      if (!item.images) item.images = [];
-      item.images.push({
-        src: relPath,
-        caption: file.name.replace(/\.[^/.]+$/, "").replace(/_/g, " ")
-      });
+      const caption = file.name.replace(/\.[^/.]+$/, "").replace(/_/g, " ");
+      if (category === 'certs') {
+        if (!item.practicalImages) item.practicalImages = [];
+        item.practicalImages.push({
+          src: relPath,
+          caption: caption
+        });
+      } else {
+        if (!item.images) item.images = [];
+        item.images.push({
+          src: relPath,
+          caption: caption
+        });
+      }
 
       processed++;
       if (processed === files.length) {
@@ -2680,7 +2875,8 @@ function handleAdminMultiImageUpload(event, category) {
           window.portfolioData.trainings = window.portfolioData.certificates;
           renderTrainings(window.portfolioData.certificates);
         }
-        renderAdminItemImagesGrid(category, item.images);
+        const updatedList = category === 'certs' ? item.practicalImages : item.images;
+        renderAdminItemImagesGrid(category, updatedList);
         populateAdminForms();
         showToast(`${files.length} image(s) staged! Click "Save & Publish" to push to GitHub.`, 'success');
       }

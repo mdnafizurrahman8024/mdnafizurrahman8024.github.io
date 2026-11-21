@@ -925,14 +925,15 @@
       "id": "cert-1",
       "title": "4-Week International Computational Vaccine Design & Reverse Vaccinology Course",
       "issuer": "VitaNova International Alliance for Sciences (VNIAS) & Biotech Catalyst",
-      "date": "17-10-2026 – 20-11-2026",
+      "date": "Oct – Nov 2026",
       "distinctionBadge": "International Training",
       "shortHighlight": "Hands-on SARS-CoV-2 multi-epitope vaccine design & 3D docking practical workflow",
       "description": "Completed an 8-session international applied immunoinformatics and reverse vaccinology training (in collaboration with Science Center for Programming Education, Egypt & The Azerbaijan Life Sciences Platform), executing a complete hands-on practical workflow on SARS-CoV-2 covering antigen screening (VaxiJen, PSORTb), B-cell/T-cell epitope prediction (IEDB), 3D structure modeling (ColabFold/AlphaFold2), TLR2/TLR4 receptor docking (HDOCK, PyMOL), and immune response simulation (C-ImmSim).",
       "credentialId": "VNIAS-CVD-2026",
       "credentialUrl": "",
       "image": "",
-      "images": []
+      "images": [],
+      "practicalImages": []
     },
     {
       "id": "cert-2",
@@ -943,7 +944,8 @@
       "credentialId": "RG/FSRTPCR-20261187",
       "credentialUrl": "",
       "image": "Certificate/RT-PCR.png",
-      "images": []
+      "images": [],
+      "practicalImages": []
     },
     {
       "id": "cert-3",
@@ -954,7 +956,8 @@
       "credentialId": "",
       "credentialUrl": "https://academy.who.int/",
       "image": "Certificate/OHA full.jpg",
-      "images": []
+      "images": [],
+      "practicalImages": []
     },
     {
       "id": "cert-4",
@@ -967,7 +970,8 @@
       "image": "Certificate/Vet. Olympiad.jpeg",
       "distinctionBadge": "Award",
       "shortHighlight": "National veterinary olympiad qualifier in clinical triage & epidemiology",
-      "images": []
+      "images": [],
+      "practicalImages": []
     },
     {
       "id": "cert-5",
@@ -978,7 +982,8 @@
       "credentialId": "GLA-DA-2026-921",
       "credentialUrl": "",
       "image": "Certificate/Data_analytics.png",
-      "images": []
+      "images": [],
+      "practicalImages": []
     },
     {
       "id": "cert-6",
@@ -991,7 +996,8 @@
       "image": "Certificate/Vet. Conf..jpeg",
       "distinctionBadge": "Honor",
       "shortHighlight": "Delivered competitive oral scientific research presentation",
-      "images": []
+      "images": [],
+      "practicalImages": []
     },
     {
       "id": "cert-7",
@@ -1002,7 +1008,8 @@
       "credentialId": "",
       "credentialUrl": "",
       "image": "Certificate/Vectoract.jpeg",
-      "images": []
+      "images": [],
+      "practicalImages": []
     },
     {
       "id": "cert-8",
@@ -1015,7 +1022,8 @@
       "image": "Certificate/Dog ectoparasite.jpeg",
       "distinctionBadge": "Honor",
       "shortHighlight": "Conference presenter: ectoparasite epidemiology & statistical models",
-      "images": []
+      "images": [],
+      "practicalImages": []
     },
     {
       "id": "cert-9",
@@ -1028,7 +1036,8 @@
       "image": "Certificate/Young SDG fellow.jpg",
       "distinctionBadge": "Award",
       "shortHighlight": "Selected Commonwealth youth fellow for SDG impact",
-      "images": []
+      "images": [],
+      "practicalImages": []
     },
     {
       "id": "cert-10",
@@ -1039,7 +1048,8 @@
       "credentialId": "",
       "credentialUrl": "",
       "image": "Certificate/Python_Certificate_21_days.png",
-      "images": []
+      "images": [],
+      "practicalImages": []
     },
     {
       "id": "cert-11",
@@ -1050,7 +1060,8 @@
       "credentialId": "",
       "credentialUrl": "https://www.who.int/ethics",
       "image": "Certificate/R.Ethics.png",
-      "images": []
+      "images": [],
+      "practicalImages": []
     },
     {
       "id": "cert-12",
@@ -1061,7 +1072,8 @@
       "credentialId": "",
       "credentialUrl": "https://academy.who.int/",
       "image": "Certificate/Medical Infrastructure.png",
-      "images": []
+      "images": [],
+      "practicalImages": []
     },
     {
       "id": "cert-13",
@@ -1072,7 +1084,8 @@
       "credentialId": "",
       "credentialUrl": "https://www.who.int/teams/surveillance-prevention-control-AMR",
       "image": "Certificate/AMR.png",
-      "images": []
+      "images": [],
+      "practicalImages": []
     },
     {
       "id": "cert-14",
@@ -1083,7 +1096,8 @@
       "credentialId": "",
       "credentialUrl": "https://www.who.int/teams/integrated-health-services/infection-prevention-control",
       "image": "Certificate/Healthcare.jpg",
-      "images": []
+      "images": [],
+      "practicalImages": []
     },
     {
       "id": "cert-15",
@@ -1094,7 +1108,8 @@
       "credentialId": "",
       "credentialUrl": "https://ammnet.org/",
       "image": "Certificate/Malaria Modeling.jpeg",
-      "images": []
+      "images": [],
+      "practicalImages": []
     },
     {
       "id": "cert-16",
@@ -1105,7 +1120,8 @@
       "credentialId": "",
       "credentialUrl": "",
       "image": "Certificate/Research Academy SPSS.jpeg",
-      "images": []
+      "images": [],
+      "practicalImages": []
     },
     {
       "id": "cert-17",
@@ -1116,7 +1132,8 @@
       "credentialId": "",
       "credentialUrl": "https://www.informea.org/",
       "image": "Certificate/UNITAR.jpg",
-      "images": []
+      "images": [],
+      "practicalImages": []
     },
     {
       "id": "cert-18",
@@ -1129,7 +1146,8 @@
       "image": "Certificate/Zero olypiad round-2.jpg",
       "distinctionBadge": "Award",
       "shortHighlight": "Competitive advancement in national Zero Olympiad Round 2",
-      "images": []
+      "images": [],
+      "practicalImages": []
     },
     {
       "id": "cert-19",
@@ -1142,7 +1160,8 @@
       "image": "Certificate/Zero olypiad round-1.jpg",
       "distinctionBadge": "Honor",
       "shortHighlight": "Achievement of appreciation in national Zero Olympiad Round 1",
-      "images": []
+      "images": [],
+      "practicalImages": []
     },
     {
       "id": "cert-20",
@@ -1153,7 +1172,8 @@
       "credentialId": "",
       "credentialUrl": "https://www.ru.ac.bd/",
       "image": "Certificate/RUHERF Research Summit.jpeg",
-      "images": []
+      "images": [],
+      "practicalImages": []
     },
     {
       "id": "cert-21",
@@ -1164,7 +1184,8 @@
       "credentialId": "",
       "credentialUrl": "https://www.ru.ac.bd/",
       "image": "Certificate/RUEC Int. Audience.jpeg",
-      "images": []
+      "images": [],
+      "practicalImages": []
     },
     {
       "id": "cert-22",
@@ -1177,7 +1198,8 @@
       "image": "Certificate/RUSWA volunteer.jpeg",
       "distinctionBadge": "Volunteer",
       "shortHighlight": "Awarded Best Volunteer for outstanding student welfare leadership",
-      "images": []
+      "images": [],
+      "practicalImages": []
     },
     {
       "id": "cert-23",
@@ -1188,7 +1210,8 @@
       "credentialId": "",
       "credentialUrl": "https://asiafoundation.org/",
       "image": "Certificate/Cyber Security.jpg",
-      "images": []
+      "images": [],
+      "practicalImages": []
     },
     {
       "id": "cert-24",
@@ -1201,7 +1224,8 @@
       "image": "Certificate/mpactra National Quiz Competition.png",
       "distinctionBadge": "Honor",
       "shortHighlight": "National competitive quiz certificate in science & public health",
-      "images": []
+      "images": [],
+      "practicalImages": []
     },
     {
       "id": "cert-25",
@@ -1212,7 +1236,8 @@
       "credentialId": "",
       "credentialUrl": "",
       "image": "Certificate/Kekuleon.png",
-      "images": []
+      "images": [],
+      "practicalImages": []
     },
     {
       "id": "cert-26",
@@ -1223,7 +1248,8 @@
       "credentialId": "",
       "credentialUrl": "",
       "image": "Certificate/Career summit 2026-09-14 at 9.24.46 PM.jpeg",
-      "images": []
+      "images": [],
+      "practicalImages": []
     },
     {
       "id": "cert-27",
@@ -1234,7 +1260,8 @@
       "credentialId": "02309048024",
       "credentialUrl": "https://uylab.org/",
       "image": "Certificate/Digital Marketing.jpeg",
-      "images": []
+      "images": [],
+      "practicalImages": []
     }
   ],
   "gallery": [
@@ -1431,14 +1458,15 @@
       "id": "cert-1",
       "title": "4-Week International Computational Vaccine Design & Reverse Vaccinology Course",
       "issuer": "VitaNova International Alliance for Sciences (VNIAS) & Biotech Catalyst",
-      "date": "17-10-2026 – 20-11-2026",
+      "date": "Oct – Nov 2026",
       "distinctionBadge": "International Training",
       "shortHighlight": "Hands-on SARS-CoV-2 multi-epitope vaccine design & 3D docking practical workflow",
       "description": "Completed an 8-session international applied immunoinformatics and reverse vaccinology training (in collaboration with Science Center for Programming Education, Egypt & The Azerbaijan Life Sciences Platform), executing a complete hands-on practical workflow on SARS-CoV-2 covering antigen screening (VaxiJen, PSORTb), B-cell/T-cell epitope prediction (IEDB), 3D structure modeling (ColabFold/AlphaFold2), TLR2/TLR4 receptor docking (HDOCK, PyMOL), and immune response simulation (C-ImmSim).",
       "credentialId": "VNIAS-CVD-2026",
       "credentialUrl": "",
       "image": "",
-      "images": []
+      "images": [],
+      "practicalImages": []
     },
     {
       "id": "cert-2",
@@ -1449,7 +1477,8 @@
       "credentialId": "RG/FSRTPCR-20261187",
       "credentialUrl": "",
       "image": "Certificate/RT-PCR.png",
-      "images": []
+      "images": [],
+      "practicalImages": []
     },
     {
       "id": "cert-3",
@@ -1460,7 +1489,8 @@
       "credentialId": "",
       "credentialUrl": "https://academy.who.int/",
       "image": "Certificate/OHA full.jpg",
-      "images": []
+      "images": [],
+      "practicalImages": []
     },
     {
       "id": "cert-4",
@@ -1473,7 +1503,8 @@
       "image": "Certificate/Vet. Olympiad.jpeg",
       "distinctionBadge": "Award",
       "shortHighlight": "National veterinary olympiad qualifier in clinical triage & epidemiology",
-      "images": []
+      "images": [],
+      "practicalImages": []
     },
     {
       "id": "cert-5",
@@ -1484,7 +1515,8 @@
       "credentialId": "GLA-DA-2026-921",
       "credentialUrl": "",
       "image": "Certificate/Data_analytics.png",
-      "images": []
+      "images": [],
+      "practicalImages": []
     },
     {
       "id": "cert-6",
@@ -1497,7 +1529,8 @@
       "image": "Certificate/Vet. Conf..jpeg",
       "distinctionBadge": "Honor",
       "shortHighlight": "Delivered competitive oral scientific research presentation",
-      "images": []
+      "images": [],
+      "practicalImages": []
     },
     {
       "id": "cert-7",
@@ -1508,7 +1541,8 @@
       "credentialId": "",
       "credentialUrl": "",
       "image": "Certificate/Vectoract.jpeg",
-      "images": []
+      "images": [],
+      "practicalImages": []
     },
     {
       "id": "cert-8",
@@ -1521,7 +1555,8 @@
       "image": "Certificate/Dog ectoparasite.jpeg",
       "distinctionBadge": "Honor",
       "shortHighlight": "Conference presenter: ectoparasite epidemiology & statistical models",
-      "images": []
+      "images": [],
+      "practicalImages": []
     },
     {
       "id": "cert-9",
@@ -1534,7 +1569,8 @@
       "image": "Certificate/Young SDG fellow.jpg",
       "distinctionBadge": "Award",
       "shortHighlight": "Selected Commonwealth youth fellow for SDG impact",
-      "images": []
+      "images": [],
+      "practicalImages": []
     },
     {
       "id": "cert-10",
@@ -1545,7 +1581,8 @@
       "credentialId": "",
       "credentialUrl": "",
       "image": "Certificate/Python_Certificate_21_days.png",
-      "images": []
+      "images": [],
+      "practicalImages": []
     },
     {
       "id": "cert-11",
@@ -1556,7 +1593,8 @@
       "credentialId": "",
       "credentialUrl": "https://www.who.int/ethics",
       "image": "Certificate/R.Ethics.png",
-      "images": []
+      "images": [],
+      "practicalImages": []
     },
     {
       "id": "cert-12",
@@ -1567,7 +1605,8 @@
       "credentialId": "",
       "credentialUrl": "https://academy.who.int/",
       "image": "Certificate/Medical Infrastructure.png",
-      "images": []
+      "images": [],
+      "practicalImages": []
     },
     {
       "id": "cert-13",
@@ -1578,7 +1617,8 @@
       "credentialId": "",
       "credentialUrl": "https://www.who.int/teams/surveillance-prevention-control-AMR",
       "image": "Certificate/AMR.png",
-      "images": []
+      "images": [],
+      "practicalImages": []
     },
     {
       "id": "cert-14",
@@ -1589,7 +1629,8 @@
       "credentialId": "",
       "credentialUrl": "https://www.who.int/teams/integrated-health-services/infection-prevention-control",
       "image": "Certificate/Healthcare.jpg",
-      "images": []
+      "images": [],
+      "practicalImages": []
     },
     {
       "id": "cert-15",
@@ -1600,7 +1641,8 @@
       "credentialId": "",
       "credentialUrl": "https://ammnet.org/",
       "image": "Certificate/Malaria Modeling.jpeg",
-      "images": []
+      "images": [],
+      "practicalImages": []
     },
     {
       "id": "cert-16",
@@ -1611,7 +1653,8 @@
       "credentialId": "",
       "credentialUrl": "",
       "image": "Certificate/Research Academy SPSS.jpeg",
-      "images": []
+      "images": [],
+      "practicalImages": []
     },
     {
       "id": "cert-17",
@@ -1622,7 +1665,8 @@
       "credentialId": "",
       "credentialUrl": "https://www.informea.org/",
       "image": "Certificate/UNITAR.jpg",
-      "images": []
+      "images": [],
+      "practicalImages": []
     },
     {
       "id": "cert-18",
@@ -1635,7 +1679,8 @@
       "image": "Certificate/Zero olypiad round-2.jpg",
       "distinctionBadge": "Award",
       "shortHighlight": "Competitive advancement in national Zero Olympiad Round 2",
-      "images": []
+      "images": [],
+      "practicalImages": []
     },
     {
       "id": "cert-19",
@@ -1648,7 +1693,8 @@
       "image": "Certificate/Zero olypiad round-1.jpg",
       "distinctionBadge": "Honor",
       "shortHighlight": "Achievement of appreciation in national Zero Olympiad Round 1",
-      "images": []
+      "images": [],
+      "practicalImages": []
     },
     {
       "id": "cert-20",
@@ -1659,7 +1705,8 @@
       "credentialId": "",
       "credentialUrl": "https://www.ru.ac.bd/",
       "image": "Certificate/RUHERF Research Summit.jpeg",
-      "images": []
+      "images": [],
+      "practicalImages": []
     },
     {
       "id": "cert-21",
@@ -1670,7 +1717,8 @@
       "credentialId": "",
       "credentialUrl": "https://www.ru.ac.bd/",
       "image": "Certificate/RUEC Int. Audience.jpeg",
-      "images": []
+      "images": [],
+      "practicalImages": []
     },
     {
       "id": "cert-22",
@@ -1683,7 +1731,8 @@
       "image": "Certificate/RUSWA volunteer.jpeg",
       "distinctionBadge": "Volunteer",
       "shortHighlight": "Awarded Best Volunteer for outstanding student welfare leadership",
-      "images": []
+      "images": [],
+      "practicalImages": []
     },
     {
       "id": "cert-23",
@@ -1694,7 +1743,8 @@
       "credentialId": "",
       "credentialUrl": "https://asiafoundation.org/",
       "image": "Certificate/Cyber Security.jpg",
-      "images": []
+      "images": [],
+      "practicalImages": []
     },
     {
       "id": "cert-24",
@@ -1707,7 +1757,8 @@
       "image": "Certificate/mpactra National Quiz Competition.png",
       "distinctionBadge": "Honor",
       "shortHighlight": "National competitive quiz certificate in science & public health",
-      "images": []
+      "images": [],
+      "practicalImages": []
     },
     {
       "id": "cert-25",
@@ -1718,7 +1769,8 @@
       "credentialId": "",
       "credentialUrl": "",
       "image": "Certificate/Kekuleon.png",
-      "images": []
+      "images": [],
+      "practicalImages": []
     },
     {
       "id": "cert-26",
@@ -1729,7 +1781,8 @@
       "credentialId": "",
       "credentialUrl": "",
       "image": "Certificate/Career summit 2026-09-14 at 9.24.46 PM.jpeg",
-      "images": []
+      "images": [],
+      "practicalImages": []
     },
     {
       "id": "cert-27",
@@ -1740,7 +1793,8 @@
       "credentialId": "02309048024",
       "credentialUrl": "https://uylab.org/",
       "image": "Certificate/Digital Marketing.jpeg",
-      "images": []
+      "images": [],
+      "practicalImages": []
     }
   ],
   "research": [
