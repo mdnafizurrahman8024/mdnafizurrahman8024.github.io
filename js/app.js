@@ -322,6 +322,11 @@ function renderTimelineAndKPIs(timeline, kpis) {
       <div class="entry-header">
         <h4 class="entry-title">${escapeHTML(item.title)}</h4>
         <div style="display: flex; gap: 0.35rem; align-items: center; flex-wrap: wrap;">
+          ${(item.documents && item.documents.length > 0) ? `
+            <button type="button" class="btn-evidence-trigger btn-docs-trigger" onclick="openDocsModal('${escapeHTML(item.id)}', 'research', event)" title="View Documents &amp; Briefs">
+              <i class="fa-solid fa-file-lines"></i> Docs &amp; Briefs (${item.documents.length})
+            </button>
+          ` : ''}
           <button type="button" class="btn-evidence-trigger" onclick="openEvidenceModal('${escapeHTML(item.id)}', 'research', event)" title="View Evidence &amp; Findings">
             <i class="fa-solid fa-camera"></i> Evidence &amp; Findings${item.images && item.images.length > 0 ? ` (${item.images.length})` : ''}
           </button>
@@ -565,6 +570,11 @@ function renderSoftwareProjects(projects) {
               <button type="button" class="software-view-details-btn" onclick="openProjectDetailsModal('${escapeHTML(item.id)}', event)" title="View full details and complete tech stack">
                 <i class="fa-solid fa-circle-info"></i> View Details
               </button>
+              ${(item.documents && item.documents.length > 0) ? `
+                <button type="button" class="software-docs-btn" onclick="openDocsModal('${escapeHTML(item.id)}', 'project', event)" title="View Documents, Briefs &amp; Presentation Slides">
+                  <i class="fa-solid fa-file-lines"></i> Docs &amp; Briefs (${item.documents.length})
+                </button>
+              ` : ''}
               ${photoCount > 0 ? `
                 <button type="button" class="software-gallery-btn" onclick="openProjectGalleryModal('${escapeHTML(item.id)}', event)" title="Open photo gallery slideshow">
                   <i class="fa-solid fa-images"></i> Gallery
@@ -663,6 +673,26 @@ function openProjectDetailsModal(projectId, e) {
     };
   } else if (galleryWrap) {
     galleryWrap.style.display = 'none';
+  }
+
+  // Open Docs & Briefs Button inside Details Modal
+  const docs = project.documents || [];
+  const existingDocsWrap = document.getElementById('project-modal-docs-action-wrap');
+  if (existingDocsWrap) existingDocsWrap.remove();
+  if (docs.length > 0 && galleryWrap) {
+    const docsBtnWrap = document.createElement('div');
+    docsBtnWrap.id = 'project-modal-docs-action-wrap';
+    docsBtnWrap.style.paddingTop = '0.5rem';
+    docsBtnWrap.innerHTML = `
+      <button type="button" class="project-modal-gallery-trigger-btn" style="background: rgba(14, 165, 233, 0.15); color: #0284c7; border-color: rgba(14, 165, 233, 0.35);">
+        <i class="fa-solid fa-file-lines"></i> Open Docs, Briefs &amp; Slides (${docs.length})
+      </button>
+    `;
+    docsBtnWrap.querySelector('button').onclick = (evt) => {
+      closeProjectDetailsModal();
+      openDocsModal(project.id, 'project', evt);
+    };
+    galleryWrap.parentNode.insertBefore(docsBtnWrap, galleryWrap.nextSibling);
   }
 
   // Single External Action Button in footer
@@ -1123,6 +1153,180 @@ function openPracticalModal(itemId, e) {
 }
 window.openPracticalModal = openPracticalModal;
 
+/* --------------------------------------------------------------------------
+   DOCUMENTS, BRIEFS & PRESENTATIONS SHARING SYSTEM MODAL
+   -------------------------------------------------------------------------- */
+let currentDocsItem = null;
+let currentSelectedDocIndex = 0;
+
+function convertToEmbedUrl(url, docType) {
+  if (!url) return '';
+  const trimmed = url.trim();
+
+  // 1. Google Drive file: https://drive.google.com/file/d/{ID}/view?... -> /preview
+  const driveFileMatch = trimmed.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/);
+  if (driveFileMatch && driveFileMatch[1]) {
+    return `https://drive.google.com/file/d/${driveFileMatch[1]}/preview`;
+  }
+
+  // 2. Google Slides: https://docs.google.com/presentation/d/{ID}/... -> /preview
+  const slidesMatch = trimmed.match(/docs\.google\.com\/presentation\/d\/([a-zA-Z0-9_-]+)/);
+  if (slidesMatch && slidesMatch[1]) {
+    return `https://docs.google.com/presentation/d/${slidesMatch[1]}/preview`;
+  }
+
+  // 3. Google Docs: https://docs.google.com/document/d/{ID}/... -> /preview
+  const docsMatch = trimmed.match(/docs\.google\.com\/document\/d\/([a-zA-Z0-9_-]+)/);
+  if (docsMatch && docsMatch[1]) {
+    return `https://docs.google.com/document/d/${docsMatch[1]}/preview`;
+  }
+
+  // 4. Google Sheets: https://docs.google.com/spreadsheets/d/{ID}/... -> /preview
+  const sheetsMatch = trimmed.match(/docs\.google\.com\/spreadsheets\/d\/([a-zA-Z0-9_-]+)/);
+  if (sheetsMatch && sheetsMatch[1]) {
+    return `https://docs.google.com/spreadsheets/d/${sheetsMatch[1]}/preview`;
+  }
+
+  // 5. Direct PDF URL
+  if (trimmed.toLowerCase().endsWith('.pdf') || trimmed.includes('.pdf?')) {
+    return trimmed;
+  }
+
+  return trimmed;
+}
+window.convertToEmbedUrl = convertToEmbedUrl;
+
+function getDocBadgeInfo(doc) {
+  const type = (doc.docType || '').toLowerCase();
+  const url = (doc.url || '').toLowerCase();
+  if (type === 'slides' || url.includes('presentation')) {
+    return { label: 'Presentation Slides', icon: 'fa-solid fa-file-powerpoint', badgeClass: 'badge-slides' };
+  }
+  if (type === 'word' || url.includes('/document/') || url.endsWith('.doc') || url.endsWith('.docx')) {
+    return { label: 'Word Document', icon: 'fa-solid fa-file-word', badgeClass: 'badge-word' };
+  }
+  if (type === 'pdf' || url.endsWith('.pdf') || url.includes('/file/d/')) {
+    return { label: 'PDF Document', icon: 'fa-solid fa-file-pdf', badgeClass: 'badge-pdf' };
+  }
+  return { label: 'Google Drive Resource', icon: 'fa-brands fa-google-drive', badgeClass: 'badge-drive' };
+}
+window.getDocBadgeInfo = getDocBadgeInfo;
+
+function openDocsModal(itemId, category, e) {
+  if (e && typeof e.stopPropagation === 'function') e.stopPropagation();
+
+  let item = null;
+  if (category === 'project') {
+    const list = window.portfolioData?.softwareProjects || window.portfolioData?.projects || [];
+    item = list.find(p => p.id === itemId);
+  } else if (category === 'research') {
+    const list = window.portfolioData?.scientificResearch || window.portfolioData?.research || window.portfolioData?.researchAndProjectsTimeline || [];
+    item = list.find(r => r.id === itemId);
+  } else if (category === 'publication') {
+    const list = window.portfolioData?.publications || [];
+    item = list.find(p => p.id === itemId);
+  } else if (category === 'certificate') {
+    const list = window.portfolioData?.certificates || window.portfolioData?.trainings || [];
+    item = typeof itemId === 'number' ? list[itemId] : list.find(c => c.id === itemId || String(c.id) === String(itemId));
+    if (!item && !isNaN(parseInt(itemId))) item = list[parseInt(itemId)];
+  }
+
+  if (!item || !Array.isArray(item.documents) || item.documents.length === 0) {
+    if (typeof showToast === 'function') showToast('No documents or briefs attached for this entry.', 'info');
+    return;
+  }
+
+  currentDocsItem = item;
+  currentSelectedDocIndex = 0;
+
+  const modal = document.getElementById('docs-briefs-modal');
+  const titleEl = document.getElementById('docs-modal-title');
+  const countBadge = document.getElementById('docs-modal-count-badge');
+
+  if (titleEl) {
+    titleEl.textContent = `${item.title || item.name || 'Entry'} — Documents & Briefs`;
+  }
+  if (countBadge) {
+    countBadge.textContent = `${item.documents.length} Attachment${item.documents.length !== 1 ? 's' : ''}`;
+  }
+
+  renderDocsModalTabs(item.documents);
+  selectDocsModalItem(0);
+
+  if (modal) {
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+}
+window.openDocsModal = openDocsModal;
+
+function closeDocsModal() {
+  const modal = document.getElementById('docs-briefs-modal');
+  const iframe = document.getElementById('docs-modal-iframe');
+  if (iframe) iframe.src = 'about:blank';
+  if (modal) {
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  currentDocsItem = null;
+}
+window.closeDocsModal = closeDocsModal;
+
+function renderDocsModalTabs(docs) {
+  const strip = document.getElementById('docs-modal-tabs-strip');
+  if (!strip) return;
+  if (!docs || docs.length <= 1) {
+    strip.style.display = 'none';
+    return;
+  }
+  strip.style.display = 'flex';
+  strip.innerHTML = docs.map((d, idx) => {
+    const info = getDocBadgeInfo(d);
+    return `
+      <button type="button" class="docs-modal-tab-btn ${idx === 0 ? 'active' : ''}" onclick="selectDocsModalItem(${idx})" title="${escapeHTML(d.title)}">
+        <i class="${info.icon}"></i>
+        <span>${escapeHTML(d.title || `Document #${idx + 1}`)}</span>
+      </button>
+    `;
+  }).join('');
+}
+window.renderDocsModalTabs = renderDocsModalTabs;
+
+function selectDocsModalItem(index) {
+  if (!currentDocsItem || !currentDocsItem.documents || !currentDocsItem.documents[index]) return;
+  currentSelectedDocIndex = index;
+  const doc = currentDocsItem.documents[index];
+  const badgeInfo = getDocBadgeInfo(doc);
+
+  const tabBtns = document.querySelectorAll('.docs-modal-tab-btn');
+  tabBtns.forEach((btn, i) => {
+    btn.classList.toggle('active', i === index);
+  });
+
+  const titleEl = document.getElementById('docs-modal-selected-title');
+  const badgeEl = document.getElementById('docs-modal-selected-badge');
+  const driveBtn = document.getElementById('docs-modal-open-drive-btn');
+  const iframe = document.getElementById('docs-modal-iframe');
+  const fallback = document.getElementById('docs-modal-fallback');
+
+  if (titleEl) titleEl.textContent = doc.title || 'Attached Document';
+  if (badgeEl) {
+    badgeEl.className = `docs-type-badge ${badgeInfo.badgeClass}`;
+    badgeEl.innerHTML = `<i class="${badgeInfo.icon}"></i> ${escapeHTML(badgeInfo.label)}`;
+  }
+  if (driveBtn) {
+    driveBtn.href = doc.url || '#';
+  }
+
+  const embedUrl = convertToEmbedUrl(doc.url, doc.docType);
+  if (iframe) {
+    iframe.src = embedUrl;
+    iframe.style.display = 'block';
+  }
+  if (fallback) fallback.style.display = 'none';
+}
+window.selectDocsModalItem = selectDocsModalItem;
+
 function initProjectModals() {
   // Details Modal close listeners
   const detailsModal = document.getElementById('project-details-modal');
@@ -1146,9 +1350,22 @@ function initProjectModals() {
     };
   }
 
+  // Docs & Briefs Modal close listeners
+  const docsModal = document.getElementById('docs-briefs-modal');
+  const docsCloseBtn = document.getElementById('docs-modal-close-btn');
+
+  if (docsCloseBtn) docsCloseBtn.onclick = closeDocsModal;
+  if (docsModal) {
+    docsModal.onclick = (e) => {
+      if (e.target === docsModal) closeDocsModal();
+    };
+  }
+
   // Global Keyboard Navigation (Esc to close, Left/Right for gallery)
   document.addEventListener('keydown', (e) => {
-    if (galleryModal && galleryModal.classList.contains('active')) {
+    if (docsModal && docsModal.classList.contains('active')) {
+      if (e.key === 'Escape') closeDocsModal();
+    } else if (galleryModal && galleryModal.classList.contains('active')) {
       if (e.key === 'Escape') closeProjectGalleryModal();
       else if (e.key === 'ArrowLeft') setGallerySlide(currentGallerySlideIdx - 1, true);
       else if (e.key === 'ArrowRight') setGallerySlide(currentGallerySlideIdx + 1, true);
@@ -1328,6 +1545,11 @@ function renderPublications() {
           <div class="pub-title-row">
             <h4 class="pub-paper-title">${escapeHTML(p.title)}</h4>
             <div class="pub-badges-group">
+              ${(p.documents && p.documents.length > 0) ? `
+                <button type="button" class="btn-evidence-trigger btn-docs-trigger" onclick="openDocsModal('${escapeHTML(p.id)}', 'publication', event)" title="View Documents &amp; Presentation Slides">
+                  <i class="fa-solid fa-file-lines"></i> Docs &amp; Briefs (${p.documents.length})
+                </button>
+              ` : ''}
               ${p.images && p.images.length > 0 ? `
                 <button type="button" class="btn-evidence-trigger" onclick="openEvidenceModal('${escapeHTML(p.id)}', 'publication', event)" title="View Evidence &amp; Findings">
                   <i class="fa-solid fa-camera"></i> Evidence &amp; Findings (${p.images.length})
@@ -1451,6 +1673,11 @@ function renderTrainings(certs) {
             ...more
           </button>
           <div style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap;">
+            ${(t.documents && t.documents.length > 0) ? `
+              <button type="button" class="btn-evidence-trigger btn-docs-trigger" onclick="openDocsModal('${escapeHTML(t.id || fullIndex)}', 'certificate', event)" title="View Course Reports &amp; Documents">
+                <i class="fa-solid fa-file-lines"></i> Docs &amp; Briefs (${t.documents.length})
+              </button>
+            ` : ''}
             <button type="button" class="btn-evidence-trigger btn-evidence-cert" onclick="openPracticalModal('${escapeHTML(t.id || fullIndex)}', event)" title="View Practical Outputs">
               <i class="fa-solid fa-camera"></i> Practical${(t.practicalImages && t.practicalImages.length > 0) ? ` (${t.practicalImages.length})` : ''}
             </button>
@@ -1522,6 +1749,11 @@ function openTrainingDetailModal(index) {
       ` : ''}
 
       <div style="margin-top: 1rem; display: flex; gap: 0.75rem; flex-wrap: wrap;">
+        ${(t.documents && t.documents.length > 0) ? `
+          <button type="button" class="btn-evidence-trigger btn-docs-trigger" onclick="openDocsModal('${escapeHTML(t.id || index)}', 'certificate', event)" title="View Course Reports &amp; Documents" style="padding: 0.5rem 1rem;">
+            <i class="fa-solid fa-file-lines"></i> Docs &amp; Briefs (${t.documents.length})
+          </button>
+        ` : ''}
         <button type="button" class="btn-evidence-trigger" onclick="openPracticalModal('${escapeHTML(t.id || index)}', event)" title="View Practical Outputs" style="padding: 0.5rem 1rem;">
           <i class="fa-solid fa-camera"></i> Practical${(t.practicalImages && t.practicalImages.length > 0) ? ` (${t.practicalImages.length})` : ''}
         </button>
@@ -1983,6 +2215,10 @@ function initAdminPortal() {
 
   const addCertForm = document.getElementById('admin-add-cert-form');
   if (addCertForm && typeof handleAddCertificateSubmit === 'function') addCertForm.onsubmit = handleAddCertificateSubmit;
+
+  if (typeof initAllAdminDropzones === 'function') {
+    initAllAdminDropzones();
+  }
 }
 
 function handleAdminAuthSubmit(e) {
@@ -2296,6 +2532,7 @@ function loadPubIntoAdminForm(idxOrNew) {
     if (scholarEl) scholarEl.value = 'https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en';
     if (orcidEl) orcidEl.value = '';
     renderAdminItemImagesGrid('pubs', []);
+    if (typeof renderAdminDocsList === 'function') renderAdminDocsList('pubs');
     return;
   }
 
@@ -2360,6 +2597,7 @@ function loadPubIntoAdminForm(idxOrNew) {
   if (orcidEl) orcidEl.value = p.orcidUrl || p.preprintUrl || '';
 
   renderAdminItemImagesGrid('pubs', p.images || []);
+  if (typeof renderAdminDocsList === 'function') renderAdminDocsList('pubs');
 }
 
 function handleSavePubSubmit(e) {
@@ -2531,6 +2769,7 @@ function loadProjectIntoAdminForm(projId) {
   if (liveEl) liveEl.value = currentEditingProject.liveUrl || '';
 
   renderAdminProjectImagesGrid();
+  if (typeof renderAdminDocsList === 'function') renderAdminDocsList('projects');
 }
 
 function renderAdminProjectImagesGrid() {
@@ -2810,6 +3049,7 @@ function loadResearchIntoAdminForm(idx) {
   if (descEl) descEl.value = r.summary || r.description || '';
 
   renderAdminItemImagesGrid('research', r.images || []);
+  if (typeof renderAdminDocsList === 'function') renderAdminDocsList('research');
 }
 
 function handleSaveResearchSubmit(e) {
@@ -2874,6 +3114,7 @@ function loadCertIntoAdminManager(idx) {
   if (!c) return;
 
   renderAdminItemImagesGrid('certs', c.practicalImages || []);
+  if (typeof renderAdminDocsList === 'function') renderAdminDocsList('certs');
 }
 
 /* --------------------------------------------------------------------------
@@ -2892,6 +3133,8 @@ function getAdminCurrentItem(category) {
     const list = window.portfolioData?.certificates || window.portfolioData?.trainings;
     if (!list) return null;
     return (currentEditingCertIndex >= 0 && currentEditingCertIndex < list.length) ? list[currentEditingCertIndex] : null;
+  } else if (category === 'projects') {
+    return currentEditingProject;
   }
   return null;
 }
@@ -3032,6 +3275,397 @@ function handleAdminMultiImageUpload(event, category) {
   }
 }
 window.handleAdminMultiImageUpload = handleAdminMultiImageUpload;
+
+/* --------------------------------------------------------------------------
+   CLIENT-SIDE IMAGE COMPRESSION (CANVAS) & DIRECT PDF READER
+   -------------------------------------------------------------------------- */
+function compressImageFile(file, maxWidth = 1600, maxHeight = 1600, quality = 0.84) {
+  return new Promise((resolve) => {
+    if (!file || !file.type || !file.type.startsWith('image/') || file.type.includes('svg')) {
+      const reader = new FileReader();
+      reader.onload = (e) => resolve({ base64: e.target.result.split(',')[1], name: file.name, wasCompressed: false });
+      reader.onerror = () => resolve({ base64: '', name: file.name, wasCompressed: false });
+      reader.readAsDataURL(file);
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onload = () => {
+        let width = img.width;
+        let height = img.height;
+        if (width > maxWidth || height > maxHeight) {
+          if (width > height) {
+            height = Math.round((height * maxWidth) / width);
+            width = maxWidth;
+          } else {
+            width = Math.round((width * maxHeight) / height);
+            height = maxHeight;
+          }
+        }
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, height);
+
+        const isPng = file.type === 'image/png';
+        const targetType = isPng ? 'image/png' : 'image/jpeg';
+        const dataUrl = canvas.toDataURL(targetType, isPng ? undefined : quality);
+        const base64 = dataUrl.split(',')[1];
+        resolve({ base64, name: file.name, wasCompressed: true });
+      };
+      img.onerror = () => {
+        const raw = e.target.result.split(',')[1];
+        resolve({ base64: raw, name: file.name, wasCompressed: false });
+      };
+      img.src = e.target.result;
+    };
+    reader.onerror = () => resolve({ base64: '', name: file.name, wasCompressed: false });
+    reader.readAsDataURL(file);
+  });
+}
+window.compressImageFile = compressImageFile;
+
+function readPdfFile(file) {
+  return new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const base64 = e.target.result.split(',')[1];
+      resolve({ base64, name: file.name });
+    };
+    reader.onerror = () => resolve({ base64: '', name: file.name });
+    reader.readAsDataURL(file);
+  });
+}
+window.readPdfFile = readPdfFile;
+
+/* --------------------------------------------------------------------------
+   DRAG-AND-DROP FILE UPLOADER & STAGING (IMAGES & DIRECT PDFS)
+   -------------------------------------------------------------------------- */
+async function handleAdminDropzoneFiles(files, category) {
+  if (!files || files.length === 0) return;
+
+  const item = getAdminCurrentItem(category);
+  if (!item) {
+    return showToast('Please select an entry first before uploading files.', 'error');
+  }
+
+  let folder = 'Research';
+  let docsSubfolder = 'Research';
+  if (category === 'pubs') { folder = 'Publications'; docsSubfolder = 'Publications'; }
+  else if (category === 'certs') { folder = 'Training-Outputs'; docsSubfolder = 'Certificates'; }
+  else if (category === 'projects') {
+    folder = document.getElementById('admin-proj-folder')?.value.trim() || item.folder || item.name || 'Projects';
+    docsSubfolder = 'Projects';
+  }
+
+  let imageCount = 0;
+  let pdfCount = 0;
+
+  for (let i = 0; i < files.length; i++) {
+    const file = files[i];
+    const isPdf = file.name.toLowerCase().endsWith('.pdf') || file.type === 'application/pdf';
+
+    if (isPdf) {
+      const defaultTitle = file.name.replace(/\.pdf$/i, '').replace(/_/g, ' ');
+      const userTitle = prompt(`Enter a descriptive Title for this PDF:\n"${file.name}"`, defaultTitle);
+      const title = (userTitle || defaultTitle).trim();
+
+      const pdfData = await readPdfFile(file);
+      const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+      const relPath = `Documents/${docsSubfolder}/${safeName}`;
+
+      stagedFileUploads.push({
+        path: relPath,
+        content: pdfData.base64,
+        name: file.name
+      });
+
+      if (!Array.isArray(item.documents)) item.documents = [];
+      item.documents.push({
+        title: title,
+        docType: 'pdf',
+        url: relPath
+      });
+      pdfCount++;
+    } else {
+      // Image: Auto-compress via Canvas if > 1600px
+      const imgData = await compressImageFile(file, 1600, 1600, 0.84);
+      const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+      const relPath = `Github image/${folder}/${safeName}`;
+
+      stagedFileUploads.push({
+        path: relPath,
+        content: imgData.base64,
+        name: file.name
+      });
+
+      const caption = file.name.replace(/\.[^/.]+$/, '').replace(/_/g, ' ');
+      if (category === 'certs') {
+        if (!item.practicalImages) item.practicalImages = [];
+        item.practicalImages.push({ src: relPath, caption: caption });
+      } else if (category === 'projects') {
+        if (!item.images) item.images = [];
+        if (!item.images.includes(relPath)) item.images.push(relPath);
+      } else {
+        if (!item.images) item.images = [];
+        item.images.push({ src: relPath, caption: caption });
+      }
+      imageCount++;
+    }
+  }
+
+  // Update UI & Grids
+  syncCategoryToUI(category);
+  if (category === 'projects') {
+    renderAdminProjectImagesGrid();
+  } else {
+    const updatedImages = category === 'certs' ? item.practicalImages : item.images;
+    renderAdminItemImagesGrid(category, updatedImages);
+  }
+  renderAdminDocsList(category);
+  populateAdminForms();
+
+  let msg = [];
+  if (imageCount > 0) msg.push(`${imageCount} optimized image(s)`);
+  if (pdfCount > 0) msg.push(`${pdfCount} PDF document(s)`);
+  showToast(`${msg.join(' & ')} staged! Click "Save & Publish" to push to GitHub.`, 'success');
+}
+window.handleAdminDropzoneFiles = handleAdminDropzoneFiles;
+
+async function handleAdminGalleryDrop(files) {
+  if (!files || files.length === 0) return;
+  const file = files[0];
+  const urlInput = document.getElementById('admin-gallery-url');
+
+  const imgData = await compressImageFile(file, 1600, 1600, 0.84);
+  const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+  const relPath = `Github image/Gallery/${safeName}`;
+
+  stagedFileUploads.push({
+    path: relPath,
+    content: imgData.base64,
+    name: file.name
+  });
+
+  if (urlInput) urlInput.value = relPath;
+  showToast(`Photo "${file.name}" optimized & staged into ${relPath}!`, 'success');
+}
+window.handleAdminGalleryDrop = handleAdminGalleryDrop;
+
+/* --------------------------------------------------------------------------
+   DOCUMENTS & GOOGLE DRIVE LINK BUILDER (ADMIN CONTENT MANAGER)
+   -------------------------------------------------------------------------- */
+function renderAdminDocsList(category) {
+  const item = getAdminCurrentItem(category);
+  const container = document.getElementById(`admin-${category}-docs-list`);
+  const countEl = document.getElementById(`admin-${category}-docs-count`);
+  if (!container) return;
+
+  const docs = (item && Array.isArray(item.documents)) ? item.documents : [];
+  if (countEl) countEl.textContent = `${docs.length} attached`;
+
+  if (docs.length === 0) {
+    container.innerHTML = '<div style="font-size: 0.75rem; color: var(--text-muted); padding: 0.4rem; text-align: center;">No documents attached yet.</div>';
+    return;
+  }
+
+  container.innerHTML = docs.map((doc, idx) => {
+    const badgeInfo = getDocBadgeInfo(doc);
+    return `
+      <div class="admin-doc-item-row">
+        <div class="admin-doc-item-left">
+          <span class="docs-type-badge ${badgeInfo.badgeClass}" style="font-size: 0.65rem; padding: 0.15rem 0.4rem;">
+            <i class="${badgeInfo.icon}"></i>
+          </span>
+          <div style="min-width: 0;">
+            <div class="admin-doc-item-title" title="${escapeHTML(doc.title || '')}">${escapeHTML(doc.title || 'Untitled Document')}</div>
+            <div class="admin-doc-item-url" title="${escapeHTML(doc.url || '')}">${escapeHTML(doc.url || '')}</div>
+          </div>
+        </div>
+        <div class="admin-doc-item-actions">
+          ${idx > 0 ? `
+            <button type="button" class="admin-doc-action-btn" title="Move Up" onclick="moveAdminDocLink('${category}', ${idx}, -1)">
+              <i class="fa-solid fa-arrow-up"></i>
+            </button>
+          ` : ''}
+          ${idx < docs.length - 1 ? `
+            <button type="button" class="admin-doc-action-btn" title="Move Down" onclick="moveAdminDocLink('${category}', ${idx}, 1)">
+              <i class="fa-solid fa-arrow-down"></i>
+            </button>
+          ` : ''}
+          <a href="${escapeHTML(doc.url || '#')}" target="_blank" rel="noopener noreferrer" class="admin-doc-action-btn" title="Preview / Open URL">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          </a>
+          <button type="button" class="admin-doc-action-btn delete" title="Remove Document" onclick="removeAdminDocLink('${category}', ${idx})">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+window.renderAdminDocsList = renderAdminDocsList;
+
+function addAdminDocLink(category) {
+  const item = getAdminCurrentItem(category);
+  if (!item) {
+    return showToast('Please select or create an entry first.', 'error');
+  }
+
+  const titleInput = document.getElementById(`admin-${category}-doc-title`);
+  const typeSelect = document.getElementById(`admin-${category}-doc-type`);
+  const urlInput = document.getElementById(`admin-${category}-doc-url`);
+
+  const title = (titleInput?.value || '').trim();
+  const docType = typeSelect?.value || 'drive';
+  const url = (urlInput?.value || '').trim();
+
+  if (!title) {
+    return showToast('Please enter a clear descriptive title for this document.', 'error');
+  }
+  if (!url) {
+    return showToast('Please enter a valid Google Drive or document URL.', 'error');
+  }
+
+  if (!Array.isArray(item.documents)) {
+    item.documents = [];
+  }
+
+  item.documents.push({
+    title: title,
+    docType: docType,
+    url: url
+  });
+
+  if (titleInput) titleInput.value = '';
+  if (urlInput) urlInput.value = '';
+
+  renderAdminDocsList(category);
+  syncCategoryToUI(category);
+  populateAdminForms();
+  showToast(`Added "${title}"! Click "Save & Publish" to push to GitHub.`, 'success');
+}
+window.addAdminDocLink = addAdminDocLink;
+
+function removeAdminDocLink(category, idx) {
+  const item = getAdminCurrentItem(category);
+  if (!item || !Array.isArray(item.documents) || !item.documents[idx]) return;
+
+  const doc = item.documents[idx];
+  if (confirm(`Remove document "${doc.title}"?`)) {
+    item.documents.splice(idx, 1);
+    renderAdminDocsList(category);
+    syncCategoryToUI(category);
+    populateAdminForms();
+    showToast('Document removed.', 'info');
+  }
+}
+window.removeAdminDocLink = removeAdminDocLink;
+
+function moveAdminDocLink(category, idx, direction) {
+  const item = getAdminCurrentItem(category);
+  if (!item || !Array.isArray(item.documents)) return;
+
+  const targetIdx = idx + direction;
+  if (targetIdx < 0 || targetIdx >= item.documents.length) return;
+
+  const temp = item.documents[idx];
+  item.documents[idx] = item.documents[targetIdx];
+  item.documents[targetIdx] = temp;
+
+  renderAdminDocsList(category);
+  syncCategoryToUI(category);
+  populateAdminForms();
+}
+window.moveAdminDocLink = moveAdminDocLink;
+
+function syncCategoryToUI(category) {
+  if (category === 'pubs') {
+    renderPublications();
+  } else if (category === 'research') {
+    window.portfolioData.scientificResearch = window.portfolioData.scientificResearch || window.portfolioData.research;
+    window.portfolioData.research = window.portfolioData.scientificResearch;
+    renderTimelineAndKPIs(window.portfolioData.scientificResearch, window.portfolioData.kpis);
+  } else if (category === 'projects') {
+    renderSoftwareProjects(window.portfolioData?.softwareProjects || window.portfolioData?.projects);
+  } else if (category === 'certs') {
+    window.portfolioData.certificates = window.portfolioData.certificates || window.portfolioData.trainings;
+    window.portfolioData.trainings = window.portfolioData.certificates;
+    renderTrainings(window.portfolioData.certificates);
+  }
+}
+window.syncCategoryToUI = syncCategoryToUI;
+
+function initAdminDropzone(dropzoneEl, category) {
+  if (!dropzoneEl) return;
+
+  ['dragenter', 'dragover'].forEach(eventName => {
+    dropzoneEl.addEventListener(eventName, (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      dropzoneEl.classList.add('drag-over');
+    }, false);
+  });
+
+  ['dragleave', 'drop'].forEach(eventName => {
+    dropzoneEl.addEventListener(eventName, (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      dropzoneEl.classList.remove('drag-over');
+    }, false);
+  });
+
+  dropzoneEl.addEventListener('drop', (e) => {
+    const dt = e.dataTransfer;
+    const files = dt.files;
+    if (files && files.length > 0) {
+      handleAdminDropzoneFiles(files, category);
+    }
+  }, false);
+}
+window.initAdminDropzone = initAdminDropzone;
+
+function initAllAdminDropzones() {
+  const dropzones = [
+    { id: 'admin-pubs-dropzone', cat: 'pubs' },
+    { id: 'admin-research-dropzone', cat: 'research' },
+    { id: 'admin-proj-dropzone', cat: 'projects' },
+    { id: 'admin-certs-dropzone', cat: 'certs' }
+  ];
+
+  dropzones.forEach(({ id, cat }) => {
+    const el = document.getElementById(id);
+    if (el) initAdminDropzone(el, cat);
+  });
+
+  const galDrop = document.getElementById('admin-gallery-dropzone');
+  if (galDrop) {
+    ['dragenter', 'dragover'].forEach(name => {
+      galDrop.addEventListener(name, (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        galDrop.classList.add('drag-over');
+      }, false);
+    });
+    ['dragleave', 'drop'].forEach(name => {
+      galDrop.addEventListener(name, (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        galDrop.classList.remove('drag-over');
+      }, false);
+    });
+    galDrop.addEventListener('drop', (e) => {
+      const dt = e.dataTransfer;
+      if (dt && dt.files && dt.files.length > 0) {
+        handleAdminGalleryDrop(dt.files);
+      }
+    }, false);
+  }
+}
+window.initAllAdminDropzones = initAllAdminDropzones;
 
 /* --------------------------------------------------------------------------
    Media Gallery & Event Manager in Admin Drawer
