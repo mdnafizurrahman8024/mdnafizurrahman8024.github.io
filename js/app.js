@@ -1900,19 +1900,39 @@ function initAdminPortal() {
   if (overlay) overlay.onclick = closeAdminDrawer;
 
   const authForm = document.getElementById('admin-auth-form');
-  if (authForm) authForm.onsubmit = handleAdminAuthSubmit;
+  if (authForm && typeof handleAdminAuthSubmit === 'function') authForm.onsubmit = handleAdminAuthSubmit;
 
   const logoutBtn = document.getElementById('admin-logout-btn');
-  if (logoutBtn) logoutBtn.onclick = handleAdminLogout;
+  if (logoutBtn && typeof handleAdminLogout === 'function') logoutBtn.onclick = handleAdminLogout;
 
   const publishBtn = document.getElementById('admin-publish-btn');
-  if (publishBtn) publishBtn.onclick = handlePublishToGitHub;
+  if (publishBtn && typeof handlePublishToGitHub === 'function') publishBtn.onclick = handlePublishToGitHub;
 
   const fileInput = document.getElementById('admin-file-upload');
-  if (fileInput) fileInput.onchange = handleFileUploadStaging;
+  if (fileInput && typeof handleFileUploadStaging === 'function') fileInput.onchange = handleFileUploadStaging;
 
   const addCertForm = document.getElementById('admin-add-cert-form');
-  if (addCertForm) addCertForm.onsubmit = handleAddCertificateSubmit;
+  if (addCertForm && typeof handleAddCertificateSubmit === 'function') addCertForm.onsubmit = handleAddCertificateSubmit;
+}
+
+function handleAdminAuthSubmit(e) {
+  if (e) e.preventDefault();
+  const pass = document.getElementById('admin-passcode')?.value;
+  const token = document.getElementById('admin-token')?.value;
+  if (!pass || !token) return showToast('Please enter both passcode and GitHub token.', 'error');
+  localStorage.setItem('admin_passcode_hash', btoa(pass));
+  localStorage.setItem('admin_gh_token', token);
+  sessionStorage.setItem('admin_unlocked', 'true');
+  showToast('Admin access unlocked!', 'success');
+  checkAdminAuthState();
+}
+
+function handleAdminLogout() {
+  localStorage.removeItem('admin_gh_token');
+  localStorage.removeItem('admin_passcode_hash');
+  sessionStorage.removeItem('admin_unlocked');
+  showToast('Credentials cleared.', 'success');
+  checkAdminAuthState();
 }
 
 function openAdminDrawer() {
@@ -3440,8 +3460,7 @@ function initUniversalNav() {
         if (href && href.startsWith('#')) {
           e.preventDefault();
           const targetId = href.replace(/^#/, '');
-          syncActiveNavTab(targetId);
-          setTimeout(() => syncActiveNavTab(), 450);
+          handleNavClick(targetId);
           closeUniversalNav();
           scrollToSection(href);
         } else {
@@ -3467,8 +3486,7 @@ function initUniversalNav() {
       if (href && href.startsWith('#')) {
         e.preventDefault();
         const targetId = href.replace(/^#/, '');
-        syncActiveNavTab(targetId);
-        setTimeout(() => syncActiveNavTab(), 450);
+        handleNavClick(targetId);
         if (moreDropdown) moreDropdown.classList.remove('active');
         scrollToSection(href);
       }
@@ -3481,8 +3499,7 @@ function initUniversalNav() {
       const href = brand.getAttribute('href');
       if (href === '#home' || href === '#') {
         e.preventDefault();
-        syncActiveNavTab('about');
-        setTimeout(() => syncActiveNavTab(), 450);
+        handleNavClick('about');
         closeUniversalNav();
         if (moreDropdown) moreDropdown.classList.remove('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -3527,39 +3544,57 @@ function initUniversalNav() {
 /* --------------------------------------------------------------------------
    Bulletproof Active Tab Highlighting & Viewport Scroll-Spy System
    -------------------------------------------------------------------------- */
+const topBarSectionIds = [
+  'about', 'education', 'updates', 'research',
+  'projects', 'skills', 'publications', 'training'
+];
+const moreSectionIds = [
+  'leadership', 'gallery', 'references', 'location', 'contact'
+];
+const allSectionIds = [...topBarSectionIds, ...moreSectionIds];
+
+let isManualClick = false;
+let manualClickTimer = null;
+let activeSectionId = 'about';
+
 function syncActiveNavTab(forcedId) {
-  const header = document.querySelector('header');
-  const headerBottom = header ? header.getBoundingClientRect().bottom : 72;
-  const triggerY = headerBottom + 140;
-  const sectionIds = [
-    'about', 'education', 'updates', 'research', 'projects',
-    'skills', 'publications', 'training', 'leadership',
-    'gallery', 'references', 'location', 'contact'
-  ];
-
-  let currentId = sectionIds[0];
-
   if (forcedId) {
     let clean = forcedId.startsWith('#') ? forcedId.substring(1) : forcedId;
     if (clean === 'home' || !clean) clean = 'about';
     if (clean === 'software') clean = 'projects';
     if (clean.endsWith('-sec')) clean = clean.replace('-sec', '');
-    if (sectionIds.includes(clean)) currentId = clean;
-  } else {
-    for (const id of sectionIds) {
-      const sec = document.getElementById(id);
-      if (!sec) continue;
-      const rect = sec.getBoundingClientRect();
-      if (rect.top <= triggerY) {
-        currentId = id;
-      }
+    if (allSectionIds.includes(clean)) {
+      activeSectionId = clean;
     }
-
-    // Near bottom of scrollable area -> activate last section
-    const scrollBottom = window.innerHeight + Math.max(window.scrollY || 0, document.documentElement.scrollTop || 0, document.body.scrollTop || 0);
+  } else if (!isManualClick) {
+    const scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
+    const scrollBottom = window.innerHeight + scrollY;
     const docHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
-    if (scrollBottom >= docHeight - 40) {
-      currentId = 'contact';
+
+    // 1. Very top of page (banner & intro)
+    if (scrollY < 150) {
+      activeSectionId = 'about';
+    }
+    // 2. Near bottom of page -> activate Contact
+    else if (scrollBottom >= docHeight - 60) {
+      activeSectionId = 'contact';
+    }
+    // 3. Viewport scroll-spy probe
+    else {
+      const header = document.querySelector('header');
+      const headerBottom = header ? header.getBoundingClientRect().bottom : 72;
+      const triggerY = headerBottom + 120;
+
+      let matched = 'about';
+      for (const id of allSectionIds) {
+        const sec = document.getElementById(id);
+        if (!sec) continue;
+        const rect = sec.getBoundingClientRect();
+        if (rect.top <= triggerY) {
+          matched = id;
+        }
+      }
+      activeSectionId = matched;
     }
   }
 
@@ -3568,13 +3603,37 @@ function syncActiveNavTab(forcedId) {
   const activeColor = isDark ? '#2dd4bf' : '#0f766e';
   const activeRing = isDark ? 'inset 0 0 0 1.5px rgba(45, 212, 191, 0.42)' : 'inset 0 0 0 1.5px rgba(13, 148, 136, 0.42)';
 
-  // Select ALL nav links across top bar, More dropdown, and 3-bar drawer
-  const allNavLinks = document.querySelectorAll('header a[href^="#"], #universal-nav-drawer a[href^="#"], .nav-dropdown-item[href^="#"]');
-  let isMoreChildActive = false;
+  // 1. Highlight More ▾ button ONLY if active section belongs to More ▾
+  const isMoreActive = moreSectionIds.includes(activeSectionId);
+  const moreBtn = document.querySelector('#more-dropdown-btn');
+  if (moreBtn) {
+    moreBtn.classList.toggle('active', isMoreActive);
+    moreBtn.classList.toggle('nav-tab-active', isMoreActive);
+    if (isMoreActive) {
+      moreBtn.style.setProperty('background', activeBg, 'important');
+      moreBtn.style.setProperty('color', activeColor, 'important');
+      moreBtn.style.setProperty('font-weight', '700', 'important');
+      moreBtn.style.setProperty('border-radius', '999px', 'important');
+      moreBtn.style.setProperty('box-shadow', activeRing, 'important');
+      const icon = moreBtn.querySelector('i');
+      if (icon) icon.style.setProperty('color', activeColor, 'important');
+    } else {
+      moreBtn.style.removeProperty('background');
+      moreBtn.style.removeProperty('color');
+      moreBtn.style.removeProperty('font-weight');
+      moreBtn.style.removeProperty('border-radius');
+      moreBtn.style.removeProperty('box-shadow');
+      const icon = moreBtn.querySelector('i');
+      if (icon) icon.style.removeProperty('color');
+    }
+  }
 
-  allNavLinks.forEach((link) => {
-    const targetHash = link.getAttribute('href');
-    const isMatch = targetHash === `#${currentId}`;
+  // 2. Highlight matching links across top bar, dropdown menu, and universal 3-bar drawer
+  const allNavLinks = document.querySelectorAll('#nav-menu a[href^="#"], .nav-dropdown-item[href^="#"], #universal-nav-drawer a[href^="#"]');
+  allNavLinks.forEach(link => {
+    if (link.id === 'more-dropdown-btn') return;
+    const href = link.getAttribute('href');
+    const isMatch = href === `#${activeSectionId}`;
     link.classList.toggle('active', isMatch);
     link.classList.toggle('nav-tab-active', isMatch);
 
@@ -3584,54 +3643,64 @@ function syncActiveNavTab(forcedId) {
       link.style.setProperty('font-weight', '700', 'important');
       link.style.setProperty('border-radius', '999px', 'important');
       link.style.setProperty('box-shadow', activeRing, 'important');
-      if (link.closest('#more-dropdown-menu, .more-dropdown, .nav-dropdown')) {
-        isMoreChildActive = true;
-      }
+      const icon = link.querySelector('i');
+      if (icon) icon.style.setProperty('color', activeColor, 'important');
     } else {
       link.style.removeProperty('background');
       link.style.removeProperty('color');
       link.style.removeProperty('font-weight');
       link.style.removeProperty('border-radius');
       link.style.removeProperty('box-shadow');
+      const icon = link.querySelector('i');
+      if (icon) icon.style.removeProperty('color');
     }
   });
 
-  const moreBtn = document.querySelector('#more-dropdown-btn, .more-toggle');
-  if (moreBtn) {
-    moreBtn.classList.toggle('active', isMoreChildActive);
-    moreBtn.classList.toggle('nav-tab-active', isMoreChildActive);
-    if (isMoreChildActive) {
-      moreBtn.style.setProperty('background', activeBg, 'important');
-      moreBtn.style.setProperty('color', activeColor, 'important');
-      moreBtn.style.setProperty('font-weight', '700', 'important');
-      moreBtn.style.setProperty('border-radius', '999px', 'important');
-      moreBtn.style.setProperty('box-shadow', activeRing, 'important');
-    } else {
-      moreBtn.style.removeProperty('background');
-      moreBtn.style.removeProperty('color');
-      moreBtn.style.removeProperty('font-weight');
-      moreBtn.style.removeProperty('border-radius');
-      moreBtn.style.removeProperty('box-shadow');
-    }
-  }
+  return activeSectionId;
+}
+
+function handleNavClick(targetId) {
+  isManualClick = true;
+  clearTimeout(manualClickTimer);
+  syncActiveNavTab(targetId);
+
+  // Keep target tab locked during smooth-scrolling animation (approx 850ms)
+  manualClickTimer = setTimeout(() => {
+    isManualClick = false;
+    syncActiveNavTab();
+  }, 950);
 }
 
 function initScrollSpy() {
-  let isTicking = false;
-
-  function scheduleSync() {
-    if (!isTicking) {
-      window.requestAnimationFrame(() => {
-        syncActiveNavTab();
-        isTicking = false;
-      });
-      isTicking = true;
-    }
+  function onScroll() {
+    if (isManualClick) return;
+    syncActiveNavTab();
   }
 
   // Attach on window and document capture phase
-  window.addEventListener('scroll', scheduleSync, { passive: true });
-  document.addEventListener('scroll', scheduleSync, { passive: true, capture: true });
+  window.addEventListener('scroll', onScroll, { passive: true });
+  document.addEventListener('scroll', onScroll, { passive: true, capture: true });
+
+  // Modern scrollend event unlocks manual click when scrolling finishes
+  window.addEventListener('scrollend', () => {
+    isManualClick = false;
+    syncActiveNavTab();
+  }, { passive: true });
+
+  // User input gestures immediately unlock manual click
+  window.addEventListener('wheel', () => {
+    if (isManualClick) {
+      isManualClick = false;
+      syncActiveNavTab();
+    }
+  }, { passive: true });
+
+  window.addEventListener('touchmove', () => {
+    if (isManualClick) {
+      isManualClick = false;
+      syncActiveNavTab();
+    }
+  }, { passive: true });
 
   window.addEventListener('resize', () => {
     window.requestAnimationFrame(() => syncActiveNavTab());
@@ -3652,6 +3721,7 @@ function initScrollSpy() {
 }
 
 window.syncActiveNavTab = syncActiveNavTab;
+window.handleNavClick = handleNavClick;
 window.setActiveNav = syncActiveNavTab;
 window.updateActiveNavTab = syncActiveNavTab;
 window.initScrollSpy = initScrollSpy;
@@ -3660,17 +3730,17 @@ window.initHeaderNavPanel = initUniversalNav;
 window.initHeaderNavDrawer = initUniversalNav;
 
 document.addEventListener('DOMContentLoaded', () => {
-  initTheme();
-  loadData();
-  initSoftwareFilters();
-  initProjectModals();
-  initPubSearchAndFilters();
-  initGalleryFilters();
-  initContactForm();
-  initAdminPortal();
-  initUniversalNav();
-  initScrollSpy();
-  syncActiveNavTab();
+  try { initTheme(); } catch (e) { console.error('initTheme error:', e); }
+  try { loadData(); } catch (e) { console.error('loadData error:', e); }
+  try { initSoftwareFilters(); } catch (e) { console.error('initSoftwareFilters error:', e); }
+  try { initProjectModals(); } catch (e) { console.error('initProjectModals error:', e); }
+  try { initPubSearchAndFilters(); } catch (e) { console.error('initPubSearchAndFilters error:', e); }
+  try { initGalleryFilters(); } catch (e) { console.error('initGalleryFilters error:', e); }
+  try { initContactForm(); } catch (e) { console.error('initContactForm error:', e); }
+  try { initAdminPortal(); } catch (e) { console.error('initAdminPortal error:', e); }
+  try { initUniversalNav(); } catch (e) { console.error('initUniversalNav error:', e); }
+  try { initScrollSpy(); } catch (e) { console.error('initScrollSpy error:', e); }
+  try { syncActiveNavTab(); } catch (e) { console.error('syncActiveNavTab error:', e); }
 
   // Direct click listeners to every modal close button via querySelectorAll
   document.querySelectorAll('#lightbox-close-btn, #lightbox-modal .modal-close, #lightbox-modal .lightbox-close-btn, #lightbox-modal [data-close-modal="true"]').forEach(btn => {
