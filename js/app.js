@@ -374,8 +374,7 @@ function renderKpiMetrics(kpis) {
   if (!targetKpis) return;
 
   const containers = [
-    document.getElementById('about-kpi-metrics-container'),
-    document.getElementById('kpi-metrics-container')
+    document.getElementById('about-kpi-metrics-container')
   ].filter(Boolean);
 
   if (containers.length === 0) return;

@@ -723,8 +723,7 @@ header nav a.active i,
    CHARMING AUTO-CHANGING ANIMATED GRADIENT BORDER PERIMETER
    Applied strictly along the outer border perimeter (margin edge) of:
    1. The Hero Banner frame (.feed-top-banner / .right-banner-card)
-   2. The Left Sticky Profile Sidebar card (.sticky-sidebar-card)
-   3. The "Thank You for Visiting!" closing card (.closing-appreciation-card)
+   2. The "Thank You for Visiting!" closing card (.closing-appreciation-card)
    -------------------------------------------------------------------------- */
 @keyframes borderPerimeterShift {
   0% {
@@ -741,7 +740,6 @@ header nav a.active i,
 .card-perimeter-gradient,
 .feed-top-banner,
 .right-banner-card,
-.sticky-sidebar-card,
 .closing-appreciation-card {
   position: relative;
   border: none !important;
@@ -750,7 +748,6 @@ header nav a.active i,
 .card-perimeter-gradient::before,
 .feed-top-banner::before,
 .right-banner-card::before,
-.sticky-sidebar-card::before,
 .closing-appreciation-card::before {
   content: "";
   position: absolute;
@@ -781,7 +778,6 @@ header nav a.active i,
 .card-perimeter-gradient::after,
 .feed-top-banner::after,
 .right-banner-card::after,
-.sticky-sidebar-card::after,
 .closing-appreciation-card::after {
   content: "";
   position: absolute;
@@ -808,7 +804,6 @@ header nav a.active i,
 [data-theme="dark"] .card-perimeter-gradient::after,
 [data-theme="dark"] .feed-top-banner::after,
 [data-theme="dark"] .right-banner-card::after,
-[data-theme="dark"] .sticky-sidebar-card::after,
 [data-theme="dark"] .closing-appreciation-card::after {
   opacity: 0.72;
   filter: blur(22px);
@@ -817,7 +812,6 @@ header nav a.active i,
 .card-perimeter-gradient:hover::after,
 .feed-top-banner:hover::after,
 .right-banner-card:hover::after,
-.sticky-sidebar-card:hover::after,
 .closing-appreciation-card:hover::after {
   opacity: 0.82;
   filter: blur(24px);
@@ -844,7 +838,7 @@ header nav a.active i,
   z-index: 10;
   width: 310px;
   background: linear-gradient(165deg, #07192f 0%, #0b3948 55%, #0e4f55 100%);
-  border: none !important;
+  border: 1px solid rgba(56, 189, 248, 0.25);
   border-radius: 20px;
   padding: 1.25rem 1rem;
   box-shadow: 0 12px 36px rgba(7, 25, 47, 0.5), 0 0 20px rgba(20, 184, 166, 0.15);
