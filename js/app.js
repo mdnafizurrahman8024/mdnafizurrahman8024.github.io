@@ -16,6 +16,7 @@ let isTimelineExpanded = false;
 let isCertificatesExpanded = false;
 let isSoftwareExpanded = false;
 let isPublicationsExpanded = false;
+let isLeadershipExpanded = false;
 let stagedFileUploads = [];
 
 // Project Modals & Gallery State
@@ -1731,9 +1732,14 @@ function openGalleryItem(index) {
    -------------------------------------------------------------------------- */
 function renderLeadership(leadership) {
   const container = document.getElementById('leadership-list-container');
-  if (!container || !leadership) return;
+  if (!container) return;
+  const list = leadership || window.portfolioData?.leadership || [];
+  if (!list || list.length === 0) return;
 
-  container.innerHTML = leadership.map(l => `
+  // 4 items displayed by default in compact 2x2 grid
+  const displayList = isLeadershipExpanded ? list : list.slice(0, 4);
+
+  container.innerHTML = displayList.map(l => `
     <div class="leadership-card">
       <div class="lead-role">${escapeHTML(l.role)}</div>
       <div class="lead-org">${escapeHTML(l.organization)}</div>
@@ -1741,6 +1747,24 @@ function renderLeadership(leadership) {
       <p class="lead-desc">${escapeHTML(l.details || l.description || '')}</p>
     </div>
   `).join('');
+
+  // Manage See All Leadership & Activities / Show Less toggle button
+  const expandWrap = document.getElementById('leadership-expand-wrap');
+  const expandBtn = document.getElementById('leadership-expand-btn');
+  if (expandWrap && expandBtn) {
+    if (list.length > 4) {
+      expandWrap.style.display = 'block';
+      expandBtn.innerHTML = isLeadershipExpanded
+        ? '<i class="fa-solid fa-chevron-up"></i> Show Less'
+        : `<i class="fa-solid fa-chevron-down"></i> See All Leadership &amp; Activities (${list.length})`;
+      expandBtn.onclick = () => {
+        isLeadershipExpanded = !isLeadershipExpanded;
+        renderLeadership(window.portfolioData?.leadership || leadership);
+      };
+    } else {
+      expandWrap.style.display = 'none';
+    }
+  }
 }
 
 function renderReferences(refs) {
