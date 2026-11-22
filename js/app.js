@@ -1163,31 +1163,53 @@ function convertToEmbedUrl(url, docType) {
   if (!url) return '';
   const trimmed = url.trim();
 
-  // 1. Google Drive file: https://drive.google.com/file/d/{ID}/view?... -> /preview
+  // 1. Google Drive file: drive.google.com/file/d/<ID>/... or drive.google.com/open?id=<ID> or drive.google.com/uc?id=<ID>
+  // Strictly use https://drive.google.com/file/d/<ID>/preview (never convert Drive IDs into docs.google.com/.../preview)
   const driveFileMatch = trimmed.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/);
   if (driveFileMatch && driveFileMatch[1]) {
     return `https://drive.google.com/file/d/${driveFileMatch[1]}/preview`;
   }
 
-  // 2. Google Slides: https://docs.google.com/presentation/d/{ID}/... -> /preview
+  const driveIdMatch = trimmed.match(/drive\.google\.com\/(?:open|uc)\?id=([a-zA-Z0-9_-]+)/);
+  if (driveIdMatch && driveIdMatch[1]) {
+    return `https://drive.google.com/file/d/${driveIdMatch[1]}/preview`;
+  }
+
+  // 2. Uploaded Office file (.pptx / .docx / .xlsx) opened via Google Docs editor (indicated by rtpof=true)
+  // When an Office file is hosted on Google Drive, opening it yields a URL like docs.google.com/presentation/d/<ID>/edit?...rtpof=true.
+  // Using docs.google.com/.../preview or /embed triggers Google's "We're sorry for the inconvenience" error on .pptx/.docx.
+  // Converting to drive.google.com/file/d/<ID>/preview solves this error.
+  if (trimmed.includes('rtpof=true')) {
+    const docIdMatch = trimmed.match(/docs\.google\.com\/(?:presentation|document|spreadsheets)\/d\/([a-zA-Z0-9_-]+)/);
+    if (docIdMatch && docIdMatch[1]) {
+      return `https://drive.google.com/file/d/${docIdMatch[1]}/preview`;
+    }
+  }
+
+  // 3. Native Google Slides: docs.google.com/presentation/d/<ID>/...
+  // Extract clean ID (stripping /edit, /view, query strings, and hash fragments)
+  // Embed via https://docs.google.com/presentation/d/<ID>/embed?start=false&loop=false&delayms=3000
   const slidesMatch = trimmed.match(/docs\.google\.com\/presentation\/d\/([a-zA-Z0-9_-]+)/);
   if (slidesMatch && slidesMatch[1]) {
-    return `https://docs.google.com/presentation/d/${slidesMatch[1]}/preview`;
+    const cleanId = slidesMatch[1];
+    return `https://docs.google.com/presentation/d/${cleanId}/embed?start=false&loop=false&delayms=3000`;
   }
 
-  // 3. Google Docs: https://docs.google.com/document/d/{ID}/... -> /preview
+  // 4. Native Google Docs: docs.google.com/document/d/<ID>/... -> /preview
   const docsMatch = trimmed.match(/docs\.google\.com\/document\/d\/([a-zA-Z0-9_-]+)/);
   if (docsMatch && docsMatch[1]) {
-    return `https://docs.google.com/document/d/${docsMatch[1]}/preview`;
+    const cleanId = docsMatch[1];
+    return `https://docs.google.com/document/d/${cleanId}/preview`;
   }
 
-  // 4. Google Sheets: https://docs.google.com/spreadsheets/d/{ID}/... -> /preview
+  // 5. Native Google Sheets: docs.google.com/spreadsheets/d/<ID>/... -> /preview
   const sheetsMatch = trimmed.match(/docs\.google\.com\/spreadsheets\/d\/([a-zA-Z0-9_-]+)/);
   if (sheetsMatch && sheetsMatch[1]) {
-    return `https://docs.google.com/spreadsheets/d/${sheetsMatch[1]}/preview`;
+    const cleanId = sheetsMatch[1];
+    return `https://docs.google.com/spreadsheets/d/${cleanId}/preview`;
   }
 
-  // 5. Direct PDF URL
+  // 6. Direct PDF URL
   if (trimmed.toLowerCase().endsWith('.pdf') || trimmed.includes('.pdf?')) {
     return trimmed;
   }
