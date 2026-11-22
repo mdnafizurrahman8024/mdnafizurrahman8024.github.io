@@ -1568,14 +1568,28 @@ header nav a.active i,
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  color: inherit;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.kpi-metric-box:hover {
+.kpi-metric-box:hover,
+.kpi-metric-box:focus-visible {
   transform: translateY(-4px);
   border-color: var(--primary);
-  box-shadow: 0 6px 18px rgba(56, 189, 248, 0.16);
+  box-shadow: 0 8px 24px rgba(13, 148, 136, 0.2), 0 0 12px rgba(14, 165, 233, 0.15);
   background: var(--bg-hover, var(--bg-secondary));
+  outline: none;
+}
+
+.kpi-metric-box:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+#about .kpi-metrics-bar {
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border-color);
 }
 
 .kpi-value {

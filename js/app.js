@@ -285,6 +285,7 @@ function renderAboutBio(about) {
   if (paras && about.bioParagraphs) {
     paras.innerHTML = about.bioParagraphs.map(p => `<p>${escapeHTML(p)}</p>`).join('');
   }
+  renderKpiMetrics();
 }
 
 /* --------------------------------------------------------------------------
@@ -350,35 +351,81 @@ function renderTimelineAndKPIs(timeline, kpis) {
     };
   }
 
-  // 4-Column KPI Metrics Bar
-  const kpiContainer = document.getElementById('kpi-metrics-container');
-  if (kpiContainer && kpis) {
-    const certCount = window.portfolioData?.certificates?.length || window.portfolioData?.trainings?.length || 26;
-    kpiContainer.innerHTML = kpis.map(k => {
-      let val = k.value;
-      if (k.label && k.label.toLowerCase().includes('certif')) {
-        val = `${certCount}+`;
-      }
-      return `
-        <a href="${escapeHTML(k.target || '#')}" class="kpi-metric-box" onclick="handleKpiClick(event, '${escapeHTML(k.target || '')}')">
-          <div class="kpi-value">${escapeHTML(val)}</div>
-          <div class="kpi-label">${escapeHTML(k.label)}</div>
-          ${k.sublabel ? `<div class="kpi-sublabel">${escapeHTML(k.sublabel)}</div>` : ''}
-        </a>
-      `;
-    }).join('');
+  // 4-Column KPI Metrics Bar (Render to both #about and #research)
+  renderKpiMetrics(kpis);
+}
+
+function getKpiTarget(k) {
+  const lbl = (k.label || '').toLowerCase();
+  if (lbl.includes('studies') || lbl.includes('manuscript') || lbl.includes('publication')) return '#publications';
+  if (lbl.includes('project') || lbl.includes('platform') || lbl.includes('software')) return '#projects';
+  if (lbl.includes('certif') || lbl.includes('training')) return '#training';
+  if (lbl.includes('experience') || lbl.includes('research')) return '#research';
+  if (k.target) {
+    let t = k.target.replace('-sec', '');
+    if (t === '#software') t = '#projects';
+    return t;
   }
+  return '#';
+}
+
+function renderKpiMetrics(kpis) {
+  const targetKpis = kpis || window.portfolioData?.kpis;
+  if (!targetKpis) return;
+
+  const containers = [
+    document.getElementById('about-kpi-metrics-container'),
+    document.getElementById('kpi-metrics-container')
+  ].filter(Boolean);
+
+  if (containers.length === 0) return;
+
+  const certCount = window.portfolioData?.certificates?.length || window.portfolioData?.trainings?.length || 27;
+
+  const html = targetKpis.map(k => {
+    let val = k.value;
+    if (k.label && k.label.toLowerCase().includes('certif')) {
+      val = `${certCount}+`;
+    }
+    const target = getKpiTarget(k);
+    return `
+      <a href="${escapeHTML(target)}" 
+         class="kpi-metric-box" 
+         role="button" 
+         tabindex="0" 
+         aria-label="${escapeHTML(val + ' ' + k.label)}" 
+         onclick="handleKpiClick(event, '${escapeHTML(target)}')"
+         onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();handleKpiClick(event, '${escapeHTML(target)}');}">
+        <div class="kpi-value">${escapeHTML(val)}</div>
+        <div class="kpi-label">${escapeHTML(k.label)}</div>
+        ${k.sublabel ? `<div class="kpi-sublabel">${escapeHTML(k.sublabel)}</div>` : ''}
+      </a>
+    `;
+  }).join('');
+
+  containers.forEach(c => { c.innerHTML = html; });
 }
 
 // Global smooth scroll handler for KPI metric boxes
 window.handleKpiClick = function(event, targetSelector) {
   if (!targetSelector || targetSelector === '#') return;
   event.preventDefault();
-  const targetEl = document.querySelector(targetSelector);
-  if (targetEl) {
-    targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    if (window.history && window.history.pushState) {
-      window.history.pushState(null, null, targetSelector);
+  const rawId = targetSelector.replace(/^#/, '');
+  let normId = rawId.replace('-sec', '');
+  if (normId === 'software') normId = 'projects';
+
+  if (typeof handleNavClick === 'function') {
+    handleNavClick(normId);
+  } else if (typeof syncActiveNavTab === 'function') {
+    syncActiveNavTab(normId);
+  }
+
+  if (typeof scrollToSection === 'function') {
+    scrollToSection('#' + normId);
+  } else {
+    const targetEl = document.getElementById(normId) || document.querySelector(targetSelector);
+    if (targetEl) {
+      targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   }
 };
