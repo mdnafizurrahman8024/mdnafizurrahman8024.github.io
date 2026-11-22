@@ -1482,6 +1482,8 @@ function renderPublications() {
       (p.title && p.title.toLowerCase().includes(q)) ||
       (p.authors && p.authors.toLowerCase().includes(q)) ||
       (p.venue && p.venue.toLowerCase().includes(q)) ||
+      (p.conferenceTitle && p.conferenceTitle.toLowerCase().includes(q)) ||
+      (p.conferenceTheme && p.conferenceTheme.toLowerCase().includes(q)) ||
       (p.status && p.status.toLowerCase().includes(q)) ||
       (p.category && p.category.toLowerCase().includes(q)) ||
       (p.doi && p.doi.toLowerCase().includes(q)) ||

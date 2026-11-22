@@ -96,7 +96,7 @@
       "date": "2026",
       "badge": "Conference Paper",
       "title": "RURS International Conference Presentation",
-      "text": "Presented co-authored paper on 'Epidemiology and distribution of ectoparasites in free-roaming dogs from the semi-arid barind tract, northwestern Bangladesh' at the RURS International Conference and Research Fair 2026.",
+      "text": "Presented co-authored paper on 'Epidemiology and Distribution of Ectoparasites in Free-Roaming Dogs from the Semi-Arid Barind Tract, Northwestern Bangladesh (Conference Presentation)' at the RURS International Conference and Research Fair 2026: Shaping the Future through AI & Sustainable Development ( Sub theme- Life Science & Agriculture ).",
       "link": "https://rursbd.org/"
     },
     {
@@ -128,7 +128,7 @@
       "date": "Nov 2025",
       "badge": "Conference Paper",
       "title": "1st Scientific Conference of Veterinary & Animal Sciences",
-      "text": "Co-authored and presented 'Navigating Pet Welfare in Bangladesh: A Multilayered Analysis of Ownership, Ethics and Service Accessibility' at University of Rajshahi.",
+      "text": "Co-authored and presented 'Navigating Pet Welfare in Bangladesh: A Multilayered Analysis of Ownership, Ethics and Service Accessibility.' at University of Rajshahi — Innovation, Application and Future Trends in Animal Health and Production.",
       "link": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en"
     }
   ],
@@ -1013,7 +1013,9 @@
       "year": "2025",
       "title": "Challenges and Opportunities in Veterinary Care, Feed, and Maintenance of Pets in Bangladesh",
       "authors": "Md. Nafizur Rahman (1st Author) et al.",
-      "venue": "CVASU International Conference on Transdisciplinary Integration of Terrestrial and Aquatic Ecosystems",
+      "venue": "Transdisciplinary Integration of Terrestrial and Aquatic Ecosystems for Advancing Health, Food Security, and Nutrition • CVASU International Conference",
+      "conferenceTitle": "Transdisciplinary Integration of Terrestrial and Aquatic Ecosystems for Advancing Health, Food Security, and Nutrition",
+      "conferenceTheme": "Transdisciplinary Integration of Terrestrial and Aquatic Ecosystems for Advancing Health, Food Security, and Nutrition",
       "status": "Conference Paper (1st Author)",
       "category": "Conference Papers",
       "categories": [
@@ -1023,7 +1025,7 @@
       "doi": "",
       "doiUrl": "",
       "scholarUrl": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en",
-      "abstract": "First-author cross-sectional investigation examining pet feeding practices, veterinary accessibility barriers, and common health complications faced by urban pet owners.",
+      "abstract": "First-author cross-sectional investigation examining pet feeding practices, veterinary accessibility barriers, and common health complications faced by urban pet owners presented at the CVASU International Conference: Transdisciplinary Integration of Terrestrial and Aquatic Ecosystems for Advancing Health, Food Security, and Nutrition.",
       "images": []
     },
     {
@@ -1031,7 +1033,9 @@
       "year": "2026",
       "title": "Epidemiology and Distribution of Ectoparasites in Free-Roaming Dogs from the Semi-Arid Barind Tract, Northwestern Bangladesh (Conference Presentation)",
       "authors": "Md. Nafizur Rahman (Co-author) et al.",
-      "venue": "RURS International Conference and Research Fair 2026, University of Rajshahi",
+      "venue": "Shaping the Future through AI & Sustainable Development ( Sub theme- Life Science & Agriculture ) • RURS International Conference and Research Fair 2026, University of Rajshahi",
+      "conferenceTitle": "Shaping the Future through AI & Sustainable Development ( Sub theme- Life Science & Agriculture )",
+      "conferenceTheme": "Shaping the Future through AI & Sustainable Development ( Sub theme- Life Science & Agriculture )",
       "status": "Conference Paper (Co-Author)",
       "category": "Conference Papers",
       "categories": [
@@ -1041,7 +1045,7 @@
       "doi": "",
       "doiUrl": "",
       "scholarUrl": "https://rursbd.org/",
-      "abstract": "Conference proceedings detailing prevalence (87.7%), host body condition risk factors, and molecular sequencing of Haemaphysalis bispinosa and Dermacentor ticks.",
+      "abstract": "Conference proceedings detailing prevalence (87.7%), host body condition risk factors, and molecular sequencing of Haemaphysalis bispinosa and Dermacentor ticks presented at the RURS International Conference and Research Fair 2026: Shaping the Future through AI & Sustainable Development (Sub theme- Life Science & Agriculture).",
       "images": [
         "Evidence%20%26%20Findings/Ectoparasites%20in%20Free-Roaming%20Dogs/20251028_164730.jpg",
         "Evidence%20%26%20Findings/Ectoparasites%20in%20Free-Roaming%20Dogs/20251114_162400.jpg",
@@ -1068,9 +1072,11 @@
     {
       "id": "pub-7",
       "year": "2025",
-      "title": "Navigating Pet Welfare in Bangladesh: A Multilayered Analysis of Ownership, Ethics and Service Accessibility",
+      "title": "Navigating Pet Welfare in Bangladesh: A Multilayered Analysis of Ownership, Ethics and Service Accessibility.",
       "authors": "Md. Nafizur Rahman (Co-author) et al.",
-      "venue": "1st Scientific Conference of Veterinary and Animal Sciences 2025, University of Rajshahi",
+      "venue": "Innovation, Application and Future Trends in Animal Health and Production • 1st Scientific Conference of Veterinary and Animal Sciences 2025, University of Rajshahi",
+      "conferenceTitle": "Innovation, Application and Future Trends in Animal Health and Production",
+      "conferenceTheme": "Innovation, Application and Future Trends in Animal Health and Production",
       "status": "Conference Paper (Co-Author)",
       "category": "Conference Papers",
       "categories": [
@@ -1080,7 +1086,7 @@
       "doi": "",
       "doiUrl": "",
       "scholarUrl": "https://scholar.google.com/citations?user=bImpEzMAAAAJ&hl=en",
-      "abstract": "Mixed-methods cross-sectional survey examining socio-demographic profiles, ethical considerations, and structural challenges in pet healthcare delivery in Bangladesh.",
+      "abstract": "Mixed-methods cross-sectional survey examining socio-demographic profiles, ethical considerations, and structural challenges in pet healthcare delivery in Bangladesh presented at the 1st Scientific Conference of Veterinary and Animal Sciences 2025: Innovation, Application and Future Trends in Animal Health and Production, University of Rajshahi.",
       "images": []
     },
     {
@@ -1230,7 +1236,7 @@
     {
       "id": "cert-8",
       "title": "RURS 2nd International Conference & Research Fair 2026 (RICRF26)",
-      "description": "Presented co-authored epidemiological research paper 'Epidemiology and Distribution of Ectoparasites in Free-Roaming Dogs from the Semi-Arid Barind Tract, Northwestern Bangladesh' with formal statistical models.",
+      "description": "Presented co-authored epidemiological research paper 'Epidemiology and Distribution of Ectoparasites in Free-Roaming Dogs from the Semi-Arid Barind Tract, Northwestern Bangladesh (Conference Presentation)' under the theme 'Shaping the Future through AI & Sustainable Development ( Sub theme- Life Science & Agriculture )' with formal statistical models.",
       "date": "02/10/2026",
       "issuer": "Rajshahi University Research Society (RURS), University of Rajshahi",
       "credentialId": "RICRF26-AC017",
@@ -4403,7 +4409,7 @@
     {
       "id": "cert-8",
       "title": "RURS 2nd International Conference & Research Fair 2026 (RICRF26)",
-      "description": "Presented co-authored epidemiological research paper 'Epidemiology and Distribution of Ectoparasites in Free-Roaming Dogs from the Semi-Arid Barind Tract, Northwestern Bangladesh' with formal statistical models.",
+      "description": "Presented co-authored epidemiological research paper 'Epidemiology and Distribution of Ectoparasites in Free-Roaming Dogs from the Semi-Arid Barind Tract, Northwestern Bangladesh (Conference Presentation)' under the theme 'Shaping the Future through AI & Sustainable Development ( Sub theme- Life Science & Agriculture )' with formal statistical models.",
       "date": "02/10/2026",
       "issuer": "Rajshahi University Research Society (RURS), University of Rajshahi",
       "credentialId": "RICRF26-AC017",
