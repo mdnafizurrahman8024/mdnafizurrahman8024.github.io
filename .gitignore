@@ -1,0 +1,21 @@
+# AI & Editor Local Tool Artifacts
+.gitnexus/
+.agents/
+.agent/
+_agents/
+_agent/
+.vscode/
+.cursor/
+.cursorrules
+
+# Node & Package Managers
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# System & OS Files
+.DS_Store
+Thumbs.db
+desktop.ini
