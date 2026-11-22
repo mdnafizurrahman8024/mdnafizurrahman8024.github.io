@@ -285,7 +285,21 @@ button, input, textarea, select {
   background: var(--primary-light);
 }
 
-/* Active Nav Tab Highlighting (Top Horizontal Navbar, Dropdown, Universal Drawer) */
+/* Bulletproof Active Nav Tab Highlighting (Top Horizontal Navbar, Dropdown, Universal Drawer) */
+.nav-tab-active,
+header nav a.nav-tab-active,
+.nav-links a.nav-tab-active,
+#nav-menu a.nav-tab-active,
+#universal-nav-drawer a.nav-tab-active,
+.more-dropdown a.nav-tab-active,
+.nav-pill.nav-tab-active,
+.nav-link.nav-tab-active,
+.universal-nav-link.nav-tab-active,
+.nav-dropdown-item.nav-tab-active,
+.more-dropdown-link.nav-tab-active,
+#more-dropdown-btn.nav-tab-active,
+.header-nav-pill.nav-tab-active,
+.header-drawer-link.nav-tab-active,
 header nav a.active,
 .nav-links a.active,
 #nav-menu a.active,
@@ -303,10 +317,19 @@ header nav a.active,
   color: #0f766e !important;
   font-weight: 700 !important;
   border-radius: 999px !important;
-  box-shadow: inset 0 0 0 1.5px rgba(13, 148, 136, 0.38) !important;
+  padding: 6px 14px !important;
+  box-shadow: inset 0 0 0 1.5px rgba(13, 148, 136, 0.42) !important;
   transition: all 0.25s ease !important;
 }
 
+.nav-tab-active i,
+header nav a.nav-tab-active i,
+.nav-links a.nav-tab-active i,
+#nav-menu a.nav-tab-active i,
+#universal-nav-drawer a.nav-tab-active i,
+.universal-nav-link.nav-tab-active i,
+.nav-dropdown-item.nav-tab-active i,
+#more-dropdown-btn.nav-tab-active i,
 header nav a.active i,
 .nav-links a.active i,
 #nav-menu a.active i,
@@ -317,6 +340,20 @@ header nav a.active i,
   color: #0f766e !important;
 }
 
+[data-theme="dark"] .nav-tab-active,
+[data-theme="dark"] header nav a.nav-tab-active,
+[data-theme="dark"] .nav-links a.nav-tab-active,
+[data-theme="dark"] #nav-menu a.nav-tab-active,
+[data-theme="dark"] #universal-nav-drawer a.nav-tab-active,
+[data-theme="dark"] .more-dropdown a.nav-tab-active,
+[data-theme="dark"] .nav-pill.nav-tab-active,
+[data-theme="dark"] .nav-link.nav-tab-active,
+[data-theme="dark"] .universal-nav-link.nav-tab-active,
+[data-theme="dark"] .nav-dropdown-item.nav-tab-active,
+[data-theme="dark"] .more-dropdown-link.nav-tab-active,
+[data-theme="dark"] #more-dropdown-btn.nav-tab-active,
+[data-theme="dark"] .header-nav-pill.nav-tab-active,
+[data-theme="dark"] .header-drawer-link.nav-tab-active,
 [data-theme="dark"] header nav a.active,
 [data-theme="dark"] .nav-links a.active,
 [data-theme="dark"] #nav-menu a.active,
@@ -332,9 +369,17 @@ header nav a.active i,
 [data-theme="dark"] .header-drawer-link.active {
   background: rgba(45, 212, 191, 0.18) !important;
   color: #2dd4bf !important;
-  box-shadow: inset 0 0 0 1.5px rgba(45, 212, 191, 0.4) !important;
+  box-shadow: inset 0 0 0 1.5px rgba(45, 212, 191, 0.42) !important;
 }
 
+[data-theme="dark"] .nav-tab-active i,
+[data-theme="dark"] header nav a.nav-tab-active i,
+[data-theme="dark"] .nav-links a.nav-tab-active i,
+[data-theme="dark"] #nav-menu a.nav-tab-active i,
+[data-theme="dark"] #universal-nav-drawer a.nav-tab-active i,
+[data-theme="dark"] .universal-nav-link.nav-tab-active i,
+[data-theme="dark"] .nav-dropdown-item.nav-tab-active i,
+[data-theme="dark"] #more-dropdown-btn.nav-tab-active i,
 [data-theme="dark"] header nav a.active i,
 [data-theme="dark"] .nav-links a.active i,
 [data-theme="dark"] #nav-menu a.active i,

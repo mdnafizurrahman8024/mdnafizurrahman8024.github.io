@@ -120,6 +120,7 @@ function initTheme() {
       document.documentElement.setAttribute('data-theme', nxt);
       localStorage.setItem('theme', nxt);
       updateThemeIcon(nxt);
+      if (typeof updateActiveNavTab === 'function') updateActiveNavTab();
     });
   }
 }
@@ -141,6 +142,7 @@ async function loadData() {
     if (!res.ok) throw new Error('Could not fetch portfolio-data.json');
     window.portfolioData = await res.json();
     renderAll();
+    if (typeof updateActiveNavTab === 'function') updateActiveNavTab();
   } catch (err) {
     console.error('Data load error:', err);
     showToast('Failed to load portfolio data.', 'error');
@@ -166,6 +168,7 @@ function renderAll() {
   renderLeadership(d.leadership);
   renderReferences(d.references);
   renderContact(d.profile);
+  if (typeof updateActiveNavTab === 'function') updateActiveNavTab();
 }
 
 /* --------------------------------------------------------------------------
@@ -3441,6 +3444,8 @@ function initUniversalNav() {
             updateActiveNavTab();
           }, 900);
           updateActiveNavTab(targetId);
+          setTimeout(() => updateActiveNavTab(targetId), 150);
+          setTimeout(() => updateActiveNavTab(targetId), 600);
           closeUniversalNav();
           scrollToSection(href);
         } else {
@@ -3473,6 +3478,8 @@ function initUniversalNav() {
           updateActiveNavTab();
         }, 900);
         updateActiveNavTab(targetId);
+        setTimeout(() => updateActiveNavTab(targetId), 150);
+        setTimeout(() => updateActiveNavTab(targetId), 600);
         if (moreDropdown) moreDropdown.classList.remove('active');
         scrollToSection(href);
       }
@@ -3492,6 +3499,8 @@ function initUniversalNav() {
           updateActiveNavTab();
         }, 900);
         updateActiveNavTab('about');
+        setTimeout(() => updateActiveNavTab('about'), 150);
+        setTimeout(() => updateActiveNavTab('about'), 600);
         closeUniversalNav();
         if (moreDropdown) moreDropdown.classList.remove('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -3534,7 +3543,7 @@ function initUniversalNav() {
 }
 
 /* --------------------------------------------------------------------------
-   Active Tab Coloring & Scroll-Spy System
+   Bulletproof Active Tab Highlighting & Scroll-Spy System
    -------------------------------------------------------------------------- */
 let isManualNavClick = false;
 let manualNavTimer = null;
@@ -3588,44 +3597,92 @@ function updateActiveNavTab(forcedId) {
     }
   }
 
-  // 1. Clear all active states across top navbar, dropdown, and universal drawer
-  const allNavLinks = document.querySelectorAll(
-    'header nav a, .nav-menu a, .nav-links a, #universal-nav-drawer a, .nav-dropdown-menu a, .more-dropdown a, .nav-pill, .universal-nav-link, .nav-dropdown-item, #more-dropdown-btn'
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  const activeBg = isDark ? 'rgba(45, 212, 191, 0.18)' : 'rgba(13, 148, 136, 0.16)';
+  const activeColor = isDark ? '#2dd4bf' : '#0f766e';
+  const activeShadow = isDark ? 'inset 0 0 0 1.5px rgba(45, 212, 191, 0.42)' : 'inset 0 0 0 1.5px rgba(13, 148, 136, 0.42)';
+
+  // 1. Select all nav items across top navbar, dropdown, and universal drawer
+  const allNavElements = document.querySelectorAll(
+    'header nav a, .nav-menu a, .nav-links a, #universal-nav-drawer a, .nav-dropdown-menu a, .more-dropdown a, .nav-pill, .universal-nav-link, .nav-dropdown-item, #more-dropdown-btn, .header-nav-pill, .header-drawer-link'
   );
-  allNavLinks.forEach(el => el.classList.remove('active'));
 
-  // 2. Select matching links across top navbar & universal drawer
-  const targetSelectors = [
-    `header nav a[href="#${activeId}"]`,
-    `.nav-links a[href="#${activeId}"]`,
-    `#nav-menu a[href="#${activeId}"]`,
-    `#universal-nav-drawer a[href="#${activeId}"]`,
-    `#universal-nav-drawer a[data-target="${activeId}"]`,
-    `#universal-nav-drawer a[data-target="${activeId}-sec"]`,
-    `.nav-dropdown-menu a[href="#${activeId}"]`,
-    `.more-dropdown a[href="#${activeId}"]`
-  ];
-  if (activeId === 'projects') {
-    targetSelectors.push('#universal-nav-drawer a[data-target="software-sec"]', '#nav-menu a[href="#projects"]');
-  }
-
-  const matchingLinks = document.querySelectorAll(targetSelectors.join(', '));
-  matchingLinks.forEach(link => {
-    link.classList.add('active');
+  // Clear active classes and inline styles from all links
+  allNavElements.forEach(el => {
+    el.classList.remove('active', 'nav-tab-active');
+    el.style.removeProperty('background');
+    el.style.removeProperty('color');
+    el.style.removeProperty('box-shadow');
+    el.style.removeProperty('border-radius');
+    el.style.removeProperty('font-weight');
+    const icon = el.querySelector('i');
+    if (icon) icon.style.removeProperty('color');
   });
 
-  // 3. If an item inside the "More" dropdown is active, also highlight the "More ▾" button
+  // 2. Identify all elements matching activeId
+  const aliases = [activeId];
+  if (activeId === 'projects') aliases.push('software', 'software-sec', 'projects-sec');
+  if (activeId === 'skills') aliases.push('skills-sec', 'capabilities');
+  if (activeId === 'about') aliases.push('about-sec', 'home');
+  aliases.push(activeId + '-sec');
+
+  allNavElements.forEach(el => {
+    if (el.id === 'more-dropdown-btn') return; // handled separately
+
+    const href = el.getAttribute('href') || el.href || '';
+    const cleanHref = href.startsWith('#') ? href.substring(1) : (href.split('#')[1] || '');
+    const dataTarget = el.dataset.target || el.getAttribute('data-target') || '';
+    const onclickStr = el.getAttribute('onclick') || '';
+
+    const isMatch = aliases.some(alias => 
+      cleanHref === alias ||
+      dataTarget === alias ||
+      onclickStr.includes(`'#${alias}'`) ||
+      onclickStr.includes(`"${alias}"`)
+    );
+
+    if (isMatch) {
+      el.classList.add('active', 'nav-tab-active');
+      el.style.setProperty('background', activeBg, 'important');
+      el.style.setProperty('color', activeColor, 'important');
+      el.style.setProperty('box-shadow', activeShadow, 'important');
+      el.style.setProperty('border-radius', '999px', 'important');
+      el.style.setProperty('font-weight', '700', 'important');
+      const icon = el.querySelector('i');
+      if (icon) icon.style.setProperty('color', activeColor, 'important');
+    }
+  });
+
+  // 3. Highlight "More ▾" button if active section is inside dropdown
   const moreSubsections = ['leadership', 'gallery', 'references', 'location', 'contact'];
   const moreBtn = document.getElementById('more-dropdown-btn');
-  if (moreSubsections.includes(activeId) && moreBtn) {
-    moreBtn.classList.add('active');
+  if (moreBtn) {
+    if (moreSubsections.includes(activeId)) {
+      moreBtn.classList.add('active', 'nav-tab-active');
+      moreBtn.style.setProperty('background', activeBg, 'important');
+      moreBtn.style.setProperty('color', activeColor, 'important');
+      moreBtn.style.setProperty('box-shadow', activeShadow, 'important');
+      moreBtn.style.setProperty('border-radius', '999px', 'important');
+      moreBtn.style.setProperty('font-weight', '700', 'important');
+      const icon = moreBtn.querySelector('i');
+      if (icon) icon.style.setProperty('color', activeColor, 'important');
+    } else {
+      moreBtn.classList.remove('active', 'nav-tab-active');
+      moreBtn.style.removeProperty('background');
+      moreBtn.style.removeProperty('color');
+      moreBtn.style.removeProperty('box-shadow');
+      moreBtn.style.removeProperty('border-radius');
+      moreBtn.style.removeProperty('font-weight');
+      const icon = moreBtn.querySelector('i');
+      if (icon) icon.style.removeProperty('color');
+    }
   }
 }
 
 function initScrollSpy() {
   let isTicking = false;
 
-  function onScroll() {
+  function scheduleActiveNavUpdate() {
     if (isManualNavClick) return;
     if (!isTicking) {
       window.requestAnimationFrame(() => {
@@ -3636,12 +3693,16 @@ function initScrollSpy() {
     }
   }
 
-  window.addEventListener('scroll', onScroll, { passive: true });
+  // Attach on window and document capture phase
+  window.addEventListener('scroll', scheduleActiveNavUpdate, { passive: true });
+  document.addEventListener('scroll', scheduleActiveNavUpdate, { passive: true, capture: true });
+
   window.addEventListener('resize', () => {
     if (!isManualNavClick) {
       window.requestAnimationFrame(() => updateActiveNavTab());
     }
   }, { passive: true });
+
   window.addEventListener('hashchange', () => {
     if (location.hash) {
       updateActiveNavTab(location.hash);
