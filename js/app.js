@@ -120,7 +120,8 @@ function initTheme() {
       document.documentElement.setAttribute('data-theme', nxt);
       localStorage.setItem('theme', nxt);
       updateThemeIcon(nxt);
-      if (typeof updateActiveNavTab === 'function') updateActiveNavTab();
+      if (typeof syncActiveNavTab === 'function') syncActiveNavTab();
+      else if (typeof updateActiveNavTab === 'function') updateActiveNavTab();
     });
   }
 }
@@ -142,7 +143,8 @@ async function loadData() {
     if (!res.ok) throw new Error('Could not fetch portfolio-data.json');
     window.portfolioData = await res.json();
     renderAll();
-    if (typeof updateActiveNavTab === 'function') updateActiveNavTab();
+    if (typeof syncActiveNavTab === 'function') syncActiveNavTab();
+    else if (typeof updateActiveNavTab === 'function') updateActiveNavTab();
   } catch (err) {
     console.error('Data load error:', err);
     showToast('Failed to load portfolio data.', 'error');
@@ -168,7 +170,8 @@ function renderAll() {
   renderLeadership(d.leadership);
   renderReferences(d.references);
   renderContact(d.profile);
-  if (typeof updateActiveNavTab === 'function') updateActiveNavTab();
+  if (typeof syncActiveNavTab === 'function') syncActiveNavTab();
+  else if (typeof updateActiveNavTab === 'function') updateActiveNavTab();
 }
 
 /* --------------------------------------------------------------------------
@@ -3437,15 +3440,8 @@ function initUniversalNav() {
         if (href && href.startsWith('#')) {
           e.preventDefault();
           const targetId = href.replace(/^#/, '');
-          isManualNavClick = true;
-          clearTimeout(manualNavTimer);
-          manualNavTimer = setTimeout(() => {
-            isManualNavClick = false;
-            updateActiveNavTab();
-          }, 900);
-          updateActiveNavTab(targetId);
-          setTimeout(() => updateActiveNavTab(targetId), 150);
-          setTimeout(() => updateActiveNavTab(targetId), 600);
+          syncActiveNavTab(targetId);
+          setTimeout(() => syncActiveNavTab(), 450);
           closeUniversalNav();
           scrollToSection(href);
         } else {
@@ -3471,15 +3467,8 @@ function initUniversalNav() {
       if (href && href.startsWith('#')) {
         e.preventDefault();
         const targetId = href.replace(/^#/, '');
-        isManualNavClick = true;
-        clearTimeout(manualNavTimer);
-        manualNavTimer = setTimeout(() => {
-          isManualNavClick = false;
-          updateActiveNavTab();
-        }, 900);
-        updateActiveNavTab(targetId);
-        setTimeout(() => updateActiveNavTab(targetId), 150);
-        setTimeout(() => updateActiveNavTab(targetId), 600);
+        syncActiveNavTab(targetId);
+        setTimeout(() => syncActiveNavTab(), 450);
         if (moreDropdown) moreDropdown.classList.remove('active');
         scrollToSection(href);
       }
@@ -3492,15 +3481,8 @@ function initUniversalNav() {
       const href = brand.getAttribute('href');
       if (href === '#home' || href === '#') {
         e.preventDefault();
-        isManualNavClick = true;
-        clearTimeout(manualNavTimer);
-        manualNavTimer = setTimeout(() => {
-          isManualNavClick = false;
-          updateActiveNavTab();
-        }, 900);
-        updateActiveNavTab('about');
-        setTimeout(() => updateActiveNavTab('about'), 150);
-        setTimeout(() => updateActiveNavTab('about'), 600);
+        syncActiveNavTab('about');
+        setTimeout(() => syncActiveNavTab(), 450);
         closeUniversalNav();
         if (moreDropdown) moreDropdown.classList.remove('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -3543,138 +3525,93 @@ function initUniversalNav() {
 }
 
 /* --------------------------------------------------------------------------
-   Bulletproof Active Tab Highlighting & Scroll-Spy System
+   Bulletproof Active Tab Highlighting & Viewport Scroll-Spy System
    -------------------------------------------------------------------------- */
-let isManualNavClick = false;
-let manualNavTimer = null;
-
-function updateActiveNavTab(forcedId) {
-  const navSectionIds = [
-    'about',
-    'education',
-    'updates',
-    'research',
-    'projects',
-    'skills',
-    'publications',
-    'training',
-    'leadership',
-    'gallery',
-    'references',
-    'location',
-    'contact'
+function syncActiveNavTab(forcedId) {
+  const header = document.querySelector('header');
+  const headerBottom = header ? header.getBoundingClientRect().bottom : 72;
+  const triggerY = headerBottom + 140;
+  const sectionIds = [
+    'about', 'education', 'updates', 'research', 'projects',
+    'skills', 'publications', 'training', 'leadership',
+    'gallery', 'references', 'location', 'contact'
   ];
 
-  let activeId = 'about';
+  let currentId = sectionIds[0];
 
   if (forcedId) {
     let clean = forcedId.startsWith('#') ? forcedId.substring(1) : forcedId;
     if (clean === 'home' || !clean) clean = 'about';
     if (clean === 'software') clean = 'projects';
     if (clean.endsWith('-sec')) clean = clean.replace('-sec', '');
-    activeId = clean;
+    if (sectionIds.includes(clean)) currentId = clean;
   } else {
-    // 1. Bottom of page check (activate Contact)
-    const scrollBottom = window.innerHeight + window.pageYOffset;
-    const docHeight = document.documentElement.scrollHeight;
-    if (scrollBottom >= docHeight - 60) {
-      activeId = 'contact';
-    } else {
-      const header = document.getElementById('navbar') || document.querySelector('header');
-      const headerHeight = header ? (header.offsetHeight || header.getBoundingClientRect().height) : 72;
-      const triggerLine = headerHeight + 150;
-
-      for (let i = 0; i < navSectionIds.length; i++) {
-        const id = navSectionIds[i];
-        const el = document.getElementById(id) || document.getElementById(id + '-sec');
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          if (rect.top <= triggerLine) {
-            activeId = id;
-          }
-        }
+    for (const id of sectionIds) {
+      const sec = document.getElementById(id);
+      if (!sec) continue;
+      const rect = sec.getBoundingClientRect();
+      if (rect.top <= triggerY) {
+        currentId = id;
       }
+    }
+
+    // Near bottom of scrollable area -> activate last section
+    const scrollBottom = window.innerHeight + Math.max(window.scrollY || 0, document.documentElement.scrollTop || 0, document.body.scrollTop || 0);
+    const docHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
+    if (scrollBottom >= docHeight - 40) {
+      currentId = 'contact';
     }
   }
 
-  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  const isDark = document.body.classList.contains('dark') || document.documentElement.classList.contains('dark') || document.documentElement.getAttribute('data-theme') === 'dark';
   const activeBg = isDark ? 'rgba(45, 212, 191, 0.18)' : 'rgba(13, 148, 136, 0.16)';
   const activeColor = isDark ? '#2dd4bf' : '#0f766e';
-  const activeShadow = isDark ? 'inset 0 0 0 1.5px rgba(45, 212, 191, 0.42)' : 'inset 0 0 0 1.5px rgba(13, 148, 136, 0.42)';
+  const activeRing = isDark ? 'inset 0 0 0 1.5px rgba(45, 212, 191, 0.42)' : 'inset 0 0 0 1.5px rgba(13, 148, 136, 0.42)';
 
-  // 1. Select all nav items across top navbar, dropdown, and universal drawer
-  const allNavElements = document.querySelectorAll(
-    'header nav a, .nav-menu a, .nav-links a, #universal-nav-drawer a, .nav-dropdown-menu a, .more-dropdown a, .nav-pill, .universal-nav-link, .nav-dropdown-item, #more-dropdown-btn, .header-nav-pill, .header-drawer-link'
-  );
+  // Select ALL nav links across top bar, More dropdown, and 3-bar drawer
+  const allNavLinks = document.querySelectorAll('header a[href^="#"], #universal-nav-drawer a[href^="#"], .nav-dropdown-item[href^="#"]');
+  let isMoreChildActive = false;
 
-  // Clear active classes and inline styles from all links
-  allNavElements.forEach(el => {
-    el.classList.remove('active', 'nav-tab-active');
-    el.style.removeProperty('background');
-    el.style.removeProperty('color');
-    el.style.removeProperty('box-shadow');
-    el.style.removeProperty('border-radius');
-    el.style.removeProperty('font-weight');
-    const icon = el.querySelector('i');
-    if (icon) icon.style.removeProperty('color');
-  });
-
-  // 2. Identify all elements matching activeId
-  const aliases = [activeId];
-  if (activeId === 'projects') aliases.push('software', 'software-sec', 'projects-sec');
-  if (activeId === 'skills') aliases.push('skills-sec', 'capabilities');
-  if (activeId === 'about') aliases.push('about-sec', 'home');
-  aliases.push(activeId + '-sec');
-
-  allNavElements.forEach(el => {
-    if (el.id === 'more-dropdown-btn') return; // handled separately
-
-    const href = el.getAttribute('href') || el.href || '';
-    const cleanHref = href.startsWith('#') ? href.substring(1) : (href.split('#')[1] || '');
-    const dataTarget = el.dataset.target || el.getAttribute('data-target') || '';
-    const onclickStr = el.getAttribute('onclick') || '';
-
-    const isMatch = aliases.some(alias => 
-      cleanHref === alias ||
-      dataTarget === alias ||
-      onclickStr.includes(`'#${alias}'`) ||
-      onclickStr.includes(`"${alias}"`)
-    );
+  allNavLinks.forEach((link) => {
+    const targetHash = link.getAttribute('href');
+    const isMatch = targetHash === `#${currentId}`;
+    link.classList.toggle('active', isMatch);
+    link.classList.toggle('nav-tab-active', isMatch);
 
     if (isMatch) {
-      el.classList.add('active', 'nav-tab-active');
-      el.style.setProperty('background', activeBg, 'important');
-      el.style.setProperty('color', activeColor, 'important');
-      el.style.setProperty('box-shadow', activeShadow, 'important');
-      el.style.setProperty('border-radius', '999px', 'important');
-      el.style.setProperty('font-weight', '700', 'important');
-      const icon = el.querySelector('i');
-      if (icon) icon.style.setProperty('color', activeColor, 'important');
+      link.style.setProperty('background', activeBg, 'important');
+      link.style.setProperty('color', activeColor, 'important');
+      link.style.setProperty('font-weight', '700', 'important');
+      link.style.setProperty('border-radius', '999px', 'important');
+      link.style.setProperty('box-shadow', activeRing, 'important');
+      if (link.closest('#more-dropdown-menu, .more-dropdown, .nav-dropdown')) {
+        isMoreChildActive = true;
+      }
+    } else {
+      link.style.removeProperty('background');
+      link.style.removeProperty('color');
+      link.style.removeProperty('font-weight');
+      link.style.removeProperty('border-radius');
+      link.style.removeProperty('box-shadow');
     }
   });
 
-  // 3. Highlight "More ▾" button if active section is inside dropdown
-  const moreSubsections = ['leadership', 'gallery', 'references', 'location', 'contact'];
-  const moreBtn = document.getElementById('more-dropdown-btn');
+  const moreBtn = document.querySelector('#more-dropdown-btn, .more-toggle');
   if (moreBtn) {
-    if (moreSubsections.includes(activeId)) {
-      moreBtn.classList.add('active', 'nav-tab-active');
+    moreBtn.classList.toggle('active', isMoreChildActive);
+    moreBtn.classList.toggle('nav-tab-active', isMoreChildActive);
+    if (isMoreChildActive) {
       moreBtn.style.setProperty('background', activeBg, 'important');
       moreBtn.style.setProperty('color', activeColor, 'important');
-      moreBtn.style.setProperty('box-shadow', activeShadow, 'important');
-      moreBtn.style.setProperty('border-radius', '999px', 'important');
       moreBtn.style.setProperty('font-weight', '700', 'important');
-      const icon = moreBtn.querySelector('i');
-      if (icon) icon.style.setProperty('color', activeColor, 'important');
+      moreBtn.style.setProperty('border-radius', '999px', 'important');
+      moreBtn.style.setProperty('box-shadow', activeRing, 'important');
     } else {
-      moreBtn.classList.remove('active', 'nav-tab-active');
       moreBtn.style.removeProperty('background');
       moreBtn.style.removeProperty('color');
-      moreBtn.style.removeProperty('box-shadow');
-      moreBtn.style.removeProperty('border-radius');
       moreBtn.style.removeProperty('font-weight');
-      const icon = moreBtn.querySelector('i');
-      if (icon) icon.style.removeProperty('color');
+      moreBtn.style.removeProperty('border-radius');
+      moreBtn.style.removeProperty('box-shadow');
     }
   }
 }
@@ -3682,11 +3619,10 @@ function updateActiveNavTab(forcedId) {
 function initScrollSpy() {
   let isTicking = false;
 
-  function scheduleActiveNavUpdate() {
-    if (isManualNavClick) return;
+  function scheduleSync() {
     if (!isTicking) {
       window.requestAnimationFrame(() => {
-        updateActiveNavTab();
+        syncActiveNavTab();
         isTicking = false;
       });
       isTicking = true;
@@ -3694,31 +3630,30 @@ function initScrollSpy() {
   }
 
   // Attach on window and document capture phase
-  window.addEventListener('scroll', scheduleActiveNavUpdate, { passive: true });
-  document.addEventListener('scroll', scheduleActiveNavUpdate, { passive: true, capture: true });
+  window.addEventListener('scroll', scheduleSync, { passive: true });
+  document.addEventListener('scroll', scheduleSync, { passive: true, capture: true });
 
   window.addEventListener('resize', () => {
-    if (!isManualNavClick) {
-      window.requestAnimationFrame(() => updateActiveNavTab());
-    }
+    window.requestAnimationFrame(() => syncActiveNavTab());
   }, { passive: true });
 
   window.addEventListener('hashchange', () => {
     if (location.hash) {
-      updateActiveNavTab(location.hash);
+      syncActiveNavTab(location.hash);
     }
   });
 
   // Initial active tab determination on load
   if (location.hash && location.hash.length > 1) {
-    updateActiveNavTab(location.hash);
+    syncActiveNavTab(location.hash);
   } else {
-    updateActiveNavTab();
+    syncActiveNavTab();
   }
 }
 
-window.setActiveNav = updateActiveNavTab;
-window.updateActiveNavTab = updateActiveNavTab;
+window.syncActiveNavTab = syncActiveNavTab;
+window.setActiveNav = syncActiveNavTab;
+window.updateActiveNavTab = syncActiveNavTab;
 window.initScrollSpy = initScrollSpy;
 window.initUniversalNav = initUniversalNav;
 window.initHeaderNavPanel = initUniversalNav;
@@ -3735,6 +3670,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initAdminPortal();
   initUniversalNav();
   initScrollSpy();
+  syncActiveNavTab();
 
   // Direct click listeners to every modal close button via querySelectorAll
   document.querySelectorAll('#lightbox-close-btn, #lightbox-modal .modal-close, #lightbox-modal .lightbox-close-btn, #lightbox-modal [data-close-modal="true"]').forEach(btn => {
