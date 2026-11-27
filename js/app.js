@@ -1062,6 +1062,7 @@ function openEvidenceModal(itemId, category, e) {
 window.openEvidenceModal = openEvidenceModal;
 
 let currentPracticalItem = null;
+let currentPracticalActiveTab = 'gallery';
 let currentPracticalViewMode = 'grid';
 let currentPracticalToolFilter = 'all';
 
@@ -1125,11 +1126,11 @@ function getCertPracticalLabel(cert) {
   const imgs = getPracticalGalleryImages(cert);
   const report = normalizeReportPdfConfig(cert.reportPdf);
   const folderId = extractGoogleDriveFolderId(cert.driveFolderId || cert.driveFolderUrl);
-  if (imgs.length > 0) return `Practical (${imgs.length})`;
-  if (report && folderId) return 'Practical (PDF & Drive)';
-  if (report) return 'Practical (PDF)';
-  if (folderId) return 'Practical (Drive)';
-  return 'Practical';
+  if (imgs.length > 0) return `Practical Work & Outputs (${imgs.length})`;
+  if (report && folderId) return 'Practical Work & Outputs (PDF & Drive)';
+  if (report) return 'Practical Work & Outputs (PDF)';
+  if (folderId) return 'Practical Work & Outputs (Drive)';
+  return 'Practical Work & Outputs';
 }
 window.getCertPracticalLabel = getCertPracticalLabel;
 
@@ -1142,9 +1143,14 @@ function openPracticalModal(itemId, e) {
 
   currentPracticalItem = item;
   const imgs = getPracticalGalleryImages(item);
+  const report = normalizeReportPdfConfig(item.reportPdf);
   const folderId = extractGoogleDriveFolderId(item.driveFolderId || item.driveFolderUrl);
+  const hasGallery = imgs.length > 0 || Boolean(folderId);
+
   currentPracticalToolFilter = 'all';
   currentPracticalViewMode = imgs.length > 0 ? 'grid' : (folderId ? 'drive' : 'grid');
+  // Visual Gallery is always the default view when gallery outputs exist; fallback to report if only PDF exists
+  currentPracticalActiveTab = hasGallery ? 'gallery' : (report ? 'report' : 'gallery');
 
   renderPracticalHybridModal();
 
@@ -1156,18 +1162,30 @@ function openPracticalModal(itemId, e) {
 }
 window.openPracticalModal = openPracticalModal;
 
+function switchPracticalMainTab(tab) {
+  currentPracticalActiveTab = tab === 'report' ? 'report' : 'gallery';
+  renderPracticalHybridModal();
+  const bodyEl = document.getElementById('practical-hybrid-body');
+  if (bodyEl) bodyEl.scrollTop = 0;
+}
+window.switchPracticalMainTab = switchPracticalMainTab;
+
 function renderPracticalHybridModal() {
   const item = currentPracticalItem;
   if (!item) return;
 
   const titleEl = document.getElementById('practical-hybrid-title');
   const badgeEl = document.getElementById('practical-hybrid-badge');
+  const tabsBarEl = document.getElementById('practical-top-tabs-bar');
   const bodyEl = document.getElementById('practical-hybrid-body');
   if (!bodyEl) return;
 
   const report = normalizeReportPdfConfig(item.reportPdf);
   const imgs = getPracticalGalleryImages(item);
   const folderId = extractGoogleDriveFolderId(item.driveFolderId || item.driveFolderUrl);
+  const hasGallery = imgs.length > 0 || Boolean(folderId);
+  const hasReport = Boolean(report);
+
   const folderHref = sanitizeSafeExternalHref(
     item.driveFolderUrl || (folderId ? `https://drive.google.com/drive/folders/${folderId}?usp=sharing` : '')
   );
@@ -1179,14 +1197,17 @@ function renderPracticalHybridModal() {
   if (titleEl) titleEl.textContent = `${item.title || 'Training'} — Practical Work & Outputs`;
   if (badgeEl) {
     const parts = [];
-    if (report) parts.push('PDF Report');
-    if (imgs.length > 0) parts.push(`${imgs.length} Visuals`);
-    else if (folderId) parts.push('Drive Gallery');
+    if (hasGallery) parts.push(imgs.length > 0 ? `${imgs.length} Visuals` : 'Drive Gallery');
+    if (hasReport) parts.push('PDF Report');
     badgeEl.textContent = parts.length > 0 ? parts.join(' • ') : '0 Outputs';
   }
 
   // Empty State: ONLY when BOTH reportPdf AND gallery (images + Drive folder) are missing
-  if (!report && imgs.length === 0 && !folderId) {
+  if (!hasReport && !hasGallery) {
+    if (tabsBarEl) {
+      tabsBarEl.style.display = 'none';
+      tabsBarEl.innerHTML = '';
+    }
     bodyEl.innerHTML = `
       <div class="practical-empty-state">
         <div class="project-gallery-empty-icon" style="background: rgba(245, 158, 11, 0.14); color: #f59e0b;">
@@ -1199,11 +1220,41 @@ function renderPracticalHybridModal() {
     return;
   }
 
-  let sectionsHtml = '';
+  // Ensure active tab matches an available section
+  if (currentPracticalActiveTab === 'gallery' && !hasGallery && hasReport) {
+    currentPracticalActiveTab = 'report';
+  } else if (currentPracticalActiveTab === 'report' && !hasReport && hasGallery) {
+    currentPracticalActiveTab = 'gallery';
+  }
 
-  // SECTION 1: Technical Work Report (PDF Viewer & Download) — rendered only if reportPdf exists
-  if (report) {
-    sectionsHtml += `
+  // Top-Level Side-by-Side Tab Switcher (No Vertical Stacking)
+  if (tabsBarEl) {
+    const tabs = [];
+    if (hasGallery) {
+      const galCount = imgs.length > 0 ? ` (${imgs.length})` : '';
+      tabs.push(`
+        <button type="button" class="practical-top-tab ${currentPracticalActiveTab === 'gallery' ? 'active' : ''}" data-tab="gallery" onclick="switchPracticalMainTab('gallery')">
+          <i class="fa-solid fa-images"></i>
+          <span>Course Outcome &amp; Visual Gallery${galCount}</span>
+        </button>
+      `);
+    }
+    if (hasReport) {
+      tabs.push(`
+        <button type="button" class="practical-top-tab ${currentPracticalActiveTab === 'report' ? 'active' : ''}" data-tab="report" onclick="switchPracticalMainTab('report')">
+          <i class="fa-solid fa-file-pdf"></i>
+          <span>Course Report / Document (PDF)</span>
+        </button>
+      `);
+    }
+    tabsBarEl.className = `practical-top-tabs-bar ${tabs.length === 1 ? 'single-tab' : 'two-tabs'}`;
+    tabsBarEl.innerHTML = tabs.join('');
+    tabsBarEl.style.display = 'grid';
+  }
+
+  // Render ONLY the active tab content
+  if (currentPracticalActiveTab === 'report' && hasReport) {
+    bodyEl.innerHTML = `
       <div class="practical-section-card">
         <div class="practical-section-head">
           <div>
@@ -1233,94 +1284,91 @@ function renderPracticalHybridModal() {
         ` : ''}
       </div>
     `;
+    return;
   }
 
-  // SECTION 2: Visual Outputs & Practical Gallery — rendered if images OR Drive folder exist
-  if (imgs.length > 0 || folderId) {
-    const tools = Array.from(new Set(imgs.map(i => i.tool).filter(Boolean)));
-    const filteredImgs = currentPracticalToolFilter === 'all'
-      ? imgs
-      : imgs.filter(i => i.tool === currentPracticalToolFilter);
+  // Default Active View: Course Outcome & Visual Gallery
+  const tools = Array.from(new Set(imgs.map(i => i.tool).filter(Boolean)));
+  const filteredImgs = currentPracticalToolFilter === 'all'
+    ? imgs
+    : imgs.filter(i => i.tool === currentPracticalToolFilter);
 
-    const viewSwitchHtml = (imgs.length > 0 && driveEmbedUrl) ? `
-      <div class="practical-filter-bar">
-        <button type="button" class="practical-filter-pill ${currentPracticalViewMode === 'grid' ? 'active' : ''}" onclick="switchPracticalGalleryView('grid')">
-          <i class="fa-solid fa-grip"></i> Output Grid (${imgs.length})
+  const viewSwitchHtml = (imgs.length > 0 && driveEmbedUrl) ? `
+    <div class="practical-filter-bar">
+      <button type="button" class="practical-filter-pill ${currentPracticalViewMode === 'grid' ? 'active' : ''}" onclick="switchPracticalGalleryView('grid')">
+        <i class="fa-solid fa-grip"></i> Output Grid (${imgs.length})
+      </button>
+      <button type="button" class="practical-filter-pill ${currentPracticalViewMode === 'drive' ? 'active' : ''}" onclick="switchPracticalGalleryView('drive')">
+        <i class="fa-brands fa-google-drive"></i> Drive Folder View
+      </button>
+    </div>
+  ` : '';
+
+  const toolFiltersHtml = (currentPracticalViewMode === 'grid' && tools.length > 1) ? `
+    <div class="practical-filter-bar">
+      <button type="button" class="practical-filter-pill ${currentPracticalToolFilter === 'all' ? 'active' : ''}" onclick="filterPracticalGalleryByTool('all')">
+        All (${imgs.length})
+      </button>
+      ${tools.map(t => `
+        <button type="button" class="practical-filter-pill ${currentPracticalToolFilter === t ? 'active' : ''}" onclick="filterPracticalGalleryByTool('${escapeHTML(t).replace(/'/g, '&#39;')}')">
+          ${escapeHTML(t)}
         </button>
-        <button type="button" class="practical-filter-pill ${currentPracticalViewMode === 'drive' ? 'active' : ''}" onclick="switchPracticalGalleryView('drive')">
-          <i class="fa-brands fa-google-drive"></i> Drive Folder View
-        </button>
+      `).join('')}
+    </div>
+  ` : '';
+
+  let galleryContentHtml = '';
+  if (currentPracticalViewMode === 'drive' && driveEmbedUrl) {
+    galleryContentHtml = `
+      <div class="practical-drive-embed-frame">
+        <iframe src="${escapeHTML(driveEmbedUrl)}" title="${escapeHTML(galleryHeading)}" sandbox="allow-scripts allow-same-origin allow-popups allow-forms" allowfullscreen="true"></iframe>
       </div>
-    ` : '';
-
-    const toolFiltersHtml = (currentPracticalViewMode === 'grid' && tools.length > 1) ? `
-      <div class="practical-filter-bar">
-        <button type="button" class="practical-filter-pill ${currentPracticalToolFilter === 'all' ? 'active' : ''}" onclick="filterPracticalGalleryByTool('all')">
-          All (${imgs.length})
-        </button>
-        ${tools.map(t => `
-          <button type="button" class="practical-filter-pill ${currentPracticalToolFilter === t ? 'active' : ''}" onclick="filterPracticalGalleryByTool('${escapeHTML(t).replace(/'/g, '&#39;')}')">
-            ${escapeHTML(t)}
-          </button>
-        `).join('')}
-      </div>
-    ` : '';
-
-    let galleryContentHtml = '';
-    if (currentPracticalViewMode === 'drive' && driveEmbedUrl) {
-      galleryContentHtml = `
-        <div class="practical-drive-embed-frame">
-          <iframe src="${escapeHTML(driveEmbedUrl)}" title="${escapeHTML(galleryHeading)}" sandbox="allow-scripts allow-same-origin allow-popups allow-forms" allowfullscreen="true"></iframe>
-        </div>
-      `;
-    } else if (filteredImgs.length > 0) {
-      galleryContentHtml = `
-        <div class="practical-gallery-grid">
-          ${filteredImgs.map((img, idx) => `
-            <div class="practical-gallery-card" onclick="openPracticalGalleryImageInLightbox(${idx})" role="button" tabindex="0" title="Click to zoom in Lightbox">
-              <div class="practical-gallery-thumb-box">
-                <img src="${formatImagePath(img.src)}" alt="${escapeHTML(img.caption)}" loading="lazy">
-                ${img.tool ? `<span class="practical-tool-badge">${escapeHTML(img.tool)}</span>` : ''}
-              </div>
-              <div class="practical-gallery-card-meta">
-                ${escapeHTML(img.caption)}
-              </div>
+    `;
+  } else if (filteredImgs.length > 0) {
+    galleryContentHtml = `
+      <div class="practical-gallery-grid">
+        ${filteredImgs.map((img, idx) => `
+          <div class="practical-gallery-card" onclick="openPracticalGalleryImageInLightbox(${idx})" role="button" tabindex="0" title="Click to zoom in Lightbox">
+            <div class="practical-gallery-thumb-box">
+              <img src="${formatImagePath(img.src)}" alt="${escapeHTML(img.caption)}" loading="lazy">
+              ${img.tool ? `<span class="practical-tool-badge">${escapeHTML(img.tool)}</span>` : ''}
             </div>
-          `).join('')}
-        </div>
-      `;
-    }
-
-    sectionsHtml += `
-      <div class="practical-section-card">
-        <div class="practical-section-head">
-          <div>
-            <h4 class="practical-section-title">
-              <i class="fa-solid fa-images" style="color: var(--primary);"></i>
-              <span>${escapeHTML(galleryHeading)}</span>
-            </h4>
-            <p class="practical-section-subtitle">Click any image card for full-screen Lightbox zoom &amp; slideshow navigation</p>
+            <div class="practical-gallery-card-meta">
+              ${escapeHTML(img.caption)}
+            </div>
           </div>
-          <div class="practical-section-actions">
-            ${folderHref ? `
-              <a href="${escapeHTML(folderHref)}" target="_blank" rel="noopener noreferrer" class="docs-modal-open-drive-btn">
-                <i class="fa-brands fa-google-drive"></i> Open Full Gallery in Drive
-              </a>
-            ` : ''}
-          </div>
-        </div>
-        ${(viewSwitchHtml || toolFiltersHtml) ? `
-          <div class="practical-view-tabs">
-            ${viewSwitchHtml}
-            ${toolFiltersHtml}
-          </div>
-        ` : ''}
-        ${galleryContentHtml}
+        `).join('')}
       </div>
     `;
   }
 
-  bodyEl.innerHTML = sectionsHtml;
+  bodyEl.innerHTML = `
+    <div class="practical-section-card">
+      <div class="practical-section-head">
+        <div>
+          <h4 class="practical-section-title">
+            <i class="fa-solid fa-images" style="color: var(--primary);"></i>
+            <span>${escapeHTML(galleryHeading)}</span>
+          </h4>
+          <p class="practical-section-subtitle">Click any image card for full-screen Lightbox zoom &amp; slideshow navigation</p>
+        </div>
+        <div class="practical-section-actions">
+          ${folderHref ? `
+            <a href="${escapeHTML(folderHref)}" target="_blank" rel="noopener noreferrer" class="docs-modal-open-drive-btn">
+              <i class="fa-brands fa-google-drive"></i> Open Full Gallery in Drive
+            </a>
+          ` : ''}
+        </div>
+      </div>
+      ${(viewSwitchHtml || toolFiltersHtml) ? `
+        <div class="practical-view-tabs">
+          ${viewSwitchHtml}
+          ${toolFiltersHtml}
+        </div>
+      ` : ''}
+      ${galleryContentHtml}
+    </div>
+  `;
 }
 
 function switchPracticalGalleryView(mode) {
@@ -1414,8 +1462,14 @@ window.openPracticalGalleryImageInLightbox = openPracticalGalleryImageInLightbox
 function closePracticalHybridModal() {
   const modal = document.getElementById('practical-hybrid-modal');
   const bodyEl = document.getElementById('practical-hybrid-body');
+  const tabsBarEl = document.getElementById('practical-top-tabs-bar');
   if (bodyEl) {
     bodyEl.querySelectorAll('iframe').forEach(f => { f.src = 'about:blank'; });
+    bodyEl.innerHTML = '';
+  }
+  if (tabsBarEl) {
+    tabsBarEl.innerHTML = '';
+    tabsBarEl.style.display = 'none';
   }
   if (modal) {
     modal.classList.remove('active');
