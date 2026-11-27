@@ -530,6 +530,20 @@ function renderSoftwareProjects(projects) {
       ? `openProjectGalleryModal('${escapeHTML(item.id)}', event)`
       : `openProjectDetailsModal('${escapeHTML(item.id)}', event)`;
 
+    const docs = Array.isArray(item.documents) ? item.documents : [];
+    const docsCount = docs.length;
+    const hasExtraInfo = Boolean((item.extraInfo || '').trim());
+    const canOpenDocs = docsCount > 0 || hasExtraInfo;
+    const uniqueDocPills = [];
+    const seenCodes = new Set();
+    docs.forEach(d => {
+      const info = getDocBadgeInfo(d);
+      if (info.code && !seenCodes.has(info.code)) {
+        seenCodes.add(info.code);
+        uniqueDocPills.push(`<span class="doc-mini-pill ${info.pillClass}">${escapeHTML(info.code)}</span>`);
+      }
+    });
+
     return `
       <div class="software-card" onclick="openProjectDetailsModal('${escapeHTML(item.id)}', event)" tabindex="0" role="button" aria-label="View ${escapeHTML(projectTitle)} details">
         <!-- 16:9 Cover Thumbnail Frame (Click directly opens photo gallery) -->
@@ -570,11 +584,10 @@ function renderSoftwareProjects(projects) {
               <button type="button" class="software-view-details-btn" onclick="openProjectDetailsModal('${escapeHTML(item.id)}', event)" title="View full details and complete tech stack">
                 <i class="fa-solid fa-circle-info"></i> View Details
               </button>
-              ${(item.documents && item.documents.length > 0) ? `
-                <button type="button" class="software-docs-btn" onclick="openDocsModal('${escapeHTML(item.id)}', 'project', event)" title="View Documents, Briefs &amp; Presentation Slides">
-                  <i class="fa-solid fa-file-lines"></i> Docs &amp; Briefs (${item.documents.length})
-                </button>
-              ` : ''}
+              <button type="button" class="software-docs-btn ${canOpenDocs ? '' : 'is-empty'}" ${canOpenDocs ? `onclick="openDocsModal('${escapeHTML(item.id)}', 'project', event)" title="View Documents, Briefs &amp; Technical Notes"` : `disabled aria-disabled="true" onclick="event.stopPropagation()" title="No documents or briefs attached yet"`}>
+                <i class="fa-solid fa-file-lines"></i> Docs &amp; Briefs (${docsCount})
+              </button>
+              ${uniqueDocPills.length > 0 ? `<span class="project-doc-types-wrap">${uniqueDocPills.join('')}</span>` : ''}
               ${photoCount > 0 ? `
                 <button type="button" class="software-gallery-btn" onclick="openProjectGalleryModal('${escapeHTML(item.id)}', event)" title="Open photo gallery slideshow">
                   <i class="fa-solid fa-images"></i> Gallery
@@ -675,23 +688,27 @@ function openProjectDetailsModal(projectId, e) {
     galleryWrap.style.display = 'none';
   }
 
-  // Open Docs & Briefs Button inside Details Modal
-  const docs = project.documents || [];
+  // Open Docs & Briefs Button inside Details Modal (shown universally)
+  const docs = Array.isArray(project.documents) ? project.documents : [];
+  const hasExtraInfo = Boolean((project.extraInfo || '').trim());
+  const canOpenDocs = docs.length > 0 || hasExtraInfo;
   const existingDocsWrap = document.getElementById('project-modal-docs-action-wrap');
   if (existingDocsWrap) existingDocsWrap.remove();
-  if (docs.length > 0 && galleryWrap) {
+  if (galleryWrap) {
     const docsBtnWrap = document.createElement('div');
     docsBtnWrap.id = 'project-modal-docs-action-wrap';
     docsBtnWrap.style.paddingTop = '0.5rem';
     docsBtnWrap.innerHTML = `
-      <button type="button" class="project-modal-gallery-trigger-btn" style="background: rgba(14, 165, 233, 0.15); color: #0284c7; border-color: rgba(14, 165, 233, 0.35);">
-        <i class="fa-solid fa-file-lines"></i> Open Docs, Briefs &amp; Slides (${docs.length})
+      <button type="button" class="project-modal-gallery-trigger-btn ${canOpenDocs ? '' : 'is-empty'}" ${canOpenDocs ? '' : 'disabled aria-disabled="true"'} style="${canOpenDocs ? 'background: rgba(14, 165, 233, 0.15); color: #0284c7; border-color: rgba(14, 165, 233, 0.35);' : 'opacity: 0.55; cursor: default;'}">
+        <i class="fa-solid fa-file-lines"></i> Docs &amp; Briefs (${docs.length})
       </button>
     `;
-    docsBtnWrap.querySelector('button').onclick = (evt) => {
-      closeProjectDetailsModal();
-      openDocsModal(project.id, 'project', evt);
-    };
+    if (canOpenDocs) {
+      docsBtnWrap.querySelector('button').onclick = (evt) => {
+        closeProjectDetailsModal();
+        openDocsModal(project.id, 'project', evt);
+      };
+    }
     galleryWrap.parentNode.insertBefore(docsBtnWrap, galleryWrap.nextSibling);
   }
 
@@ -1044,12 +1061,289 @@ function openEvidenceModal(itemId, category, e) {
 }
 window.openEvidenceModal = openEvidenceModal;
 
+let currentPracticalItem = null;
+let currentPracticalViewMode = 'grid';
+let currentPracticalToolFilter = 'all';
+
+function getPracticalGalleryImages(item) {
+  if (!item) return [];
+  const raw = (Array.isArray(item.galleryImages) && item.galleryImages.length > 0)
+    ? item.galleryImages
+    : (Array.isArray(item.practicalImages) ? item.practicalImages : []);
+  return raw.map((entry, idx) => {
+    if (typeof entry === 'string') {
+      return { src: entry, tool: '', caption: `Output #${idx + 1}` };
+    }
+    let resolvedSrc = entry.src || '';
+    if (!resolvedSrc && entry.driveFileId) {
+      resolvedSrc = `https://drive.google.com/thumbnail?id=${encodeURIComponent(entry.driveFileId)}&sz=w1200`;
+    }
+    return {
+      src: resolvedSrc,
+      tool: entry.tool || '',
+      caption: entry.caption || `Output #${idx + 1}`,
+      driveFileId: entry.driveFileId || ''
+    };
+  }).filter(x => Boolean(x.src));
+}
+window.getPracticalGalleryImages = getPracticalGalleryImages;
+
+function normalizeReportPdfConfig(reportPdf) {
+  if (!reportPdf) return null;
+  if (typeof reportPdf === 'string') {
+    const trimmed = reportPdf.trim();
+    if (!trimmed) return null;
+    const fileId = extractGoogleDriveFileId(trimmed);
+    return {
+      title: 'Technical Work Report (PDF)',
+      fileId: fileId,
+      viewUrl: sanitizeSafeExternalHref(trimmed),
+      embedUrl: sanitizeTrustedEmbedUrl(trimmed, 'pdf'),
+      downloadUrl: fileId ? `https://drive.google.com/uc?export=download&id=${fileId}` : sanitizeSafeExternalHref(trimmed)
+    };
+  }
+  const rawView = reportPdf.viewUrl || reportPdf.url || '';
+  const fileId = reportPdf.fileId || extractGoogleDriveFileId(rawView);
+  const resolvedView = rawView || (fileId ? `https://drive.google.com/file/d/${fileId}/view?usp=sharing` : (reportPdf.localFallback || ''));
+  const embedCandidate = fileId
+    ? `https://drive.google.com/file/d/${fileId}/preview`
+    : (reportPdf.embedUrl || resolvedView);
+  const embedUrl = sanitizeTrustedEmbedUrl(embedCandidate, 'pdf') || sanitizeTrustedEmbedUrl(reportPdf.localFallback || '', 'pdf');
+  const downloadCandidate = fileId
+    ? `https://drive.google.com/uc?export=download&id=${fileId}`
+    : (reportPdf.downloadUrl || resolvedView || reportPdf.localFallback || '');
+  return {
+    title: reportPdf.title || 'Technical Work Report (PDF)',
+    fileId: fileId,
+    viewUrl: sanitizeSafeExternalHref(resolvedView),
+    embedUrl: embedUrl,
+    downloadUrl: sanitizeSafeExternalHref(downloadCandidate)
+  };
+}
+
+function getCertPracticalLabel(cert) {
+  const imgs = getPracticalGalleryImages(cert);
+  const report = normalizeReportPdfConfig(cert.reportPdf);
+  const folderId = extractGoogleDriveFolderId(cert.driveFolderId || cert.driveFolderUrl);
+  if (imgs.length > 0) return `Practical (${imgs.length})`;
+  if (report && folderId) return 'Practical (PDF & Drive)';
+  if (report) return 'Practical (PDF)';
+  if (folderId) return 'Practical (Drive)';
+  return 'Practical';
+}
+window.getCertPracticalLabel = getCertPracticalLabel;
+
 function openPracticalModal(itemId, e) {
   if (e && typeof e.stopPropagation === 'function') e.stopPropagation();
 
   const list = window.portfolioData?.certificates || window.portfolioData?.trainings || [];
   const item = list.find((c, idx) => c.id === itemId || String(idx) === String(itemId) || String(c.id) === String(itemId));
   if (!item) return;
+
+  currentPracticalItem = item;
+  const imgs = getPracticalGalleryImages(item);
+  const folderId = extractGoogleDriveFolderId(item.driveFolderId || item.driveFolderUrl);
+  currentPracticalToolFilter = 'all';
+  currentPracticalViewMode = imgs.length > 0 ? 'grid' : (folderId ? 'drive' : 'grid');
+
+  renderPracticalHybridModal();
+
+  const modal = document.getElementById('practical-hybrid-modal');
+  if (modal) {
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+}
+window.openPracticalModal = openPracticalModal;
+
+function renderPracticalHybridModal() {
+  const item = currentPracticalItem;
+  if (!item) return;
+
+  const titleEl = document.getElementById('practical-hybrid-title');
+  const badgeEl = document.getElementById('practical-hybrid-badge');
+  const bodyEl = document.getElementById('practical-hybrid-body');
+  if (!bodyEl) return;
+
+  const report = normalizeReportPdfConfig(item.reportPdf);
+  const imgs = getPracticalGalleryImages(item);
+  const folderId = extractGoogleDriveFolderId(item.driveFolderId || item.driveFolderUrl);
+  const folderHref = sanitizeSafeExternalHref(
+    item.driveFolderUrl || (folderId ? `https://drive.google.com/drive/folders/${folderId}?usp=sharing` : '')
+  );
+  const driveEmbedUrl = folderId
+    ? sanitizeTrustedEmbedUrl(`https://drive.google.com/embeddedfolderview?id=${folderId}#grid`, 'drive')
+    : '';
+  const galleryHeading = item.gallerySectionTitle || 'Practical Training & Outputs Gallery';
+
+  if (titleEl) titleEl.textContent = `${item.title || 'Training'} — Practical Work & Outputs`;
+  if (badgeEl) {
+    const parts = [];
+    if (report) parts.push('PDF Report');
+    if (imgs.length > 0) parts.push(`${imgs.length} Visuals`);
+    else if (folderId) parts.push('Drive Gallery');
+    badgeEl.textContent = parts.length > 0 ? parts.join(' • ') : '0 Outputs';
+  }
+
+  // Empty State: ONLY when BOTH reportPdf AND gallery (images + Drive folder) are missing
+  if (!report && imgs.length === 0 && !folderId) {
+    bodyEl.innerHTML = `
+      <div class="practical-empty-state">
+        <div class="project-gallery-empty-icon" style="background: rgba(245, 158, 11, 0.14); color: #f59e0b;">
+          <i class="fa-solid fa-folder-open"></i>
+        </div>
+        <h4 class="project-gallery-empty-title" style="margin: 0;">No practical outputs attached yet</h4>
+        <p class="project-gallery-empty-desc" style="margin: 0;">Add a Technical Report PDF, Google Drive folder, or output screenshots via the Admin CMS.</p>
+      </div>
+    `;
+    return;
+  }
+
+  let sectionsHtml = '';
+
+  // SECTION 1: Technical Work Report (PDF Viewer & Download) — rendered only if reportPdf exists
+  if (report) {
+    sectionsHtml += `
+      <div class="practical-section-card">
+        <div class="practical-section-head">
+          <div>
+            <h4 class="practical-section-title">
+              <i class="fa-solid fa-file-pdf" style="color: #ef4444;"></i>
+              <span>${escapeHTML(report.title)}</span>
+            </h4>
+            <p class="practical-section-subtitle">Interactive PDF preview with full-screen view and direct download</p>
+          </div>
+          <div class="practical-section-actions">
+            ${report.viewUrl ? `
+              <a href="${escapeHTML(report.viewUrl)}" target="_blank" rel="noopener noreferrer" class="docs-modal-open-drive-btn">
+                <i class="fa-solid fa-up-right-from-square"></i> Open Fullscreen
+              </a>
+            ` : ''}
+            ${report.downloadUrl ? `
+              <a href="${escapeHTML(report.downloadUrl)}" target="_blank" rel="noopener noreferrer" download class="docs-modal-download-btn">
+                <i class="fa-solid fa-download"></i> Download Report (PDF)
+              </a>
+            ` : ''}
+          </div>
+        </div>
+        ${report.embedUrl ? `
+          <div class="practical-pdf-viewport">
+            <iframe src="${escapeHTML(report.embedUrl)}" title="${escapeHTML(report.title)}" sandbox="allow-scripts allow-same-origin allow-popups allow-forms" allowfullscreen="true"></iframe>
+          </div>
+        ` : ''}
+      </div>
+    `;
+  }
+
+  // SECTION 2: Visual Outputs & Practical Gallery — rendered if images OR Drive folder exist
+  if (imgs.length > 0 || folderId) {
+    const tools = Array.from(new Set(imgs.map(i => i.tool).filter(Boolean)));
+    const filteredImgs = currentPracticalToolFilter === 'all'
+      ? imgs
+      : imgs.filter(i => i.tool === currentPracticalToolFilter);
+
+    const viewSwitchHtml = (imgs.length > 0 && driveEmbedUrl) ? `
+      <div class="practical-filter-bar">
+        <button type="button" class="practical-filter-pill ${currentPracticalViewMode === 'grid' ? 'active' : ''}" onclick="switchPracticalGalleryView('grid')">
+          <i class="fa-solid fa-grip"></i> Output Grid (${imgs.length})
+        </button>
+        <button type="button" class="practical-filter-pill ${currentPracticalViewMode === 'drive' ? 'active' : ''}" onclick="switchPracticalGalleryView('drive')">
+          <i class="fa-brands fa-google-drive"></i> Drive Folder View
+        </button>
+      </div>
+    ` : '';
+
+    const toolFiltersHtml = (currentPracticalViewMode === 'grid' && tools.length > 1) ? `
+      <div class="practical-filter-bar">
+        <button type="button" class="practical-filter-pill ${currentPracticalToolFilter === 'all' ? 'active' : ''}" onclick="filterPracticalGalleryByTool('all')">
+          All (${imgs.length})
+        </button>
+        ${tools.map(t => `
+          <button type="button" class="practical-filter-pill ${currentPracticalToolFilter === t ? 'active' : ''}" onclick="filterPracticalGalleryByTool('${escapeHTML(t).replace(/'/g, '&#39;')}')">
+            ${escapeHTML(t)}
+          </button>
+        `).join('')}
+      </div>
+    ` : '';
+
+    let galleryContentHtml = '';
+    if (currentPracticalViewMode === 'drive' && driveEmbedUrl) {
+      galleryContentHtml = `
+        <div class="practical-drive-embed-frame">
+          <iframe src="${escapeHTML(driveEmbedUrl)}" title="${escapeHTML(galleryHeading)}" sandbox="allow-scripts allow-same-origin allow-popups allow-forms" allowfullscreen="true"></iframe>
+        </div>
+      `;
+    } else if (filteredImgs.length > 0) {
+      galleryContentHtml = `
+        <div class="practical-gallery-grid">
+          ${filteredImgs.map((img, idx) => `
+            <div class="practical-gallery-card" onclick="openPracticalGalleryImageInLightbox(${idx})" role="button" tabindex="0" title="Click to zoom in Lightbox">
+              <div class="practical-gallery-thumb-box">
+                <img src="${formatImagePath(img.src)}" alt="${escapeHTML(img.caption)}" loading="lazy">
+                ${img.tool ? `<span class="practical-tool-badge">${escapeHTML(img.tool)}</span>` : ''}
+              </div>
+              <div class="practical-gallery-card-meta">
+                ${escapeHTML(img.caption)}
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      `;
+    }
+
+    sectionsHtml += `
+      <div class="practical-section-card">
+        <div class="practical-section-head">
+          <div>
+            <h4 class="practical-section-title">
+              <i class="fa-solid fa-images" style="color: var(--primary);"></i>
+              <span>${escapeHTML(galleryHeading)}</span>
+            </h4>
+            <p class="practical-section-subtitle">Click any image card for full-screen Lightbox zoom &amp; slideshow navigation</p>
+          </div>
+          <div class="practical-section-actions">
+            ${folderHref ? `
+              <a href="${escapeHTML(folderHref)}" target="_blank" rel="noopener noreferrer" class="docs-modal-open-drive-btn">
+                <i class="fa-brands fa-google-drive"></i> Open Full Gallery in Drive
+              </a>
+            ` : ''}
+          </div>
+        </div>
+        ${(viewSwitchHtml || toolFiltersHtml) ? `
+          <div class="practical-view-tabs">
+            ${viewSwitchHtml}
+            ${toolFiltersHtml}
+          </div>
+        ` : ''}
+        ${galleryContentHtml}
+      </div>
+    `;
+  }
+
+  bodyEl.innerHTML = sectionsHtml;
+}
+
+function switchPracticalGalleryView(mode) {
+  currentPracticalViewMode = mode === 'drive' ? 'drive' : 'grid';
+  renderPracticalHybridModal();
+}
+window.switchPracticalGalleryView = switchPracticalGalleryView;
+
+function filterPracticalGalleryByTool(tool) {
+  currentPracticalToolFilter = tool || 'all';
+  currentPracticalViewMode = 'grid';
+  renderPracticalHybridModal();
+}
+window.filterPracticalGalleryByTool = filterPracticalGalleryByTool;
+
+function openPracticalGalleryImageInLightbox(startIdx) {
+  const item = currentPracticalItem;
+  if (!item) return;
+  const allImgs = getPracticalGalleryImages(item);
+  const filteredImgs = currentPracticalToolFilter === 'all'
+    ? allImgs
+    : allImgs.filter(i => i.tool === currentPracticalToolFilter);
+  if (filteredImgs.length === 0) return;
 
   const modal = document.getElementById('project-gallery-modal');
   const titleEl = document.getElementById('project-gallery-title');
@@ -1060,90 +1354,54 @@ function openPracticalModal(itemId, e) {
   const zoomBtn = document.getElementById('project-gallery-zoom');
   const mainImg = document.getElementById('project-gallery-main-img');
   const emptyEl = document.getElementById('project-gallery-empty');
-  const captionEl = document.getElementById('project-gallery-caption');
   const galleryWrap = document.getElementById('project-gallery-wrap');
 
+  const formattedSlides = filteredImgs.map(i => ({
+    src: i.src,
+    caption: i.tool ? `[${i.tool}] ${i.caption}` : i.caption
+  }));
+
   if (titleEl) {
-    titleEl.textContent = `${item.title || 'Training'} — Practical Work & Outputs`;
+    titleEl.textContent = `${item.gallerySectionTitle || item.title || 'Practical Outputs'} — Zoom Viewer`;
   }
-
-  const practicalImages = item.practicalImages || [];
-
-  if (practicalImages.length === 0) {
-    // Clean Empty Preview State
-    if (counter) counter.style.display = 'none';
-    if (zoomBtn) zoomBtn.style.display = 'none';
-    if (prevBtn) prevBtn.style.display = 'none';
-    if (nextBtn) nextBtn.style.display = 'none';
-    if (mainImg) mainImg.style.display = 'none';
-    if (thumbsContainer) thumbsContainer.style.display = 'none';
-    if (captionEl) captionEl.style.display = 'none';
-    if (emptyEl) {
-      emptyEl.style.display = 'flex';
-      emptyEl.innerHTML = `
-        <div class="project-gallery-empty-icon" style="background: rgba(245, 158, 11, 0.15); color: #f59e0b;">
-          <i class="fa-solid fa-laptop-code"></i>
-        </div>
-        <h4 class="project-gallery-empty-title">Practical Work &amp; Demo Showcase</h4>
-        <p class="project-gallery-empty-desc">
-          Upload outputs via Admin CMS
-        </p>
-      `;
-    }
-    clearProjectTimer();
-    if (modal) {
-      modal.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-    return;
-  }
-
-  // Restore elements if previously hidden by empty state
   if (emptyEl) emptyEl.style.display = 'none';
   if (mainImg) mainImg.style.display = '';
   if (counter) counter.style.display = '';
   if (zoomBtn) zoomBtn.style.display = '';
-  if (thumbsContainer) thumbsContainer.style.display = 'flex';
-  if (prevBtn) prevBtn.style.display = practicalImages.length > 1 ? '' : 'none';
-  if (nextBtn) nextBtn.style.display = practicalImages.length > 1 ? '' : 'none';
-
-  currentGalleryProject = {
-    ...item,
-    name: `${item.title || 'Training'} — Practical Work & Outputs`,
-    images: practicalImages
-  };
-  currentGallerySlideIdx = 0;
-
   if (thumbsContainer) {
-    thumbsContainer.innerHTML = practicalImages.map((img, i) => `
-      <div class="project-gallery-thumb ${i === 0 ? 'active' : ''}" data-idx="${i}" onclick="handleGalleryThumbClick(${i})">
-        <img src="${formatImagePath(img)}" alt="thumb ${i + 1}" loading="lazy">
+    thumbsContainer.style.display = 'flex';
+    thumbsContainer.innerHTML = formattedSlides.map((s, i) => `
+      <div class="project-gallery-thumb ${i === startIdx ? 'active' : ''}" data-idx="${i}" onclick="handleGalleryThumbClick(${i})">
+        <img src="${formatImagePath(s.src)}" alt="thumb ${i + 1}" loading="lazy">
       </div>
     `).join('');
   }
-
   if (prevBtn) {
+    prevBtn.style.display = formattedSlides.length > 1 ? '' : 'none';
     prevBtn.onclick = (evt) => {
       evt.stopPropagation();
       setGallerySlide(currentGallerySlideIdx - 1, true);
     };
   }
   if (nextBtn) {
+    nextBtn.style.display = formattedSlides.length > 1 ? '' : 'none';
     nextBtn.onclick = (evt) => {
       evt.stopPropagation();
       setGallerySlide(currentGallerySlideIdx + 1, true);
     };
   }
 
-  setGallerySlide(0);
+  currentGalleryProject = {
+    ...item,
+    name: item.gallerySectionTitle || item.title,
+    images: formattedSlides
+  };
+  setGallerySlide(startIdx || 0, false);
 
   clearProjectTimer();
-  if (practicalImages.length > 1) {
-    startGallerySlideshow(practicalImages.length);
-    if (galleryWrap) {
-      galleryWrap.onmouseenter = () => clearProjectTimer();
-      galleryWrap.onmouseleave = () => startGallerySlideshow(practicalImages.length);
-    }
+  if (formattedSlides.length > 1 && galleryWrap) {
+    galleryWrap.onmouseenter = () => clearProjectTimer();
+    galleryWrap.onmouseleave = null;
   }
 
   if (modal) {
@@ -1151,7 +1409,21 @@ function openPracticalModal(itemId, e) {
     document.body.style.overflow = 'hidden';
   }
 }
-window.openPracticalModal = openPracticalModal;
+window.openPracticalGalleryImageInLightbox = openPracticalGalleryImageInLightbox;
+
+function closePracticalHybridModal() {
+  const modal = document.getElementById('practical-hybrid-modal');
+  const bodyEl = document.getElementById('practical-hybrid-body');
+  if (bodyEl) {
+    bodyEl.querySelectorAll('iframe').forEach(f => { f.src = 'about:blank'; });
+  }
+  if (modal) {
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  currentPracticalItem = null;
+}
+window.closePracticalHybridModal = closePracticalHybridModal;
 
 /* --------------------------------------------------------------------------
    DOCUMENTS, BRIEFS & PRESENTATIONS SHARING SYSTEM MODAL
@@ -1159,57 +1431,94 @@ window.openPracticalModal = openPracticalModal;
 let currentDocsItem = null;
 let currentSelectedDocIndex = 0;
 
-function convertToEmbedUrl(url, docType) {
-  if (!url) return '';
+function extractGoogleDriveFileId(url) {
+  if (!url || typeof url !== 'string') return '';
   const trimmed = url.trim();
-
-  // 1. Google Drive file: drive.google.com/file/d/<ID>/... or drive.google.com/open?id=<ID> or drive.google.com/uc?id=<ID>
-  // Strictly use https://drive.google.com/file/d/<ID>/preview (never convert Drive IDs into docs.google.com/.../preview)
-  const driveFileMatch = trimmed.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/);
-  if (driveFileMatch && driveFileMatch[1]) {
-    return `https://drive.google.com/file/d/${driveFileMatch[1]}/preview`;
-  }
-
-  const driveIdMatch = trimmed.match(/drive\.google\.com\/(?:open|uc)\?id=([a-zA-Z0-9_-]+)/);
-  if (driveIdMatch && driveIdMatch[1]) {
-    return `https://drive.google.com/file/d/${driveIdMatch[1]}/preview`;
-  }
-
-  // 2. Uploaded Office file (.pptx / .docx / .xlsx) opened via Google Docs editor (indicated by rtpof=true)
-  // When an Office file is hosted on Google Drive, opening it yields a URL like docs.google.com/presentation/d/<ID>/edit?...rtpof=true.
-  // Using docs.google.com/.../preview or /embed triggers Google's "We're sorry for the inconvenience" error on .pptx/.docx.
-  // Converting to drive.google.com/file/d/<ID>/preview solves this error.
+  const fileMatch = trimmed.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/);
+  if (fileMatch && fileMatch[1]) return fileMatch[1];
+  const idMatch = trimmed.match(/drive\.google\.com\/(?:open|uc|thumbnail)\?(?:[^#]*&)?id=([a-zA-Z0-9_-]+)/);
+  if (idMatch && idMatch[1]) return idMatch[1];
   if (trimmed.includes('rtpof=true')) {
-    const docIdMatch = trimmed.match(/docs\.google\.com\/(?:presentation|document|spreadsheets)\/d\/([a-zA-Z0-9_-]+)/);
-    if (docIdMatch && docIdMatch[1]) {
-      return `https://drive.google.com/file/d/${docIdMatch[1]}/preview`;
-    }
+    const officeMatch = trimmed.match(/docs\.google\.com\/(?:presentation|document|spreadsheets)\/d\/([a-zA-Z0-9_-]+)/);
+    if (officeMatch && officeMatch[1]) return officeMatch[1];
+  }
+  return '';
+}
+window.extractGoogleDriveFileId = extractGoogleDriveFileId;
+
+function extractGoogleDriveFolderId(urlOrId) {
+  if (!urlOrId || typeof urlOrId !== 'string') return '';
+  const trimmed = urlOrId.trim();
+  if (!trimmed) return '';
+  if (/^[a-zA-Z0-9_-]{12,}$/.test(trimmed)) return trimmed;
+  const folderMatch = trimmed.match(/drive\.google\.com\/drive\/(?:u\/\d+\/)?folders\/([a-zA-Z0-9_-]+)/);
+  if (folderMatch && folderMatch[1]) return folderMatch[1];
+  const embedMatch = trimmed.match(/drive\.google\.com\/embeddedfolderview\?id=([a-zA-Z0-9_-]+)/);
+  if (embedMatch && embedMatch[1]) return embedMatch[1];
+  return '';
+}
+window.extractGoogleDriveFolderId = extractGoogleDriveFolderId;
+
+function sanitizeSafeExternalHref(url) {
+  if (!url || typeof url !== 'string') return '';
+  const trimmed = url.trim();
+  if (!trimmed) return '';
+  if (/^(javascript|data|vbscript):/i.test(trimmed)) return '';
+  if (/^https?:\/\//i.test(trimmed)) return trimmed;
+  if (/^(Documents|Training & Certifications|assets|Certificate|Gallery|Evidence & Findings|Scientific Projects & Digital Platforms)\//i.test(trimmed)) {
+    return trimmed;
+  }
+  return '';
+}
+window.sanitizeSafeExternalHref = sanitizeSafeExternalHref;
+
+function getDriveDirectDownloadUrl(url) {
+  const safe = sanitizeSafeExternalHref(url);
+  if (!safe) return '';
+  const fileId = extractGoogleDriveFileId(safe);
+  if (fileId) {
+    return `https://drive.google.com/uc?export=download&id=${fileId}`;
+  }
+  return safe;
+}
+window.getDriveDirectDownloadUrl = getDriveDirectDownloadUrl;
+
+function convertToEmbedUrl(url, docType) {
+  if (!url || typeof url !== 'string') return '';
+  const trimmed = url.trim();
+  if (/^(javascript|data|vbscript):/i.test(trimmed)) return '';
+
+  // 1. Google Drive folder view
+  const folderId = extractGoogleDriveFolderId(trimmed);
+  if (folderId && trimmed.includes('drive.google.com')) {
+    return `https://drive.google.com/embeddedfolderview?id=${folderId}#grid`;
+  }
+
+  // 2. Google Drive file ID (including rtpof=true Office files)
+  const driveFileId = extractGoogleDriveFileId(trimmed);
+  if (driveFileId) {
+    return `https://drive.google.com/file/d/${driveFileId}/preview`;
   }
 
   // 3. Native Google Slides: docs.google.com/presentation/d/<ID>/...
-  // Extract clean ID (stripping /edit, /view, query strings, and hash fragments)
-  // Embed via https://docs.google.com/presentation/d/<ID>/embed?start=false&loop=false&delayms=3000
   const slidesMatch = trimmed.match(/docs\.google\.com\/presentation\/d\/([a-zA-Z0-9_-]+)/);
   if (slidesMatch && slidesMatch[1]) {
-    const cleanId = slidesMatch[1];
-    return `https://docs.google.com/presentation/d/${cleanId}/embed?start=false&loop=false&delayms=3000`;
+    return `https://docs.google.com/presentation/d/${slidesMatch[1]}/embed?start=false&loop=false&delayms=3000`;
   }
 
   // 4. Native Google Docs: docs.google.com/document/d/<ID>/... -> /preview
   const docsMatch = trimmed.match(/docs\.google\.com\/document\/d\/([a-zA-Z0-9_-]+)/);
   if (docsMatch && docsMatch[1]) {
-    const cleanId = docsMatch[1];
-    return `https://docs.google.com/document/d/${cleanId}/preview`;
+    return `https://docs.google.com/document/d/${docsMatch[1]}/preview`;
   }
 
   // 5. Native Google Sheets: docs.google.com/spreadsheets/d/<ID>/... -> /preview
   const sheetsMatch = trimmed.match(/docs\.google\.com\/spreadsheets\/d\/([a-zA-Z0-9_-]+)/);
   if (sheetsMatch && sheetsMatch[1]) {
-    const cleanId = sheetsMatch[1];
-    return `https://docs.google.com/spreadsheets/d/${cleanId}/preview`;
+    return `https://docs.google.com/spreadsheets/d/${sheetsMatch[1]}/preview`;
   }
 
-  // 6. Direct PDF URL
+  // 6. Direct PDF URL (trusted relative local file or https URL)
   if (trimmed.toLowerCase().endsWith('.pdf') || trimmed.includes('.pdf?')) {
     return trimmed;
   }
@@ -1218,19 +1527,29 @@ function convertToEmbedUrl(url, docType) {
 }
 window.convertToEmbedUrl = convertToEmbedUrl;
 
+function sanitizeTrustedEmbedUrl(url, docType) {
+  const converted = convertToEmbedUrl(url, docType);
+  if (!converted) return '';
+  if (/^(javascript|data|vbscript):/i.test(converted)) return '';
+  if (/^https:\/\/(drive|docs)\.google\.com\//i.test(converted)) return converted;
+  if (/^(Documents|Training & Certifications|assets)\/.*\.pdf(\?.*)?$/i.test(converted)) return converted;
+  return '';
+}
+window.sanitizeTrustedEmbedUrl = sanitizeTrustedEmbedUrl;
+
 function getDocBadgeInfo(doc) {
-  const type = (doc.docType || '').toLowerCase();
-  const url = (doc.url || '').toLowerCase();
-  if (type === 'slides' || url.includes('presentation')) {
-    return { label: 'Presentation Slides', icon: 'fa-solid fa-file-powerpoint', badgeClass: 'badge-slides' };
+  const type = ((doc && doc.docType) || '').toLowerCase();
+  const url = ((doc && doc.url) || '').toLowerCase();
+  if (type === 'slides' || type === 'pptx' || type === 'ppt' || url.includes('presentation') || url.endsWith('.ppt') || url.endsWith('.pptx')) {
+    return { code: 'PPTX', pillClass: 'slides', label: 'Presentation Slides', icon: 'fa-solid fa-file-powerpoint', badgeClass: 'badge-slides' };
   }
-  if (type === 'word' || url.includes('/document/') || url.endsWith('.doc') || url.endsWith('.docx')) {
-    return { label: 'Word Document', icon: 'fa-solid fa-file-word', badgeClass: 'badge-word' };
+  if (type === 'word' || type === 'docx' || type === 'doc' || url.includes('/document/') || url.endsWith('.doc') || url.endsWith('.docx')) {
+    return { code: 'DOCX', pillClass: 'word', label: 'Word Document', icon: 'fa-solid fa-file-word', badgeClass: 'badge-word' };
   }
   if (type === 'pdf' || url.endsWith('.pdf') || url.includes('/file/d/')) {
-    return { label: 'PDF Document', icon: 'fa-solid fa-file-pdf', badgeClass: 'badge-pdf' };
+    return { code: 'PDF', pillClass: 'pdf', label: 'PDF Document', icon: 'fa-solid fa-file-pdf', badgeClass: 'badge-pdf' };
   }
-  return { label: 'Google Drive Resource', icon: 'fa-brands fa-google-drive', badgeClass: 'badge-drive' };
+  return { code: 'DRIVE', pillClass: 'drive', label: 'Google Drive Resource', icon: 'fa-brands fa-google-drive', badgeClass: 'badge-drive' };
 }
 window.getDocBadgeInfo = getDocBadgeInfo;
 
@@ -1253,7 +1572,10 @@ function openDocsModal(itemId, category, e) {
     if (!item && !isNaN(parseInt(itemId))) item = list[parseInt(itemId)];
   }
 
-  if (!item || !Array.isArray(item.documents) || item.documents.length === 0) {
+  const docs = (item && Array.isArray(item.documents)) ? item.documents : [];
+  const extraInfo = (item && typeof item.extraInfo === 'string') ? item.extraInfo.trim() : '';
+
+  if (!item || (docs.length === 0 && !extraInfo)) {
     if (typeof showToast === 'function') showToast('No documents or briefs attached for this entry.', 'info');
     return;
   }
@@ -1264,16 +1586,46 @@ function openDocsModal(itemId, category, e) {
   const modal = document.getElementById('docs-briefs-modal');
   const titleEl = document.getElementById('docs-modal-title');
   const countBadge = document.getElementById('docs-modal-count-badge');
+  const extraEl = document.getElementById('docs-modal-extra-info');
+  const fileListEl = document.getElementById('docs-modal-file-list');
+  const metaBarEl = document.getElementById('docs-modal-meta-bar');
+  const previewEl = document.getElementById('docs-modal-preview-viewport');
+  const noticeEl = document.getElementById('docs-modal-notice');
 
   if (titleEl) {
     titleEl.textContent = `${item.title || item.name || 'Entry'} — Documents & Briefs`;
   }
   if (countBadge) {
-    countBadge.textContent = `${item.documents.length} Attachment${item.documents.length !== 1 ? 's' : ''}`;
+    countBadge.textContent = `${docs.length} Attachment${docs.length !== 1 ? 's' : ''}`;
   }
 
-  renderDocsModalTabs(item.documents);
-  selectDocsModalItem(0);
+  if (extraEl) {
+    if (extraInfo) {
+      extraEl.style.display = 'block';
+      extraEl.innerHTML = `
+        <div class="docs-modal-extra-info-label"><i class="fa-solid fa-clipboard-list"></i> Project Brief &amp; Technical Notes</div>
+        <div>${escapeHTML(extraInfo).replace(/\n/g, '<br>')}</div>
+      `;
+    } else {
+      extraEl.style.display = 'none';
+      extraEl.innerHTML = '';
+    }
+  }
+
+  if (docs.length === 0) {
+    if (fileListEl) fileListEl.style.display = 'none';
+    if (metaBarEl) metaBarEl.style.display = 'none';
+    if (previewEl) previewEl.style.display = 'none';
+    if (noticeEl) noticeEl.style.display = 'none';
+    renderDocsModalTabs([]);
+  } else {
+    if (metaBarEl) metaBarEl.style.display = 'flex';
+    if (previewEl) previewEl.style.display = 'block';
+    if (noticeEl) noticeEl.style.display = 'flex';
+    renderDocsModalFileList(docs);
+    renderDocsModalTabs(docs);
+    selectDocsModalItem(0);
+  }
 
   if (modal) {
     modal.classList.add('active');
@@ -1281,6 +1633,47 @@ function openDocsModal(itemId, category, e) {
   }
 }
 window.openDocsModal = openDocsModal;
+
+function renderDocsModalFileList(docs) {
+  const listEl = document.getElementById('docs-modal-file-list');
+  if (!listEl) return;
+  if (!docs || docs.length === 0) {
+    listEl.style.display = 'none';
+    return;
+  }
+  listEl.style.display = 'flex';
+  listEl.innerHTML = docs.map((d, idx) => {
+    const info = getDocBadgeInfo(d);
+    const openHref = sanitizeSafeExternalHref(d.url);
+    const downloadHref = getDriveDirectDownloadUrl(d.url);
+    return `
+      <div class="docs-file-row ${idx === currentSelectedDocIndex ? 'active' : ''}" data-doc-idx="${idx}">
+        <div class="docs-file-row-left">
+          <span class="docs-file-row-icon docs-type-badge ${info.badgeClass}"><i class="${info.icon}"></i></span>
+          <div style="min-width: 0;">
+            <div class="docs-file-row-title">${escapeHTML(d.title || `Document #${idx + 1}`)} <span class="doc-mini-pill ${info.pillClass}" style="margin-left: 4px;">${escapeHTML(info.code)}</span></div>
+            ${d.description ? `<div class="docs-file-row-desc">${escapeHTML(d.description)}</div>` : ''}
+          </div>
+        </div>
+        <div class="docs-file-row-actions">
+          <button type="button" class="docs-row-btn primary" onclick="selectDocsModalItem(${idx})">
+            <i class="fa-solid fa-eye"></i> Preview
+          </button>
+          ${openHref ? `
+            <a href="${escapeHTML(openHref)}" target="_blank" rel="noopener noreferrer" class="docs-row-btn">
+              <i class="fa-solid fa-up-right-from-square"></i> Open
+            </a>
+          ` : ''}
+          ${downloadHref ? `
+            <a href="${escapeHTML(downloadHref)}" target="_blank" rel="noopener noreferrer" download class="docs-row-btn">
+              <i class="fa-solid fa-download"></i> Download
+            </a>
+          ` : ''}
+        </div>
+      </div>
+    `;
+  }).join('');
+}
 
 function closeDocsModal() {
   const modal = document.getElementById('docs-briefs-modal');
@@ -1320,32 +1713,51 @@ function selectDocsModalItem(index) {
   const doc = currentDocsItem.documents[index];
   const badgeInfo = getDocBadgeInfo(doc);
 
-  const tabBtns = document.querySelectorAll('.docs-modal-tab-btn');
-  tabBtns.forEach((btn, i) => {
+  document.querySelectorAll('.docs-modal-tab-btn').forEach((btn, i) => {
     btn.classList.toggle('active', i === index);
+  });
+  document.querySelectorAll('.docs-file-row').forEach((row, i) => {
+    row.classList.toggle('active', i === index);
   });
 
   const titleEl = document.getElementById('docs-modal-selected-title');
   const badgeEl = document.getElementById('docs-modal-selected-badge');
   const driveBtn = document.getElementById('docs-modal-open-drive-btn');
+  const downloadBtn = document.getElementById('docs-modal-download-btn');
   const iframe = document.getElementById('docs-modal-iframe');
   const fallback = document.getElementById('docs-modal-fallback');
+
+  const safeHref = sanitizeSafeExternalHref(doc.url) || '#';
+  const dlHref = getDriveDirectDownloadUrl(doc.url) || safeHref;
 
   if (titleEl) titleEl.textContent = doc.title || 'Attached Document';
   if (badgeEl) {
     badgeEl.className = `docs-type-badge ${badgeInfo.badgeClass}`;
     badgeEl.innerHTML = `<i class="${badgeInfo.icon}"></i> ${escapeHTML(badgeInfo.label)}`;
   }
-  if (driveBtn) {
-    driveBtn.href = doc.url || '#';
-  }
+  if (driveBtn) driveBtn.href = safeHref;
+  if (downloadBtn) downloadBtn.href = dlHref;
 
-  const embedUrl = convertToEmbedUrl(doc.url, doc.docType);
-  if (iframe) {
+  const embedUrl = sanitizeTrustedEmbedUrl(doc.url, doc.docType);
+  if (embedUrl && iframe) {
     iframe.src = embedUrl;
     iframe.style.display = 'block';
+    if (fallback) fallback.style.display = 'none';
+  } else {
+    if (iframe) {
+      iframe.src = 'about:blank';
+      iframe.style.display = 'none';
+    }
+    if (fallback) {
+      fallback.style.display = 'flex';
+      fallback.innerHTML = `
+        <div style="text-align: center; padding: 2.5rem 1.5rem; color: #cbd5e1;">
+          <i class="${badgeInfo.icon}" style="font-size: 2.25rem; color: #38bdf8; margin-bottom: 0.75rem;"></i>
+          <p style="margin: 0 0 1rem 0; font-size: 0.9rem;">Inline preview is unavailable for this link format. Use <strong>Open in New Tab</strong> or <strong>Download</strong> above.</p>
+        </div>
+      `;
+    }
   }
-  if (fallback) fallback.style.display = 'none';
 }
 window.selectDocsModalItem = selectDocsModalItem;
 
@@ -1383,14 +1795,27 @@ function initProjectModals() {
     };
   }
 
+  // Practical Hybrid Modal close listeners
+  const practicalModal = document.getElementById('practical-hybrid-modal');
+  const practicalCloseBtn = document.getElementById('practical-hybrid-close-btn');
+
+  if (practicalCloseBtn) practicalCloseBtn.onclick = closePracticalHybridModal;
+  if (practicalModal) {
+    practicalModal.onclick = (e) => {
+      if (e.target === practicalModal) closePracticalHybridModal();
+    };
+  }
+
   // Global Keyboard Navigation (Esc to close, Left/Right for gallery)
   document.addEventListener('keydown', (e) => {
-    if (docsModal && docsModal.classList.contains('active')) {
-      if (e.key === 'Escape') closeDocsModal();
-    } else if (galleryModal && galleryModal.classList.contains('active')) {
+    if (galleryModal && galleryModal.classList.contains('active')) {
       if (e.key === 'Escape') closeProjectGalleryModal();
       else if (e.key === 'ArrowLeft') setGallerySlide(currentGallerySlideIdx - 1, true);
       else if (e.key === 'ArrowRight') setGallerySlide(currentGallerySlideIdx + 1, true);
+    } else if (practicalModal && practicalModal.classList.contains('active')) {
+      if (e.key === 'Escape') closePracticalHybridModal();
+    } else if (docsModal && docsModal.classList.contains('active')) {
+      if (e.key === 'Escape') closeDocsModal();
     } else if (detailsModal && detailsModal.classList.contains('active')) {
       if (e.key === 'Escape') closeProjectDetailsModal();
     }
@@ -1703,7 +2128,7 @@ function renderTrainings(certs) {
               </button>
             ` : ''}
             <button type="button" class="btn-evidence-trigger btn-evidence-cert" onclick="openPracticalModal('${escapeHTML(t.id || fullIndex)}', event)" title="View Practical Outputs">
-              <i class="fa-solid fa-camera"></i> Practical${(t.practicalImages && t.practicalImages.length > 0) ? ` (${t.practicalImages.length})` : ''}
+              <i class="fa-solid fa-camera"></i> ${escapeHTML(getCertPracticalLabel(t))}
             </button>
             ${t.credentialUrl ? `
               <a href="${escapeHTML(t.credentialUrl)}" target="_blank" rel="noopener noreferrer" class="btn-credentials" style="padding: 0.3rem 0.5rem; background: var(--accent-blue-light); color: var(--accent-blue); border-color: var(--accent-blue);" title="Verify Online">
@@ -1779,7 +2204,7 @@ function openTrainingDetailModal(index) {
           </button>
         ` : ''}
         <button type="button" class="btn-evidence-trigger" onclick="openPracticalModal('${escapeHTML(t.id || index)}', event)" title="View Practical Outputs" style="padding: 0.5rem 1rem;">
-          <i class="fa-solid fa-camera"></i> Practical${(t.practicalImages && t.practicalImages.length > 0) ? ` (${t.practicalImages.length})` : ''}
+          <i class="fa-solid fa-camera"></i> ${escapeHTML(getCertPracticalLabel(t))}
         </button>
         ${t.credentialUrl ? `
           <a href="${escapeHTML(t.credentialUrl)}" target="_blank" rel="noopener noreferrer" class="btn-credentials" style="background: #0284c7; color: #fff; border: none; padding: 0.5rem 1rem;">
@@ -2761,7 +3186,9 @@ function loadProjectIntoAdminForm(projId) {
       repoUrl: '',
       liveUrl: '',
       folder: '',
-      images: []
+      images: [],
+      extraInfo: '',
+      documents: []
     };
   } else {
     const found = projects.find(p => p.id === projId);
@@ -2776,6 +3203,7 @@ function loadProjectIntoAdminForm(projId) {
   const folderEl = document.getElementById('admin-proj-folder');
   const briefEl = document.getElementById('admin-proj-brief');
   const descEl = document.getElementById('admin-proj-desc');
+  const extraInfoEl = document.getElementById('admin-proj-extra-info');
   const featEl = document.getElementById('admin-proj-features');
   const techEl = document.getElementById('admin-proj-tech');
   const repoEl = document.getElementById('admin-proj-repo');
@@ -2787,6 +3215,7 @@ function loadProjectIntoAdminForm(projId) {
   if (folderEl) folderEl.value = currentEditingProject.folder || '';
   if (briefEl) briefEl.value = currentEditingProject.brief || currentEditingProject.description || '';
   if (descEl) descEl.value = currentEditingProject.description || currentEditingProject.brief || '';
+  if (extraInfoEl) extraInfoEl.value = currentEditingProject.extraInfo || '';
   if (featEl) featEl.value = (currentEditingProject.features || currentEditingProject.highlights || []).join('\n');
   if (techEl) techEl.value = (currentEditingProject.techStack || []).join(', ');
   if (repoEl) repoEl.value = currentEditingProject.repoUrl || '';
@@ -2857,7 +3286,7 @@ function handleProjectMultiImageUpload(e) {
     const reader = new FileReader();
     reader.onload = function(evt) {
       const base64 = evt.target.result.split(',')[1];
-      const relPath = `Github image/${folder}/${file.name}`;
+      const relPath = `Scientific Projects & Digital Platforms/${folder}/${file.name}`;
 
       stagedFileUploads.push({
         path: relPath,
@@ -2890,6 +3319,7 @@ function handleSaveProjectSubmit(e) {
   const folder = document.getElementById('admin-proj-folder').value.trim();
   const brief = document.getElementById('admin-proj-brief').value.trim();
   const desc = document.getElementById('admin-proj-desc').value.trim();
+  const extraInfo = (document.getElementById('admin-proj-extra-info')?.value || '').trim();
   const featRaw = document.getElementById('admin-proj-features').value;
   const techRaw = document.getElementById('admin-proj-tech').value;
   const repo = document.getElementById('admin-proj-repo').value.trim();
@@ -2906,6 +3336,7 @@ function handleSaveProjectSubmit(e) {
   currentEditingProject.folder = folder;
   currentEditingProject.brief = brief;
   currentEditingProject.description = desc || brief;
+  currentEditingProject.extraInfo = extraInfo;
   currentEditingProject.features = featRaw.split('\n').map(s => s.trim()).filter(Boolean);
   currentEditingProject.techStack = techRaw.split(',').map(s => s.trim()).filter(Boolean);
   currentEditingProject.repoUrl = repo;
@@ -3137,9 +3568,75 @@ function loadCertIntoAdminManager(idx) {
   const c = list[idx];
   if (!c) return;
 
-  renderAdminItemImagesGrid('certs', c.practicalImages || []);
+  const repTitleEl = document.getElementById('admin-cert-report-title');
+  const repPdfEl = document.getElementById('admin-cert-report-pdf');
+  const driveFolderEl = document.getElementById('admin-cert-drive-folder');
+  const galleryTitleEl = document.getElementById('admin-cert-gallery-title');
+
+  if (repTitleEl) {
+    repTitleEl.value = (typeof c.reportPdf === 'object' && c.reportPdf !== null) ? (c.reportPdf.title || '') : '';
+  }
+  if (repPdfEl) {
+    repPdfEl.value = (typeof c.reportPdf === 'string')
+      ? c.reportPdf
+      : ((c.reportPdf && (c.reportPdf.viewUrl || c.reportPdf.url || c.reportPdf.fileId)) || '');
+  }
+  if (driveFolderEl) {
+    driveFolderEl.value = c.driveFolderUrl || c.driveFolderId || '';
+  }
+  if (galleryTitleEl) {
+    galleryTitleEl.value = c.gallerySectionTitle || '';
+  }
+
+  renderAdminItemImagesGrid('certs', getPracticalGalleryImages(c));
   if (typeof renderAdminDocsList === 'function') renderAdminDocsList('certs');
 }
+
+function saveAdminCertPracticalConfig() {
+  const list = window.portfolioData?.certificates || window.portfolioData?.trainings;
+  if (!list || !list[currentEditingCertIndex]) return;
+  const c = list[currentEditingCertIndex];
+
+  const repTitle = (document.getElementById('admin-cert-report-title')?.value || '').trim();
+  const repUrl = (document.getElementById('admin-cert-report-pdf')?.value || '').trim();
+  const folderRaw = (document.getElementById('admin-cert-drive-folder')?.value || '').trim();
+  const galleryTitle = (document.getElementById('admin-cert-gallery-title')?.value || '').trim();
+
+  if (repUrl) {
+    const fileId = extractGoogleDriveFileId(repUrl);
+    c.reportPdf = {
+      title: repTitle || 'Technical Work Report (PDF)',
+      fileId: fileId,
+      viewUrl: repUrl,
+      embedUrl: fileId ? `https://drive.google.com/file/d/${fileId}/preview` : convertToEmbedUrl(repUrl, 'pdf'),
+      downloadUrl: fileId ? `https://drive.google.com/uc?export=download&id=${fileId}` : repUrl
+    };
+  } else {
+    delete c.reportPdf;
+  }
+
+  const folderId = extractGoogleDriveFolderId(folderRaw);
+  if (folderId) {
+    c.driveFolderId = folderId;
+    c.driveFolderUrl = folderRaw.includes('drive.google.com') ? folderRaw : `https://drive.google.com/drive/folders/${folderId}?usp=sharing`;
+  } else {
+    delete c.driveFolderId;
+    delete c.driveFolderUrl;
+  }
+
+  if (galleryTitle) {
+    c.gallerySectionTitle = galleryTitle;
+  } else {
+    delete c.gallerySectionTitle;
+  }
+
+  window.portfolioData.certificates = list;
+  window.portfolioData.trainings = list;
+  renderTrainings(list);
+  populateAdminForms();
+  showToast('Certificate Practical PDF & Gallery config saved!', 'success');
+}
+window.saveAdminCertPracticalConfig = saveAdminCertPracticalConfig;
 
 /* --------------------------------------------------------------------------
    Unified Images & Captions Manager (Research, Publications, Certificates)
@@ -3418,7 +3915,10 @@ async function handleAdminDropzoneFiles(files, category) {
       // Image: Auto-compress via Canvas if > 1600px
       const imgData = await compressImageFile(file, 1600, 1600, 0.84);
       const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
-      const relPath = `Github image/${folder}/${safeName}`;
+      const imgBase = category === 'projects'
+        ? 'Scientific Projects & Digital Platforms'
+        : (category === 'certs' ? 'Training & Certifications' : 'Github image');
+      const relPath = `${imgBase}/${folder}/${safeName}`;
 
       stagedFileUploads.push({
         path: relPath,
@@ -3540,10 +4040,12 @@ function addAdminDocLink(category) {
   }
 
   const titleInput = document.getElementById(`admin-${category}-doc-title`);
+  const descInput = document.getElementById(`admin-${category}-doc-desc`);
   const typeSelect = document.getElementById(`admin-${category}-doc-type`);
   const urlInput = document.getElementById(`admin-${category}-doc-url`);
 
   const title = (titleInput?.value || '').trim();
+  const description = (descInput?.value || '').trim();
   const docType = typeSelect?.value || 'drive';
   const url = (urlInput?.value || '').trim();
 
@@ -3558,13 +4060,16 @@ function addAdminDocLink(category) {
     item.documents = [];
   }
 
-  item.documents.push({
+  const newDoc = {
     title: title,
     docType: docType,
     url: url
-  });
+  };
+  if (description) newDoc.description = description;
+  item.documents.push(newDoc);
 
   if (titleInput) titleInput.value = '';
+  if (descInput) descInput.value = '';
   if (urlInput) urlInput.value = '';
 
   renderAdminDocsList(category);

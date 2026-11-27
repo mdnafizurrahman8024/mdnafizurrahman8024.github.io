@@ -12,11 +12,11 @@
   <meta property="og:type" content="website">
   <meta property="og:title" content="Md. Nafizur Rahman | Academic &amp; Research Portfolio">
   <meta property="og:description" content="DVM Student • One Health &amp; AMR Researcher • Computational Biologist • Full-Stack Developer">
-  <meta property="og:image" content="Banner.png?v=64">
+  <meta property="og:image" content="Banner.png?v=65">
   <meta property="og:url" content="https://mdnafizurrahman8024.github.io/">
 
-  <link rel="icon" type="image/png" href="ZUN.png?v=64">
-  <link rel="preload" as="image" href="Banner.png?v=64" fetchpriority="high">
+  <link rel="icon" type="image/png" href="ZUN.png?v=65">
+  <link rel="preload" as="image" href="Banner.png?v=65" fetchpriority="high">
 
   <!-- Fonts & FontAwesome 6 -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,7 +24,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-  <link rel="stylesheet" href="css/style.css?v=64">
+  <link rel="stylesheet" href="css/style.css?v=65">
 
   <script>
     (function() {
@@ -43,7 +43,7 @@
   <header class="navbar" id="navbar">
     <div class="main-container nav-inner">
       <a href="#home" class="nav-brand">
-        <img src="Image-2.png?v=64" alt="Md. Nafizur Rahman" class="nav-brand-avatar" id="nav-avatar" loading="eager" decoding="async">
+        <img src="Image-2.png?v=65" alt="Md. Nafizur Rahman" class="nav-brand-avatar" id="nav-avatar" loading="eager" decoding="async">
         <div class="nav-brand-info">
           <span class="nav-brand-name" id="nav-name">Md. Nafizur Rahman</span>
           <span class="nav-brand-sub">Doctor of Veterinary Medicine (DVM)</span>
@@ -113,7 +113,7 @@
          -------------------------------------------------------------------- -->
     <aside class="sticky-sidebar-card">
       <div class="sidebar-avatar-wrapper">
-        <img src="ZUN.png?v=64" alt="Md. Nafizur Rahman" class="sidebar-avatar-img" id="sidebar-avatar" loading="eager" decoding="async">
+        <img src="ZUN.png?v=65" alt="Md. Nafizur Rahman" class="sidebar-avatar-img" id="sidebar-avatar" loading="eager" decoding="async">
         <span class="sidebar-status-dot" title="Active Scholar &amp; Researcher"></span>
       </div>
 
@@ -142,14 +142,14 @@
 
       <!-- 1. TOP COVER BANNER (FULL WIDTH OF RIGHT COLUMN) -->
       <div class="right-banner-card feed-top-banner card-perimeter-gradient" id="home">
-        <img src="Banner.png?v=64" alt="University of Rajshahi - Dept of Veterinary and Animal Sciences" class="feed-banner-img" id="top-hero-banner-img" loading="eager" fetchpriority="high">
+        <img src="Banner.png?v=65" alt="University of Rajshahi - Dept of Veterinary and Animal Sciences" class="feed-banner-img" id="top-hero-banner-img" loading="eager" fetchpriority="high">
       </div>
 
       <!-- 2. "HI, THIS IS NAFIZ" (DIRECTLY BELOW BANNER) -->
       <section class="feed-card" id="about">
         <div class="card-header-row">
           <div class="card-title-group">
-            <img src="Image-1.png?v=64" alt="Md. Nafizur Rahman" class="intro-avatar-img" loading="eager" decoding="async">
+            <img src="Image-1.png?v=65" alt="Md. Nafizur Rahman" class="intro-avatar-img" loading="eager" decoding="async">
             <div>
               <h2 class="card-heading">Hi, This is Nafiz</h2>
               <div class="card-subheading">Doctor of Veterinary Medicine (DVM) Student &bull; University of Rajshahi, Bangladesh</div>
@@ -720,6 +720,12 @@
       </div>
 
       <div class="docs-modal-body">
+        <!-- Technical Brief / Extra Notes Box -->
+        <div class="docs-modal-extra-info-box" id="docs-modal-extra-info" style="display: none;"></div>
+
+        <!-- Multi-File List with Color-Coded Icons, Preview & Direct Download -->
+        <div class="docs-modal-file-list" id="docs-modal-file-list" style="display: none;"></div>
+
         <!-- Document Tabs / Strip (When multiple items attached) -->
         <div class="docs-modal-tabs-strip" id="docs-modal-tabs-strip"></div>
 
@@ -731,22 +737,41 @@
           </div>
           <div class="docs-modal-doc-actions" id="docs-modal-doc-actions">
             <a href="#" target="_blank" rel="noopener noreferrer" class="docs-modal-open-drive-btn" id="docs-modal-open-drive-btn">
-              <i class="fa-solid fa-arrow-up-right-from-square"></i> Open in New Tab / Drive
+              <i class="fa-solid fa-arrow-up-right-from-square"></i> Open in New Tab
+            </a>
+            <a href="#" target="_blank" rel="noopener noreferrer" download class="docs-modal-download-btn" id="docs-modal-download-btn">
+              <i class="fa-solid fa-download"></i> Download
             </a>
           </div>
         </div>
 
         <!-- Inline Document Preview Frame -->
         <div class="docs-modal-preview-viewport" id="docs-modal-preview-viewport">
-          <iframe id="docs-modal-iframe" src="" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+          <iframe id="docs-modal-iframe" src="about:blank" sandbox="allow-scripts allow-same-origin allow-popups allow-forms" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
           <div id="docs-modal-fallback" class="docs-modal-fallback-state" style="display: none;"></div>
         </div>
 
-        <div class="docs-modal-notice">
+        <div class="docs-modal-notice" id="docs-modal-notice">
           <i class="fa-solid fa-circle-info"></i>
-          <span>If preview is blank or restricted by browser cookie privacy, click <strong>Open in New Tab / Drive</strong> above to view or download directly from Google Drive.</span>
+          <span>If preview is blank or restricted by browser cookie privacy, click <strong>Open in New Tab</strong> or <strong>Download</strong> above to view directly from Google Drive.</span>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       TRAINING & CERTIFICATIONS HYBRID PRACTICAL MODAL (PDF + VISUAL GALLERY)
+       ====================================================================== -->
+  <div class="practical-modal-backdrop" id="practical-hybrid-modal" role="dialog" aria-modal="true">
+    <div class="practical-modal-dialog">
+      <div class="practical-modal-header">
+        <div class="practical-modal-header-left">
+          <h3 class="practical-modal-title" id="practical-hybrid-title">Practical Work &amp; Outputs</h3>
+          <span class="docs-modal-count-badge" id="practical-hybrid-badge">Hybrid Showcase</span>
+        </div>
+        <button class="docs-modal-close-btn" id="practical-hybrid-close-btn" onclick="closePracticalHybridModal()" title="Close (Esc)">&times;</button>
+      </div>
+      <div class="practical-modal-body" id="practical-hybrid-body"></div>
     </div>
   </div>
 
@@ -1111,7 +1136,7 @@
                   <input type="text" id="admin-proj-badge" style="width: 100%; padding: 0.45rem; font-size: 0.8rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);" placeholder="e.g., AI Diagnostic App">
                 </div>
                 <div>
-                  <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Folder Name (in `Github image/`)</label>
+                  <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Folder Name (in `Scientific Projects &amp; Digital Platforms/`)</label>
                   <input type="text" id="admin-proj-folder" style="width: 100%; padding: 0.45rem; font-size: 0.8rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);" placeholder="e.g., PoultryMedix">
                 </div>
               </div>
@@ -1124,6 +1149,11 @@
               <div>
                 <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Full Description (Modal)</label>
                 <textarea id="admin-proj-desc" rows="3" style="width: 100%; padding: 0.45rem; font-size: 0.8rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);" placeholder="Detailed architectural description for the modal..."></textarea>
+              </div>
+
+              <div>
+                <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Technical Brief / Extra Notes (Docs &amp; Briefs Modal)</label>
+                <textarea id="admin-proj-extra-info" rows="2" style="width: 100%; padding: 0.45rem; font-size: 0.8rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);" placeholder="Optional extra technical context shown inside Docs &amp; Briefs..."></textarea>
               </div>
 
               <div>
@@ -1179,15 +1209,16 @@
 
                 <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 6px; padding: 0.65rem; display: flex; flex-direction: column; gap: 0.45rem;">
                   <span style="font-size: 0.75rem; font-weight: 600; color: var(--text-primary);">
-                    <i class="fa-brands fa-google-drive" style="color: #10b981;"></i> Add Google Drive / Document Link
+                    <i class="fa-brands fa-google-drive" style="color: #10b981;"></i> Add Google Drive / Multi-Format Document Link
                   </span>
                   <input type="text" id="admin-projects-doc-title" placeholder="Descriptive Title * (e.g., PoultryMedix Pitch Deck / Project Brief)" style="width: 100%; padding: 0.4rem; font-size: 0.78rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-surface); color: var(--text-primary);">
+                  <input type="text" id="admin-projects-doc-desc" placeholder="Short description (optional)" style="width: 100%; padding: 0.4rem; font-size: 0.78rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-surface); color: var(--text-primary);">
                   <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.45rem;">
                     <select id="admin-projects-doc-type" style="width: 100%; padding: 0.4rem; font-size: 0.78rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-surface); color: var(--text-primary);">
-                      <option value="slides">Presentation Slides</option>
-                      <option value="word">Word Document (.docx / Docs)</option>
-                      <option value="pdf">PDF (Google Drive / URL)</option>
-                      <option value="drive">Google Drive Resource</option>
+                      <option value="pdf">PDF Document (.pdf / Drive)</option>
+                      <option value="word">Word Document (.doc / .docx)</option>
+                      <option value="slides">Presentation Slides (.ppt / .pptx)</option>
+                      <option value="drive">Google Drive / Cloud Link</option>
                     </select>
                     <button type="button" onclick="addAdminDocLink('projects')" style="padding: 0.4rem 0.75rem; border-radius: 4px; background: #0284c7; color: #fff; font-size: 0.75rem; font-weight: 600; border: none; cursor: pointer;">
                       <i class="fa-solid fa-plus"></i> Add Link
@@ -1277,6 +1308,22 @@
               <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.25rem;">Select Certificate to Attach Outputs</label>
               <select id="admin-cert-select" style="width: 100%; padding: 0.45rem; font-size: 0.8rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);">
               </select>
+            </div>
+
+            <!-- Hybrid Practical PDF Report + Drive Folder Config -->
+            <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 6px; padding: 0.65rem; display: flex; flex-direction: column; gap: 0.45rem; margin-bottom: 0.75rem;">
+              <span style="font-size: 0.75rem; font-weight: 700; color: var(--text-primary);">
+                <i class="fa-solid fa-file-pdf" style="color: #ef4444;"></i> Hybrid Practical PDF Report &amp; Drive Gallery Config
+              </span>
+              <input type="text" id="admin-cert-report-title" placeholder="Report Title (e.g. Technical Work Report PDF)" style="width: 100%; padding: 0.4rem; font-size: 0.78rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-surface); color: var(--text-primary);">
+              <input type="url" id="admin-cert-report-pdf" placeholder="Report PDF Drive View URL (https://drive.google.com/file/d/...)" style="width: 100%; padding: 0.4rem; font-size: 0.78rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-surface); color: var(--text-primary);">
+              <input type="text" id="admin-cert-drive-folder" placeholder="Google Drive Folder ID or URL (1wXWm6C40...)" style="width: 100%; padding: 0.4rem; font-size: 0.78rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-surface); color: var(--text-primary);">
+              <div style="display: grid; grid-template-columns: 1fr auto; gap: 0.45rem;">
+                <input type="text" id="admin-cert-gallery-title" placeholder="Gallery Section Title (e.g. Computational Tools & Visual Outputs Gallery)" style="width: 100%; padding: 0.4rem; font-size: 0.78rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-surface); color: var(--text-primary);">
+                <button type="button" onclick="saveAdminCertPracticalConfig()" style="padding: 0.4rem 0.75rem; border-radius: 4px; background: var(--primary); color: #fff; font-size: 0.75rem; font-weight: 600; border: none; cursor: pointer;">
+                  <i class="fa-solid fa-check"></i> Save Config
+                </button>
+              </div>
             </div>
 
             <div class="admin-img-preview-grid" id="admin-cert-img-grid">
@@ -1418,6 +1465,6 @@
   </aside>
 
   <!-- Core App Logic -->
-  <script src="js/app.js?v=64"></script>
+  <script src="js/app.js?v=65"></script>
 </body>
 </html>

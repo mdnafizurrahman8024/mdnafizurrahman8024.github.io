@@ -461,36 +461,39 @@
       "liveUrl": "https://github.com/mdnafizurrahman8024/PoultryMedix-Project-Overview",
       "folder": "PoultryMedix",
       "images": [
-        "Github image/PoultryMedix/Logo.png",
-        "Github image/PoultryMedix/Home-1png.png",
-        "Github image/PoultryMedix/AI-1.png",
-        "Github image/PoultryMedix/Consultation-1.png",
-        "Github image/PoultryMedix/Login-1.png",
-        "Github image/PoultryMedix/Setting-1.png",
-        "Github image/PoultryMedix/AMR-2.png",
-        "Github image/PoultryMedix/Login-2.png",
-        "Github image/PoultryMedix/S.Diag-2.png",
-        "Github image/PoultryMedix/3 Mode.png",
-        "Github image/PoultryMedix/Consultation-3.png",
-        "Github image/PoultryMedix/Consultation-5.png",
-        "Github image/PoultryMedix/AI chatbot.png",
-        "Github image/PoultryMedix/AMR & Govt.info.png",
-        "Github image/PoultryMedix/C.Log.png",
-        "Github image/PoultryMedix/Map.png",
-        "Github image/PoultryMedix/Pres.analysis.png",
-        "Github image/PoultryMedix/R.Hub.png",
-        "Github image/PoultryMedix/Servey.png"
+        "Scientific Projects & Digital Platforms/PoultryMedix/Logo.png",
+        "Scientific Projects & Digital Platforms/PoultryMedix/Home-1png.png",
+        "Scientific Projects & Digital Platforms/PoultryMedix/AI-1.png",
+        "Scientific Projects & Digital Platforms/PoultryMedix/Consultation-1.png",
+        "Scientific Projects & Digital Platforms/PoultryMedix/Login-1.png",
+        "Scientific Projects & Digital Platforms/PoultryMedix/Setting-1.png",
+        "Scientific Projects & Digital Platforms/PoultryMedix/AMR-2.png",
+        "Scientific Projects & Digital Platforms/PoultryMedix/Login-2.png",
+        "Scientific Projects & Digital Platforms/PoultryMedix/S.Diag-2.png",
+        "Scientific Projects & Digital Platforms/PoultryMedix/3 Mode.png",
+        "Scientific Projects & Digital Platforms/PoultryMedix/Consultation-3.png",
+        "Scientific Projects & Digital Platforms/PoultryMedix/Consultation-5.png",
+        "Scientific Projects & Digital Platforms/PoultryMedix/AI chatbot.png",
+        "Scientific Projects & Digital Platforms/PoultryMedix/AMR & Govt.info.png",
+        "Scientific Projects & Digital Platforms/PoultryMedix/C.Log.png",
+        "Scientific Projects & Digital Platforms/PoultryMedix/Map.png",
+        "Scientific Projects & Digital Platforms/PoultryMedix/Pres.analysis.png",
+        "Scientific Projects & Digital Platforms/PoultryMedix/R.Hub.png",
+        "Scientific Projects & Digital Platforms/PoultryMedix/Servey.png"
       ],
-      "coverImage": "Github image/PoultryMedix/Logo.png",
+      "coverImage": "Scientific Projects & Digital Platforms/PoultryMedix/Logo.png",
+      "extraInfo": "Includes the official PoultryMedix One Health Project Brief (PDF) and the AI Battle 2026 Idea Submission & Presentation Slides covering multi-modal poultry disease diagnosis, AMR withdrawal verification, and outbreak GIS surveillance.",
       "documents": [
         {
           "title": "PoultryMedix Project Brief",
           "docType": "pdf",
+          "description": "Technical concept brief detailing multi-modal AI poultry triage and AMR withdrawal verification.",
           "url": "https://drive.google.com/file/d/1WLXIEBk4toSzXuBCZ47iYeapvMUtKDqe/view?usp=drive_link"
         },
         {
           "title": "PoultryMedix AI Battle - Idea Submission & Presentation Slides",
           "docType": "slides",
+          "description": "AI Battle 2026 pitch deck & architecture presentation slides.",
           "url": "https://docs.google.com/presentation/d/1U8WhZFeZ_ngiXH3ctPd1p4HLVrOuSq9k/edit?usp=drive_link&ouid=109623803990096293019&rtpof=true&sd=true"
         }
       ]
@@ -526,18 +529,20 @@
       "liveUrl": "https://github.com/mdnafizurrahman8024",
       "folder": "ZunSync",
       "images": [
-        "Github image/ZunSync/Image-1.png",
-        "Github image/ZunSync/Image-2.png",
-        "Github image/ZunSync/Image-3.png",
-        "Github image/ZunSync/Image-4.png",
-        "Github image/ZunSync/Image-5.png",
-        "Github image/ZunSync/Image-6.png",
-        "Github image/ZunSync/Image-7.png",
-        "Github image/ZunSync/Image-8.png",
-        "Github image/ZunSync/Image-9.png",
-        "Github image/ZunSync/Image-10.png"
+        "Scientific Projects & Digital Platforms/ZunSync/Image-1.png",
+        "Scientific Projects & Digital Platforms/ZunSync/Image-2.png",
+        "Scientific Projects & Digital Platforms/ZunSync/Image-3.png",
+        "Scientific Projects & Digital Platforms/ZunSync/Image-4.png",
+        "Scientific Projects & Digital Platforms/ZunSync/Image-5.png",
+        "Scientific Projects & Digital Platforms/ZunSync/Image-6.png",
+        "Scientific Projects & Digital Platforms/ZunSync/Image-7.png",
+        "Scientific Projects & Digital Platforms/ZunSync/Image-8.png",
+        "Scientific Projects & Digital Platforms/ZunSync/Image-9.png",
+        "Scientific Projects & Digital Platforms/ZunSync/Image-10.png"
       ],
-      "coverImage": "Github image/ZunSync/ZS.png"
+      "coverImage": "Scientific Projects & Digital Platforms/ZunSync/ZS.png",
+      "extraInfo": "",
+      "documents": []
     },
     {
       "id": "proj-professors-clinic",
@@ -570,12 +575,14 @@
       "liveUrl": "https://github.com/mdnafizurrahman8024/Professors-Vet-And-Pet-Care-Website",
       "folder": "Professor's Vet & Pet Clinic",
       "images": [
-        "Github image/Professor's Vet & Pet Clinic/Image-1.png",
-        "Github image/Professor's Vet & Pet Clinic/Image-2.png",
-        "Github image/Professor's Vet & Pet Clinic/Image-3.png",
-        "Github image/Professor's Vet & Pet Clinic/Image-4.png",
-        "Github image/Professor's Vet & Pet Clinic/Image-5.png"
-      ]
+        "Scientific Projects & Digital Platforms/Professor's Vet & Pet Clinic/Image-1.png",
+        "Scientific Projects & Digital Platforms/Professor's Vet & Pet Clinic/Image-2.png",
+        "Scientific Projects & Digital Platforms/Professor's Vet & Pet Clinic/Image-3.png",
+        "Scientific Projects & Digital Platforms/Professor's Vet & Pet Clinic/Image-4.png",
+        "Scientific Projects & Digital Platforms/Professor's Vet & Pet Clinic/Image-5.png"
+      ],
+      "extraInfo": "",
+      "documents": []
     },
     {
       "id": "proj-zun-academy",
@@ -607,12 +614,14 @@
       "liveUrl": "https://github.com/mdnafizurrahman8024/Zun-Synthesis-Academy-Website",
       "folder": "Zun Synthesis Academy",
       "images": [
-        "Github image/Zun Synthesis Academy/Image-1.png",
-        "Github image/Zun Synthesis Academy/Image-2.png",
-        "Github image/Zun Synthesis Academy/Image-3.png",
-        "Github image/Zun Synthesis Academy/Image-4.png",
-        "Github image/Zun Synthesis Academy/Image-5.png"
-      ]
+        "Scientific Projects & Digital Platforms/Zun Synthesis Academy/Image-1.png",
+        "Scientific Projects & Digital Platforms/Zun Synthesis Academy/Image-2.png",
+        "Scientific Projects & Digital Platforms/Zun Synthesis Academy/Image-3.png",
+        "Scientific Projects & Digital Platforms/Zun Synthesis Academy/Image-4.png",
+        "Scientific Projects & Digital Platforms/Zun Synthesis Academy/Image-5.png"
+      ],
+      "extraInfo": "",
+      "documents": []
     },
     {
       "id": "proj-najiaa-shop",
@@ -644,10 +653,12 @@
       "liveUrl": "https://github.com/mdnafizurrahman8024/Najiaa-Shop-website",
       "folder": "Najiaa Shop website",
       "images": [
-        "Github image/Najiaa Shop website/Image-1.png",
-        "Github image/Najiaa Shop website/Image-2.png",
-        "Github image/Najiaa Shop website/Image-3.png"
-      ]
+        "Scientific Projects & Digital Platforms/Najiaa Shop website/Image-1.png",
+        "Scientific Projects & Digital Platforms/Najiaa Shop website/Image-2.png",
+        "Scientific Projects & Digital Platforms/Najiaa Shop website/Image-3.png"
+      ],
+      "extraInfo": "",
+      "documents": []
     },
     {
       "id": "proj-python-21-days",
@@ -677,7 +688,9 @@
       "repoUrl": "https://github.com/mdnafizurrahman8024/Python-Foundation-21-Days",
       "liveUrl": "https://github.com/mdnafizurrahman8024/Python-Foundation-21-Days",
       "folder": "",
-      "images": []
+      "images": [],
+      "extraInfo": "",
+      "documents": []
     },
     {
       "id": "proj-bank-management",
@@ -706,7 +719,9 @@
       "repoUrl": "https://github.com/mdnafizurrahman8024/project-bank-management-system",
       "liveUrl": "https://github.com/mdnafizurrahman8024/project-bank-management-system",
       "folder": "",
-      "images": []
+      "images": [],
+      "extraInfo": "",
+      "documents": []
     }
   ],
   "researchAndProjectsTimeline": [
@@ -1155,7 +1170,61 @@
       "credentialUrl": "",
       "image": "",
       "images": [],
-      "practicalImages": []
+      "reportPdf": {
+        "title": "Technical Work Report — Computational Vaccine Design (SARS-CoV-2 Multi-Epitope)",
+        "fileId": "1Qz2FhFxNCGr0mDKj8UuJN3XGIGxsaria",
+        "viewUrl": "https://drive.google.com/file/d/1Qz2FhFxNCGr0mDKj8UuJN3XGIGxsaria/view?usp=sharing",
+        "embedUrl": "https://drive.google.com/file/d/1Qz2FhFxNCGr0mDKj8UuJN3XGIGxsaria/preview",
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1Qz2FhFxNCGr0mDKj8UuJN3XGIGxsaria",
+        "localFallback": "Training & Certifications/Report of Computational vaccine design.pdf"
+      },
+      "driveFolderId": "1wXWm6C40rILNbYnREjjCVqz8qqFpI1LE",
+      "driveFolderUrl": "https://drive.google.com/drive/folders/1wXWm6C40rILNbYnREjjCVqz8qqFpI1LE?usp=sharing",
+      "gallerySectionTitle": "Computational Tools & Visual Outputs Gallery",
+      "practicalImages": [
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-10.png", "tool": "NCBI Protein", "caption": "SARS-CoV-2 surface glycoprotein sequence retrieval from NCBI Protein" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-11.png", "tool": "UniProtKB", "caption": "Reviewed Spike Glycoprotein reference entry (P0DTC2 · SPIKE_SARS2)" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-12.png", "tool": "SignalP 6.0", "caption": "Signal peptide & cleavage site probability prediction" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-15.png", "tool": "BepiPred-3.0", "caption": "Linear B-cell epitope propensity scoring across spike glycoprotein" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-16.png", "tool": "AlphaFold Server", "caption": "Monomer 3D structure prediction & PAE confidence matrix (pTM = 0.8)" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-17.png", "tool": "IEDB ElliPro", "caption": "Structure-based B-cell epitope prediction from PDB coordinates" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-18.png", "tool": "RCSB PDB", "caption": "Experimental Cryo-EM reference structure (PDB ID: 6VXX, 2.80 A)" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-19.png", "tool": "PyMOL", "caption": "3D structural inspection of SARS-CoV-2 spike glycoprotein (6VXX)" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-23.png", "tool": "IEDB", "caption": "Experimental linear B-cell epitope screening (2,366 curated records)" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-24.png", "tool": "IEDB MHC-I", "caption": "NetMHCpan EL T-cell Class I peptide-MHC binding prediction" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-25.png", "tool": "IEDB MHC-II", "caption": "NetMHCIIpan EL T-cell Class II helper T-cell epitope prediction" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-26.png", "tool": "Epitope Screening", "caption": "Shortlisting top-ranked MHC-I & MHC-II epitopes by percentile & score" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-30.png", "tool": "UniProtKB", "caption": "50S ribosomal protein L7/L12 adjuvant retrieval (P9WHE2 · RL7_MYCTO)" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-31.png", "tool": "Construct Design", "caption": "Multi-epitope chimeric vaccine FASTA assembly with EAAAK, AAY & GPGPG linkers" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-32.png", "tool": "PSIPRED 4.0", "caption": "Secondary structure sequence plot mapping helix, strand, and coil regions" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-35.png", "tool": "ColabFold (AlphaFold2)", "caption": "De novo 3D folding setup via AlphaFold2_mmseqs2" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-36.png", "tool": "ColabFold (AlphaFold2)", "caption": "MSA sequence coverage, PAE heatmaps, and per-residue pLDDT confidence" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-37.png", "tool": "PyMOL", "caption": "De novo folded multi-epitope vaccine 3D structure visualization" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-38.png", "tool": "GalaxyWEB", "caption": "Structure refinement and relaxation job submission on GalaxyRefine" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-39.png", "tool": "PyMOL", "caption": "Refined multi-epitope vaccine construct (Model 1) structural check" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-40.png", "tool": "UCLA SAVES v6.1", "caption": "Stereochemical quality evaluation suite (PROCHECK, ERRAT, Verify3D)" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-41.png", "tool": "PROCHECK", "caption": "Ramachandran plot validation of backbone dihedral phi/psi angles" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-42.png", "tool": "ProSA-web", "caption": "Global protein model quality validation (Z-Score: -2.55)" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-43.png", "tool": "VNIAS Session", "caption": "TLR4 & TLR2 innate immune receptor docking rationale" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-44.png", "tool": "Docking Workflow", "caption": "Macromolecular docking pipeline integrating HDOCK, ClusPro & PDBePISA" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-45.png", "tool": "RCSB PDB", "caption": "Human TLR4-MD-2 innate receptor crystal complex (PDB ID: 3FXI, 3.10 A)" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-46.png", "tool": "PyMOL", "caption": "Clean chain isolation of TLR4 (Chain A) and MD-2 (Chain C)" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-47.png", "tool": "PyMOL", "caption": "TLR4-MD-2 binding interface residue mapping within 4 A cutoff" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-48.png", "tool": "HDOCK Server", "caption": "Receptor-ligand docking setup with mapped TLR4 binding site residues" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-50.png", "tool": "HDOCK Server", "caption": "Top 10 docked receptor-vaccine conformations (Model 7 score: -194.61)" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-52.png", "tool": "PyMOL", "caption": "3D interaction view of docked TLR4-MD-2 and Vaccine Construct (Model 7)" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-53.png", "tool": "C-ImmSim", "caption": "Agent-based immune simulation parameters (1,050 steps, 3 injections)" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-54.png", "tool": "C-ImmSim", "caption": "Simulated IgM/IgG titers, B-cell, Th/Tc population & cytokine kinetics" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-55.png", "tool": "JCat", "caption": "Codon adaptation configuration for E. coli strain K12 expression host" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-56.png", "tool": "JCat", "caption": "Codon-optimized vaccine cDNA (CAI: 0.9428, GC content: 52.85%)" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-57.png", "tool": "SnapGene", "caption": "pET-28a(+) bacterial expression vector sequence retrieval" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-58.png", "tool": "SnapGene", "caption": "In-silico cloning & restriction map of recombinant pET-28a-Vaccine (6,615 bp)" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-59.png", "tool": "SnapGene", "caption": "Simulated BamHI & XhoI agarose gel electrophoresis confirmation" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-61.png", "tool": "VaxiJen v2.1", "caption": "Protective antigenicity screening configuration (virus model, 0.4 threshold)" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-62.png", "tool": "VaxiJen v2.1", "caption": "Antigenicity prediction evaluation output" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/image-63.png", "tool": "AlgPred 2.0", "caption": "Allergenicity assessment confirming Non-Allergen status (Hybrid Score: 0.24)" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-64.png", "tool": "ToxinPred2", "caption": "In-silico toxicity screening confirming Non-Toxin safety (Hybrid Score: -0.18)" }
+      ]
     },
     {
       "id": "cert-2",
@@ -4328,7 +4397,61 @@
       "credentialUrl": "",
       "image": "",
       "images": [],
-      "practicalImages": []
+      "reportPdf": {
+        "title": "Technical Work Report — Computational Vaccine Design (SARS-CoV-2 Multi-Epitope)",
+        "fileId": "1Qz2FhFxNCGr0mDKj8UuJN3XGIGxsaria",
+        "viewUrl": "https://drive.google.com/file/d/1Qz2FhFxNCGr0mDKj8UuJN3XGIGxsaria/view?usp=sharing",
+        "embedUrl": "https://drive.google.com/file/d/1Qz2FhFxNCGr0mDKj8UuJN3XGIGxsaria/preview",
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1Qz2FhFxNCGr0mDKj8UuJN3XGIGxsaria",
+        "localFallback": "Training & Certifications/Report of Computational vaccine design.pdf"
+      },
+      "driveFolderId": "1wXWm6C40rILNbYnREjjCVqz8qqFpI1LE",
+      "driveFolderUrl": "https://drive.google.com/drive/folders/1wXWm6C40rILNbYnREjjCVqz8qqFpI1LE?usp=sharing",
+      "gallerySectionTitle": "Computational Tools & Visual Outputs Gallery",
+      "practicalImages": [
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-10.png", "tool": "NCBI Protein", "caption": "SARS-CoV-2 surface glycoprotein sequence retrieval from NCBI Protein" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-11.png", "tool": "UniProtKB", "caption": "Reviewed Spike Glycoprotein reference entry (P0DTC2 · SPIKE_SARS2)" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-12.png", "tool": "SignalP 6.0", "caption": "Signal peptide & cleavage site probability prediction" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-15.png", "tool": "BepiPred-3.0", "caption": "Linear B-cell epitope propensity scoring across spike glycoprotein" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-16.png", "tool": "AlphaFold Server", "caption": "Monomer 3D structure prediction & PAE confidence matrix (pTM = 0.8)" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-17.png", "tool": "IEDB ElliPro", "caption": "Structure-based B-cell epitope prediction from PDB coordinates" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-18.png", "tool": "RCSB PDB", "caption": "Experimental Cryo-EM reference structure (PDB ID: 6VXX, 2.80 A)" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-19.png", "tool": "PyMOL", "caption": "3D structural inspection of SARS-CoV-2 spike glycoprotein (6VXX)" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-23.png", "tool": "IEDB", "caption": "Experimental linear B-cell epitope screening (2,366 curated records)" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-24.png", "tool": "IEDB MHC-I", "caption": "NetMHCpan EL T-cell Class I peptide-MHC binding prediction" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-25.png", "tool": "IEDB MHC-II", "caption": "NetMHCIIpan EL T-cell Class II helper T-cell epitope prediction" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-26.png", "tool": "Epitope Screening", "caption": "Shortlisting top-ranked MHC-I & MHC-II epitopes by percentile & score" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-30.png", "tool": "UniProtKB", "caption": "50S ribosomal protein L7/L12 adjuvant retrieval (P9WHE2 · RL7_MYCTO)" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-31.png", "tool": "Construct Design", "caption": "Multi-epitope chimeric vaccine FASTA assembly with EAAAK, AAY & GPGPG linkers" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-32.png", "tool": "PSIPRED 4.0", "caption": "Secondary structure sequence plot mapping helix, strand, and coil regions" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-35.png", "tool": "ColabFold (AlphaFold2)", "caption": "De novo 3D folding setup via AlphaFold2_mmseqs2" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-36.png", "tool": "ColabFold (AlphaFold2)", "caption": "MSA sequence coverage, PAE heatmaps, and per-residue pLDDT confidence" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-37.png", "tool": "PyMOL", "caption": "De novo folded multi-epitope vaccine 3D structure visualization" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-38.png", "tool": "GalaxyWEB", "caption": "Structure refinement and relaxation job submission on GalaxyRefine" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-39.png", "tool": "PyMOL", "caption": "Refined multi-epitope vaccine construct (Model 1) structural check" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-40.png", "tool": "UCLA SAVES v6.1", "caption": "Stereochemical quality evaluation suite (PROCHECK, ERRAT, Verify3D)" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-41.png", "tool": "PROCHECK", "caption": "Ramachandran plot validation of backbone dihedral phi/psi angles" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-42.png", "tool": "ProSA-web", "caption": "Global protein model quality validation (Z-Score: -2.55)" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-43.png", "tool": "VNIAS Session", "caption": "TLR4 & TLR2 innate immune receptor docking rationale" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-44.png", "tool": "Docking Workflow", "caption": "Macromolecular docking pipeline integrating HDOCK, ClusPro & PDBePISA" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-45.png", "tool": "RCSB PDB", "caption": "Human TLR4-MD-2 innate receptor crystal complex (PDB ID: 3FXI, 3.10 A)" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-46.png", "tool": "PyMOL", "caption": "Clean chain isolation of TLR4 (Chain A) and MD-2 (Chain C)" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-47.png", "tool": "PyMOL", "caption": "TLR4-MD-2 binding interface residue mapping within 4 A cutoff" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-48.png", "tool": "HDOCK Server", "caption": "Receptor-ligand docking setup with mapped TLR4 binding site residues" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-50.png", "tool": "HDOCK Server", "caption": "Top 10 docked receptor-vaccine conformations (Model 7 score: -194.61)" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-52.png", "tool": "PyMOL", "caption": "3D interaction view of docked TLR4-MD-2 and Vaccine Construct (Model 7)" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-53.png", "tool": "C-ImmSim", "caption": "Agent-based immune simulation parameters (1,050 steps, 3 injections)" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-54.png", "tool": "C-ImmSim", "caption": "Simulated IgM/IgG titers, B-cell, Th/Tc population & cytokine kinetics" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-55.png", "tool": "JCat", "caption": "Codon adaptation configuration for E. coli strain K12 expression host" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-56.png", "tool": "JCat", "caption": "Codon-optimized vaccine cDNA (CAI: 0.9428, GC content: 52.85%)" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-57.png", "tool": "SnapGene", "caption": "pET-28a(+) bacterial expression vector sequence retrieval" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-58.png", "tool": "SnapGene", "caption": "In-silico cloning & restriction map of recombinant pET-28a-Vaccine (6,615 bp)" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-59.png", "tool": "SnapGene", "caption": "Simulated BamHI & XhoI agarose gel electrophoresis confirmation" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-61.png", "tool": "VaxiJen v2.1", "caption": "Protective antigenicity screening configuration (virus model, 0.4 threshold)" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-62.png", "tool": "VaxiJen v2.1", "caption": "Antigenicity prediction evaluation output" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/image-63.png", "tool": "AlgPred 2.0", "caption": "Allergenicity assessment confirming Non-Allergen status (Hybrid Score: 0.24)" },
+        { "src": "Training & Certifications/Computational Tools & Visual Outputs image/Image-64.png", "tool": "ToxinPred2", "caption": "In-silico toxicity screening confirming Non-Toxin safety (Hybrid Score: -0.18)" }
+      ]
     },
     {
       "id": "cert-2",
@@ -4882,36 +5005,39 @@
       "liveUrl": "https://github.com/mdnafizurrahman8024/PoultryMedix-Project-Overview",
       "folder": "PoultryMedix",
       "images": [
-        "Github image/PoultryMedix/Logo.png",
-        "Github image/PoultryMedix/Home-1png.png",
-        "Github image/PoultryMedix/AI-1.png",
-        "Github image/PoultryMedix/Consultation-1.png",
-        "Github image/PoultryMedix/Login-1.png",
-        "Github image/PoultryMedix/Setting-1.png",
-        "Github image/PoultryMedix/AMR-2.png",
-        "Github image/PoultryMedix/Login-2.png",
-        "Github image/PoultryMedix/S.Diag-2.png",
-        "Github image/PoultryMedix/3 Mode.png",
-        "Github image/PoultryMedix/Consultation-3.png",
-        "Github image/PoultryMedix/Consultation-5.png",
-        "Github image/PoultryMedix/AI chatbot.png",
-        "Github image/PoultryMedix/AMR & Govt.info.png",
-        "Github image/PoultryMedix/C.Log.png",
-        "Github image/PoultryMedix/Map.png",
-        "Github image/PoultryMedix/Pres.analysis.png",
-        "Github image/PoultryMedix/R.Hub.png",
-        "Github image/PoultryMedix/Servey.png"
+        "Scientific Projects & Digital Platforms/PoultryMedix/Logo.png",
+        "Scientific Projects & Digital Platforms/PoultryMedix/Home-1png.png",
+        "Scientific Projects & Digital Platforms/PoultryMedix/AI-1.png",
+        "Scientific Projects & Digital Platforms/PoultryMedix/Consultation-1.png",
+        "Scientific Projects & Digital Platforms/PoultryMedix/Login-1.png",
+        "Scientific Projects & Digital Platforms/PoultryMedix/Setting-1.png",
+        "Scientific Projects & Digital Platforms/PoultryMedix/AMR-2.png",
+        "Scientific Projects & Digital Platforms/PoultryMedix/Login-2.png",
+        "Scientific Projects & Digital Platforms/PoultryMedix/S.Diag-2.png",
+        "Scientific Projects & Digital Platforms/PoultryMedix/3 Mode.png",
+        "Scientific Projects & Digital Platforms/PoultryMedix/Consultation-3.png",
+        "Scientific Projects & Digital Platforms/PoultryMedix/Consultation-5.png",
+        "Scientific Projects & Digital Platforms/PoultryMedix/AI chatbot.png",
+        "Scientific Projects & Digital Platforms/PoultryMedix/AMR & Govt.info.png",
+        "Scientific Projects & Digital Platforms/PoultryMedix/C.Log.png",
+        "Scientific Projects & Digital Platforms/PoultryMedix/Map.png",
+        "Scientific Projects & Digital Platforms/PoultryMedix/Pres.analysis.png",
+        "Scientific Projects & Digital Platforms/PoultryMedix/R.Hub.png",
+        "Scientific Projects & Digital Platforms/PoultryMedix/Servey.png"
       ],
-      "coverImage": "Github image/PoultryMedix/Logo.png",
+      "coverImage": "Scientific Projects & Digital Platforms/PoultryMedix/Logo.png",
+      "extraInfo": "Includes the official PoultryMedix One Health Project Brief (PDF) and the AI Battle 2026 Idea Submission & Presentation Slides covering multi-modal poultry disease diagnosis, AMR withdrawal verification, and outbreak GIS surveillance.",
       "documents": [
         {
           "title": "PoultryMedix Project Brief",
           "docType": "pdf",
+          "description": "Technical concept brief detailing multi-modal AI poultry triage and AMR withdrawal verification.",
           "url": "https://drive.google.com/file/d/1WLXIEBk4toSzXuBCZ47iYeapvMUtKDqe/view?usp=drive_link"
         },
         {
           "title": "PoultryMedix AI Battle - Idea Submission & Presentation Slides",
           "docType": "slides",
+          "description": "AI Battle 2026 pitch deck & architecture presentation slides.",
           "url": "https://docs.google.com/presentation/d/1U8WhZFeZ_ngiXH3ctPd1p4HLVrOuSq9k/edit?usp=drive_link&ouid=109623803990096293019&rtpof=true&sd=true"
         }
       ]
@@ -4947,18 +5073,20 @@
       "liveUrl": "https://github.com/mdnafizurrahman8024",
       "folder": "ZunSync",
       "images": [
-        "Github image/ZunSync/Image-1.png",
-        "Github image/ZunSync/Image-2.png",
-        "Github image/ZunSync/Image-3.png",
-        "Github image/ZunSync/Image-4.png",
-        "Github image/ZunSync/Image-5.png",
-        "Github image/ZunSync/Image-6.png",
-        "Github image/ZunSync/Image-7.png",
-        "Github image/ZunSync/Image-8.png",
-        "Github image/ZunSync/Image-9.png",
-        "Github image/ZunSync/Image-10.png"
+        "Scientific Projects & Digital Platforms/ZunSync/Image-1.png",
+        "Scientific Projects & Digital Platforms/ZunSync/Image-2.png",
+        "Scientific Projects & Digital Platforms/ZunSync/Image-3.png",
+        "Scientific Projects & Digital Platforms/ZunSync/Image-4.png",
+        "Scientific Projects & Digital Platforms/ZunSync/Image-5.png",
+        "Scientific Projects & Digital Platforms/ZunSync/Image-6.png",
+        "Scientific Projects & Digital Platforms/ZunSync/Image-7.png",
+        "Scientific Projects & Digital Platforms/ZunSync/Image-8.png",
+        "Scientific Projects & Digital Platforms/ZunSync/Image-9.png",
+        "Scientific Projects & Digital Platforms/ZunSync/Image-10.png"
       ],
-      "coverImage": "Github image/ZunSync/ZS.png"
+      "coverImage": "Scientific Projects & Digital Platforms/ZunSync/ZS.png",
+      "extraInfo": "",
+      "documents": []
     },
     {
       "id": "proj-professors-clinic",
@@ -4991,12 +5119,14 @@
       "liveUrl": "https://github.com/mdnafizurrahman8024/Professors-Vet-And-Pet-Care-Website",
       "folder": "Professor's Vet & Pet Clinic",
       "images": [
-        "Github image/Professor's Vet & Pet Clinic/Image-1.png",
-        "Github image/Professor's Vet & Pet Clinic/Image-2.png",
-        "Github image/Professor's Vet & Pet Clinic/Image-3.png",
-        "Github image/Professor's Vet & Pet Clinic/Image-4.png",
-        "Github image/Professor's Vet & Pet Clinic/Image-5.png"
-      ]
+        "Scientific Projects & Digital Platforms/Professor's Vet & Pet Clinic/Image-1.png",
+        "Scientific Projects & Digital Platforms/Professor's Vet & Pet Clinic/Image-2.png",
+        "Scientific Projects & Digital Platforms/Professor's Vet & Pet Clinic/Image-3.png",
+        "Scientific Projects & Digital Platforms/Professor's Vet & Pet Clinic/Image-4.png",
+        "Scientific Projects & Digital Platforms/Professor's Vet & Pet Clinic/Image-5.png"
+      ],
+      "extraInfo": "",
+      "documents": []
     },
     {
       "id": "proj-zun-academy",
@@ -5028,12 +5158,14 @@
       "liveUrl": "https://github.com/mdnafizurrahman8024/Zun-Synthesis-Academy-Website",
       "folder": "Zun Synthesis Academy",
       "images": [
-        "Github image/Zun Synthesis Academy/Image-1.png",
-        "Github image/Zun Synthesis Academy/Image-2.png",
-        "Github image/Zun Synthesis Academy/Image-3.png",
-        "Github image/Zun Synthesis Academy/Image-4.png",
-        "Github image/Zun Synthesis Academy/Image-5.png"
-      ]
+        "Scientific Projects & Digital Platforms/Zun Synthesis Academy/Image-1.png",
+        "Scientific Projects & Digital Platforms/Zun Synthesis Academy/Image-2.png",
+        "Scientific Projects & Digital Platforms/Zun Synthesis Academy/Image-3.png",
+        "Scientific Projects & Digital Platforms/Zun Synthesis Academy/Image-4.png",
+        "Scientific Projects & Digital Platforms/Zun Synthesis Academy/Image-5.png"
+      ],
+      "extraInfo": "",
+      "documents": []
     },
     {
       "id": "proj-najiaa-shop",
@@ -5065,10 +5197,12 @@
       "liveUrl": "https://github.com/mdnafizurrahman8024/Najiaa-Shop-website",
       "folder": "Najiaa Shop website",
       "images": [
-        "Github image/Najiaa Shop website/Image-1.png",
-        "Github image/Najiaa Shop website/Image-2.png",
-        "Github image/Najiaa Shop website/Image-3.png"
-      ]
+        "Scientific Projects & Digital Platforms/Najiaa Shop website/Image-1.png",
+        "Scientific Projects & Digital Platforms/Najiaa Shop website/Image-2.png",
+        "Scientific Projects & Digital Platforms/Najiaa Shop website/Image-3.png"
+      ],
+      "extraInfo": "",
+      "documents": []
     },
     {
       "id": "proj-python-21-days",
@@ -5098,7 +5232,9 @@
       "repoUrl": "https://github.com/mdnafizurrahman8024/Python-Foundation-21-Days",
       "liveUrl": "https://github.com/mdnafizurrahman8024/Python-Foundation-21-Days",
       "folder": "",
-      "images": []
+      "images": [],
+      "extraInfo": "",
+      "documents": []
     },
     {
       "id": "proj-bank-management",
@@ -5127,7 +5263,9 @@
       "repoUrl": "https://github.com/mdnafizurrahman8024/project-bank-management-system",
       "liveUrl": "https://github.com/mdnafizurrahman8024/project-bank-management-system",
       "folder": "",
-      "images": []
+      "images": [],
+      "extraInfo": "",
+      "documents": []
     }
   ]
 }
